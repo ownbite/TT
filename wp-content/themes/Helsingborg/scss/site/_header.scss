@@ -19,20 +19,6 @@
 	}
 }
 
-/* support-nav */
-.support-nav {
-	padding-top: rem-calc(10);
-	padding-bottom: rem-calc(10);
-}
-.support-nav-list {
-	float: right;
-	li a {
-		color: $white;
-		font-size: rem-calc(14);
-	}
-}
-
-
 /* slider */
 .orbit-container {
 	@include box-shadow(5px);

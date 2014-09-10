@@ -5441,17 +5441,6 @@ th.hide-for-touch {
   max-width: 254px;
   height: 80px; }
 
-/* support-nav */
-.support-nav {
-  padding-top: 0.625rem;
-  padding-bottom: 0.625rem; }
-
-.support-nav-list {
-  float: right; }
-  .support-nav-list li a {
-    color: white;
-    font-size: 0.875rem; }
-
 /* slider */
 .orbit-container {
   box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.4); }
@@ -5753,6 +5742,19 @@ blockquote.alignright, img.alignright {
     padding-left: 2.5rem; }
   .main-nav .main-nav-list ul ul ul li a {
     padding-left: 3.125rem; }
+
+/* support-nav */
+.support-nav {
+  padding-top: 0.625rem;
+  padding-bottom: 0.625rem; }
+
+.support-nav-list {
+  float: right;
+  margin-bottom: 0; }
+  .support-nav-list li a {
+    color: white;
+    font-size: 0.875rem;
+    line-height: 5rem; }
 
 /*  Footer */
 .footer {
