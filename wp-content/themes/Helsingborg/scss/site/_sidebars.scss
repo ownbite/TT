@@ -4,7 +4,6 @@
 /* placeholder style + generic widget styles */
 
 .widget {
-
 	&.large-12 {
 		margin-bottom: rem-calc(32);
 	}
@@ -26,6 +25,10 @@
 	}
 	.date {
 		display: block;
+	}
+	.divider {
+		margin-left: - rem-calc(10);
+		margin-right: - rem-calc(10);
 	}
 }
 
