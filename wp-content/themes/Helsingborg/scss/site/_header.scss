@@ -1,0 +1,72 @@
+
+/* header */
+
+
+.site-logo {
+	padding-top: rem-calc(10);
+	padding-bottom: rem-calc(10);
+}
+
+.logo-link {
+	display: block;
+}
+
+/* No SVG support fallback */
+.no-svg {
+	.logo-link {
+		background: url(#{$wp-root-url}/#{$wp-theme-img-url}/hbg-logo.png) no-repeat center center;
+		max-width: 254px;
+		height: 80px;
+	}
+}
+
+.support-nav {
+	padding-top: rem-calc(10);
+	padding-bottom: rem-calc(10);
+}
+.support-nav-list {
+	float: right;
+	li a {
+		color: $white;
+		font-size: rem-calc(14);
+	}
+}
+
+
+/* slider */
+.slider-container {
+	.slide {
+
+	}
+
+	.img-slide {
+		border-radius: $border-radius;
+		@include box-shadow;
+	}
+}
+
+/* placeholder style */
+%search-inputs {
+	border-radius: $border-radius;
+	border: 2px solid $orange;
+	font-size: rem-calc(16);
+}
+
+/* search */
+.search-inputs {
+		padding-top: rem-calc(18);
+		padding-bottom: rem-calc(18);
+		input[type="text"] {
+			@extend %search-inputs;
+			float: left;
+			margin-right: rem-calc(8);
+			width: 30%;
+			margin-bottom: 0;
+	}
+	input[type="submit"] {
+		@extend %search-inputs;
+		padding: rem-calc(8) rem-calc(10);
+		background-color: $orange;
+		color: $white;
+	}
+}

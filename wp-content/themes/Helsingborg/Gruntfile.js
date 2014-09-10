@@ -8,11 +8,11 @@ module.exports = function(grunt) {
       },
       dist: {
         options: {
-          outputStyle: 'compressed'
+          outputStyle: 'nested'
         },
         files: {
           'css/app.css': 'scss/app.scss'
-        }        
+        }
       }
     },
 

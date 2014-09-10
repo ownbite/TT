@@ -1,0 +1,13 @@
+/* Helsingborg.se - mixins */
+
+@mixin section-title-style {
+		border-bottom: 5px double $orange;
+		margin-right: -#{rem-calc(10)};
+		margin-left: -#{rem-calc(10)};
+		margin-top: -#{rem-calc(6)};
+		padding: rem-calc(10);
+}
+
+@mixin box-shadow {
+	    box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, 0.4);	
+}

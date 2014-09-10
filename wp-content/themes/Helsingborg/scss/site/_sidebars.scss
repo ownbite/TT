@@ -1,0 +1,94 @@
+/* sidebar components */
+
+
+/* placeholder style + generic widget styles */
+
+.widget {
+
+	&.large-12 {
+		margin-bottom: rem-calc(32);
+	}
+}
+
+.widget-content {
+	padding: rem-calc(10);
+	font-size: rem-calc(14);
+	background-color: $white;
+	border-radius: $border-radius;
+	@include box-shadow;
+
+	h2, h3, h4, h5, h6, .widget-title {
+		font-size: rem-calc(16);
+		@include section-title-style;
+	}
+	ul {
+		font-size: rem-calc(14);
+	}
+	.date {
+		display: block;
+	}
+}
+
+.sidebar {
+	ul {
+		list-style: none;
+		margin-left: 0;
+	}
+	a {
+		color: $blue-2;
+	}
+}
+
+
+/* specific - widget styles */
+.push-links-widget {
+	.push-links-list {
+		font-size: rem-calc(18);
+		li a {
+			color: $black;
+			background-color: $gray-3; 	
+			text-align: center; 
+			border-radius: $border-radius;
+			display: block;
+			padding: rem-calc(10) rem-calc(10);
+			margin-bottom: rem-calc(10);
+		}
+		li {
+			&.item-1 a { background-color: $blue-1; }
+			&.item-2 a { background-color: $green; }
+			&.item-3 a { background-color: $yellow; }
+			&.item-4 a { background-color: $light-green; }
+			&.item-5 a { background-color: $gray-2;}
+			&.item-6 a { background-color: $gray-3;}
+		}
+	}
+}
+
+.calendar-event-widget {
+	.widget-content {
+		@extend %widget-generic-style;
+	}
+	ul {
+		@extend %widget-generic-list-style;
+	}
+}
+
+.news-widget {
+		.widget-content {
+			@extend %widget-generic-style;
+		}
+		ul {
+			@extend %widget-generic-list-style;
+		li {
+			.date {
+				display: block;
+			}
+		}
+	}
+}
+
+.quick-links-widget {
+	.widget-content {
+		@extend %widget-generic-style;
+	}
+}

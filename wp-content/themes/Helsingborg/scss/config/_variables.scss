@@ -1,4 +1,47 @@
 /**
- * Custom variables
+ * Custom variables - Helsingborg.se
  * ----------------------------------------------------------------------------
  */
+
+ /* colors */
+$white 			:	#FFFFFF;
+$black			:	#000000;
+
+$blue-1			:	#45697d;
+$blue-2			:	#009cde;
+$blue-3			:	#00629b;
+$blue-4			:	#93b1cc;
+$blue-5			:	#dde8ec;
+
+$brown-1		:	#665547;
+$brown-2		:	#d6d7d3;
+
+$gray-1			:	#747779;
+$gray-2			:	#aeafaf;
+$gray-3			:	#d6d7d3;
+
+$red			:	#d62b1f;
+$orange			:	#ed8b00;
+$pink			:	#e782a9;
+$green			:	#3f9c35;
+$light-green	:	#a3ae00;
+$yellow			:	#e1cd00;
+
+/* color - interpolations */
+/* push links */
+$item-4-color	: $gray-3;
+
+/* Box-shadows */
+$box-shadow-color 	:	"0, 0, 0, 0.5";
+
+/* Grid and MQ adjustments */
+$max-site-width		:	1280;	/* Extends the foundation max width */
+$site-outer-padding :	20;		/* Outer container padding */
+
+
+/* URLs */
+$wp-root-url	:	"/wp-content/themes/Helsingborg";
+$wp-theme-img-url	:	"/assets/img/images";
+
+/* Borders */
+$border-radius	:	4px;

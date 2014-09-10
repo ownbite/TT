@@ -1,0 +1,31 @@
+/*  Footer */
+.footer {
+	background-color: $blue-1;
+	margin-top: rem-calc(32);
+}
+
+.footer-content {
+	color: $white;
+	padding-top: rem-calc(16);
+	padding-bottom: rem-calc(16);
+	font-size: rem-calc(14);
+
+	h1, h2, h3, h4, h5, h6 {
+		color: $white;
+		font-size: rem-calc(18);
+	}
+	p, ul {
+		font-size: rem-calc(14);
+	}
+
+	ul {
+		list-style: none;
+	}
+	a {
+		color: $white;
+	}
+
+	.push-link {
+		color: $blue-2;
+	}
+}

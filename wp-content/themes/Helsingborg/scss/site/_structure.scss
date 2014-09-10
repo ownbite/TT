@@ -5,7 +5,7 @@
  * 2.0 - Typography
  * 3.0 - Header, sidebar and footer
  * 4.0 - Content
- *	4.1 - Pages
+ *	4.1 - StartPage
  *	4.2 - Posts
  *	4.3	- Widgets
  *	4.4 - Comments
@@ -16,6 +16,18 @@
  * ----------------------------------------------------------------------------
  */
 
+body {
+	background: url(#{$wp-root-url}/#{$wp-theme-img-url}/hbg-bg.png) 0 0 repeat-x;
+}
+
+.main-site-container,
+.footer {
+	padding-left: rem-calc($site-outer-padding);
+	padding-right: rem-calc($site-outer-padding);	
+	> .row {
+		max-width: rem-calc($max-site-width);
+	}
+}
 
 
 /**
@@ -83,7 +95,12 @@ img.alignright {
  * ----------------------------------------------------------------------------
  */
 
-// Insert styles here
+
+.main-content {
+	a {
+		color: $blue-2;
+	}
+}
 
 
 /**
@@ -114,31 +131,43 @@ img.alignright {
 
 
 	/**
-	 * 4.1 Pages
+	 * 4.1 Startpage - content area
 	 * ------------------------------------
 	 */
 
-	 // Hero
+	 /*  news list */
+	 .section-title {
+	 	@include section-title-style;
+	 	font-size: rem-calc(16);
+	 	margin-right: 0;
+	 	margin-left: 0;
+	 }
 
-	#homepage-hero {
-		background: url("http://foundation.zurb.com/assets/img/marquee-stars.svg") repeat scroll 0 0 #074E68;
-		padding: rem-calc(20) 0;
-		margin: - rem-calc(32) 0 rem-calc(32);
-		position: relative;
-		text-align: left;
-		height: auto;
+	 .news-list-large {
+	 	list-style: none;
+	 	margin-left: 0;
+	 	li {
+	 		margin-bottom: rem-calc(32);
+	 	}
+	  }
 
-			h1 a, h4 { color: #fff; }
+	  .news-image img {
+	  	border-radius: $border-radius;
+	  }
+	  .news-title {
+	  	font-size: rem-calc(24);
+	  	margin-bottom: rem-calc(3);
+	  }
+	  .news-date {
+	  	font-size: rem-calc(12);
+	  	color: $gray-1;
+	  }
 
-			.floatingyeti img {
-				max-width: 30%;
-				position: absolute;
-				right: rem-calc(100);
-			}
-
-			.download { margin-top: rem-calc(20); }
-		}
-
+	  .news-block-list {
+	  	img {
+	  		border-radius: $border-radius;
+	  	}
+	  }
 
 	/**
 	 * 4.2 Posts
@@ -168,8 +197,6 @@ img.alignright {
 	 * 4.5 Lists
 	 * ------------------------------------
 	 */
-
-	// Insert styles here
 
 
 	/**
