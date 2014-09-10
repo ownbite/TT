@@ -19,6 +19,7 @@ $pages = get_pages($args);
 
 $list[][] = null;
 $headers = [];
+$content = [];
 
 // RETRIEVE DATA FROM ALL
 for ($i = 0; $i < count($pages); $i++) {
@@ -36,10 +37,27 @@ for ($i = 0; $i < count($pages); $i++) {
   foreach ($post_meta as $field_key => $field_values ) {
     if (strpos($field_key, "_", 0) === 0) continue;
     $list[$i][array_search($field_key, $headers)] = $field_values[0];
+    $content[$i] = $pages[$i]->post_content;
   }
 }
 
 ?>
+
+<script>
+
+    jQuery(document).ready(function(){
+        jQuery("#table tr:odd").addClass("odd");
+        jQuery("#table tr:not(.odd)").hide();
+        jQuery("#table tr:first-child").show();
+
+        jQuery("#table tr.odd").click(function(){
+            jQuery(this).next("tr").toggle();
+            jQuery(this).find(".arrow").toggleClass("up");
+        });
+        //$("#report").jExpand();
+    });
+
+</script>
 
 <div class="row">
   <div class="small-12 large-12 columns" role="main">
@@ -54,7 +72,7 @@ for ($i = 0; $i < count($pages); $i++) {
           <?php the_content(); ?>
         </div>
 
-        <table>
+        <table id="table">
           <thead>
             <tr>
               <?php
@@ -69,16 +87,19 @@ for ($i = 0; $i < count($pages); $i++) {
             <?php
 
             // PRINT ALL ROWS AND COLUMNS
-            for ($j = 0; $j < count($list); $j++) {
+            for ($row = 0; $row < count($list); $row++) {
               echo '<tr>';
-              for($c = 0; $c < count($headers);$c++) {
-                if (!empty($list[$j][$c])) {
-                  echo '<td>' . $list[$j][$c] . '</td>';
+              for($column = 0; $column < count($headers);$column++) {
+                if (!empty($list[$row][$column])) {
+                  echo '<td>' . $list[$row][$column] . '</td>';
                 } else {
                   echo '<td>-</td>';
                 }
               }
+              echo '</tr>';
               echo '<tr>';
+                echo '<td colspan="4">' . $content[$row] . '</td>';
+              echo '</tr>';
             }
 
             ?>
@@ -89,7 +110,6 @@ for ($i = 0; $i < count($pages); $i++) {
         </footer>
       </article>
     <?php endwhile; // End the loop ?>
-
   </div>
 </div>
 

@@ -26,7 +26,7 @@ function helsingborg_meta_init()
 
       // LIST PAGE
       if ($template_file == 'templates/list-page.php') {
-        add_meta_box('helsingborg_all_meta', "LISTA", 'helsingborg_meta_setup', $type, 'normal', 'high');
+        // TODO
       }
 
       // LIST PRESENTATION PAGE
@@ -70,29 +70,10 @@ function helsingborg_meta_RSS()
 
     // Set previous selection
     $selected = $meta['rss_select'];
-    //if ( isset ( $meta['rss_check'] ) ) checked( $meta['rss_check'][0], 'yes' );
 
-    ?>
+    // Fetch the HTML
+    include(helsingborg_THEME_FOLDER . '/UI/meta-ui-rss.php');
 
-    <div class="helsingborg_meta_control">
-      <p>
-          <label for="helsingborg_meta_box_select">Välj nod att bygga RSS från: </label>
-          <select name="_helsingborg_meta[rss_select]" id="helsingborg_meta_box_select">
-            <?php foreach($pages as $page) : ?>
-              <option value="<?php echo $page->ID; ?>" <?php selected($selected, $page->ID); ?>><?php echo $page->post_title; ?></option>
-            <?php endforeach; ?>
-          </select>
-      </p>
-      <p>
-        <label for="helsingborg_meta_box_check">Ska undersidor medfölja </label>
-        <input type="checkbox" name="_helsingborg_meta[rss_check]" id="helsingborg_meta_box_check" value="rss_check" <?php echo (in_array('rss_check', $meta)) ? 'checked="checked"' : ''; ?> />
-      </p>
-    </div>
-
-    <?php
-
-    // instead of writing HTML here, lets do an include
-    //include(helsingborg_THEME_FOLDER . '/meta_boxes/UI/meta.php');
     // create a custom nonce for submit verification later
     echo '<input type="hidden" name="helsingborg_meta_noncename" value="' . wp_create_nonce(__FILE__) . '" />';
 }
@@ -120,56 +101,9 @@ function helsingborg_meta_List()
     // Set previous selection
     $selected = $meta['list_select'];
 
-    ?>
+    // Fetch the HTML
+    include(helsingborg_THEME_FOLDER . '/UI/meta-ui-list.php');
 
-    <p>
-        <label for="helsingborg_meta_box_select">Välj nod att hämta listans data från: </label>
-        <select name="_helsingborg_meta[list_select]" id="helsingborg_meta_box_select">
-          <?php foreach($pages as $page) : ?>
-            <option value="<?php echo $page->ID; ?>" <?php selected($selected, $page->ID); ?>><?php echo $page->post_title; ?></option>
-          <?php endforeach; ?>
-        </select>
-    </p>
-
-    <?php
-
-    // instead of writing HTML here, lets do an include
-    //include(helsingborg_THEME_FOLDER . '/meta_boxes/UI/meta.php');
-    // create a custom nonce for submit verification later
-    echo '<input type="hidden" name="helsingborg_meta_noncename" value="' . wp_create_nonce(__FILE__) . '" />';
-}
-
-function helsingborg_meta_setup()
-{
-    global $post;
-
-    // using an underscore, prevents the meta variable
-    // from showing up in the custom fields section
-    $meta = get_post_meta($post->ID,'_helsingborg_meta',TRUE);
-
-    // instead of writing HTML here, lets do an include
-    //include(helsingborg_THEME_FOLDER . '/meta_boxes/UI/meta.php'); ?>
-    <div class="helsingborg_meta_control">
-
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras orci lorem, bibendum in pharetra ac, luctus ut mauris. Phasellus dapibus elit et justo malesuada eget <code>functions.php</code>.</p>
-
-        <label>Name</label>
-
-        <p>
-            <input type="text" name="_helsingborg_meta[name]" value="<?php if(!empty($meta['name'])) echo $meta['name']; ?>"/>
-            <span>Enter in a name</span>
-        </p>
-
-        <label>Description <span>(optional)</span></label>
-
-        <p>
-            <textarea name="_helsingborg_meta[description]" rows="3"><?php if(!empty($meta['description'])) echo $meta['description']; ?></textarea>
-            <span>Enter in a description</span>
-        </p>
-
-    </div>
-
-    <?php
     // create a custom nonce for submit verification later
     echo '<input type="hidden" name="helsingborg_meta_noncename" value="' . wp_create_nonce(__FILE__) . '" />';
 }
