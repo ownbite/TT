@@ -34,15 +34,19 @@
 
 
 /* slider */
-.slider-container {
-	.slide {
-
-	}
-
+.orbit-container {
+	@include box-shadow(5px);
 	.img-slide {
 		border-radius: $border-radius;
-		@include box-shadow;
 	}
+	.orbit-slides-container {
+		.orbit-caption {
+			background: none;
+		}
+	}
+}
+.orbit-bullets-container {
+	display: none;
 }
 
 /* placeholder style */

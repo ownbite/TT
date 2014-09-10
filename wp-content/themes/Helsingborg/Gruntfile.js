@@ -8,7 +8,7 @@ module.exports = function(grunt) {
       },
       dist: {
         options: {
-          outputStyle: 'nested'
+          outputStyle: 'expanded'
         },
         files: {
           'css/app.css': 'scss/app.scss'
@@ -42,7 +42,8 @@ module.exports = function(grunt) {
 
     concat: {
       options: {
-        separator: ';'
+        separator: ';',
+        outputStyle: 'expanded'
       },
       dist: {
         src: [

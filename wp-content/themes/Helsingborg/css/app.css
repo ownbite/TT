@@ -5451,9 +5451,15 @@ th.hide-for-touch {
     font-size: 0.875rem; }
 
 /* slider */
-.slider-container .img-slide {
-  border-radius: 4px;
-  box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, 0.4); }
+.orbit-container {
+  box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.4); }
+  .orbit-container .img-slide {
+    border-radius: 4px; }
+  .orbit-container .orbit-slides-container .orbit-caption {
+    background: none; }
+
+.orbit-bullets-container {
+  display: none; }
 
 /* placeholder style */
 .search-inputs input[type="text"], .search-inputs input[type="submit"] {
@@ -5551,7 +5557,8 @@ th.hide-for-touch {
  * ----------------------------------------------------------------------------
  */
 body {
-  background: url(/wp-content/themes/Helsingborg//assets/img/images/hbg-bg.png) 0 0 repeat-x; }
+  background: url(/wp-content/themes/Helsingborg//assets/img/images/hbg-bg.png) 0 0 repeat-x;
+  background-color: white; }
 
 .main-site-container, .footer {
   padding-left: 1.25rem;
