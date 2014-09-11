@@ -96,7 +96,6 @@ img.alignright {
  * ----------------------------------------------------------------------------
  */
 
-
 .main-content {
 	a {
 		color: $blue-2;
@@ -142,6 +141,32 @@ img.alignright {
 	 	font-size: rem-calc(16);
 	 	margin-right: 0;
 	 	margin-left: 0;
+	 }
+
+	 /* hbg special divider - check mixin for rgba values */
+	 .divider {
+	 	 margin-bottom: rem-calc(16);
+		
+		.upper-divider,
+		.lower-divider {
+			@include divider;
+		}	
+
+ 	 	&.fade .upper-divider, 
+ 	 	&.fade .lower-divider {
+	 		@include divider-to-fade;
+	 	}
+	 	.upper-divider,
+	 	.lower-divider {
+	 		display: block;
+	 	}	
+	 	.upper-divider {
+	 		height: 4px;
+	 		margin-bottom: 3px;
+	 	}
+	 	.lower-divider {
+	 		height: 1px;
+	 	}
 	 }
 
 	 .news-list-large {

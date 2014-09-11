@@ -1,5 +1,6 @@
 /* Helsingborg.se - navigation */
 
+/* desktop navigation */
 .main-nav {
 	.main-nav-list {
 		list-style: none;
@@ -8,6 +9,51 @@
 		li a {
 			font-size: rem-calc(18);
 			color: $black; 
+			display: block;
+			padding-left: rem-calc(18);
 		}
+		li.current-node > a {
+			text-decoration: underline;
+			font-weight: bold;
+		}
+		li.current {
+			padding-top: rem-calc(6);
+			background-color: $gray-3;
+			> a {
+				color: $blue-1;
+			}
+		}
+		ul {
+			padding-bottom: rem-calc(16);
+		}
+		ul li a {
+			font-size: rem-calc(14);
+		}
+
+		ul li a {
+				padding-left: rem-calc(30);
+			}
+		ul ul li a {
+				padding-left: rem-calc(40);
+			}
+		ul ul ul li a {
+				padding-left: rem-calc(50);
+			}			
+	}
+}
+
+
+/* support-nav */
+.support-nav {
+	padding-top: rem-calc(10);
+	padding-bottom: rem-calc(10);
+}
+.support-nav-list {
+	float: right;
+	margin-bottom: 0;
+	li a {
+		color: $white;
+		font-size: rem-calc(14);
+		line-height: rem-calc(80);
 	}
 }
