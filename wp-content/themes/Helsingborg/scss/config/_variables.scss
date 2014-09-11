@@ -27,6 +27,8 @@ $green			:	#3f9c35;
 $light-green	:	#a3ae00;
 $yellow			:	#e1cd00;
 
+
+
 /* color - interpolations */
 /* push links */
 $item-4-color	: $gray-3;
@@ -36,7 +38,13 @@ $box-shadow-color 	:	"0, 0, 0, 0.5";
 
 /* Grid and MQ adjustments */
 $max-site-width		:	1280;	/* Extends the foundation max width */
-$site-outer-padding :	20;		/* Outer container padding */
+$site-outer-padding :	15;		/* Outer container padding */
+
+/* positioning and z-index levels */
+$level-1 			:	100;
+$level-2			:	200;
+$level-3			:	300;
+$level-4			:	100;
 
 
 /* URLs */

@@ -23,8 +23,7 @@ body {
 
 .main-site-container,
 .footer {
-	padding-left: rem-calc($site-outer-padding);
-	padding-right: rem-calc($site-outer-padding);	
+	@include site-space;
 	> .row {
 		max-width: rem-calc($max-site-width);
 	}
@@ -237,5 +236,18 @@ img.alignright {
  * 5.0 Plugins
  * ----------------------------------------------------------------------------
  */
+
+
+
+/**
+ * Custom MQ - Structure
+ * ----------------------------------------------------------------------------
+ */
+ @media #{$small-only} {
+ 	.news-section {
+ 		padding-top: rem-calc(15);
+ 	}
+}
+
 
 // Insert styles here
