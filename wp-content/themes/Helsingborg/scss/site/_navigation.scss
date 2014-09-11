@@ -31,23 +31,51 @@
 		}
 
 		ul li a {
-				padding-left: rem-calc(30);
-			}
+			padding-left: rem-calc(30);
+		}
 		ul ul li a {
-				padding-left: rem-calc(40);
-			}
+			padding-left: rem-calc(40);
+		}
 		ul ul ul li a {
-				padding-left: rem-calc(50);
-			}			
+			padding-left: rem-calc(50);
+		}			
 	}
+}
+
+.mobile-nav {
+	display: none;
+	position: fixed;
+	left: 0;
+	right: 0;
+	z-index: $level-4;
 }
 
 
 /* support-nav */
+.show-support-nav {
+	display: none;
+	float: right;
+	margin-bottom: 0;
+	color: $white;
+	font-size: rem-calc(14);
+	line-height: rem-calc(55);
+	padding: 0 rem-calc(10);
+	position: relative;
+	.arrow-icon {
+		@include arrow-right($white);
+		display: block;
+		position: absolute;
+		top: rem-calc(22);
+		left: - rem-calc(5);
+	}
+}
+
 .support-nav {
 	padding-top: rem-calc(10);
 	padding-bottom: rem-calc(10);
+	position: relative;
 }
+
 .support-nav-list {
 	float: right;
 	margin-bottom: 0;
@@ -57,3 +85,92 @@
 		line-height: rem-calc(80);
 	}
 }
+
+/* custom MQ - navigation */
+
+@media #{$custom-medium-only} {
+	.show-support-nav {
+		display: block;
+	}
+	.support-nav-list {
+		width: rem-calc(200);
+		display: none;
+		position: absolute;
+		z-index: $level-1;
+		top: 4em;
+		right: rem-calc(10);
+		background-color: $black;
+
+		li {
+			display: block;
+			float: none;
+			margin-left: 0;
+			a {
+				padding: rem-calc(5) rem-calc(10);
+				line-height: rem-calc(24);	
+			}
+		}
+	}
+}
+
+@media #{$custom-large-up} {
+	/* Overrides JS TOGGLE BEHAVIOUR */
+	.support-nav-list {
+		display: block !important;
+	}
+}
+
+@media #{$small-only} {
+	.mobile-nav {
+		@include site-space;
+		padding-top: rem-calc(5);
+		padding-bottom: rem-calc(5);		
+		display: block;
+		background-color: $black;
+		a {
+			color: $white;
+		}
+	}
+	.mobile-navigation {
+			padding-right: rem-calc(15);
+			padding-left: rem-calc(15);
+			display: block;
+			@extend .clearfix;
+			a {
+				border-radius: $border-radius;
+				font-size: rem-calc(16);
+				width: rem-calc(80);
+				line-height: rem-calc(32);
+				text-align: center;
+				display: block;
+				&.show-mobile-nav {
+					float: left;
+				}
+				&.show-mobile-search {
+					float: right;
+				}			
+			}
+		}
+
+
+	.mobile-nav-list {
+		display: none;
+		background: $black;
+		margin-left: 0;
+		padding-bottom: rem-calc(15);
+		li {
+			display: block;
+		}
+		li a {
+			display: block;
+			padding: rem-calc(7) rem-calc(15);
+		}
+	}
+
+	.support-nav {
+		display: none;
+	}
+}
+
+
+

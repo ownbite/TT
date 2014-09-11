@@ -60,3 +60,45 @@
 		color: $white;
 	}
 }
+
+/* Mobile search */
+.mobile-search {
+	position: relative;
+	padding: rem-calc(10) rem-calc(15);
+
+	input[type="text"],
+	input[type="submit"] {
+		border-radius: $border-radius;
+	}
+	input[type="text"] {
+		float: left;
+		width: 70%;
+		margin-right: rem-calc(15);
+	}
+	input[type="submit"] {
+		font-size: rem-calc(16);
+		height: rem-calc(37);
+		border: none;
+		padding-left: rem-calc(20);
+		padding-right: rem-calc(20);
+	}
+}
+
+/* MQ - header */
+
+@media #{$small-only} {
+	.main-site-container {
+		padding-top: rem-calc(42);
+	}
+
+	.logo-link {
+		img {
+			margin: 0 auto;
+			display: block;
+		}
+	}
+	.search-inputs,
+	.mobile-search {
+		display: none;
+	}
+}
