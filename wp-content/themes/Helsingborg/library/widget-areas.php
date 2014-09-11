@@ -30,6 +30,16 @@ function Helsingborg_sidebar_widgets() {
       'before_title' => '<h6>',
       'after_title' => '</h6>'
   ));
+
+  register_sidebar(array(
+      'id' => 'left-sidebar',
+      'name' => __('Vänster sidebar', 'Helsingborg'),
+      'description' => __('Lägg till de widgets som ska visas i vänsta sidebaren.', 'Helsingborg'),
+      'before_widget' => '<article id="%1$s" class="large-12 columns widget %2$s">',
+      'after_widget' => '</article>',
+      'before_title' => '<h6>',
+      'after_title' => '</h6>'
+  ));
 }
 
 add_action( 'widgets_init', 'Helsingborg_sidebar_widgets' );
