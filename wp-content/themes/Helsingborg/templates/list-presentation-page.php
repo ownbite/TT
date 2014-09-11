@@ -4,7 +4,8 @@ Template Name: Listpresentation
 */
 get_header();
 
-$meta = get_post_meta($post->ID,'_helsingborg_meta',TRUE);
+$meta = get_post_meta($post->ID);
+
 $selected_node = $meta['list_select'];
 
 $args = array(

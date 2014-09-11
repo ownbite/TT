@@ -25,10 +25,40 @@ function Helsingborg_sidebar_widgets() {
       'id' => 'news-listing-start-page',
       'name' => __('Nyhetslistning startsida', 'Helsingborg'),
       'description' => __('Lägg till de nyheter som ska visas på startsidan', 'Helsingborg'),
+      'before_widget' => '<ul class="news-list-large row">',
+      'after_widget' => '</ul>',
+      'before_title' => '<h6>',
+      'after_title' => '</h6>'
+  ));
+
+  register_sidebar(array(
+      'id' => 'left-sidebar',
+      'name' => __('Vänster sidebar', 'Helsingborg'),
+      'description' => __('Lägg till de widgets som ska visas i vänsta sidebaren.', 'Helsingborg'),
       'before_widget' => '<article id="%1$s" class="large-12 columns widget %2$s">',
       'after_widget' => '</article>',
       'before_title' => '<h6>',
       'after_title' => '</h6>'
+  ));
+
+  register_sidebar(array(
+      'id' => 'left-sidebar-low',
+      'name' => __('Vänster sidebar undertill', 'Helsingborg'),
+      'description' => __('Lägg till de widgets som ska visas i vänstra sidebaren längst ner.', 'Helsingborg'),
+      'before_widget' => '',
+      'after_widget' => '',
+      'before_title' => '<h6>',
+      'after_title' => '</h6>'
+  ));
+
+  register_sidebar(array(
+      'id' => 'right-sidebar',
+      'name' => __('Höger sidebar', 'Helsingborg'),
+      'description' => __('Lägg till de widgets som ska visas i högra sidebaren.', 'Helsingborg'),
+      'before_widget' => '',
+      'after_widget' => '',
+      'before_title' => '<h2>',
+      'after_title' => '</h2>'
   ));
 }
 
