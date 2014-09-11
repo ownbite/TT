@@ -11,6 +11,9 @@
 			color: $black; 
 			display: block;
 			padding-left: rem-calc(18);
+			&:hover {
+				background-color: $main-nav-hover-color;
+			}
 		}
 		li.current-node > a {
 			text-decoration: underline;
@@ -21,6 +24,9 @@
 			background-color: $gray-3;
 			> a {
 				color: $blue-1;
+				&:before {
+					@include arrow-right;
+				}
 			}
 		}
 		ul {

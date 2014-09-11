@@ -6,6 +6,7 @@
 /* colors */
 /* color - interpolations */
 /* push links */
+/* colors for .push-link-widget */
 /* Box-shadows */
 /* Grid and MQ adjustments */
 /* Extends the foundation max width */
@@ -5544,17 +5545,17 @@ th.hide-for-touch {
     padding: 0.625rem 0.625rem;
     margin-bottom: 0.625rem; }
   .push-links-widget .push-links-list li.item-1 a {
-    background-color: #45697d; }
+    background-color: #4cbae8; }
   .push-links-widget .push-links-list li.item-2 a {
-    background-color: #3f9c35; }
+    background-color: #78ba71; }
   .push-links-widget .push-links-list li.item-3 a {
-    background-color: #e1cd00; }
+    background-color: #eadc4c; }
   .push-links-widget .push-links-list li.item-4 a {
-    background-color: #a3ae00; }
+    background-color: #dadf99; }
   .push-links-widget .push-links-list li.item-5 a {
-    background-color: #aeafaf; }
+    background-color: #f3eb99; }
   .push-links-widget .push-links-list li.item-6 a {
-    background-color: #d6d7d3; }
+    background-color: #f5cddd; }
 
 
 .news-widget ul li .date {
@@ -5760,6 +5761,8 @@ blockquote.alignright, img.alignright {
     color: black;
     display: block;
     padding-left: 1.125rem; }
+    .main-nav .main-nav-list li a:hover {
+      background-color: ; }
   .main-nav .main-nav-list li.current-node > a {
     text-decoration: underline;
     font-weight: bold; }
@@ -5768,6 +5771,12 @@ blockquote.alignright, img.alignright {
     background-color: #d6d7d3; }
     .main-nav .main-nav-list li.current > a {
       color: #45697d; }
+      .main-nav .main-nav-list li.current > a:before {
+        width: 0px;
+        height: 0px;
+        border-top: 5px solid transparent;
+        border-bottom: 5px solid transparent;
+        border-left: 5px solid #45697d; }
   .main-nav .main-nav-list ul {
     padding-bottom: 1rem; }
   .main-nav .main-nav-list ul li a {

@@ -29,9 +29,21 @@ $yellow			:	#e1cd00;
 
 
 
+
 /* color - interpolations */
 /* push links */
-$item-4-color	: $gray-3;
+$item-4-color			: 	$gray-3;
+
+$main-nav-hover-color 	:	 ;
+
+/* colors for .push-link-widget */
+$self-service-color		:	#4cbae8;
+$report-error-color		:	#78ba71;
+$feedback-color			:	#eadc4c;	
+$tourism-color			:	#dadf99;
+$company-color			:	#f3eb99;
+$inspiration-color		:	#f5cddd;
+
 
 /* Box-shadows */
 $box-shadow-color 	:	"0, 0, 0, 0.5";

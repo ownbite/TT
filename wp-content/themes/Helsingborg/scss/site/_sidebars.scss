@@ -57,12 +57,12 @@
 			margin-bottom: rem-calc(10);
 		}
 		li {
-			&.item-1 a { background-color: $blue-1; }
-			&.item-2 a { background-color: $green; }
-			&.item-3 a { background-color: $yellow; }
-			&.item-4 a { background-color: $light-green; }
-			&.item-5 a { background-color: $gray-2;}
-			&.item-6 a { background-color: $gray-3;}
+			&.item-1 a { background-color: $self-service-color; }
+			&.item-2 a { background-color: $report-error-color; }
+			&.item-3 a { background-color: $feedback-color; }
+			&.item-4 a { background-color: $tourism-color; }
+			&.item-5 a { background-color: $company-color;}
+			&.item-6 a { background-color: $inspiration-color;}
 		}
 	}
 }
