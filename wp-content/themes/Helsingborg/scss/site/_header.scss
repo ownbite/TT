@@ -64,6 +64,7 @@
 /* Mobile search */
 .mobile-search {
 	position: relative;
+	border-top: 1px solid $mobile-nav-border-color;
 	padding: rem-calc(10) rem-calc(15);
 
 	input[type="text"],
@@ -72,8 +73,9 @@
 	}
 	input[type="text"] {
 		float: left;
-		width: 70%;
+		width: 75%;
 		margin-right: rem-calc(15);
+		margin-bottom: 0;
 	}
 	input[type="submit"] {
 		font-size: rem-calc(16);
@@ -82,6 +84,11 @@
 		padding-left: rem-calc(20);
 		padding-right: rem-calc(20);
 	}
+}
+
+.mobile-search-input-container {
+	margin: 0 auto;
+	width: auto;
 }
 
 /* MQ - header */

@@ -127,33 +127,43 @@
 }
 
 @media #{$small-only} {
-	.mobile-nav {
-		@include site-space;
-		padding-top: rem-calc(5);
-		padding-bottom: rem-calc(5);		
+	.mobile-nav {		
 		display: block;
-		background-color: $black;
+		background-color: $blue-1;
+		@include drop-shadow();
 		a {
 			color: $white;
 		}
 	}
 	.mobile-navigation {
-			padding-right: rem-calc(15);
-			padding-left: rem-calc(15);
 			display: block;
 			@extend .clearfix;
-			a {
-				border-radius: $border-radius;
+			> a {
+				padding-top: rem-calc(5);
+				padding-right: rem-calc(15);
+				padding-left: rem-calc(15);
+				padding-bottom: rem-calc(5);		
 				font-size: rem-calc(16);
-				width: rem-calc(80);
 				line-height: rem-calc(32);
 				text-align: center;
 				display: block;
+				&.active {
+					background-color: $mobile-nav-active-color;
+				}
 				&.show-mobile-nav {
 					float: left;
+					&:before {
+						@include hbg-icons($menu-1);
+						margin-right: rem-calc(5);
+						margin-top: rem-calc(10);
+					}
 				}
 				&.show-mobile-search {
 					float: right;
+					&:before {
+						@include hbg-icons($search);
+						margin-right: rem-calc(5);
+					}
 				}			
 			}
 		}
@@ -161,15 +171,23 @@
 
 	.mobile-nav-list {
 		display: none;
-		background: $black;
+		background: $blue-1;
 		margin-left: 0;
-		padding-bottom: rem-calc(15);
+		margin-bottom: 0;
+		@include drop-shadow();
 		li {
 			display: block;
+			border-bottom: 1px solid $mobile-nav-border-color;
+			&:first-child {
+				border-top: 1px solid $mobile-nav-border-color;
+			}
 		}
 		li a {
 			display: block;
 			padding: rem-calc(7) rem-calc(15);
+			&:hover {
+				background-color: $mobile-nav-active-color;
+			}
 		}
 	}
 

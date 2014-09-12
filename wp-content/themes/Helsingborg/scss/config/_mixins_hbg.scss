@@ -11,6 +11,9 @@
 @mixin box-shadow($spread: 3px, $opacity: 0.4) {
 	    box-shadow: 2px 2px $spread 0 rgba(0, 0, 0, $opacity);	
 }
+@mixin drop-shadow($spread: 3px, $opacity: 0.2) {
+	    box-shadow: 0 1px $spread 0 rgba(0, 0, 0, $opacity);	
+}
 
 /* Custom divider mixin */
 @mixin divider-to-fade($fade-from-color: rgba(237,139,0,1), $fade-to-color: rgba(237,139,0,0.0), $fade-from-color-hex: #{'#ed8b00'}, $fade-to-color-hex: #{'#6bed8b00'}) {
@@ -40,4 +43,21 @@
 @mixin site-space($site-space: $site-outer-padding) {
 	padding-left: rem-calc($site-space);
 	padding-right: rem-calc($site-space);		
+}
+
+/* font mixin */
+@mixin hbg-icons($icon: $home, $iconset: #{'hbg-se-iconset'}) {
+		font-family: $iconset;
+		speak: none;
+		font-style: normal;
+		font-weight: normal;
+		font-variant: normal;
+		text-transform: none;
+		line-height: 1;
+		content: $icon;
+
+		/* Better Font Rendering =========== */
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+
 }

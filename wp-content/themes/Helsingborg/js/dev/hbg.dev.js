@@ -18,9 +18,11 @@ $(document).ready(function(){
 
   $('.show-mobile-nav').bind('click', function(){
   		$('.mobile-nav-list').toggle();
+      $(this).toggleClass('active');
   });
   $('.show-mobile-search').bind('click', function(){
   		$('.mobile-search').toggle();
+      $(this).toggleClass('active');
   });
 
 });
