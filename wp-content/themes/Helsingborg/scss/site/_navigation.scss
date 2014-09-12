@@ -11,6 +11,8 @@
 			color: $black; 
 			display: block;
 			padding-left: rem-calc(18);
+
+			padding-right: rem-calc(10);
 			&:hover {
 				background-color: $main-nav-hover-color;
 			}
@@ -25,7 +27,12 @@
 			> a {
 				color: $blue-1;
 				&:before {
-					@include arrow-right;
+					@include hbg-icons($arrow-solid-right);
+					margin-left: - rem-calc(9);
+					margin-right: rem-calc(5);
+				}
+				&:hover {
+					text-decoration: none;
 				}
 			}
 		}
@@ -64,15 +71,21 @@
 	margin-bottom: 0;
 	color: $white;
 	font-size: rem-calc(14);
-	line-height: rem-calc(55);
+	line-height: rem-calc(40);
 	padding: 0 rem-calc(10);
 	position: relative;
-	.arrow-icon {
-		@include arrow-right($white);
-		display: block;
-		position: absolute;
-		top: rem-calc(22);
-		left: - rem-calc(5);
+	&:before {
+		@include hbg-icons($arrow-solid-right);
+		font-size: rem-calc(12);
+		margin-right: rem-calc(4);
+	}
+	&.active,
+	&:hover {
+		background: $mobile-nav-active-color;
+		color: $white;
+	}
+	&.active:before {
+		@include hbg-icons($arrow-solid-down);
 	}
 }
 
@@ -89,12 +102,18 @@
 		color: $white;
 		font-size: rem-calc(14);
 		line-height: rem-calc(80);
+		&:hover {
+			text-decoration: underline;
+		}
 	}
 }
 
 /* custom MQ - navigation */
 
 @media #{$custom-medium-only} {
+	.support-nav {
+		padding-top: rem-calc(20);
+	}
 	.show-support-nav {
 		display: block;
 	}
@@ -103,17 +122,22 @@
 		display: none;
 		position: absolute;
 		z-index: $level-1;
-		top: 4em;
+		top: rem-calc(60);
 		right: rem-calc(10);
-		background-color: $black;
-
+		background-color: $blue-1;
+		border-radius: $border-radius;
 		li {
+			border-bottom: 1px solid $mobile-nav-border-color;
 			display: block;
 			float: none;
 			margin-left: 0;
 			a {
 				padding: rem-calc(5) rem-calc(10);
 				line-height: rem-calc(24);	
+				&:hover {
+					background-color: $mobile-nav-active-color;
+					text-decoration: none;
+				}
 			}
 		}
 	}

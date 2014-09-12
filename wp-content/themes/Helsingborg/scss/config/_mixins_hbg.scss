@@ -59,5 +59,12 @@
 		/* Better Font Rendering =========== */
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
+}
 
+@mixin global-link-style {
+		color: $blue-2;
+		&:hover {
+			text-decoration: underline;
+			color: $blue-1;
+		}
 }

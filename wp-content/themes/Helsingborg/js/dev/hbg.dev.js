@@ -14,6 +14,7 @@ $(document).ready(function(){
 
   $('.show-support-nav').bind('click', function(){
       $('.support-nav-list').toggle();
+      $(this).toggleClass('active');
   });
 
   $('.show-mobile-nav').bind('click', function(){

@@ -94,11 +94,8 @@ img.alignright {
  * 2.0 Typography
  * ----------------------------------------------------------------------------
  */
-
-.main-content {
-	a {
-		color: $blue-2;
-	}
+.article-page-layout h1 {
+	margin-top: rem-calc(8);
 }
 
 
@@ -123,10 +120,47 @@ img.alignright {
 }
 
 
+
+
+
+
+/* Generics 
+* -----------------------------------------------------------------------------
+**/
+
+/* Link styles */
+.main-content {
+		a {
+			@include global-link-style;
+		}
+	}
+
+
+/* accesability icons */
+.listen-to {
+	.icon {
+		display: block;
+		&:before {
+			@include hbg-icons($listen);
+			font-size: rem-calc(32);
+			color: $blue-1;
+		}
+		span {
+			left: -999em;
+			position: absolute;
+		} 
+	}
+}
+
+
+
+
+
 /**
  * 4.0 Content
  * ----------------------------------------------------------------------------
  */
+	
 
 
 	/**
@@ -195,12 +229,19 @@ img.alignright {
 	  }
 
 	/**
-	 * 4.2 Posts
+	 * 4.2 article-page
 	 * ------------------------------------
 	 */
-
-	// Insert styles here
-
+	
+	/* sidebar adjustments */
+	.article-page-layout {
+		.sidebar-left {
+			margin-top: rem-calc(100);
+		}
+		.slider-container {
+			margin-bottom: rem-calc(10);
+		}
+	}
 
 	/**
 	 * 4.3 Widgets

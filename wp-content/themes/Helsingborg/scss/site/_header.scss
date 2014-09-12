@@ -49,23 +49,31 @@
 		input[type="text"] {
 			@extend %search-inputs;
 			float: left;
-			margin-right: rem-calc(8);
-			width: 30%;
+			margin-right: 5%;
+			width: 75%;
 			margin-bottom: 0;
 	}
 	input[type="submit"] {
 		@extend %search-inputs;
-		padding: rem-calc(8) rem-calc(10);
+		padding: rem-calc(8) 0;
+		width: 20%;
 		background-color: $orange;
 		color: $white;
 	}
+}
+
+.archive-search-link {
+	display: block;
+	font-size: rem-calc(14);
+	margin-top: rem-calc(10);
+	@include global-link-style;
 }
 
 /* Mobile search */
 .mobile-search {
 	position: relative;
 	border-top: 1px solid $mobile-nav-border-color;
-	padding: rem-calc(10) rem-calc(15);
+	padding: rem-calc(15) rem-calc(15);
 
 	input[type="text"],
 	input[type="submit"] {
@@ -74,15 +82,14 @@
 	input[type="text"] {
 		float: left;
 		width: 75%;
-		margin-right: rem-calc(15);
+		margin-right: 5%;
 		margin-bottom: 0;
 	}
 	input[type="submit"] {
 		font-size: rem-calc(16);
 		height: rem-calc(37);
 		border: none;
-		padding-left: rem-calc(20);
-		padding-right: rem-calc(20);
+		width:	20%;
 	}
 }
 
