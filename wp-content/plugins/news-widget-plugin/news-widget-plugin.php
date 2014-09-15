@@ -57,28 +57,27 @@ class nwp extends WP_Widget {
     }
 
     $page = get_page($page_id, OBJECT, 'display');
-    $link = get_permalink($page->ID);
+    $link = get_permalink($page->ID); ?>
 
-    echo '<div class="row">';
+    <li class="news-item large-12 columns">
+      <div class="row">
+        <div class="large-4 medium-4 small-4 columns news-image">
+          <?php if (has_post_thumbnail( $page->ID ) ) :
+            $image = wp_get_attachment_image_src( get_post_thumbnail_id( $page->ID ), 'single-post-thumbnail' ); ?>
+            <img src="<?php echo $image[0]; ?>" alt="TODO!">
+          <?php endif; ?>
+        </div>
 
-    if (has_post_thumbnail( $page->ID ) ){
-      $image = wp_get_attachment_image_src( get_post_thumbnail_id( $page->ID ), 'single-post-thumbnail' );
-      ?>
-      <div class="small-4 large-4 columns">
-        <a href="<?php echo $link ?>"><img src='<?php echo $image[0]; ?>'></a>
+        <div class="large-8 medium-8 small-8 columns news-content">
+          <h2 class="news-title"><?php echo $page->post_title ?></h2>
+          <span class="news-date"><?php echo $page->post_date ?></span>
+          <?php echo $this->fr_excerpt_by_id($page); ?>
+          <a href='<?php echo $link ?>' class="read-more">Läs mer</a>
+        </div>
       </div>
-      <?php
-    } ?>
+    </li>
 
-    <div class="small-8 large-8 columns">
-      <a href="<?php echo $link ?>"><?php echo $before_title . $page->post_title . $after_title; ?></a>
-      <a href="<?php echo $link ?>"><?php echo $this->fr_excerpt_by_id($page); ?></a>
-    </div>
-
-    </div>
-    <?php
-
-    echo $after_widget;
+    <?php echo $after_widget;
   }
 
   function fr_excerpt_by_id($the_post, $excerpt_length = 35, $line_breaks = TRUE){
