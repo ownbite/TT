@@ -62,6 +62,7 @@ Till Helsingborg kontaltcenter kan du v&auml;nda dig med alla dina &auml;renden 
 </footer>
 
 <script src="<?php echo get_stylesheet_directory_uri() ; ?>/js/app.js"></script>
+<?php wp_footer(); ?>
 </body>
 </html>
 
@@ -77,7 +78,7 @@ Till Helsingborg kontaltcenter kan du v&auml;nda dig med alla dina &auml;renden 
 	<?php //do_action('Helsingborg_layout_end'); ?>
 	</div>
 </div>
-<?php //wp_footer(); ?>
+
 <?php //do_action('Helsingborg_before_closing_body'); ?>
 </body>
 </html>

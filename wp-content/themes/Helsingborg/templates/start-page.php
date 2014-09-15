@@ -83,45 +83,6 @@ get_header(); ?>
           <?php /* Start listing the news */ ?>
           <?php dynamic_sidebar("right-sidebar"); ?>
 
-            <div class="calendar-event-widget widget large-12 medium-6 columns">
-                <div class="widget-content">
-
-                    <h2 class="widget-title">Evenemang i Helsingborg</h2>
-
-                    <div class="divider">
-                        <div class="upper-divider"></div>
-                        <div class="lower-divider"></div>
-                    </div>
-
-                    <ul class="calendar-list">
-                        <li>
-                            <span class="date">idag 13:00</span>
-                            <a href="#">Tårtkalas i tågaparken</a>
-                        </li>
-                        <li>
-                            <span class="date">idag 15:00</span>
-                            <a href="#">Bakom kulisserna på stadsarkivet</a>
-                        </li>
-                        <li>
-                            <span class="date">2014-09-03</span>
-                            <a href="#">Samhällsåret - en antology med filmer inför valet</a>
-                        </li>
-                        <li>
-                            <span class="date">2014-09-03</span>
-                            <a href="#">Från ärans fält till slakterifabriken</a>
-                        </li>
-                        <li>
-                            <span class="date">2014-09-04</span>
-                            <a href="#">Nära leran - Sommarutställning på Keramiskt center</a>
-                        </li>
-                    </ul>
-
-                    <a href="#" class="read-more">Fler evenemang</a>
-
-                </div><!-- /.widget-content -->
-
-            </div><!-- /.widget -->
-
             <div class="news-widget large-12 widget medium-6 columns">
                 <div class="widget-content">
 

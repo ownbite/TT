@@ -20,8 +20,10 @@
 		<link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo get_stylesheet_directory_uri() ; ?>/assets/img/icons/apple-touch-icon-72x72-precomposed.png">
 		<link rel="apple-touch-icon-precomposed" href="<?php echo get_stylesheet_directory_uri() ; ?>/assets/img/icons/apple-touch-icon-precomposed.png">
 
-		<?php if (!empty(get_field('color_code'))) :
-			list($r,$g,$b) = array_map('hexdec',str_split(ltrim(get_field('color_code'), '#'),2)); ?>
+		<?php
+		$colorcode = get_field('color_code');
+		if ($colorcode !== NULL) :
+			list($r,$g,$b) = array_map('hexdec',str_split(ltrim($colorcode, '#'),2)); ?>
 			<style>
 				.divider.fade .upper-divider,
 				.divider.fade .lower-divider {
@@ -34,7 +36,7 @@
 							background: -o-linear-gradient(left,  rgba(<?php echo "$r,$g,$b" ?>,1) 60%,rgba(255,255,255,1) 100%); /* Opera 11.10+ */
 							background: -ms-linear-gradient(left,  rgba(<?php echo "$r,$g,$b" ?>,1) 60%,rgba(255,255,255,1) 100%); /* IE10+ */
 							background: linear-gradient(to right,  rgba(<?php echo "$r,$g,$b" ?>,1) 60%,rgba(255,255,255,1) 100%); /* W3C */
-							filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='<?php echo get_field("color_code") ?>', endColorstr='#ffffff',GradientType=1 ); /* IE6-8 */
+							filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='<?php echo $colorcode ?>', endColorstr='#ffffff',GradientType=1 ); /* IE6-8 */
 							}
 			</style>
 	<?php endif; ?>
