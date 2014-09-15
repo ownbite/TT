@@ -4,7 +4,6 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-		<!-- START -->
 		<title>Helsingborg stad</title>
 		<meta name="description" content="">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,8 +13,6 @@
 
 		<script src="<?php echo get_stylesheet_directory_uri() ; ?>/js/modernizr/modernizr.min.js"></script>
 		<script src="<?php echo get_stylesheet_directory_uri() ; ?>/js/jquery/dist/jquery.min.js"></script>
-
-		<!-- STOP -->
 
 		<link rel="icon" href="<?php echo get_stylesheet_directory_uri() ; ?>/assets/img/icons/favicon.ico" type="image/x-icon">
 		<link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo get_stylesheet_directory_uri() ; ?>/assets/img/icons/apple-touch-icon-144x144-precomposed.png">

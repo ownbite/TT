@@ -9,49 +9,27 @@ get_header(); ?>
     <div class="main-area large-9 columns">
 
         <div class="row">
-            <!--<div class="large-12 columns slide">
-
-                <img src="http://www.placehold.it/1024x400" alt="slider" class="img-slide" />
-
-            </div>-->
             <div class="large-12 columns slider-container">
-                <!-- START ORBIT -->
-                 <ul class="example-orbit" data-orbit>
-                  <li>
-                    <img src="http://www.placehold.it/1024x400&text=Slide+1" alt="slide 1" class="img-slide" />
-                    <div class="orbit-caption">
-                      Caption One.
-                    </div>
-                  </li>
-                  <li class="active">
-                    <img src="http://www.placehold.it/1024x400&text=Slide+2" alt="slide 2" class="img-slide" />
-                    <div class="orbit-caption">
-                      Caption Two.
-                    </div>
-                  </li>
-                  <li>
-                    <img src="http://www.placehold.it/1024x400&text=Slide+3" alt="slide 3" class="img-slide" />
-                    <div class="orbit-caption">
-                      Caption Three.
-                    </div>
-                  </li>
+              <div class="orbit-container">
+                <ul class="example-orbit" data-orbit>
+                  <?php dynamic_sidebar("start-page-slider"); ?>
                 </ul>
-                <!-- END ORBIT -->
-            </div><!-- /.slider-container -->
-        </div><!-- /.row -->
-
-        <div class="search-container row">
-            <div class="search-inputs large-12 columns">
-                <input type="text" placeholder="Vad letar du efter?" name="search"/>
-                <input type="submit" value="Sök">
+              </div>
             </div>
-        </div><!-- /.search-container -->
+        </div><!-- /.row -->
 
         <div class="main-content row">
 
             <div class="sidebar large-4 columns">
-                <?php dynamic_sidebar("left-sidebar"); ?>
-                <?php Helsingborg_sidebar_menu(); ?>
+              <div class="search-container row">
+                  <div class="search-inputs large-12 columns">
+                      <input type="text" placeholder="Vad letar du efter?" name="search"/>
+                      <input type="submit" value="Sök">
+                  </div>
+              </div><!-- /.search-container -->
+
+              <?php dynamic_sidebar("left-sidebar"); ?>
+              <?php Helsingborg_sidebar_menu(); ?>
 
             </div><!-- /.sidebar-left -->
 
@@ -64,42 +42,38 @@ get_header(); ?>
                 </div>
 
                 <?php /* Start listing the news */ ?>
-                <?php dynamic_sidebar("news-listing-start-page"); ?>
+                <?php dynamic_sidebar("start-page-news-listing"); ?>
 
             </section>
     </div><!-- /.main-content -->
 
         <div class="lower-content row">
             <div class="sidebar large-4 columns">
-                <div class="row">
-                    <?php dynamic_sidebar("left-sidebar-low"); ?>
-                </div><!-- /.row -->
-            </div><!-- /.sidebar -->
+              <?php dynamic_sidebar("left-sidebar-bottom"); ?>
+            </div>
 
             <section class="large-8 columns">
-                <ul class="block-list news-block-list large-block-grid-3 medium-block-grid-3 small-block-grid-2">
-                        <li>
-                            <img src="http://www.placehold.it/330x270" alt="alt-text"/>
-                        </li>
-                        <li>
-                            <img src="http://www.placehold.it/330x270" alt="alt-text"/>
-                        </li>
-                        <li>
-                            <img src="http://www.placehold.it/330x270" alt="alt-text"/>
-                        </li>
-                        <li>
-                            <img src="http://www.placehold.it/330x270" alt="alt-text"/>
-                        </li>
-                        <li>
-                            <img src="http://www.placehold.it/330x270" alt="alt-text"/>
-                        </li>
-                        <li>
-                            <img src="http://www.placehold.it/330x270" alt="alt-text"/>
-                        </li>
-                    </ul>
-
+              <ul class="block-list news-block-list large-block-grid-3 medium-block-grid-3 small-block-grid-2">
+                <li>
+                  <img src="http://www.placehold.it/330x270" alt="alt-text"/>
+                </li>
+                <li>
+                  <img src="http://www.placehold.it/330x270" alt="alt-text"/>
+                </li>
+                <li>
+                  <img src="http://www.placehold.it/330x270" alt="alt-text"/>
+                </li>
+                <li>
+                  <img src="http://www.placehold.it/330x270" alt="alt-text"/>
+                </li>
+                <li>
+                  <img src="http://www.placehold.it/330x270" alt="alt-text"/>
+                </li>
+                <li>
+                  <img src="http://www.placehold.it/330x270" alt="alt-text"/>
+                </li>
+              </ul>
             </section>
-
         </div><!-- /.lower-content -->
     </div>  <!-- /.main-area -->
 

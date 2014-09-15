@@ -1,34 +1,33 @@
 <?php
 
 function Helsingborg_sidebar_widgets() {
-  register_sidebar(array(
-      'id' => 'sidebar-widgets',
-      'name' => __('Sidebar widgets', 'Helsingborg'),
-      'description' => __('Drag widgets to this sidebar container.', 'Helsingborg'),
-      'before_widget' => '<article id="%1$s" class="row widget %2$s"><div class="small-12 columns">',
-      'after_widget' => '</div></article>',
-      'before_title' => '<h6>',
-      'after_title' => '</h6>'
-  ));
 
   register_sidebar(array(
       'id' => 'footer-widgets',
       'name' => __('Footer widgets', 'Helsingborg'),
       'description' => __('Drag widgets to this footer container', 'Helsingborg'),
-      'before_widget' => '<article id="%1$s" class="large-4 columns widget %2$s">',
-      'after_widget' => '</article>',
-      'before_title' => '<h6>',
-      'after_title' => '</h6>'
+      'before_widget' => '<div class="large-3 medium-12 columns">',
+      'after_widget' => '</div>',
+      'before_title' => '',
+      'after_title' => ''
   ));
 
   register_sidebar(array(
-      'id' => 'news-listing-start-page',
-      'name' => __('Nyhetslistning startsida', 'Helsingborg'),
+      'id' => 'start-page-news-listing',
+      'name' => __('Startsida - nyhetslistning', 'Helsingborg'),
       'description' => __('Lägg till de nyheter som ska visas på startsidan', 'Helsingborg'),
       'before_widget' => '<ul class="news-list-large row">',
       'after_widget' => '</ul>',
       'before_title' => '<h6>',
       'after_title' => '</h6>'
+  ));
+
+  register_sidebar(array(
+      'id' => 'start-page-slider',
+      'name' => __('Startsida - slider', 'Helsingborg'),
+      'description' => __('Lägg till de sliders som ska visas på startsidan', 'Helsingborg'),
+      'before_widget' => '',
+      'after_widget' => ''
   ));
 
   register_sidebar(array(
@@ -42,7 +41,7 @@ function Helsingborg_sidebar_widgets() {
   ));
 
   register_sidebar(array(
-      'id' => 'left-sidebar-low',
+      'id' => 'left-sidebar-bottom',
       'name' => __('Vänster sidebar undertill', 'Helsingborg'),
       'description' => __('Lägg till de widgets som ska visas i vänstra sidebaren längst ner.', 'Helsingborg'),
       'before_widget' => '',
