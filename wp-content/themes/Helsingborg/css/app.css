@@ -16,6 +16,7 @@
 /* URLs */
 /* Borders */
 /* Icons */
+/* unicode symbols */
 /* HBG iconset */
 @font-face {
   font-family: 'hbg-se-iconset';
@@ -5726,8 +5727,15 @@ blockquote.alignright, img.alignright {
  * 2.0 Typography
  * ----------------------------------------------------------------------------
  */
+.page-block-list .list-title {
+  font-size: 1rem;
+  font-weight: 500; }
+
 .article-page-layout h1 {
   margin-top: 0.5rem; }
+
+.page-block-list .list-title:after {
+  content: ""; }
 
 /**
  * 3.0 Header, sidebar and footer
@@ -5773,11 +5781,44 @@ blockquote.alignright, img.alignright {
   .listen-to .icon span {
     left: -999em;
     position: absolute; }
+  .listen-to .icon:hover {
+    text-decoration: none; }
+
+.socialmedia-list li.fbook a:before {
+  font-family: hbg-se-iconset;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  content: "\e614";
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #45697d; }
+.socialmedia-list li.twitter a:before {
+  font-family: hbg-se-iconset;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  content: "\e613";
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #45697d; }
 
 /**
  * 4.0 Content
  * ----------------------------------------------------------------------------
  */
+/* Generics */
+.news-list-large.row, .news-list-small.row, .block-list, .article {
+  margin-bottom: 2rem; }
+
 /**
 	 * 4.1 Startpage - content area
 	 * ------------------------------------
@@ -5823,11 +5864,24 @@ blockquote.alignright, img.alignright {
   .divider .lower-divider {
     height: 1px; }
 
-.news-list-large {
+/* NEWS Sections & list */
+.news-section {
+  margin-top: 1.125rem; }
+
+.news-list-large, .news-list-small {
   list-style: none;
   margin-left: 0; }
-  .news-list-large li {
-    margin-bottom: 2rem; }
+
+
+.news-list-small li {
+  margin-bottom: 1rem; }
+  .news-list-small li .news-date {
+    float: right;
+    line-height: 2rem; }
+  .news-list-small li .news-title {
+    font-size: 1rem; }
+    .news-list-small li .news-title a:after {
+      content: "\00a0" "»"; }
 
 .news-image img {
   border-radius: 4px; }
@@ -5843,6 +5897,35 @@ blockquote.alignright, img.alignright {
 .news-block-list img {
   border-radius: 4px; }
 
+/* hbg customized block-list,  */
+/* block style + generics */
+
+.block-list.page-block-list li a:hover {
+  text-decoration: none; }
+  .block-list.page-block-list li a:hover > .list-title {
+    text-decoration: underline; }
+.block-list.page-block-list li a .list-content {
+  color: #222222;
+  display: none; }
+.block-list.page-block-list li a .list-title {
+  color: #009cde; }
+  .block-list.page-block-list li a .list-title:after {
+    content: "\00a0" "»"; }
+
+/* list style */
+.block-list.page-block-list.page-list li {
+  width: 100%;
+  padding-bottom: 0;
+  margin-bottom: 2rem; }
+  .block-list.page-block-list.page-list li a img {
+    border-radius: 4px;
+    float: left;
+    margin-right: 1.25rem;
+    max-width: 25%; }
+  .block-list.page-block-list.page-list li a .list-content {
+    display: block; }
+
+/* */
 /**
 	 * 4.2 article-page
 	 * ------------------------------------
@@ -5852,6 +5935,8 @@ blockquote.alignright, img.alignright {
   margin-top: 6.25rem; }
 .article-page-layout .slider-container {
   margin-bottom: 0.625rem; }
+
+/* content */
 
 /**
 	 * 4.3 Widgets
@@ -5877,6 +5962,14 @@ blockquote.alignright, img.alignright {
  * Custom MQ - Structure
  * ----------------------------------------------------------------------------
  */
+@media only screen and (min-width:40.063em) {
+  .article-page-layout .sidebar-left {
+    display: block; } }
+
+@media only screen and (max-width: 40em) {
+  .article-page-layout .sidebar-left {
+    display: none; } }
+
 @media only screen and (max-width: 40em) {
   .news-section {
     padding-top: 0.9375rem; } }
