@@ -168,7 +168,7 @@ img.alignright {
 	}
 }
 
-
+/* social media */
 .socialmedia-list {
 	li.fbook {
 		a:before {
@@ -189,6 +189,16 @@ img.alignright {
  * 4.0 Content
  * ----------------------------------------------------------------------------
  */	
+
+ 	/* No image on article page behaviour */
+ 		 .row.no-image {
+ 			min-height: rem-calc(100);
+ 			background-color: $white; 			
+  			@include border-top-radius;
+			@include box-shadow-advanced(0, 3, 1, 255,255,255,1, false, true, 3, 0, 2, 0,0,0,0.4, false);
+			margin-bottom: - rem-calc(84);
+ 		}
+
 
  	/* Generics */ 
 	%comp-end-margin {

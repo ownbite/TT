@@ -11,8 +11,37 @@
 @mixin box-shadow($spread: 3px, $opacity: 0.4) {
 	    box-shadow: 2px 2px $spread 0 rgba(0, 0, 0, $opacity);	
 }
-@mixin drop-shadow($spread: 3px, $opacity: 0.2) {
-	    box-shadow: 0 1px $spread 0 rgba(0, 0, 0, $opacity);	
+@mixin drop-shadow($spread: 3px, $x: 0, $y: 1px, $rgba: rgba(0, 0, 0, 0.4)) {
+	    box-shadow: $x $y $spread 0 $rgba;	
+}
+@mixin box-shadow-advanced($xOffSet, $yOffSet, $blur, $red, $green, $blue, $opacity, $inset : false, $two : false, $xOffSet2 : 0, $yOffSet2 : 0, $blur2 : 0, $red2 : 0, $green2 : 0, $blue2 : 0, $opacity2 : 0, $inset2 : false) {
+  @if $inset {
+    @if $two {
+        @if $inset2 {
+            -moz-box-shadow: #{$xOffSet}px #{$yOffSet}px #{$blur}px rgba($red,$green,$blue, $opacity) inset, #{$xOffSet2}px #{$yOffSet2}px #{$blur2}px rgba($red2,$green2,$blue2, $opacity2) inset;
+        	box-shadow: #{$xOffSet}px #{$yOffSet}px #{$blur}px rgba($red,$green,$blue, $opacity) inset, #{$xOffSet2}px #{$yOffSet2}px #{$blur2}px rgba($red2,$green2,$blue2, $opacity2) inset;
+        } @else {
+            -moz-box-shadow: #{$xOffSet}px #{$yOffSet}px #{$blur}px rgba($red,$green,$blue, $opacity) inset, #{$xOffSet2}px #{$yOffSet2}px #{$blur2}px rgba($red2,$green2,$blue2, $opacity2);
+            box-shadow: #{$xOffSet}px #{$yOffSet}px #{$blur}px rgba($red,$green,$blue, $opacity) inset, #{$xOffSet2}px #{$yOffSet2}px #{$blur2}px rgba($red2,$green2,$blue2, $opacity2);
+        }
+    } @else {
+        -moz-box-shadow: #{$xOffSet}px #{$yOffSet}px #{$blur}px rgba($red,$green,$blue, $opacity) inset;
+        box-shadow: #{$xOffSet}px #{$yOffSet}px #{$blur}px rgba($red,$green,$blue, $opacity) inset;
+    }
+  } @else {
+    @if $two {
+        @if $inset2 {
+            -moz-box-shadow: #{$xOffSet}px #{$yOffSet}px #{$blur}px rgba($red,$green,$blue, $opacity), #{$xOffSet2}px #{$yOffSet2}px #{$blur2}px rgba($red2,$green2,$blue2, $opacity2) inset;
+            box-shadow: #{$xOffSet}px #{$yOffSet}px #{$blur}px rgba($red,$green,$blue, $opacity), #{$xOffSet2}px #{$yOffSet2}px #{$blur2}px rgba($red2,$green2,$blue2, $opacity2) inset;
+        } @else {
+            -moz-box-shadow: #{$xOffSet}px #{$yOffSet}px #{$blur}px rgba($red,$green,$blue, $opacity), #{$xOffSet2}px #{$yOffSet2}px #{$blur2}px rgba($red2,$green2,$blue2, $opacity2);
+            box-shadow: #{$xOffSet}px #{$yOffSet}px #{$blur}px rgba($red,$green,$blue, $opacity), #{$xOffSet2}px #{$yOffSet2}px #{$blur2}px rgba($red2,$green2,$blue2, $opacity2);
+        }
+    } @else {
+        -moz-box-shadow: #{$xOffSet}px #{$yOffSet}px #{$blur}px rgba($red,$green,$blue, $opacity);
+        box-shadow: #{$xOffSet}px #{$yOffSet}px #{$blur}px rgba($red,$green,$blue, $opacity);
+    }
+  }
 }
 
 /* Custom divider mixin */
@@ -67,5 +96,14 @@
 			text-decoration: underline;
 			color: $blue-1;
 		}
+}
+
+@mixin border-top-radius($radius : $border-radius ) {
+	-webkit-border-top-left-radius: $radius;
+	-webkit-border-top-right-radius: $radius;
+	-moz-border-radius-topleft: $radius;
+	-moz-border-radius-topright: $radius;
+	border-top-left-radius: $radius;
+	border-top-right-radius: $radius;
 }
 

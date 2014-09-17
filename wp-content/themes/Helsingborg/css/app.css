@@ -5784,6 +5784,7 @@ blockquote.alignright, img.alignright {
   .listen-to .icon:hover {
     text-decoration: none; }
 
+/* social media */
 .socialmedia-list li.fbook a:before {
   font-family: hbg-se-iconset;
   speak: none;
@@ -5815,6 +5816,20 @@ blockquote.alignright, img.alignright {
  * 4.0 Content
  * ----------------------------------------------------------------------------
  */
+/* No image on article page behaviour */
+.row.no-image {
+  min-height: 6.25rem;
+  background-color: white;
+  -webkit-border-top-left-radius: 4px;
+  -webkit-border-top-right-radius: 4px;
+  -moz-border-radius-topleft: 4px;
+  -moz-border-radius-topright: 4px;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  -moz-box-shadow: 0px 3px 1px white, 3px 0px 2px rgba(0, 0, 0, 0.4);
+  box-shadow: 0px 3px 1px white, 3px 0px 2px rgba(0, 0, 0, 0.4);
+  margin-bottom: -5.25rem; }
+
 /* Generics */
 .news-list-large.row, .news-list-small.row, .block-list, .article {
   margin-bottom: 2rem; }
@@ -6121,7 +6136,7 @@ blockquote.alignright, img.alignright {
   .mobile-nav {
     display: block;
     background-color: #45697d;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2); }
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.4); }
     .mobile-nav a {
       color: white; }
   .mobile-navigation {
@@ -6173,7 +6188,7 @@ blockquote.alignright, img.alignright {
     background: #45697d;
     margin-left: 0;
     margin-bottom: 0;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2); }
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.4); }
     .mobile-nav-list li {
       display: block;
       border-bottom: 1px solid #507a91; }
