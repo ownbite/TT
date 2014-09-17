@@ -17,12 +17,23 @@
  */
 
 body {
-	background: url(#{$wp-root-url}/#{$wp-theme-img-url}/hbg-bg.png) 0 0 repeat-x;
-	background-color: #FFF;
+	background: url(#{$wp-root-url}/#{$wp-theme-img-url}/hbg-bg.png) $white repeat-x;
+}
+
+.site-bg {
+	position: absolute;
+	z-index: 0;
+	left: 0;
+	top: rem-calc(200);
+	right: 0;
+	bottom: 0;
+	background-color: $white;
 }
 
 .main-site-container,
 .footer {
+	position: relative;
+	z-index: level-2;
 	@include site-space;
 	> .row {
 		max-width: rem-calc($max-site-width);
@@ -149,8 +160,10 @@ img.alignright {
 	}
 
 
+
 /* accesability icons */
 .listen-to {
+	margin-top: rem-calc(16);
 	.icon {
 		display: block;
 		&:before {
@@ -159,8 +172,7 @@ img.alignright {
 			color: $blue-1;
 		}
 		span {
-			left: -999em;
-			position: absolute;
+			@include hidden-text;
 		}
 		&:hover {
 			text-decoration: none;
@@ -192,11 +204,13 @@ img.alignright {
 
  	/* No image on article page behaviour */
  		 .row.no-image {
- 			min-height: rem-calc(100);
  			background-color: $white; 			
   			@include border-top-radius;
 			@include box-shadow-advanced(0, 3, 1, 255,255,255,1, false, true, 3, 0, 2, 0,0,0,0.4, false);
-			margin-bottom: - rem-calc(84);
+			min-height: rem-calc(400);
+			position: absolute;
+			z-index: -2;
+			width: 100%;
  		}
 
 
@@ -223,15 +237,6 @@ img.alignright {
 	 .divider {
 	 	 margin-bottom: rem-calc(16);
 		
-		.upper-divider,
-		.lower-divider {
-			@include divider;
-		}	
-
- 	 	&.fade .upper-divider, 
- 	 	&.fade .lower-divider {
-	 		@include divider-to-fade;
-	 	}
 	 	.upper-divider,
 	 	.lower-divider {
 	 		display: block;
@@ -293,20 +298,15 @@ img.alignright {
 	  	color: $gray-1;
 	  }
 
-	  .news-block-list {
-	  	img {
-	  		border-radius: $border-radius;
-	  	}
-	  }
-
-
-
 
 	  /* hbg customized block-list,  */
 
 	  /* block style + generics */
 	  .block-list {
 		@extend %comp-end-margin;
+		img {
+			border-radius: $border-radius;
+		}
 	  }
 	  .block-list.page-block-list {
   		li {
@@ -358,17 +358,27 @@ img.alignright {
 	
 	/* sidebar adjustments */
 	.article-page-layout {
-		.sidebar-left {
-			margin-top: rem-calc(100);
-		}
 		.slider-container {
 			margin-bottom: rem-calc(10);
 		}
 	}
 
-	/* content */
+	.article-column {
+		background-color: $white;
+		@include border-top-radius;
+	}
 	.article {
 		@extend %comp-end-margin;
+	}
+
+	.article-body {
+		img {
+			max-width: 100%;
+			&.alignright,
+			&.alignleft {
+				max-width: 66%;
+			}
+		}
 	}
 
 	/**
@@ -412,25 +422,87 @@ img.alignright {
  * Custom MQ - Structure
  * ----------------------------------------------------------------------------
  */
- @media #{$medium-up} {
- 	.article-page-layout {
- 		.sidebar-left {
- 			display: block;
- 		}
- 	} 	
- }
+
  @media #{$small-only} {
  	.article-page-layout {
  		.sidebar-left {
  			display: none;
- 		}
+ 		}	
  	}
- }
- @media #{$small-only} {
  	.news-section {
  		padding-top: rem-calc(15);
+ 	} 		 	
+ }
+@media #{$small-up} {
+ 	.site-bg {
+ 		top: rem-calc(200);
  	}
+	.block-list.page-block-list.page-list {
+		li a img {
+			max-width: 33%;
+		}
+	}
+
+ 	h1 {
+ 		font-size: rem-calc(27);
+ 	}
+ 	h2 {
+ 		font-size: rem-calc(24);
+ 	}
+ 	h3 {
+ 		font-size: rem-calc(20);
+ 	}
+ 	h4 {
+ 		font-size: rem-calc(18);
+ 	}
+ 	h5 {
+ 		font-size: rem-calc(16);
+ 	}
+ 	h6 {
+ 		font-size: rem-calc(16);
+ 	}
+
+
 }
+@media #{$custom-medium-only} {
+
+}
+ @media #{$medium-up} {
+ 	.article-page-layout {
+ 		.sidebar-left {
+ 			display: block;
+ 			margin-top: rem-calc(100);		
+ 		}
+ 	}
+ 	.site-bg {
+ 		top: rem-calc(180);
+ 	}
+  	h1 {
+ 		font-size: rem-calc(32);
+ 	}
+ 	h2 {
+ 		font-size: rem-calc(27);
+ 	}
+ 	h3 {
+ 		font-size: rem-calc(22);
+ 	}
+ }
+ @media #{$large-up} {
+ 	.article-page-layout {
+ 		.sidebar-left {
+ 			margin-top: rem-calc(120);
+ 		}
+ 	}
+
+	.block-list.page-block-list.page-list {
+		li a img {
+			max-width: 25%;
+		}
+	} 	 	
+  	.site-bg {
+ 		top: rem-calc(210);
+ 	}
+ }
 
 
 // Insert styles here

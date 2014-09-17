@@ -11,19 +11,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link rel="stylesheet" href="../css/app.css">
-        <link rel="stylesheet" href="../css/normalize.css">
+       <!-- <link rel="stylesheet" href="../css/normalize.css">-->
         
         <script src="../js/modernizr/modernizr.min.js"></script>
         <script src="../js/jquery/dist/jquery.min.js"></script>
-<!--
-
-    //Totalt 1 värden behövs
-    //ett rgba värde samt ett hex värde för fallback
-
-        <style>
+        
+        <!-- LET's PHPify this -->
+        <style> 
            .divider.fade .upper-divider,
            .divider.fade .lower-divider { 
-                background: rgb(237,139,0); /* Old browsers */
+                background: rgb(237,139,0); /* Old browsers */ /* HEX värde här */
                 /* IE9 SVG, needs conditional override of 'filter' to 'none' */
                 background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMCUiPgogICAgPHN0b3Agb2Zmc2V0PSI2MCUiIHN0b3AtY29sb3I9IiNlZDhiMDAiIHN0b3Atb3BhY2l0eT0iMSIvPgogICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjZmZmZmZmIiBzdG9wLW9wYWNpdHk9IjEiLz4KICA8L2xpbmVhckdyYWRpZW50PgogIDxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9InVybCgjZ3JhZC11Y2dnLWdlbmVyYXRlZCkiIC8+Cjwvc3ZnPg==);
                 background: -moz-linear-gradient(left,  rgba(237,139,0,1) 60%, rgba(255,255,255,1) 100%); /* FF3.6+ */
@@ -34,10 +31,16 @@
                 background: linear-gradient(to right,  rgba(237,139,0,1) 60%,rgba(255,255,255,1) 100%); /* W3C */
                 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ed8b00', endColorstr='#ffffff',GradientType=1 ); /* IE6-8 */
                 }
-        </style>-->
+                .divider .upper-divider,
+                .divider .lower-divider {
+                    background-color: rgba(237,139,0, 1);
+                }
+
+        </style>
 
     </head>
     <body>
+        <div class="site-bg"></div>
 
         <nav class="mobile-nav">
             <div class="mobile-navigation clearfix" role="navigation">
@@ -208,6 +211,23 @@
                                     <br/>
                                 <p>
                                     ÖP 2010 redovisar tydliga strategier och övergripande geografiska ställningstaganden. Det innebär att översiktsplanens markanvändningskarta inte i detalj redovisar samtliga ställningstaganden och avvägningar på varje enskild yta, utan att många avvägningar får ske i kommande planering. 
+                                </p>
+
+                                <p>
+                                    <ul class="disc">
+                                      <li>List item with a much longer description or more content.</li>
+                                      <li>List item</li>
+                                      <li>List item
+                                        <ul>
+                                          <li>Nested list item</li>
+                                          <li>Nested list item</li>
+                                          <li>Nested list item</li>
+                                        </ul>
+                                      </li>
+                                      <li>List item</li>
+                                      <li>List item</li>
+                                      <li>List item</li>
+                                     </ul>
                                 </p>
 
                                 <ul class="socialmedia-list inline-list">

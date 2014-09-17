@@ -41,6 +41,12 @@
 	a {
 		@include global-link-style;
 	}
+
+	.read-more {
+		&:after {
+			content: $nbsp $text-arrow;
+		}
+	}
 }
 
 

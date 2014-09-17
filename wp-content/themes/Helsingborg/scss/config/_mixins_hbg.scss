@@ -107,3 +107,8 @@
 	border-top-right-radius: $radius;
 }
 
+@mixin hidden-text {
+	left: -999em;
+	position: absolute;
+}
+

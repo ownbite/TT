@@ -23,7 +23,7 @@
 		}
 		li.current {
 			padding-top: rem-calc(6);
-			background-color: $gray-3;
+			background-color: scale-color($gray-3, $lightness: 70%);
 			> a {
 				color: $blue-1;
 				&:before {

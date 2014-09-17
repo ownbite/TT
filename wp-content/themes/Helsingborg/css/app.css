@@ -5607,6 +5607,8 @@ th.hide-for-touch {
   .sidebar a:hover, .footer a:hover {
     text-decoration: underline;
     color: #45697d; }
+.sidebar .read-more:after, .footer .read-more:after {
+  content: "\00a0" "»"; }
 
 /* specific - widget styles */
 .push-links-widget .push-links-list {
@@ -5675,10 +5677,20 @@ th.hide-for-touch {
  * ----------------------------------------------------------------------------
  */
 body {
-  background: url(/wp-content/themes/Helsingborg//assets/img/images/hbg-bg.png) 0 0 repeat-x;
+  background: url(/wp-content/themes/Helsingborg//assets/img/images/hbg-bg.png) white repeat-x; }
+
+.site-bg {
+  position: absolute;
+  z-index: 0;
+  left: 0;
+  top: 12.5rem;
+  right: 0;
+  bottom: 0;
   background-color: white; }
 
 .main-site-container, .footer {
+  position: relative;
+  z-index: level-2;
   padding-left: 0.9375rem;
   padding-right: 0.9375rem; }
   .main-site-container > .row, .footer > .row {
@@ -5762,27 +5774,29 @@ blockquote.alignright, img.alignright {
     color: #45697d; }
 
 /* accesability icons */
-.listen-to .icon {
-  display: block; }
-  .listen-to .icon:before {
-    font-family: hbg-se-iconset;
-    speak: none;
-    font-style: normal;
-    font-weight: normal;
-    font-variant: normal;
-    text-transform: none;
-    line-height: 1;
-    content: "\e600";
-    /* Better Font Rendering =========== */
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    font-size: 2rem;
-    color: #45697d; }
-  .listen-to .icon span {
-    left: -999em;
-    position: absolute; }
-  .listen-to .icon:hover {
-    text-decoration: none; }
+.listen-to {
+  margin-top: 1rem; }
+  .listen-to .icon {
+    display: block; }
+    .listen-to .icon:before {
+      font-family: hbg-se-iconset;
+      speak: none;
+      font-style: normal;
+      font-weight: normal;
+      font-variant: normal;
+      text-transform: none;
+      line-height: 1;
+      content: "\e600";
+      /* Better Font Rendering =========== */
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      font-size: 2rem;
+      color: #45697d; }
+    .listen-to .icon span {
+      left: -999em;
+      position: absolute; }
+    .listen-to .icon:hover {
+      text-decoration: none; }
 
 /* social media */
 .socialmedia-list li.fbook a:before {
@@ -5818,7 +5832,6 @@ blockquote.alignright, img.alignright {
  */
 /* No image on article page behaviour */
 .row.no-image {
-  min-height: 6.25rem;
   background-color: white;
   -webkit-border-top-left-radius: 4px;
   -webkit-border-top-right-radius: 4px;
@@ -5828,7 +5841,10 @@ blockquote.alignright, img.alignright {
   border-top-right-radius: 4px;
   -moz-box-shadow: 0px 3px 1px white, 3px 0px 2px rgba(0, 0, 0, 0.4);
   box-shadow: 0px 3px 1px white, 3px 0px 2px rgba(0, 0, 0, 0.4);
-  margin-bottom: -5.25rem; }
+  min-height: 25rem;
+  position: absolute;
+  z-index: -2;
+  width: 100%; }
 
 /* Generics */
 .news-list-large.row, .news-list-small.row, .block-list, .article {
@@ -5852,25 +5868,6 @@ blockquote.alignright, img.alignright {
 /* hbg special divider - check mixin for rgba values */
 .divider {
   margin-bottom: 1rem; }
-  .divider .upper-divider, .divider .lower-divider {
-    background: #ed8b00; }
-  .divider.fade .upper-divider, .divider.fade .lower-divider {
-    /* IE9 SVG, needs conditional override of 'filter' to 'none' */
-    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2VkOGIwMCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjY3JSIgc3RvcC1jb2xvcj0iI2VkOGIwMCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNlZDhiMDAiIHN0b3Atb3BhY2l0eT0iMC40MiIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
-    background: -moz-linear-gradient(left, #ed8b00 0%, #ed8b00 60%, rgba(237, 139, 0, 0) 100%);
-    /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, right top, color-stop(0%, #ed8b00), color-stop(60%, #ed8b00), color-stop(100%, rgba(237, 139, 0, 0)));
-    /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(left, #ed8b00 0%, #ed8b00 60%, rgba(237, 139, 0, 0) 100%);
-    /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(left, #ed8b00 0%, #ed8b00 60%, rgba(237, 139, 0, 0) 100%);
-    /* Opera 11.10+ */
-    background: -ms-linear-gradient(left, #ed8b00 0%, #ed8b00 60%, rgba(237, 139, 0, 0) 100%);
-    /* IE10+ */
-    background: linear-gradient(to right, #ed8b00 0%, #ed8b00 60%, rgba(237, 139, 0, 0) 100%);
-    /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=$fade-from-color-hex, endColorstr=$fade-to-color-hex,GradientType=1 );
-    /* IE6-8 */ }
   .divider .upper-divider, .divider .lower-divider {
     display: block; }
   .divider .upper-divider {
@@ -5909,11 +5906,10 @@ blockquote.alignright, img.alignright {
   font-size: 0.75rem;
   color: #747779; }
 
-.news-block-list img {
-  border-radius: 4px; }
-
 /* hbg customized block-list,  */
 /* block style + generics */
+.block-list img {
+  border-radius: 4px; }
 
 .block-list.page-block-list li a:hover {
   text-decoration: none; }
@@ -5946,12 +5942,23 @@ blockquote.alignright, img.alignright {
 	 * ------------------------------------
 	 */
 /* sidebar adjustments */
-.article-page-layout .sidebar-left {
-  margin-top: 6.25rem; }
 .article-page-layout .slider-container {
   margin-bottom: 0.625rem; }
 
-/* content */
+.article-column {
+  background-color: white;
+  -webkit-border-top-left-radius: 4px;
+  -webkit-border-top-right-radius: 4px;
+  -moz-border-radius-topleft: 4px;
+  -moz-border-radius-topright: 4px;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px; }
+
+
+.article-body img {
+  max-width: 100%; }
+  .article-body img.alignright, .article-body img.alignleft {
+    max-width: 66%; }
 
 /**
 	 * 4.3 Widgets
@@ -5977,17 +5984,52 @@ blockquote.alignright, img.alignright {
  * Custom MQ - Structure
  * ----------------------------------------------------------------------------
  */
-@media only screen and (min-width:40.063em) {
-  .article-page-layout .sidebar-left {
-    display: block; } }
-
 @media only screen and (max-width: 40em) {
   .article-page-layout .sidebar-left {
-    display: none; } }
-
-@media only screen and (max-width: 40em) {
+    display: none; }
   .news-section {
     padding-top: 0.9375rem; } }
+
+@media only screen {
+  .site-bg {
+    top: 12.5rem; }
+  .block-list.page-block-list.page-list li a img {
+    max-width: 33%; }
+  h1 {
+    font-size: 1.6875rem; }
+  h2 {
+    font-size: 1.5rem; }
+  h3 {
+    font-size: 1.25rem; }
+  h4 {
+    font-size: 1.125rem; }
+  h5 {
+    font-size: 1rem; }
+  h6 {
+    font-size: 1rem; } }
+
+@media only screen and (min-width:40.063em) and (max-width:54.375em) { }
+
+@media only screen and (min-width:40.063em) {
+  .article-page-layout .sidebar-left {
+    display: block;
+    margin-top: 6.25rem; }
+  .site-bg {
+    top: 11.25rem; }
+  h1 {
+    font-size: 2rem; }
+  h2 {
+    font-size: 1.6875rem; }
+  h3 {
+    font-size: 1.375rem; } }
+
+@media only screen and (min-width:64.063em) {
+  .article-page-layout .sidebar-left {
+    margin-top: 7.5rem; }
+  .block-list.page-block-list.page-list li a img {
+    max-width: 25%; }
+  .site-bg {
+    top: 13.125rem; } }
 
 /* Helsingborg.se - navigation */
 /* desktop navigation */
@@ -6008,7 +6050,7 @@ blockquote.alignright, img.alignright {
     font-weight: bold; }
   .main-nav .main-nav-list li.current {
     padding-top: 0.375rem;
-    background-color: #d6d7d3; }
+    background-color: #f3f3f2; }
     .main-nav .main-nav-list li.current > a {
       color: #45697d; }
       .main-nav .main-nav-list li.current > a:before {
@@ -6206,6 +6248,8 @@ blockquote.alignright, img.alignright {
 .footer {
   background-color: #45697d;
   margin-top: 2rem; }
+  .footer a:hover {
+    color: #19beff; }
 
 .footer-content {
   color: white;
@@ -6219,8 +6263,10 @@ blockquote.alignright, img.alignright {
     font-size: 0.875rem; }
   .footer-content ul {
     list-style: none; }
-  .footer-content a {
-    color: white; }
+    .footer-content ul a {
+      color: white; }
+      .footer-content ul a:hover {
+        color: #cccccc; }
   .footer-content .push-link {
     color: #009cde; }
 

@@ -2,6 +2,11 @@
 .footer {
 	background-color: $blue-1;
 	margin-top: rem-calc(32);
+	a {
+		&:hover {
+			color: scale-color($blue-2, $lightness: 20%);
+		}
+	}
 }
 
 .footer-content {
@@ -20,9 +25,12 @@
 
 	ul {
 		list-style: none;
-	}
-	a {
-		color: $white;
+		a {
+			color: $white;
+			&:hover {
+				color: scale-color($black, $lightness: 80%);
+			}
+		}
 	}
 
 	.push-link {
