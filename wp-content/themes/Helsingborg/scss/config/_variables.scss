@@ -6,6 +6,7 @@
  /* colors */
 $white 			:	#FFFFFF;
 $black			:	#000000;
+$black-text		:	#222;
 
 $hbg-header-color	:	#8fa5b1;
 	
@@ -86,6 +87,9 @@ $plus					:	"\e610";
 $rss					:	"\e611";
 $search					:	"\e612";
 $listen					:	"\e600";
+$facebook				:	"\e614";
+$twitter				:	"\e613";
 
-
-
+/* unicode symbols */
+$text-arrow				: 	"»";
+$nbsp					:	"\00a0";
