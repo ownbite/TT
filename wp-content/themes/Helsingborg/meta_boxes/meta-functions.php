@@ -13,7 +13,7 @@ function helsingborg_meta_init()
     // http://codex.wordpress.org/Function_Reference/wp_enqueue_style
 
     //wp_enqueue_script('helsingborg_meta_js', helsingborg_THEME_PATH . '/custom/meta.js', array('jquery'));
-    wp_enqueue_style('helsingborg_meta_css', helsingborg_THEME_PATH . '/meta_boxes/UI/meta.css');
+    //wp_enqueue_style('helsingborg_meta_css', helsingborg_THEME_PATH . '/meta_boxes/UI/meta.css');
 
     // review the function reference for parameter details
     // http://codex.wordpress.org/Function_Reference/add_meta_box
