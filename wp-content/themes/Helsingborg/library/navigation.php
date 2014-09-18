@@ -17,7 +17,7 @@ if ( ! function_exists( 'Helsingborg_sidebar_menu' ) ) {
       wp_nav_menu(array(
           'theme_location'  => 'sidebar-menu' ,
           'container'       => 'nav',
-          'container_class' => 'main-nav large-12 medium-6 columns',
+          'container_class' => 'main-nav large-12 columns show-for-medium-up',
           'container_id'    => '',
           'menu_class'      => 'main-nav-list',
           'menu_id'         => '',

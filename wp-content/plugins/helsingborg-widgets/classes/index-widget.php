@@ -1,6 +1,6 @@
 <?php
-if (!class_exists('News_List_Widget')) {
-  class News_List_Widget
+if (!class_exists('Index_Widget')) {
+  class Index_Widget
   {
     /**
      * Constructor
@@ -17,19 +17,19 @@ if (!class_exists('News_List_Widget')) {
      */
     public function add_widgets()
     {
-      register_widget( 'News_List_Widget_Box' );
+      register_widget( 'Index_Widget_Box' );
     }
 
   }
 }
 
-if (!class_exists('News_List_Widget_Box')) {
+if (!class_exists('Index_Widget_Box')) {
 {
-  class News_List_Widget_Box extends WP_Widget {
+  class Index_Widget_Box extends WP_Widget {
 
     /** constructor */
-    function News_List_Widget_Box() {
-      parent::WP_Widget(false, '* Nyhetsobjekt', array('description' => 'Renderar ut vald sida som nyhet.'));
+    function Index_Widget_Box() {
+      parent::WP_Widget(false, '* Indexobjekt', array('description' => 'Renderar ut vald sida som indexojekt.'));
     }
 
     /* Front-end display of widget*/
@@ -40,38 +40,38 @@ if (!class_exists('News_List_Widget_Box')) {
 
       if ( function_exists('icl_object_id') ) { $page_id = icl_object_id($page_id, "page"); }
 
+      echo $before_widget;
+
       if(!$page_id){
-        echo 'Ingen sida nyhetssida vald!';
+        echo 'Ingen sida indexsida vald!';
+        echo $after_widget;
         return;
       }
 
       // Get the page and it's link
       $page = get_page($page_id, OBJECT, 'display');
-      $link = get_permalink($page->ID); ?>
+      $link = get_permalink($page->ID);
 
-      <li class="news-item large-12 columns">
-        <div class="row">
-          <div class="large-4 medium-4 small-4 columns news-image">
-            <?php // Try to get the thumbnail for the page
-            if (has_post_thumbnail( $page->ID ) ) :
-              $image_id = get_post_thumbnail_id( $page->ID );
-              $image = wp_get_attachment_image_src( $image_id, 'single-post-thumbnail' );
-              $alt_text = get_post_meta($image_id, '_wp_attachment_image_alt', true);
-              ?>
-              <img src="<?php echo $image[0]; ?>" alt="<?php echo $alt_text; ?>">
-            <?php endif; ?>
-          </div>
+      // Try to get the thumbnail for the page
+      if (has_post_thumbnail( $page->ID ) ) :
+        $image_id = get_post_thumbnail_id( $page->ID );
+        $image = wp_get_attachment_image_src( $image_id, 'single-post-thumbnail' );
+        $alt_text = get_post_meta($image_id, '_wp_attachment_image_alt', true);
+      endif;
+      ?>
 
-          <div class="large-8 medium-8 small-8 columns news-content">
-            <h2 class="news-title"><?php echo $page->post_title ?></h2>
-            <span class="news-date"><?php echo $page->post_date ?></span>
+      <li>
+        <a href="<?php echo $link ?>" desc="link-desc">
+          <img src="<?php echo $image[0] ?>" alt="<?php echo $alt_text ?>">
+          <h2 class="list-title"><?php echo $page->post_title ?></h2>
+          <div class="list-content">
             <?php echo $this->fr_excerpt_by_id($page); ?>
-            <a href='<?php echo $link ?>' class="read-more">Läs mer</a>
           </div>
-        </div>
+        </a>
       </li>
 
-    <?php }
+      <?php echo $after_widget;
+    }
 
     // Function for retrieving the excerpt from page OR part of content if no excerpt was found
     function fr_excerpt_by_id($the_post, $excerpt_length = 35, $line_breaks = TRUE){

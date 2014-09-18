@@ -23,6 +23,9 @@
 		<?php
 		$colorcode = get_field('color_code');
 		if ($colorcode !== NULL) :
+			if($colorcode == '') {
+				$colorcode = '#ed8b00'; // Default color
+			}
 			list($r,$g,$b) = array_map('hexdec',str_split(ltrim($colorcode, '#'),2)); ?>
 			<style>
 				.divider.fade .upper-divider,
@@ -38,12 +41,46 @@
 							background: linear-gradient(to right,  rgba(<?php echo "$r,$g,$b" ?>,1) 60%,rgba(255,255,255,1) 100%); /* W3C */
 							filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='<?php echo $colorcode ?>', endColorstr='#ffffff',GradientType=1 ); /* IE6-8 */
 							}
+				.divider .upper-divider,
+        .divider .lower-divider {
+              background-color: rgb(<?php echo "$r,$g,$b" ?>);
+          		}
 			</style>
 	<?php endif; ?>
+	<?php wp_head(); ?>
 
-		<?php wp_head(); ?>
 	</head>
-	<body <?php body_class(); ?>>
+	<body>
+	<div class="site-bg"></div>
+	<nav class="mobile-nav">
+			<div class="mobile-navigation clearfix" role="navigation">
+					<a href="#" class="show-mobile-nav">Meny</a>
+					<a href="#" class="show-mobile-search">Sök</a>
+			</div>
+
+			<div class="mobile-search">
+					<div class="mobile-search-input-container">
+							<input type="text" class="mobile-search-input" placeholder="Din s&ouml;kning"/>
+							<input type="submit" class="mobile-search-btn" value="s&ouml;k" />
+					</div>
+			</div>
+			<ul class="mobile-nav-list" role="navigation">
+					<li><a href="#">Arbete</a></li>
+					<li><a href="#">Bygga, Bo och miljö</a></li>
+					<li><a href="#">Förskola och utbildning</a></li>
+					<li><a href="#">Kommun och politik</a></li>
+					<li><a href="#">Omsorg och stöd</a></li>
+					<li><a href="#">Trafik och stadsplanering</a></li>
+					<li><a href="#">Uppleva och göra</a></li>
+					<li><a href="#">RSS</a></li>
+					<li><a href="#">Press</a></li>
+					<li><a href="#">Larm</a></li>
+					<li><a href="#">Teckenspråk</a></li>
+					<li><a href="#">Lättläst</a></li>
+					<li><a href="#">English</a></li>
+					<li><a href="#">Translate</a></li>
+			</ul>
+	</nav>
 
 	<!-- HEADER START -->
 	<div class="main-site-container">
@@ -54,8 +91,10 @@
 							</a>
 					</div><!-- /.site-logo -->
 					<div class="support-nav large-8 medium-8 columns">
+
+							<a href="#" class="show-support-nav">Hjälpmeny </a>
+
 							<ul class="support-nav-list inline-list">
-									<li><a href="#">RSS</a></li>
 									<li><a href="#">Press</a></li>
 									<li><a href="#">Larm</a></li>
 									<li><a href="#">Teckenspråk</a></li>
