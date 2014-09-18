@@ -34,8 +34,7 @@ if (!class_exists('Slider_Widget_Box')) {
     /** @see WP_Widget::widget */
     function widget($args, $instance) {
       extract($args);
-      $title = apply_filters('widget_title', $instance['title']);
-      $page_id = (int) $instance['page_id'];
+      $page_id = (int) apply_filters('widget_title', $instance['page_id']);
 
       if ( function_exists('icl_object_id') ) { $page_id = icl_object_id($page_id, "page"); }
 
@@ -43,7 +42,7 @@ if (!class_exists('Slider_Widget_Box')) {
 
       if(!$page_id){
         echo 'Ingen sida vald!';
-        //echo $after_widget;
+        echo $after_widget;
         return;
       }
 
@@ -74,20 +73,13 @@ if (!class_exists('Slider_Widget_Box')) {
     /** @see WP_Widget::update */
     function update($new_instance, $old_instance) {
       $instance = $old_instance;
-      $instance['title'] = strip_tags($new_instance['title']);
       $instance['page_id'] = (int) $new_instance['page_id'];
       return $instance;
     }
 
     /** @see WP_Widget::form */
     function form($instance) {
-      $title = '';
       $page_id = 0;
-      $checked = '';
-
-      if (isset($instance['title'])) {
-        $title = esc_attr($instance['title']);
-      }
 
       if (isset($instance['page_id'])) {
         $page_id = (int) esc_attr($instance['page_id']);
@@ -98,7 +90,6 @@ if (!class_exists('Slider_Widget_Box')) {
         'name' => $this->get_field_name('page_id'),
       ); ?>
 
-      <p><label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:'); ?> <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo $title; ?>" /></label></p>
       <p><?php wp_dropdown_pages($pageIdArgs); ?></p>
 
   <?php
