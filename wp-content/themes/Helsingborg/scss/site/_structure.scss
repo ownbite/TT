@@ -408,7 +408,89 @@ img.alignright {
 	 * ------------------------------------
 	 */
 
-	// Insert styles here
+
+
+	/**
+	 * 4.6 Table
+	 * ------------------------------------
+	 */
+
+	 /* table-list */
+	 .table-list {
+	 	border-spacing: 0;
+	 	.table-item td:last-child {
+	  		background: url(#{$wp-root-url}/assets/img/tablesorter-icons/asc.gif) 95% center no-repeat;
+	 	}
+	 	td,
+	 	th {
+	 		border: none;
+	 		padding: rem-calc(16) rem-calc(10);
+	 	}
+	 	thead th,
+	 	.table-item.odd {
+			background-color: scale-color($gray-3, $lightness: 70%);
+	 	}
+	 	.table-item {
+	 		&:hover {
+	 			cursor: pointer;
+				background-color: scale-color($gray-3, $lightness: 40%);
+	 		}
+	 		&.active {
+				background-color: scale-color($gray-3, $lightness: 40%);	 			
+	 		}
+	 		td {
+	 			color: scale-color($black, $lightness: 20%);
+	 		}
+	 		td:last-child {
+	 			padding-right: rem-calc(24);
+	 		}
+	 	}
+	 }
+
+ 	.table-content {
+ 		h2 {
+ 			font-size: rem-calc(18);
+ 			font-weight: 500;
+ 			color: $headline-color;
+ 		}
+ 		td {
+ 			display: none;
+ 			background: $white;
+ 			@include box-shadow-advanced(0, 2, 1, 0,0,0,.35, true, false);
+ 			border-bottom: 1px solid scale-color($gray-3, $lightness: 40%);
+ 		}
+ 		.td-content,
+ 		.td-content p {
+ 			font-size: rem-calc(14);
+ 		}
+ 		&.open td {
+ 			display: table-cell;
+ 		}
+ 	}
+
+	.facts-table,
+	.table-list {
+		thead th:first-child,
+		tbody tr th {
+			display: none;
+		}
+	}
+
+
+	 /* table sorter plugin style */
+	 .table-list .header {
+	 	background: url(#{$wp-root-url}/assets/img/tablesorter-icons/bg.gif) right center no-repeat;
+	 	cursor: pointer;
+	 	&.headerSortDown {
+	 		background: url(#{$wp-root-url}/assets/img/tablesorter-icons/asc.gif) right center no-repeat;
+	 	}
+	 	&.headerSortUp {
+	 		background: url(#{$wp-root-url}/assets/img/tablesorter-icons/desc.gif) right center no-repeat;
+	 	}
+	 	&:last-child {
+	 		background-position: 95% center;
+	 	}
+	 }
 
 
 /**
@@ -462,13 +544,13 @@ img.alignright {
  		font-size: rem-calc(16);
  	}
 
-
 }
 @media #{$custom-medium-only} {
 
 }
  @media #{$medium-up} {
- 	.article-page-layout {
+ 	.article-page-layout,
+ 	.list-page-layout {
  		.sidebar-left {
  			display: block;
  			margin-top: rem-calc(100);		
@@ -481,14 +563,15 @@ img.alignright {
  		font-size: rem-calc(32);
  	}
  	h2 {
- 		font-size: rem-calc(27);
+ 		font-size: rem-calc(24);
  	}
  	h3 {
- 		font-size: rem-calc(22);
+ 		font-size: rem-calc(20);
  	}
  }
  @media #{$large-up} {
- 	.article-page-layout {
+ 	.article-page-layout,
+ 	.list-page-layout {
  		.sidebar-left {
  			margin-top: rem-calc(120);
  		}

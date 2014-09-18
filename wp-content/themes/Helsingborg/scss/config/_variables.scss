@@ -36,8 +36,7 @@ $yellow				:	#e1cd00;
 /* color - interpolations */
 /* push links */
 $main-nav-hover-color 	:	 ;
-
-
+$headline-color			: 	scale-color($black, $lightness: 20%);
 /* colors for .push-link-widget */
 $self-service-color		:	#4cbae8;
 $report-error-color		:	#78ba71;

@@ -5977,6 +5977,59 @@ blockquote.alignright, img.alignright {
 	 * ------------------------------------
 	 */
 /**
+	 * 4.6 Table
+	 * ------------------------------------
+	 */
+/* table-list */
+.table-list {
+  border-spacing: 0; }
+  .table-list .table-item td:last-child {
+    background: url(/wp-content/themes/Helsingborg/assets/img/tablesorter-icons/asc.gif) 95% center no-repeat; }
+  .table-list td, .table-list th {
+    border: none;
+    padding: 1rem 0.625rem; }
+  .table-list thead th, .table-list .table-item.odd {
+    background-color: #f3f3f2; }
+  .table-list .table-item:hover {
+    cursor: pointer;
+    background-color: #e6e7e5; }
+  .table-list .table-item.active {
+    background-color: #e6e7e5; }
+  .table-list .table-item td {
+    color: #333333; }
+  .table-list .table-item td:last-child {
+    padding-right: 1.5rem; }
+
+.table-content h2 {
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: #333333; }
+.table-content td {
+  display: none;
+  background: white;
+  -moz-box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.35) inset;
+  box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.35) inset;
+  border-bottom: 1px solid #e6e7e5; }
+.table-content .td-content, .table-content .td-content p {
+  font-size: 0.875rem; }
+.table-content.open td {
+  display: table-cell; }
+
+.facts-table thead th:first-child, .facts-table tbody tr th, .table-list thead th:first-child, .table-list tbody tr th {
+  display: none; }
+
+/* table sorter plugin style */
+.table-list .header {
+  background: url(/wp-content/themes/Helsingborg/assets/img/tablesorter-icons/bg.gif) right center no-repeat;
+  cursor: pointer; }
+  .table-list .header.headerSortDown {
+    background: url(/wp-content/themes/Helsingborg/assets/img/tablesorter-icons/asc.gif) right center no-repeat; }
+  .table-list .header.headerSortUp {
+    background: url(/wp-content/themes/Helsingborg/assets/img/tablesorter-icons/desc.gif) right center no-repeat; }
+  .table-list .header:last-child {
+    background-position: 95% center; }
+
+/**
  * 5.0 Plugins
  * ----------------------------------------------------------------------------
  */
@@ -6011,7 +6064,7 @@ blockquote.alignright, img.alignright {
 @media only screen and (min-width:40.063em) and (max-width:54.375em) { }
 
 @media only screen and (min-width:40.063em) {
-  .article-page-layout .sidebar-left {
+  .article-page-layout .sidebar-left, .list-page-layout .sidebar-left {
     display: block;
     margin-top: 6.25rem; }
   .site-bg {
@@ -6019,12 +6072,12 @@ blockquote.alignright, img.alignright {
   h1 {
     font-size: 2rem; }
   h2 {
-    font-size: 1.6875rem; }
+    font-size: 1.5rem; }
   h3 {
-    font-size: 1.375rem; } }
+    font-size: 1.25rem; } }
 
 @media only screen and (min-width:64.063em) {
-  .article-page-layout .sidebar-left {
+  .article-page-layout .sidebar-left, .list-page-layout .sidebar-left {
     margin-top: 7.5rem; }
   .block-list.page-block-list.page-list li a img {
     max-width: 25%; }
