@@ -25,7 +25,7 @@ if (!class_exists('SimpleLinkListWidget')) {
 
     /** constructor */
     function SimpleLinkListWidget() {
-      parent::WP_Widget(false, '* List widget', array('description' => 'Lägg till de länkar som du vill visa.'));
+      parent::WP_Widget(false, '* Listor', array('description' => 'Lägg till de länkar som du vill visa.'));
     }
 
     public function widget( $args, $instance ) {
@@ -35,79 +35,135 @@ if (!class_exists('SimpleLinkListWidget')) {
       $title = apply_filters('widget_title', empty($instance['title']) ? __('List') : $instance['title']);
       $rss_link = empty($instance['rss_link']) ? '#' : $instance['rss_link']; // TODO: Proper default ?
       $show_rss = empty($instance['show_rss']) ? 'rss_no' : $instance['show_rss'];
+      $show_placement = empty($instance['show_placement']) ? 'show_in_sidebar' : $instance['show_placement'];
       $show_dates = isset($instance['show_dates']) ? $instance['show_dates'] : false;
       $amount = empty($instance['amount']) ? 3 : $instance['amount'];
 
+      // Retrieved all links
       for ($i = 1; $i <= $amount; $i++) {
         $items[$i-1] = $instance['item'.$i];
         $item_links[$i-1] = $instance['item_link'.$i];
         $item_targets[$i-1] = isset($instance['item_target'.$i]) ? $instance['item_target'.$i] : false;
         $item_ids[$i-1] = $instance['item_id'.$i];
-      } ?>
+      }
 
-      <div class="quick-links-widget widget large-12 medium-6 columns">
-        <div class="widget-content">
-          <h2 class="widget-title"><?php echo $title ?>
-            <?php if ($show_rss == 'rss_yes') { echo('<span class="icon">∞</span>'); } // TODO: Add link onclick ?>
-          </h2>
+      if ($show_placement == 'show_in_sidebar') : ?>
 
-          <div class="divider">
+        <div class="quick-links-widget widget large-12 medium-6 columns">
+          <div class="widget-content">
+            <h2 class="widget-title"><?php echo $title ?>
+              <?php if ($show_rss == 'rss_yes') { echo('<span class="icon">∞</span>'); } // TODO: Add link onclick ?>
+            </h2>
+
+            <div class="divider">
+              <div class="upper-divider"></div>
+              <div class="lower-divider"></div>
+            </div>
+
+            <ul class="quick-links-list">
+
+            <?php
+            $today = strtotime(date('Y-m-d'));
+
+            foreach ($items as $num => $item) :
+                $title;
+                $item_id = $item_ids[$num];
+
+                // Check if link should be opened in new window
+                if ($item_targets[$num]) {
+                  $target = 'target="_blank"';
+                } else {
+                  $target = '';
+                }
+
+                // Get the page
+                $page = get_post($item_id, OBJECT, 'display');
+
+                if (!empty($item_id)) {
+                  $title = $page->post_title;
+                  $link = get_permalink($page->ID);
+                  echo('<li><a href="' . $link . '" ' . $target . '>' . $title . '</a></li>');
+
+                  if ($show_dates) {
+                    // Parse the dates presented in the event
+                    $datetime_start = strtotime($page->post_date);
+                    $datetime_end = strtotime($page->post_date);
+                    $date = date('Y-m-d', $datetime_start);
+                    $time = date('H:i', $datetime_start);
+
+                    // Present 'Idag HH:ii' or 'YYYY-mm-dd'
+                    if ($today > $datetime_start && $today < $datetime_end) {
+                      echo('<span class="date">Idag ' . $time . '</span>');
+                    } else {
+                      echo('<span class="date">' . $date . '</span>');
+                    }
+                  }
+                } else {
+                  $title = $item;
+                  $link = $item_links[$num];
+                  echo('<li><a href="' . $link . '" ' . $target . '>' . $title . '</a></li>');
+                }
+            endforeach; ?>
+
+            </ul>
+          </div><!-- /.widget-content -->
+        </div><!-- /.widget -->
+      <?php
+
+      else : ?>
+
+        <section class="news-section">
+          <h2 class="section-title"><?php echo $title; ?></h2>
+          <div class="divider fade">
             <div class="upper-divider"></div>
             <div class="lower-divider"></div>
           </div>
+          <ul class="news-list-small row"> <?php
+            $today = strtotime(date('Y-m-d'));
 
-          <ul class="quick-links-list">
+            foreach ($items as $num => $item) :
+                $item_id = $item_ids[$num];
+                $page = get_post($item_id, OBJECT, 'display');
 
-          <?php
-          $today = strtotime(date('Y-m-d'));
-
-          foreach ($items as $num => $item) :
-              $title;
-              $item_id = $item_ids[$num];
-
-              // Check if link should be opened in new window
-              if ($item_targets[$num]) {
-                $target = 'target="_blank"';
-              } else {
-                $target = '';
-              }
-
-              // Get the page
-              $page = get_post($item_id, OBJECT, 'display');
-
-              if (!empty($item_id)) {
-                $title = $page->post_title;
-                $link = get_permalink($page->ID);
-                echo('<li><a href="' . $link . '" ' . $target . '>' . $title . '</a></li>');
-
-                if ($show_dates) {
-                  // Parse the dates presented in the event
-                  $datetime_start = strtotime($page->post_date);
-                  $datetime_end = strtotime($page->post_date);
-
-                  // Save the events date and time
-                  $date = date('Y-m-d', $datetime_start);
-                  $time = date('H:i', $datetime_start);
-
-                  // Present 'Idag HH:ii' or 'YYYY-mm-dd'
-                  if ($today > $datetime_start && $today < $datetime_end) {
-                    echo('<span class="date">Idag ' . $time . '</span>');
-                  } else {
-                    echo('<span class="date">' . $date . '</span>');
-                  }
+                // Check if link should be opened in new window
+                if ($item_targets[$num]) {
+                  $target = 'target="_blank"';
+                } else {
+                  $target = '';
                 }
-              } else {
-                $title = $item;
-                $link = $item_links[$num];
-                echo('<li><a href="' . $link . '" ' . $target . '>' . $title . '</a></li>');
-              }
-          endforeach; ?>
 
+                $title;
+                if (!empty($item_id)) {
+                  $title = $page->post_title;
+                  $link = get_permalink($page->ID);
+                } else {
+                  $title = $item;
+                  $link = $item_links[$num];
+                }
+
+                echo('<li class="news-item large-12 columns">');
+                  echo('<div class="row">');
+                    echo('<div class="large-9 medium-9 small-9 columns news-content">');
+                      echo('<h2 class="news-title"><a href="' . $link . '" ' . $target . '>' . $title . '</a></h2>');
+                    echo('</div>');
+
+                    echo('<div class="large-3 medium-3 small-3 columns">');
+                      if ($show_dates) :
+                        $datetime_start = strtotime($page->post_date);
+                        $date = date('n M Y', $datetime_start);
+                        echo('<span class="news-date">' . $date . '</span>');
+                      endif;
+                    echo('</div>');
+                  echo('</div><!-- !row -->');
+                echo('</li>');
+            endforeach; ?>
           </ul>
-        </div><!-- /.widget-content -->
-      </div><!-- /.widget -->
+        </section>
 
-      <?php echo $after_widget;
+      <?php endif;
+
+
+      echo $after_widget;
     }
 
     public function update( $new_instance, $old_instance) {
@@ -157,6 +213,7 @@ if (!class_exists('SimpleLinkListWidget')) {
 
       $instance['amount'] = $amount;
       $instance['show_rss'] = strip_tags($new_instance['show_rss']);
+      $instance['show_placement'] = strip_tags($new_instance['show_placement']);
       $instance['show_dates'] = empty($new_instance['show_dates']) ? '' : strip_tags($new_instance['show_dates']);
 
       return $instance;
@@ -174,12 +231,21 @@ if (!class_exists('SimpleLinkListWidget')) {
         $item_targets[$i] = empty($instance['item_target'.$i]) ? '' : $instance['item_target'.$i];
         $item_ids[$i] = empty($instance['item_id'.$i]) ? '' : $instance['item_id'.$i];
       }
+
       $title_link = $instance['title_link'];
       $show_rss = empty($instance['show_rss']) ? 'rss_no' : $instance['show_rss'] ;
+      $show_placement = empty($instance['show_placement']) ? 'show_in_sidebar' : $instance['show_placement'];
       $show_dates = empty($instance['show_dates']) ? '' : $instance['show_dates'];
   ?>
       <p><label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:'); ?></label>
       <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr($title); ?>" /></p>
+
+      <div class="sllw-row">
+        <label><b>OBS! Vart ska denna visas?  </b></label><br>
+        <label for="<?php echo $this->get_field_id('show_in_content'); ?>"><input type="radio" name="<?php echo $this->get_field_name('show_placement'); ?>" value="show_in_content" id="<?php echo $this->get_field_id('show_in_content'); ?>" <?php checked($show_placement, "show_in_content"); ?> />  <?php echo __("Under innehållet"); ?></label>
+        <label for="<?php echo $this->get_field_id('show_in_sidebar'); ?>"><input type="radio" name="<?php echo $this->get_field_name('show_placement'); ?>" value="show_in_sidebar" id="<?php echo $this->get_field_id('show_in_sidebar'); ?>" <?php checked($show_placement, "show_in_sidebar"); ?> /> <?php echo __("I högerkolumnen"); ?></label>
+      </div>
+
       <ul class="sllw-instructions">
         <li><?php echo __("Titel är det som visas i widgetens header."); ?></li>
         <li><?php echo __("Om en länk refererar till en intern sida (dvs. dropdownen) så används den."); ?></li>
@@ -264,7 +330,6 @@ if (!class_exists('SimpleLinkListWidget')) {
 
       <input type="hidden" id="<?php echo $this->get_field_id('amount'); ?>" class="amount" name="<?php echo $this->get_field_name('amount'); ?>" value="<?php echo $amount ?>" />
       <input type="hidden" id="<?php echo $this->get_field_id('order'); ?>" class="order" name="<?php echo $this->get_field_name('order'); ?>" value="<?php echo implode(',',range(1,$amount)); ?>" />
-
 
       <div class="sllw-row">
         <label>Visa RSS?  </label>

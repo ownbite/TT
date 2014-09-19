@@ -45,8 +45,6 @@ get_header();
                   </div><!-- /.slider-container -->
                 </div><!-- /.row -->
 
-
-
                 <div class="listen-to">
                     <a href="#" class="icon"><span>Lyssna på innehållet</span></a>
                 </div>
@@ -95,135 +93,8 @@ get_header();
             <?php
             // Only print out if content area has any widgets available
             if ( (is_active_sidebar('content-area') == TRUE) ) : ?>
-              <ul class="block-list page-block-list page-list large-block-grid-3 medium-block-grid-3 small-block-grid-2">
-                <?php dynamic_sidebar("content-area"); ?>
-              </ul>
+              <?php dynamic_sidebar("content-area"); ?>
             <?php endif; ?>
-
-            <ul class="block-list page-block-list page-list large-block-grid-3 medium-block-grid-3 small-block-grid-2">
-                <li>
-                    <a href="#" desc="link-desc">
-                        <img src="http://www.placehold.it/300x200" alt="alt-text"/>
-                        <h2 class="list-title">Bibliotek</h2>
-                        <div class="list-content">
-Fusce euismod ante sed aliquam porta. Nam dui mauris, posuere eget lobortis vel, vehicula congue dui. Phasellus pellentesque et lacus quis suscipit.
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" desc="link-desc">
-                        <img src="http://www.placehold.it/300x200" alt="alt-text"/>
-                        <h2 class="list-title">Kultur i Helsingborg</h2>
-                        <div class="list-content">
-Fusce euismod ante sed aliquam porta. Nam dui mauris, posuere eget lobortis vel, vehicula congue dui. Phasellus pellentesque et lacus quis suscipit.
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" desc="link-desc">
-                        <img src="http://www.placehold.it/300x200" alt="alt-text"/>
-                        <h2 class="list-title">Friluftsliv i Helsingborg</h2>
-                        <div class="list-content">
-Fusce euismod ante sed aliquam porta. Nam dui mauris, posuere eget lobortis vel, vehicula congue dui. Phasellus pellentesque et lacus quis suscipit.
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" desc="link-desc">
-                        <img src="http://www.placehold.it/300x200" alt="alt-text"/>
-                        <h2 class="list-title">Fritidsgårdar och mötesplatser</h2>
-                        <div class="list-content">
-Fusce euismod ante sed aliquam porta. Nam dui mauris, posuere eget lobortis vel, vehicula congue dui. Phasellus pellentesque et lacus quis suscipit.
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" desc="link-desc">
-                        <img src="http://www.placehold.it/300x200" alt="alt-text"/>
-                        <h2 class="list-title">Anläggningar och sporthallar</h2>
-                        <div class="list-content">
-Fusce euismod ante sed aliquam porta. Nam dui mauris, posuere eget lobortis vel, vehicula congue dui. Phasellus pellentesque et lacus quis suscipit.
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" desc="link-desc">
-                        <img src="http://www.placehold.it/300x200" alt="alt-text"/>
-                        <h2 class="list-title">Fritidschecken pulshöjaren</h2>
-                        <div class="list-content">
-Fusce euismod ante sed aliquam porta. Nam dui mauris, posuere eget lobortis vel, vehicula congue dui. Phasellus pellentesque et lacus quis suscipit.
-                        </div>
-                    </a>
-                </li>
-            </ul>
-
-            <!-- news list -->
-            <section class="news-section">
-            <ul class="news-list-large row">
-                <li class="news-item large-12 columns">
-                    <div class="row">
-                        <div class="large-5 medium-4 small-4 columns news-image">
-                            <img src="http://www.placehold.it/300x300" alt="alt-text">
-                        </div>
-                        <div class="large-7 medium-8 small-8 columns news-content">
-                            <h2 class="news-title">Du kan förtidsrösta innan valdagen</h2>
-                            <span class="news-date">28 aug 2014 15:58</span>
-                            <p>Den 27 augusti-13 september kan du förtidsrösta på flera platser i Helsingborg. För att rösta måste du le- gitimera dig, ta med giltig id-handling och röstkort till vallokalen.</p>
-                            <a href="#" class="read-more">Läs mer</a>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-            </section>
-
-            <section class="news-section">
-            <h2 class="section-title">Fler nyheter</h2>
-
-            <div class="divider fade">
-                    <div class="upper-divider"></div>
-                    <div class="lower-divider"></div>
-                </div>
-
-            <ul class="news-list-small row">
-                <li class="news-item large-12 columns">
-                    <div class="row">
-                        <div class="large-9 medium-9 small-9 columns news-content">
-                            <h2 class="news-title">
-                                <a href="#">Två gångbroar i Vallåkra avstängda under renovering</a>
-                            </h2>
-                        </div><!-- /.large-12 -->
-                        <div class="large-3 medium-3 small-3 columns">
-                            <span class="news-date">5 sep 2014</span>
-                        </div>
-                    </div><!-- /.row -->
-                </li>
-                <li class="news-item large-12 columns">
-                    <div class="row">
-                        <div class="large-9 medium-9 small-9 columns news-content">
-                            <h2 class="news-title">
-                                <a href="#">Enklare att sortera skräp på stan</a>
-                            </h2>
-                        </div><!-- /.large-12 -->
-                        <div class="large-3 medium-3 small-3 columns">
-                            <span class="news-date">5 sep 2014</span>
-                        </div>
-                    </div><!-- /.row -->
-                </li>
-                <li class="news-item large-12 columns">
-                    <div class="row">
-                        <div class="large-9 medium-9 small-9 columns news-content">
-                            <h2 class="news-title">
-                                <a href="#">Två gångbroar i Vallåkra avstängda under renovering</a>
-                            </h2>
-                        </div><!-- /.large-12 -->
-                        <div class="large-3 medium-3 small-3 columns">
-                            <span class="news-date">5 sep 2014</span>
-                        </div>
-                    </div><!-- /.row -->
-                </li>
-
-            </ul>
-            </section>
 
             <!-- END LIST + BLOCK puffs :-) -->
         </div><!-- /.columns -->

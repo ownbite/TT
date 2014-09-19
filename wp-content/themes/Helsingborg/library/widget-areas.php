@@ -20,13 +20,13 @@ function Helsingborg_sidebar_widgets() {
 
   register_sidebar(array(
       'id' => 'content-area-bottom',
-      'name' => __('Innehållsarea längst ner', 'Helsingborg'),
+      'name' => __('Innehåll bottenarea', 'Helsingborg'),
       'description' => __('Lägg till det som ska visas under "Innehållsarea".', 'Helsingborg')
   ));
 
   register_sidebar(array(
       'id' => 'slider-area',
-      'name' => __('Sliderarea', 'Helsingborg'),
+      'name' => __('Bildarea', 'Helsingborg'),
       'description' => __('Lägg till de sliders som ska visas på sidan.', 'Helsingborg'),
       'before_widget' => '',
       'after_widget' => ''

@@ -27,7 +27,7 @@ if (!class_exists('Slider_Widget_Box')) {
 
     /** constructor */
     function Slider_Widget_Box() {
-      parent::WP_Widget(false, '* Sliderobjekt', array('description' => 'Renderar ut vald sida som slider.'));
+      parent::WP_Widget(false, '* Bildobjekt', array('description' => 'Renderar ut vald sida som bild.'));
     }
 
     /* Front-end display of widget*/

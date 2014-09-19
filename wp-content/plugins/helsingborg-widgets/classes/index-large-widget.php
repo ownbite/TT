@@ -1,6 +1,6 @@
 <?php
-if (!class_exists('Index_Widget')) {
-  class Index_Widget
+if (!class_exists('Index_Large_Widget')) {
+  class Index_Large_Widget
   {
     /**
      * Constructor
@@ -15,17 +15,17 @@ if (!class_exists('Index_Widget')) {
      */
     public function add_widgets()
     {
-      register_widget( 'Index_Widget_Box' );
+      register_widget( 'Index_Large_Widget_Box' );
     }
   }
 }
 
-if (!class_exists('Index_Widget_Box')) {
-  class Index_Widget_Box extends WP_Widget {
+if (!class_exists('Index_Large_Widget_Box')) {
+  class Index_Large_Widget_Box extends WP_Widget {
 
     /** constructor */
-    function Index_Widget_Box() {
-      parent::WP_Widget(false, '* Indexpuffar', array('description' => 'Lägg till de indexpuffar som du vill visa.'));
+    function Index_Large_Widget_Box() {
+      parent::WP_Widget(false, '* Nyhetspuffar', array('description' => 'Lägg till de nyhetspuffar som du vill visa.'));
     }
 
     public function widget( $args, $instance ) {
@@ -33,36 +33,40 @@ if (!class_exists('Index_Widget_Box')) {
 
       // Get all the data saved
       $amount = empty($instance['amount']) ? 1 : $instance['amount'];
-      $page_list = isset($instance['page_list']) ? $instance['page_list'] : false;
-      $page_list_output = ($page_list) ? 'page-list' : '';
 
       for ($i = 1; $i <= $amount; $i++) {
         $items[$i-1] = $instance['item'.$i];
         $item_ids[$i-1] = $instance['item_id'.$i];
       } ?>
 
-      <ul class="block-list page-block-list <?php echo $page_list_output; ?> large-block-grid-3 medium-block-grid-3 small-block-grid-2">
-      <?php // Go through all list items and present as a list
-      foreach ($items as $num => $item) :
-          $item_id = $item_ids[$num];
-          $page = get_page($item_id, OBJECT, 'display');
-          $link = get_permalink($page->ID); ?>
-        <li>
-          <a href="<?php echo $link ?>" desc="link-desc">
-            <?php if (has_post_thumbnail( $page->ID ) ) :
-              $image_id = get_post_thumbnail_id( $page->ID );
-              $image = wp_get_attachment_image_src( $image_id, 'single-post-thumbnail' );
-              $alt_text = get_post_meta($image_id, '_wp_attachment_image_alt', true); ?>
-              <img src="<?php echo $image[0]; ?>" alt="<?php echo $alt_text; ?>">
-            <?php endif; ?>
-            <h2 class="list-title"><?php echo $page->post_title ?></h2>
-            <div class="list-content">
-              <?php echo $this->fr_excerpt_by_id($page); ?>
+      <section class="news-section">
+        <ul class="news-list-large row">
+        <?php // Go through all list items and present as a list
+        foreach ($items as $num => $item) :
+            $item_id = $item_ids[$num];
+            $page = get_page($item_id, OBJECT, 'display');
+            $link = get_permalink($page->ID); ?>
+          <li class="news-item large-12 columns">
+            <div class="row">
+              <div class="large-5 medium-4 small-4 columns news-image">
+              <?php if (has_post_thumbnail( $page->ID ) ) :
+                $image_id = get_post_thumbnail_id( $page->ID );
+                $image = wp_get_attachment_image_src( $image_id, 'single-post-thumbnail' );
+                $alt_text = get_post_meta($image_id, '_wp_attachment_image_alt', true); ?>
+                <img src="<?php echo $image[0]; ?>" alt="<?php echo $alt_text; ?>">
+              <?php endif; ?>
+              </div>
+              <div class="large-7 medium-8 small-8 columns news-content">
+                <h2 class="news-title"><?php echo $page->post_title ?></h2>
+                <span class="news-date>"></span>
+                <?php echo $this->fr_excerpt_by_id($page); ?>
+                <a href="<?php echo $link ?>" class="read-more">Läs mer</a>
+              </div>
             </div>
-          </a>
-        </li>
-      <?php endforeach; ?>
-      </ul>
+          </li>
+        <?php endforeach; ?>
+        </ul>
+      </section>
 
       <?php
     }
@@ -124,14 +128,12 @@ if (!class_exists('Index_Widget_Box')) {
       }
 
       $instance['amount'] = $amount;
-      $instance['page_list'] = empty($new_instance['page_list']) ? '' : strip_tags($new_instance['page_list']);
 
       return $instance;
     }
 
     public function form ( $instance ) {
       $amount = empty($instance['amount']) ? 1 : $instance['amount'];
-      $page_list = empty($instance['page_list']) ? '' : $instance['page_list'];
 
       for ($i = 1; $i <= $amount; $i++) {
         $items[$i] = empty($instance['item'.$i]) ? '' : $instance['item'.$i];
@@ -144,8 +146,7 @@ if (!class_exists('Index_Widget_Box')) {
       </ul>
 
       <div class="simple-link-list">
-      <?php
-      foreach ($items as $num => $item) :
+      <?php foreach ($items as $num => $item) :
         $item = esc_attr($item);
         $item_id = esc_attr($item_ids[$num]);
         $h5 = esc_attr($item);
@@ -210,10 +211,6 @@ if (!class_exists('Index_Widget_Box')) {
 
       <input type="hidden" id="<?php echo $this->get_field_id('amount'); ?>" class="amount" name="<?php echo $this->get_field_name('amount'); ?>" value="<?php echo $amount ?>" />
       <input type="hidden" id="<?php echo $this->get_field_id('order'); ?>" class="order" name="<?php echo $this->get_field_name('order'); ?>" value="<?php echo implode(',',range(1,$amount)); ?>" />
-
-      <div class="sllw-row">
-        <input type="checkbox" name="<?php echo $this->get_field_name('page_list'); ?>" id="<?php echo $this->get_field_id('page_list'); ?>" <?php checked($page_list, 'on'); ?> /> <label for="<?php echo $this->get_field_id('page_list'); ?>"><?php echo __("Visa som lista? "); ?></label>
-      </div>
 
 <?php
     }
