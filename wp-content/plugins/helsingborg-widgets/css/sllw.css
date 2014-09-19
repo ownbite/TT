@@ -32,6 +32,7 @@
 .moving-handle:hover a.sllw-action:after{
 	color:#777;
 }
+.cursor {cursor:pointer;}
 .list-item {padding:6px 0 4px; display:block; position: relative; zoom: 1;}
 .list-item:hover .moving-handle {background:#eaeaea;}
 .sortable-placeholder {border:1px solid #FF9; background:#FFFFDF; display:block; margin:12px 0 0;}

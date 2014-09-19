@@ -8,7 +8,6 @@ if (!class_exists('News_List_Widget')) {
     public function __construct()
     {
       // Set hooks
-      add_action('admin_enqueue_scripts', array($this,'sllw_load_scripts'));
       add_action( 'widgets_init', array( $this, 'add_widgets' ) );
     }
 
