@@ -33,7 +33,6 @@ body {
 .main-site-container,
 .footer {
 	position: relative;
-	z-index: level-2;
 	@include site-space;
 	> .row {
 		max-width: rem-calc($max-site-width);
@@ -163,7 +162,7 @@ img.alignright {
 
 /* accesability icons */
 .listen-to {
-	margin-top: rem-calc(16);
+	margin-top: rem-calc(16);	
 	.icon {
 		display: block;
 		&:before {
@@ -180,18 +179,40 @@ img.alignright {
 	}
 }
 
+.main-page-layout .listen-to {
+	margin-top: 0;
+}
+
 /* social media */
 .socialmedia-list {
-	li.fbook {
-		a:before {
-			@include hbg-icons($facebook);
-			color: $blue-1;
+	list-style: none;
+	margin-left: 0;
+	li { display: inline-block; }
+	li a {
+		display: block;
+		width: 32px;
+		height: 32px;
+		text-indent: -999em;
+		background: url(#{$wp-root-url}/assets/socialmedia-icons/social-icon-sprite.png) 0 0 no-repeat; 
+	}
+	li.fbook a {
+		background-position: 0 0;
+		&:hover {
+			background-position: 0 -32px;
 		}
 	}
-	li.twitter {
-		a:before {
-			@include hbg-icons($twitter);
-			color: $blue-1;
+	li.twitter a {
+		background-position: 0 -63px;
+		&:hover {
+			background-position: 0 -95px;
+		}		
+	}
+}
+
+@media #{$retina} {
+	.socialmedia-list {
+		li a {
+			background: url(#{$wp-root-url}/assets/socialmedia-icons/social-icon-sprite2x.png) 0 0 no-repeat; 
 		}
 	}
 }
@@ -219,6 +240,11 @@ img.alignright {
 		margin-bottom: rem-calc(32);
 	}
 
+	.read-more {
+		&:after {
+			content: $nbsp $text-arrow;
+		}
+	}
 
 	/**
 	 * 4.1 Startpage - content area
@@ -266,12 +292,11 @@ img.alignright {
 
 
 	 .news-list-large {
-	 	li {
-	 	}
+	 	li { }
 	  }
 	  .news-list-small {
 	  	li {
-	  		margin-bottom: rem-calc(16);
+	  		margin-bottom: rem-calc(6);
 		  		.news-date {
 		  			float: right;
 		  			line-height: rem-calc(32);
@@ -369,6 +394,9 @@ img.alignright {
 	}
 	.article {
 		@extend %comp-end-margin;
+		img {
+			border-radius: $border-radius;
+		}
 	}
 
 	.article-body {
@@ -381,39 +409,44 @@ img.alignright {
 		}
 	}
 
-	/**
-	 * 4.3 Widgets
-	 * ------------------------------------
-	 */
-
-	// Insert styles here
-
-
-	/**
-	 * 4.4 Comments
-	 * ------------------------------------
-	 */
-
-	// Insert styles here
-
-
-	/**
-	 * 4.5 Lists
-	 * ------------------------------------
-	 */
-
-
-	/**
-	 * 4.6 Forms
-	 * ------------------------------------
-	 */
 
 
 
 	/**
-	 * 4.6 Table
+	 * 4.6 Table-List + List search
 	 * ------------------------------------
 	 */
+
+	 /* Search in List */
+	 .filter-search {
+	 	background-color: scale-color($gray-3, $lightness: 70%);
+	 	border: 1px solid scale-color($gray-3, $lightness: 30%);
+	 	padding: rem-calc(16) rem-calc(10);
+	 	@extend %comp-end-margin;
+	 	
+	 	input[type="text"],
+	 	input[type="submit"] {
+	 		margin-bottom: 0;
+	 		margin-top: 0;
+	 	}
+	 	input[type="text"] {
+	 		width: 73%;
+	 		float: left;
+	 		border-radius: $border-radius;
+	 		margin-right: 2%;
+	 	}
+	 	input[type="submit"] {
+	 		text-align: center;
+	 		padding: rem-calc(9) rem-calc(20);
+	 		border: 1px solid scale-color($gray-3, $lightness: 30%);
+	 		font-size: rem-calc(16);
+	 		color: $white;
+	 		border-radius: $border-radius; 
+	 		background-color: $blue-1;
+	 		cursor: pointer;
+	 		width: 25%;
+	 	}
+	 }
 
 	 /* table-list */
 	 .table-list {
@@ -436,7 +469,7 @@ img.alignright {
 				background-color: scale-color($gray-3, $lightness: 40%);
 	 		}
 	 		&.active {
-				background-color: scale-color($gray-3, $lightness: 40%);	 			
+				background-color: scale-color($orange, $lightness: 50%);
 	 		}
 	 		td {
 	 			color: scale-color($black, $lightness: 20%);
@@ -457,7 +490,7 @@ img.alignright {
  			display: none;
  			background: $white;
  			@include box-shadow-advanced(0, 2, 1, 0,0,0,.35, true, false);
- 			border-bottom: 1px solid scale-color($gray-3, $lightness: 40%);
+ 			border-bottom: 1px solid scale-color($gray-3, $lightness: 30%);
  		}
  		.td-content,
  		.td-content p {
@@ -494,13 +527,6 @@ img.alignright {
 
 
 /**
- * 5.0 Plugins
- * ----------------------------------------------------------------------------
- */
-
-
-
-/**
  * Custom MQ - Structure
  * ----------------------------------------------------------------------------
  */
@@ -513,6 +539,20 @@ img.alignright {
  	}
  	.news-section {
  		padding-top: rem-calc(15);
+ 	}
+ 	.table-list {
+	 	thead, .table-item {
+	 			display: none;
+	 	}
+	 	.table-content td {
+	 		display: table-cell;
+	 		box-shadow: none;
+	 	}
+ 	}
+
+ 	.filter-search {
+ 		input[type="text"] {
+ 		}
  	} 		 	
  }
 @media #{$small-up} {
@@ -575,6 +615,10 @@ img.alignright {
  		.sidebar-left {
  			margin-top: rem-calc(120);
  		}
+ 	}
+
+ 	.filter-search {
+ 		width: 70%;
  	}
 
 	.block-list.page-block-list.page-list {

@@ -55,14 +55,6 @@
 	}
 }
 
-.mobile-nav {
-	display: none;
-	position: fixed;
-	left: 0;
-	right: 0;
-	z-index: $level-4;
-}
-
 
 /* support-nav */
 .show-support-nav {
@@ -77,11 +69,9 @@
 	&:before {
 		@include hbg-icons($arrow-solid-right);
 		font-size: rem-calc(12);
-		margin-right: rem-calc(4);
 	}
-	&.active,
 	&:hover {
-		background: $mobile-nav-active-color;
+		text-decoration: underline;
 		color: $white;
 	}
 	&.active:before {
@@ -107,6 +97,142 @@
 		}
 	}
 }
+
+/* OFF CANVAS MENU */
+.move-right .exit-off-canvas {
+	background: rgba(255,255,255, 0.0); /* OVERLAY EXIT MENU BUTTON */
+}
+
+.left-off-canvas-menu {
+	background: $blue-1;
+}
+
+.mobile-nav {
+	display: none;
+	width: 100%;
+	background: $blue-1;
+	@extend .clearfix;
+	@include drop-shadow;
+}
+.mobile-navigation {
+		display: block;
+		> a {
+			padding-top: rem-calc(5);
+			padding-right: rem-calc(30);
+			padding-left: rem-calc(30);
+			padding-bottom: rem-calc(5);		
+			font-size: rem-calc(16);
+			line-height: rem-calc(32);
+			text-align: center;
+			display: block;
+			color: $white;
+			&.active {
+				background-color: $mobile-nav-active-color;
+			}
+			&.show-mobile-nav {
+				float: left;
+				&:before {
+					@include hbg-icons($menu-1);
+					margin-right: rem-calc(5);
+					margin-top: rem-calc(10);
+				}
+			}
+			&.show-mobile-search {
+				float: right;
+				&:before {
+					@include hbg-icons($search);
+					margin-right: rem-calc(5);
+				}
+			}			
+		}
+	}
+.mobile-nav-list {
+	margin-left: 0;
+	margin-bottom: 0;
+	li {
+		display: block;
+		border-bottom: 1px solid $mobile-nav-border-color;
+		&:last-child {
+			margin-bottom: rem-calc(30);
+			border-bottom: none;
+		}
+		&:first-child {
+			border-top: 1px solid $mobile-nav-border-color; 
+		}
+		.current {
+			background-color: $mobile-nav-border-color;
+			> a:before {
+				@include hbg-icons($arrow-solid-right);
+				font-size: rem-calc(12);
+				margin-left: - rem-calc(10);
+				margin-right: rem-calc(10);
+			}
+		}
+	}
+	> li a {
+		padding-left: rem-calc(15);
+	}
+	li a {
+		color: $white;
+		display: block;
+		font-weight: 400;
+		padding-top: rem-calc(8);
+		padding-bottom: rem-calc(8);
+		padding-right: rem-calc(15);
+		&:hover {
+			background-color: $mobile-nav-active-color;
+		}
+	}
+	ul {
+		padding-left: 0;
+		margin-left: 0;
+		li {
+			&:first-child {
+				border-bottom: 1px solid $mobile-nav-border-color;
+			}
+			a {
+			}
+		}
+	}
+	ul li a {
+		padding-left: rem-calc(30);
+	}
+	ul ul li a {
+		padding-left: rem-calc(45);
+	}
+	ul ul ul li a {
+		padding-left: rem-calc(60);
+	}		
+}
+
+/* Mobile search */
+.mobile-search {
+	border-top: 1px solid $mobile-nav-border-color;
+	padding: rem-calc(15) rem-calc(15);
+
+	input[type="text"],
+	input[type="submit"] {
+		border-radius: $border-radius;
+	}
+	input[type="text"] {
+		float: left;
+		width: 75%;
+		margin-right: 2%;
+		margin-bottom: 0;
+	}
+	input[type="submit"] {
+		font-size: rem-calc(16);
+		height: rem-calc(37);
+		border: none;
+		width:	23%;
+	}
+}
+
+.mobile-search-input-container {
+	margin: 0 auto;
+	width: auto;
+}
+
 
 /* custom MQ - navigation */
 
@@ -154,65 +280,7 @@
 	.mobile-nav {		
 		display: block;
 		background-color: $blue-1;
-		@include drop-shadow();
-		a {
-			color: $white;
-		}
-	}
-	.mobile-navigation {
-			display: block;
-			@extend .clearfix;
-			> a {
-				padding-top: rem-calc(5);
-				padding-right: rem-calc(15);
-				padding-left: rem-calc(15);
-				padding-bottom: rem-calc(5);		
-				font-size: rem-calc(16);
-				line-height: rem-calc(32);
-				text-align: center;
-				display: block;
-				&.active {
-					background-color: $mobile-nav-active-color;
-				}
-				&.show-mobile-nav {
-					float: left;
-					&:before {
-						@include hbg-icons($menu-1);
-						margin-right: rem-calc(5);
-						margin-top: rem-calc(10);
-					}
-				}
-				&.show-mobile-search {
-					float: right;
-					&:before {
-						@include hbg-icons($search);
-						margin-right: rem-calc(5);
-					}
-				}			
-			}
-		}
-
-
-	.mobile-nav-list {
-		display: none;
-		background: $blue-1;
-		margin-left: 0;
-		margin-bottom: 0;
-		@include drop-shadow();
-		li {
-			display: block;
-			border-bottom: 1px solid $mobile-nav-border-color;
-			&:first-child {
-				border-top: 1px solid $mobile-nav-border-color;
-			}
-		}
-		li a {
-			display: block;
-			padding: rem-calc(7) rem-calc(15);
-			&:hover {
-				background-color: $mobile-nav-active-color;
-			}
-		}
+		
 	}
 
 	.support-nav {

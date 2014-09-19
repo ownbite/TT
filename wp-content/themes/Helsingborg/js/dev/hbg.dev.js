@@ -6,19 +6,23 @@ $(document).foundation({
 
 $(document).ready(function(){
 
-
-
-  $('.show-support-nav').bind('click', function(){
+ $('.show-support-nav').bind('click', function(){
       $('.support-nav-list').toggle();
       $(this).toggleClass('active');
   });
 
   $('.show-mobile-nav').bind('click', function(){
-  		$('.mobile-nav-list').toggle();
-      $(this).toggleClass('active');
+  	 $(this).toggleClass('active');
   });
-  $('.show-mobile-search').bind('click', function(){
+  $('.exit-off-canvas').bind('click', function(){
+      if($('.show-mobile-nav').hasClass('active')) {
+        $('.show-mobile-nav').removeClass('active');
+      }
+  });
+
+  $('.show-mobile-search').bind('click', function(e){
   		$('.mobile-search').toggle();
+      e.preventDefault();
       $(this).toggleClass('active');
   });
 
