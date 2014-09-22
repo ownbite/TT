@@ -51,36 +51,68 @@
 
 	</head>
 	<body>
-	<div class="site-bg"></div>
-	<nav class="mobile-nav">
-			<div class="mobile-navigation clearfix" role="navigation">
-					<a href="#" class="show-mobile-nav">Meny</a>
-					<a href="#" class="show-mobile-search">Sök</a>
-			</div>
+	<div class="off-canvas-wrap" data-offcanvas>
+	<div class="inner-wrap">
 
-			<div class="mobile-search">
-					<div class="mobile-search-input-container">
-							<input type="text" class="mobile-search-input" placeholder="Din s&ouml;kning"/>
-							<input type="submit" class="mobile-search-btn" value="s&ouml;k" />
-					</div>
-			</div>
+
+	<aside class="left-off-canvas-menu">
 			<ul class="mobile-nav-list" role="navigation">
 					<li><a href="#">Arbete</a></li>
 					<li><a href="#">Bygga, Bo och miljö</a></li>
 					<li><a href="#">Förskola och utbildning</a></li>
 					<li><a href="#">Kommun och politik</a></li>
 					<li><a href="#">Omsorg och stöd</a></li>
-					<li><a href="#">Trafik och stadsplanering</a></li>
+					<li class="current-node">
+							<a href="#">Trafik och stadsplanering</a>
+
+							<ul>
+									<li><a href="#">Biltrafik</a></li>
+									<li><a href="#">Buss, båt och tåg</a></li>
+									<li><a href="#">Cykling</a></li>
+									<li><a href="#">Gator och trottoarer</a></li>
+									<li><a href="#">Parkering</a></li>
+									<li>
+											<a href="#">Planering och utveckling</a>
+											<ul>
+													<li><a href="#">Detaljplanering</a></li>
+													<li class="current">
+															<a href="#">Översiktsplanering</a>
+															<ul>
+																	<li><a href="#">Gällande översiksplaner</a></li>
+																	<li><a href="#">Översiktsplaner under arbete</a></li>
+
+															</ul>
+													</li>
+													<li><a href="#">Renhållning och snöröjning</a></li>
+													<li><a href="#">Trafik -och byggprojekt</a></li>
+
+											</ul>
+									</li>
+									<li><a href="#">Parkering</a></li>
+									<li><a href="#">Test nod</a></li>
+									<li><a href="#">Test nod</a></li>
+							</ul>
+
+					</li>
 					<li><a href="#">Uppleva och göra</a></li>
-					<li><a href="#">RSS</a></li>
-					<li><a href="#">Press</a></li>
-					<li><a href="#">Larm</a></li>
-					<li><a href="#">Teckenspråk</a></li>
-					<li><a href="#">Lättläst</a></li>
-					<li><a href="#">English</a></li>
-					<li><a href="#">Translate</a></li>
+					<li><a href="#">Uppleva och göra - test</a></li>
+					<li><a href="#">Uppleva och göra - test</a></li>
 			</ul>
-	</nav>
+	</aside>
+
+	<a class="exit-off-canvas"></a>
+	<nav class="mobile-nav" role="navigation">
+			<div class="mobile-navigation clearfix" role="navigation">
+					<a href="#" class="show-mobile-nav left-off-canvas-toggle">Meny</a>
+					<a href="#" class="show-mobile-search">Sök</a>
+			</div>
+			<div class="mobile-search">
+									<div class="mobile-search-input-container">
+											<input type="text" class="mobile-search-input" placeholder="Din S&ouml;kning"/>
+											<input type="submit" class="mobile-search-btn" value="s&ouml;k" />
+									</div>
+							</div>
+	</nav><!-- mobile top nav -->
 
 	<!-- HEADER START -->
 	<div class="main-site-container">
