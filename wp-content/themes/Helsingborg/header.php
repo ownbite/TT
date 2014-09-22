@@ -116,6 +116,7 @@
 
 	<!-- HEADER START -->
 	<div class="main-site-container">
+		<div class="site-bg"></div>
 			<div class="site-header row">
 					<div class="site-logo large-4 medium-4 columns">
 							<a href="#" class="logo-link">
