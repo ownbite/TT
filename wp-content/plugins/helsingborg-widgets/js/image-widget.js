@@ -60,8 +60,8 @@ jQuery(document).ready(function($){
 		// Render html for the image.
 		imgHTML : function( attachment ) {
 			var img_html = '<img src="' + attachment.url + '" ';
-			img_html += 'width="' + attachment.width * 0,5  + '" ';
-			img_html += 'height="' + attachment.height * 0,5 + '" ';
+			img_html += 'width="' + attachment.width  + '" ';
+			img_html += 'height="' + attachment.height + '" ';
 			if ( attachment.alt != '' ) {
 				img_html += 'alt="' + attachment.alt + '" ';
 			}
