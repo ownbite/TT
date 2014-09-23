@@ -50,22 +50,32 @@ if (!class_exists('Image_List_Widget')) {
         $item_imageurl[$i-1] = $instance['imageurl'.$i];
       }
 
-      if ($show_placement == 'show_in_sidebar') :
+      $grid_size = (count($item_imageurl) >= 3) ? "3" : "2";
 
+      if ($show_placement == 'show_in_sidebar') :
+        // Show in sidebar
+        echo('<div class="push-links-widget widget large-12 columns">');
+          echo('<ul class="push-links-list">');
+          foreach ($items as $num => $item) :
+            echo('<li class="item-' . ($num + 1) . '">');
+              echo('<a href="' . $items_links[$num] . '"><img src="' . $item_imageurl[$num] . '" /></a>');
+            echo('</li>');
+          endforeach;
+          echo('</ul>');
+        echo('</div><!-- /.widget -->');
       else :
         // Show under content
         echo('<section class="large-8 columns">');
-        echo('<ul class="block-list news-block large-block-grid-3 medium-block-grid-3 small-block-grid-2">');
-
-        foreach ($items as $num => $item) :
-          echo('<li>');
-            echo('<a href="' . $items_links[$num] . '"><img src="' . $item_imageurl[$num] . '" /></a>');
-          echo('</li>');
-        endforeach;
-
+          echo('<ul class="block-list news-block large-block-grid-'.$grid_size.' medium-block-grid-'.$grid_size.' small-block-grid-2">');
+          foreach ($items as $num => $item) :
+            echo('<li>');
+              echo('<a href="' . $items_links[$num] . '"><img src="' . $item_imageurl[$num] . '" /></a>');
+            echo('</li>');
+          endforeach;
+          echo('</ul>');
+        echo('</section>');
       endif;
-
-
+      
       echo $after_widget;
     }
 
@@ -105,17 +115,16 @@ if (!class_exists('Image_List_Widget')) {
 
       if($order){
         foreach ($order as $i => $item_num) {
-          $instance['item'.($i+1)] = empty($new_instance['item'.$item_num]) ? '' : strip_tags($new_instance['item'.$item_num]);
-          $instance['item_link'.($i+1)] = empty($new_instance['item_link'.$item_num]) ? '' : strip_tags($new_instance['item_link'.$item_num]);
-          $instance['item_class'.($i+1)] = empty($new_instance['item_class'.$item_num]) ? '' : strip_tags($new_instance['item_class'.$item_num]);
-          $instance['item_id'.($i+1)] = empty($new_instance['item_id'.$item_num]) ? '' : strip_tags($new_instance['item_id'.$item_num]);
-
-          // Save each image
+          $instance['item'.($i+1)]          = empty($new_instance['item'.$item_num])          ? '' : strip_tags($new_instance['item'.$item_num]);
+          $instance['item_link'.($i+1)]     = empty($new_instance['item_link'.$item_num])     ? '' : strip_tags($new_instance['item_link'.$item_num]);
+          $instance['item_class'.($i+1)]    = empty($new_instance['item_class'.$item_num])    ? '' : strip_tags($new_instance['item_class'.$item_num]);
+          $instance['item_id'.($i+1)]       = empty($new_instance['item_id'.$item_num])       ? '' : strip_tags($new_instance['item_id'.$item_num]);
           $instance['attachment_id'.($i+1)] = empty($new_instance['attachment_id'.$item_num]) ? '' : strip_tags($new_instance['attachment_id'.$item_num]);
-          $instance['imageurl'.($i+1)] = empty($new_instance['imageurl'.$item_num]) ? '' : strip_tags($new_instance['imageurl'.$item_num]);
+          $instance['imageurl'.($i+1)]      = empty($new_instance['imageurl'.$item_num])      ? '' : strip_tags($new_instance['imageurl'.$item_num]);
         }
       }
 
+      $instance['amount'] = $amount;
       $instance['show_rss'] = strip_tags($new_instance['show_rss']);
       $instance['show_placement'] = strip_tags($new_instance['show_placement']);
 
@@ -125,15 +134,14 @@ if (!class_exists('Image_List_Widget')) {
     public function form( $instance ) {
       $instance = wp_parse_args( (array) $instance, array( 'title' => '', 'text' => '', 'title_link' => '' ) );
       $amount = empty($instance['amount']) ? 1 : $instance['amount'];
-      echo $amount;
-      for ($i = 1; $i <= $amount; $i++) {
-        $items[$i] = empty($instance['item'.$i]) ? '' : $instance['item'.$i];
-        $item_links[$i] = empty($instance['item_link'.$i]) ? '' : $instance['item_link'.$i];
-        $item_targets[$i] = empty($instance['item_target'.$i]) ? '' : $instance['item_target'.$i];
-        $item_ids[$i] = empty($instance['item_id'.$i]) ? '' : $instance['item_id'.$i];
 
-        $item_imageurl[$i] = empty($instance['imageurl'.$i]) ? '' : $instance['imageurl'.$i];
-        $item_attachement_id[$i] = empty($instance['attachment_id'.$i]) ? '' : $instance['attachment_id'.$i];
+      for ($i = 1; $i <= $amount; $i++) {
+        $items[$i]                = empty($instance['item'.$i])           ? '' : $instance['item'.$i];
+        $item_links[$i]           = empty($instance['item_link'.$i])      ? '' : $instance['item_link'.$i];
+        $item_targets[$i]         = empty($instance['item_target'.$i])    ? '' : $instance['item_target'.$i];
+        $item_ids[$i]             = empty($instance['item_id'.$i])        ? '' : $instance['item_id'.$i];
+        $item_imageurl[$i]        = empty($instance['imageurl'.$i])       ? '' : $instance['imageurl'.$i];
+        $item_attachement_id[$i]  = empty($instance['attachment_id'.$i])  ? '' : $instance['attachment_id'.$i];
       }
 
       $show_placement = empty($instance['show_placement']) ? 'show_in_sidebar' : $instance['show_placement'];
@@ -145,21 +153,18 @@ if (!class_exists('Image_List_Widget')) {
       </div>
 
       <ul class="sllw-instructions">
-        <li><?php echo __(""); ?></li>
+        <li><?php echo __("Notera att <b>minst</b> två bilder måste användas om denna widget ska befinna sig under innehållet!"); ?></li>
       </ul>
 
       <div class="simple-link-list">
       <?php foreach ($items as $num => $item) :
-        $item = esc_attr($item);
-        $item_link = esc_attr($item_links[$num]);
-        $checked = checked($item_targets[$num], 'on', false);
-        $item_id = esc_attr($item_ids[$num]);
-
-        $id_prefix = $this->get_field_id('');
-        $image_url = esc_attr($item_imageurl[$num]);
+        $item           = esc_attr($item);
+        $item_link      = esc_attr($item_links[$num]);
+        $checked        = checked($item_targets[$num], 'on', false);
+        $item_id        = esc_attr($item_ids[$num]);
+        $image_url      = esc_attr($item_imageurl[$num]);
         $attachement_id = esc_attr($item_attachement_id[$num]);
-        $button_text = (!empty($image_url)) ? 'Byt bild' : 'Välj bild';
-        $click_event = "helsingborgImageWidget.uploader('" . $this->get_field_id($num) . "', '" . $id_prefix . "', '" . $num . "' ); return false;";
+        $click_event    = "helsingborgImageWidget.uploader('" . $this->get_field_id($num) . "', '" . $this->get_field_id('') . "', '" . $num . "' ); return false;";
         ?>
 
         <div id="<?php echo $this->get_field_id($num); ?>" class="list-item">
@@ -172,7 +177,7 @@ if (!class_exists('Image_List_Widget')) {
                 <img src="<?php echo $image_url; ?>" />
               </div>
               <br>
-              <input type="submit" class="button" style="display: table; margin: auto;" name="<?php echo $this->get_field_name('uploader_button'.$num); ?>" id="<?php echo $this->get_field_id('uploader_button'.$num); ?>" value="<?php echo $button_text; ?>" onclick="<?php echo $click_event; ?>" />
+              <input type="submit" class="button" style="display: table; margin: auto;" name="<?php echo $this->get_field_name('uploader_button'.$num); ?>" id="<?php echo $this->get_field_id('uploader_button'.$num); ?>" value="Välj bild" onclick="<?php echo $click_event; ?>" />
               <input type="hidden" id="<?php echo $this->get_field_id('attachment_id'.$num); ?>" name="<?php echo $this->get_field_name('attachment_id'.$num); ?>" value="<?php echo abs($instance['attachment_id'.$num]); ?>" />
               <input type="hidden" id="<?php echo $this->get_field_id('imageurl'.$num); ?>" name="<?php echo $this->get_field_name('imageurl'.$num); ?>" value="<?php echo $instance['imageurl'.$num]; ?>" />
             </div>

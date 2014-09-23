@@ -58,6 +58,11 @@ function sllwSetupHandlers($){
 		$('.number',item).html(num);
 		$('.item-title',item).html('');
 
+		var preview_id = $('.widefat',item).attr('id');
+		if (preview_id !== undefined) {
+			$('.widefat',item).attr('id',increment_last_num(preview_id));
+		}
+
 		$('label',item).each(function() {
 			var for_val = $(this).attr('for');
 			$(this).attr('for',increment_last_num(for_val));
@@ -66,12 +71,22 @@ function sllwSetupHandlers($){
 		$('input',item).each(function() {
 			var id_val = $(this).attr('id');
 			var name_val = $(this).attr('name');
+			var value = $(this).attr('onclick');
+			if (value !== undefined) {
+				value = value.replace(/\d\u0027+/g, num + "'");
+				$(this).attr('onclick',value);
+			}
 			$(this).attr('id',increment_last_num(id_val));
 			$(this).attr('name',increment_last_num(name_val));
+
 			if($(':checked',this)){
 			   $(this).removeAttr('checked');
 			}
-			$(this).val('');
+			if (value === undefined) {
+				$(this).val('');
+			} else {
+				$(this).val('Välj bild');
+			}
 		});
 
 		$('select', item).each(function() {
@@ -80,6 +95,10 @@ function sllwSetupHandlers($){
 			$(this).attr('id',increment_last_num(id_val));
 			$(this).attr('name',increment_last_num(name_val));
 			$(this).val('0');
+		});
+
+		$('img', item).each(function() {
+			$(this).remove();
 		});
 
 		sllw.find('.simple-link-list').append(item);

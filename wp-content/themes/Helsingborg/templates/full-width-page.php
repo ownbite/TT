@@ -16,7 +16,7 @@ get_header(); ?>
         <?php the_content(); ?>
       </div>
       <footer>
-        <?php comments_template(); ?>
+
       </footer>
     </article>
   <?php endwhile; // End the loop ?>

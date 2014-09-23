@@ -29,15 +29,12 @@ jQuery(document).ready(function($){
 		render : function( widget_id, widget_id_string, attachment, num ) {
 
 			$("#" + widget_id_string + 'preview' + num).html(helsingborgImageWidget.imgHTML( attachment ));
-
 			$("#" + widget_id_string + 'fields' + num).slideDown();
-
 			$("#" + widget_id_string + 'attachment_id' + num).val(attachment.id);
 			$("#" + widget_id_string + 'imageurl' + num).val(attachment.url);
 			$("#" + widget_id_string + 'aspect_ratio' + num).val(attachment.width/attachment.height);
 			$("#" + widget_id_string + 'width' + num).val(attachment.width);
 			$("#" + widget_id_string + 'height' + num).val(attachment.height);
-
 			$("#" + widget_id_string + 'size' + num).val('full');
 			$("#" + widget_id_string + 'custom_size_selector' + num).slideDown();
 			helsingborgImageWidget.toggleSizes( widget_id, widget_id_string );

@@ -69,9 +69,7 @@ get_header();
 
             <!-- List "puffar" + "blockpuffar" se : http://www.helsingborg.se/Medborgare/Uppleva-och-gora/ + http://www.helsingborg.se/Medborgare/Trafik-och-stadsplanering/ -->
 
-            <?php
-            // Only print out if content area has any widgets available
-            if ( (is_active_sidebar('content-area') == TRUE) ) : ?>
+            <?php if ( (is_active_sidebar('content-area') == TRUE) ) : ?>
               <?php dynamic_sidebar("content-area"); ?>
             <?php endif; ?>
 
@@ -82,9 +80,15 @@ get_header();
         <div class="lower-content row">
             <div class="sidebar large-4 columns">
                 <div class="row">
-                    <!-- TODO -->
+                  <?php if ( (is_active_sidebar('left-sidebar-bottom') == TRUE) ) : ?>
+                    <?php dynamic_sidebar("left-sidebar-bottom"); ?>
+                  <?php endif; ?>
                 </div><!-- /.row -->
             </div><!-- /.sidebar -->
+
+            <?php if ( (is_active_sidebar('content-area-bottom') == TRUE) ) : ?>
+              <?php dynamic_sidebar("content-area-bottom"); ?>
+            <?php endif; ?>
 
         </div><!-- /.lower-content -->
     </div>  <!-- /.main-area -->
@@ -93,7 +97,9 @@ get_header();
         <div class="row">
 
           <?php /* Add the page's widgets */ ?>
-          <?php dynamic_sidebar("right-sidebar"); ?>
+          <?php if ( (is_active_sidebar('right-sidebar') == TRUE) ) : ?>
+            <?php dynamic_sidebar("right-sidebar"); ?>
+          <?php endif; ?>
 
     </div><!-- /.rows -->
 </div><!-- /.sidebar -->
