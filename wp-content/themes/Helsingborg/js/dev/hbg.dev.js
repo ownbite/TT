@@ -1,10 +1,10 @@
 /* HBG dev JS - To merged into app.js, minified with grunt */
-$(document).foundation({
+jQuery(document).foundation({
 
 });
 
 
-$(document).ready(function(){
+jQuery(document).ready(function(){
 
  $('.show-support-nav').bind('click', function(){
       $('.support-nav-list').toggle();
@@ -28,7 +28,7 @@ $(document).ready(function(){
 
 
    if($('.table-list').length > 0) {
-     
+
       $('.table-item').bind('click', function(){
           if($(this).not('active')) {
               $('.table-item').removeClass('active');
@@ -43,8 +43,7 @@ $(document).ready(function(){
 
       $('.table-list tr td:last-child').append('<span class="icon"></span>');
       $('.table-list .table-item:odd').addClass('odd');
-      $('.table-list').tablesorter();
+      //$('.table-list').tablesorter();
     }
 
 });
-

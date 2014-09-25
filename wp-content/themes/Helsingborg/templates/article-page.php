@@ -34,15 +34,7 @@ get_header();
                 <!-- Slider -->
                 <?php $hasSlides = (is_active_sidebar('slider-area') == TRUE) ? '' : 'no-image'; ?>
                 <div class="row <?php echo $hasSlides; ?>">
-                  <div class="large-12 columns slider-container">
-                      <!-- START ORBIT -->
-                      <div class="orbit-container">
-                        <ul class="example-orbit" data-orbit data-options="navigation_arrows:false;slide_number:false;timer:false;">
-                          <?php dynamic_sidebar("slider-area"); ?>
-                        </ul>
-                      </div>
-                      <!-- END ORBIT -->
-                  </div><!-- /.slider-container -->
+                    <?php dynamic_sidebar("slider-area"); ?>
                 </div><!-- /.row -->
 
                 <div class="listen-to">

@@ -28,8 +28,8 @@ function Helsingborg_sidebar_widgets() {
       'id' => 'slider-area',
       'name' => __('Bildarea', 'Helsingborg'),
       'description' => __('Lägg till de sliders som ska visas på sidan.', 'Helsingborg'),
-      'before_widget' => '',
-      'after_widget' => ''
+      'before_widget' => '<div class="large-12 columns slider-container"><div class="orbit-container"><ul class="example-orbit" data-orbit>',
+      'after_widget' => '</ul></div></div>'
   ));
 
   register_sidebar(array(

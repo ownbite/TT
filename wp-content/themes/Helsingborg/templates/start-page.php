@@ -9,13 +9,7 @@ get_header(); ?>
   <div class="main-area large-9 columns">
 
     <div class="row">
-      <div class="large-12 columns slider-container">
-        <div class="orbit-container">
-          <ul class="example-orbit" data-orbit>
-            <?php dynamic_sidebar("slider-area"); ?>
-          </ul>
-        </div>
-      </div>
+      <?php dynamic_sidebar("slider-area"); ?>
     </div><!-- /.row -->
 
 <div class="main-content row">

@@ -23,11 +23,13 @@ if (!class_exists('Image_List')) {
 if (!class_exists('Image_List_Widget')) {
   class Image_List_Widget extends WP_Widget {
 
-    /** constructor */
+    // Constructor
     function Image_List_Widget() {
+      // Register the widget
       parent::WP_Widget(false, '* Bildlistor', array('description' => 'Lägg till de bilder du vill rendera ut.'));
     }
 
+    // This is what to render on the actual page
     public function widget( $args, $instance ) {
       extract($args);
 
@@ -45,40 +47,57 @@ if (!class_exists('Image_List_Widget')) {
         $item_links[$i-1] = $instance['item_link'.$i];
         $item_targets[$i-1] = isset($instance['item_target'.$i]) ? $instance['item_target'.$i] : false;
         $item_ids[$i-1] = $instance['item_id'.$i];
-
         $item_attachement_id[$i-1] = $instance['attachment_id'.$i];
         $item_imageurl[$i-1] = $instance['imageurl'.$i];
+        $item_alts[$i-1] = $instance['alt'.$i];
+        $item_texts[$i-1] = $instance['item_text'.$i];
       }
 
-      $grid_size = (count($item_imageurl) >= 3) ? "3" : "2";
-
+      // Important to define which area these images will be rendered in!
       if ($show_placement == 'show_in_sidebar') :
         // Show in sidebar
         echo('<div class="push-links-widget widget large-12 columns">');
           echo('<ul class="push-links-list">');
           foreach ($items as $num => $item) :
             echo('<li class="item-' . ($num + 1) . '">');
-              echo('<a href="' . $items_links[$num] . '"><img src="' . $item_imageurl[$num] . '" /></a>');
+              echo('<a href="' . $items_links[$num] . '"><img src="' . $item_imageurl[$num] . '" alt="' . $item_alts[$num] . '" /></a>');
+            echo('</li>');
+          endforeach;
+          echo('</ul>');
+        echo('</div><!-- /.widget -->');
+      elseif ($show_placement == 'show_in_slider') :
+        // Show in slider
+        // Make sure to skip bunch of stuff if there is only a single image
+        $data_options = (count($items) == 1) ? 'data-options="navigation_arrows:false;slide_number:false;timer:false;"' : '';
+        echo('<div class="large-12 columns slider-container">');
+          echo('<ul class="example-orbit" data-orbit ' . $data_options . '>');
+          foreach ($items as $num => $item) :
+            echo('<li>');
+              echo('<img class="img-slide" src="' . $item_imageurl[$num] . '" alt="' . $item_alts[$num] . '"  />');
+              echo('<div class="orbit-caption">');
+                echo $item_texts[$num];
+              echo('</div>');
             echo('</li>');
           endforeach;
           echo('</ul>');
         echo('</div><!-- /.widget -->');
       else :
         // Show under content
+        // Make sure to display proper layout if there is more than 2 items
+        $grid_size = (count($items) >= 3) ? "3" : "2";
         echo('<section class="large-8 columns">');
           echo('<ul class="block-list news-block large-block-grid-'.$grid_size.' medium-block-grid-'.$grid_size.' small-block-grid-2">');
           foreach ($items as $num => $item) :
             echo('<li>');
-              echo('<a href="' . $items_links[$num] . '"><img src="' . $item_imageurl[$num] . '" /></a>');
+              echo('<a href="' . $items_links[$num] . '"><img src="' . $item_imageurl[$num] . '" alt="' . $item_alts[$num] . '" /></a>');
             echo('</li>');
           endforeach;
           echo('</ul>');
         echo('</section>');
       endif;
-      
-      echo $after_widget;
     }
 
+    // This is where we end up upon "Save" button being used. Make sure to save all fields here!
     public function update( $new_instance, $old_instance) {
       // Save the data
       $instance['title'] = strip_tags($new_instance['title']);
@@ -86,6 +105,7 @@ if (!class_exists('Image_List_Widget')) {
       $amount = $new_instance['amount'];
       $new_item = empty($new_instance['new_item']) ? false : strip_tags($new_instance['new_item']);
 
+      // Make sure to pick up each new item created
       if ( isset($new_instance['position1'])) {
         for($i=1; $i<= $new_instance['amount']; $i++){
           if($new_instance['position'.$i] != -1){
@@ -113,6 +133,7 @@ if (!class_exists('Image_List_Widget')) {
         }
       }
 
+      // Go through each item created
       if($order){
         foreach ($order as $i => $item_num) {
           $instance['item'.($i+1)]          = empty($new_instance['item'.$item_num])          ? '' : strip_tags($new_instance['item'.$item_num]);
@@ -121,18 +142,23 @@ if (!class_exists('Image_List_Widget')) {
           $instance['item_id'.($i+1)]       = empty($new_instance['item_id'.$item_num])       ? '' : strip_tags($new_instance['item_id'.$item_num]);
           $instance['attachment_id'.($i+1)] = empty($new_instance['attachment_id'.$item_num]) ? '' : strip_tags($new_instance['attachment_id'.$item_num]);
           $instance['imageurl'.($i+1)]      = empty($new_instance['imageurl'.$item_num])      ? '' : strip_tags($new_instance['imageurl'.$item_num]);
+          $instance['alt'.($i+1)]           = empty($new_instance['alt'.$item_num])           ? '' : strip_tags($new_instance['alt'.$item_num]);
+          $instance['item_text'.($i+1)]     = empty($new_instance['item_text'.$item_num])     ? '' : strip_tags($new_instance['item_text'.$item_num]);
         }
       }
 
       $instance['amount'] = $amount;
-      $instance['show_rss'] = strip_tags($new_instance['show_rss']);
       $instance['show_placement'] = strip_tags($new_instance['show_placement']);
 
       return $instance;
     }
 
+    // This is what to render in admin area
     public function form( $instance ) {
+
+      // First retrieve all saved data from before, if any
       $instance = wp_parse_args( (array) $instance, array( 'title' => '', 'text' => '', 'title_link' => '' ) );
+      $show_placement = empty($instance['show_placement']) ? 'show_in_sidebar' : $instance['show_placement'];
       $amount = empty($instance['amount']) ? 1 : $instance['amount'];
 
       for ($i = 1; $i <= $amount; $i++) {
@@ -142,28 +168,32 @@ if (!class_exists('Image_List_Widget')) {
         $item_ids[$i]             = empty($instance['item_id'.$i])        ? '' : $instance['item_id'.$i];
         $item_imageurl[$i]        = empty($instance['imageurl'.$i])       ? '' : $instance['imageurl'.$i];
         $item_attachement_id[$i]  = empty($instance['attachment_id'.$i])  ? '' : $instance['attachment_id'.$i];
-      }
+        $item_alts[$i]            = empty($instance['alt'.$i])            ? '' : $instance['alt'.$i];
+        $item_texts[$i]           = empty($instance['item_text'.$i])      ? '' : $instance['item_text'.$i];
+      } ?>
 
-      $show_placement = empty($instance['show_placement']) ? 'show_in_sidebar' : $instance['show_placement'];
-  ?>
       <div class="sllw-row">
         <label><b>OBS! Vart ska denna visas?  </b></label><br>
         <label for="<?php echo $this->get_field_id('show_in_content'); ?>"><input type="radio" name="<?php echo $this->get_field_name('show_placement'); ?>" value="show_in_content" id="<?php echo $this->get_field_id('show_in_content'); ?>" <?php checked($show_placement, "show_in_content"); ?> />  <?php echo __("Under innehållet"); ?></label>
         <label for="<?php echo $this->get_field_id('show_in_sidebar'); ?>"><input type="radio" name="<?php echo $this->get_field_name('show_placement'); ?>" value="show_in_sidebar" id="<?php echo $this->get_field_id('show_in_sidebar'); ?>" <?php checked($show_placement, "show_in_sidebar"); ?> /> <?php echo __("I sidokolumn"); ?></label>
+        <label for="<?php echo $this->get_field_id('show_in_slider'); ?>"><input type="radio" name="<?php echo $this->get_field_name('show_placement'); ?>" value="show_in_slider" id="<?php echo $this->get_field_id('show_in_slider'); ?>" <?php checked($show_placement, "show_in_slider"); ?> /> <?php echo __("I bildspel"); ?></label>
       </div>
 
       <ul class="sllw-instructions">
-        <li><?php echo __("Notera att <b>minst</b> två bilder måste användas om denna widget ska befinna sig under innehållet!"); ?></li>
+        <li><?php echo __("Notera att <b>minst</b> två bilder måste användas i denna widget om den ska befinna sig under innehållet!"); ?></li>
       </ul>
 
       <div class="simple-link-list">
-      <?php foreach ($items as $num => $item) :
+      <?php
+      // Now render each item
+      foreach ($items as $num => $item) :
         $item           = esc_attr($item);
         $item_link      = esc_attr($item_links[$num]);
         $checked        = checked($item_targets[$num], 'on', false);
         $item_id        = esc_attr($item_ids[$num]);
         $image_url      = esc_attr($item_imageurl[$num]);
         $attachement_id = esc_attr($item_attachement_id[$num]);
+        $item_text      = esc_attr($item_texts[$num]);
         $click_event    = "helsingborgImageWidget.uploader('" . $this->get_field_id($num) . "', '" . $this->get_field_id('') . "', '" . $num . "' ); return false;";
         ?>
 
@@ -180,11 +210,15 @@ if (!class_exists('Image_List_Widget')) {
               <input type="submit" class="button" style="display: table; margin: auto;" name="<?php echo $this->get_field_name('uploader_button'.$num); ?>" id="<?php echo $this->get_field_id('uploader_button'.$num); ?>" value="Välj bild" onclick="<?php echo $click_event; ?>" />
               <input type="hidden" id="<?php echo $this->get_field_id('attachment_id'.$num); ?>" name="<?php echo $this->get_field_name('attachment_id'.$num); ?>" value="<?php echo abs($instance['attachment_id'.$num]); ?>" />
               <input type="hidden" id="<?php echo $this->get_field_id('imageurl'.$num); ?>" name="<?php echo $this->get_field_name('imageurl'.$num); ?>" value="<?php echo $instance['imageurl'.$num]; ?>" />
+              <input type="hidden" id="<?php echo $this->get_field_id('alt'.$num); ?>" name="<?php echo $this->get_field_name('alt'.$num); ?>" value="<?php echo esc_attr(strip_tags($instance['alt'])); ?>" />
             </div>
             <br clear="all" />
 
             <label for="<?php echo $this->get_field_id('item_link'.$num); ?>"><?php echo __("Länk:"); ?></label>
             <input class="widefat" id="<?php echo $this->get_field_id('item_link'.$num); ?>" name="<?php echo $this->get_field_name('item_link'.$num); ?>" type="text" value="<?php echo $item_link; ?>" />
+
+            <label for="<?php echo $this->get_field_id('item_text'.$num); ?>"><?php echo __("Bildspelstext:"); ?></label>
+            <textarea rows="4" cols="30" id="<?php echo $this->get_field_id('item_text'.$num); ?>" name="<?php echo $this->get_field_name('item_text'.$num); ?>" type="text" style="width:100%;"><?php echo $item_text; ?></textarea>
 
             <input type="checkbox" name="<?php echo $this->get_field_name('item_target'.$num); ?>" id="<?php echo $this->get_field_id('item_target'.$num); ?>" <?php echo $checked; ?> /> <label for="<?php echo $this->get_field_id('item_target'.$num); ?>"><?php echo __("Öppna i nytt fönster"); ?></label>
             <a class="sllw-delete hide-if-no-js"><img src="<?php echo plugins_url('../images/delete.png', __FILE__ ); ?>" /> <?php echo __("Remove"); ?></a>

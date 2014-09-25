@@ -5700,7 +5700,7 @@ blockquote.alignright, img.alignright {
   footer.row {
     margin-top: 3.75rem; } }
 
-/* Generics 
+/* Generics
 * -----------------------------------------------------------------------------
 **/
 /* Link styles */
@@ -5937,7 +5937,8 @@ only screen and (min-resolution: 2dppx) {
 
 /* table-list */
 .table-list {
-  border-spacing: 0; }
+  border-spacing: 0;
+  border-collapse: inherit; }
   .table-list .table-item td:last-child {
     background: url(/wp-content/themes/Helsingborg/assets/img/tablesorter-icons/asc.gif) 95% center no-repeat; }
   .table-list td, .table-list th {

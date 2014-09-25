@@ -62,7 +62,7 @@
 .sllw-instructions li {margin-bottom:3px;}
 .sllw-instructions li:before {content: "\02A \020";}
 .widefat{margin:1px 0 6px;}
-
+.widefat > img { max-width: 100%; height: auto; }
 .sllw-edit-item {margin-bottom: 10px;}
 .toggled-off {display: none;}
 

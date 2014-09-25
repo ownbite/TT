@@ -33,12 +33,12 @@ if (!class_exists('Slider_Widget_Box')) {
     /* Front-end display of widget*/
     /** @see WP_Widget::widget */
     function widget($args, $instance) {
-      extract($args);
+      
       $page_id = (int) apply_filters('widget_title', $instance['page_id']);
 
       if ( function_exists('icl_object_id') ) { $page_id = icl_object_id($page_id, "page"); }
 
-      echo $before_widget;
+
 
       if(!$page_id){
         echo 'Ingen sida vald!';
@@ -67,7 +67,7 @@ if (!class_exists('Slider_Widget_Box')) {
         <div class="orbit-caption"><?php echo $caption_meta; ?></div>
       </li>
 
-      <?php //echo $after_widget;
+      <?php
     }
 
     /** @see WP_Widget::update */
