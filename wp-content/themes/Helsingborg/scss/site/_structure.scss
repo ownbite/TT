@@ -47,16 +47,16 @@ body {
 
 
 // Reset margin and padding on figure element
-figure { 
-	margin: 0; 
+figure {
+	margin: 0;
 	padding: 0;
 }
 
 // Add some basic styling for figcaption element
 figcaption {
 	margin-bottom: rem-calc(20);
-	margin-top: rem-calc(10); 
-	color: #6f6f6f; 
+	margin-top: rem-calc(10);
+	color: #6f6f6f;
 }
 
 // Add the alignment classes used by the WordPress media library
@@ -147,7 +147,7 @@ img.alignright {
 
 
 
-/* Generics 
+/* Generics
 * -----------------------------------------------------------------------------
 **/
 
@@ -162,7 +162,7 @@ img.alignright {
 
 /* accesability icons */
 .listen-to {
-	margin-top: rem-calc(16);	
+	margin-top: rem-calc(16);
 	.icon {
 		display: block;
 		&:before {
@@ -175,7 +175,7 @@ img.alignright {
 		}
 		&:hover {
 			text-decoration: none;
-		} 
+		}
 	}
 }
 
@@ -193,7 +193,7 @@ img.alignright {
 		width: 32px;
 		height: 32px;
 		text-indent: -999em;
-		background: url(#{$wp-root-url}/assets/socialmedia-icons/social-icon-sprite.png) 0 0 no-repeat; 
+		background: url(#{$wp-root-url}/assets/socialmedia-icons/social-icon-sprite.png) 0 0 no-repeat;
 	}
 	li.fbook a {
 		background-position: 0 0;
@@ -205,14 +205,14 @@ img.alignright {
 		background-position: 0 -63px;
 		&:hover {
 			background-position: 0 -95px;
-		}		
+		}
 	}
 }
 
 @media #{$retina} {
 	.socialmedia-list {
 		li a {
-			background: url(#{$wp-root-url}/assets/socialmedia-icons/social-icon-sprite2x.png) 0 0 no-repeat; 
+			background: url(#{$wp-root-url}/assets/socialmedia-icons/social-icon-sprite2x.png) 0 0 no-repeat;
 		}
 	}
 }
@@ -221,11 +221,11 @@ img.alignright {
 /**
  * 4.0 Content
  * ----------------------------------------------------------------------------
- */	
+ */
 
  	/* No image on article page behaviour */
  		 .row.no-image {
- 			background-color: $white; 			
+ 			background-color: $white;
   			@include border-top-radius;
 			@include box-shadow-advanced(0, 3, 1, 255,255,255,1, false, true, 3, 0, 2, 0,0,0,0.4, false);
 			min-height: rem-calc(400);
@@ -235,7 +235,7 @@ img.alignright {
  		}
 
 
- 	/* Generics */ 
+ 	/* Generics */
 	%comp-end-margin {
 		margin-bottom: rem-calc(32);
 	}
@@ -262,11 +262,11 @@ img.alignright {
 	 /* hbg special divider - check mixin for rgba values */
 	 .divider {
 	 	 margin-bottom: rem-calc(16);
-		
+
 	 	.upper-divider,
 	 	.lower-divider {
 	 		display: block;
-	 	}	
+	 	}
 	 	.upper-divider {
 	 		height: 4px;
 	 		margin-bottom: 3px;
@@ -307,7 +307,7 @@ img.alignright {
   						content: $nbsp $text-arrow;
   					}
 		  		}
- 
+
 	  		}
 	  }
 
@@ -362,7 +362,7 @@ img.alignright {
 	  		padding-bottom: 0;
 	  		margin-bottom: rem-calc(32);
 
-	  		a img {	
+	  		a img {
 		   		border-radius: $border-radius;
 		  		float: left;
 	  			margin-right: rem-calc(20);
@@ -380,7 +380,7 @@ img.alignright {
 	 * 4.2 article-page
 	 * ------------------------------------
 	 */
-	
+
 	/* sidebar adjustments */
 	.article-page-layout {
 		.slider-container {
@@ -423,7 +423,7 @@ img.alignright {
 	 	border: 1px solid scale-color($gray-3, $lightness: 30%);
 	 	padding: rem-calc(16) rem-calc(10);
 	 	@extend %comp-end-margin;
-	 	
+
 	 	input[type="text"],
 	 	input[type="submit"] {
 	 		margin-bottom: 0;
@@ -441,7 +441,7 @@ img.alignright {
 	 		border: 1px solid scale-color($gray-3, $lightness: 30%);
 	 		font-size: rem-calc(16);
 	 		color: $white;
-	 		border-radius: $border-radius; 
+	 		border-radius: $border-radius;
 	 		background-color: $blue-1;
 	 		cursor: pointer;
 	 		width: 25%;
@@ -451,6 +451,7 @@ img.alignright {
 	 /* table-list */
 	 .table-list {
 	 	border-spacing: 0;
+		border-collapse: inherit;
 	 	.table-item td:last-child {
 	  		background: url(#{$wp-root-url}/assets/img/tablesorter-icons/asc.gif) 95% center no-repeat;
 	 	}
@@ -535,7 +536,7 @@ img.alignright {
  	.article-page-layout {
  		.sidebar-left {
  			display: none;
- 		}	
+ 		}
  	}
  	.news-section {
  		padding-top: rem-calc(15);
@@ -553,7 +554,7 @@ img.alignright {
  	.filter-search {
  		input[type="text"] {
  		}
- 	} 		 	
+ 	}
  }
 @media #{$small-up} {
  	.site-bg {
@@ -593,7 +594,7 @@ img.alignright {
  	.list-page-layout {
  		.sidebar-left {
  			display: block;
- 			margin-top: rem-calc(100);		
+ 			margin-top: rem-calc(100);
  		}
  	}
  	.site-bg {
@@ -625,7 +626,7 @@ img.alignright {
 		li a img {
 			max-width: 25%;
 		}
-	} 	 	
+	}
   	.site-bg {
  		top: rem-calc(210);
  	}

@@ -4,8 +4,7 @@ Template Name: Listpresentation
 */
 get_header();
 
-$meta = get_post_meta($post->ID);
-
+// Lets see which headers the user wants to use
 $header_keys = [];
 $fields = get_fields($post->ID);
 foreach ($fields as $field_key => $field_value) {
@@ -14,6 +13,7 @@ foreach ($fields as $field_key => $field_value) {
 }
 
 // Get the selected lists children
+$meta = get_post_meta($post->ID);
 $selected_node = $meta['list_select'];
 $args = array(
   'sort_order' => 'DESC',
@@ -22,33 +22,58 @@ $args = array(
   'post_type' => 'page',
   'post_status' => 'publish'
 );
+
+// Get the pages
 $pages = get_pages($args);
-
-// Create empty lists
-$list[][] = null;
 $headers = [];
-$content = [];
-$titles = [];
+$list = array();
 
+// Go through all childs and compare with selected keys from page
 for ($i = 0; $i < count($pages); $i++) {
+  $item = array();
   for ($j = 0; $j < count($header_keys); $j++) {
+
+    // Get the meta data from child
     $data = get_field_object($header_keys[$j], $pages[$i]->ID);
+
+    // We dont want empty data !
     if (empty($data['value'])) continue;
     if(!in_array($data['label'], $headers, true)){
       array_push($headers, $data['label']);
     }
-    $list[$i][$j] = $data['value'];
-    $content[$i] = $pages[$i]->post_content;
-    $titles[$i] = $pages[$i]->post_title;
+
+    // Save this data as key->value
+    $arr = array(
+      $header_keys[$j] => $data['value']
+    );
+
+    // No need to add if empty
+    if (empty($arr)) continue;
+    $item = array_merge($item, $arr);
   }
+
+  // No need to add if empty
+  if (empty($item)) continue;
+
+  // These fields are always added.
+  $item_content = array(
+    'content' => esc_attr($pages[$i]->post_content),
+    'title' => esc_attr($pages[$i]->post_title)
+  );
+
+  // Add the content to the current item
+  $item = array_merge($item, $item_content);
+
+  // Add the item to the list
+  array_push($list, $item);
 }
 
-// Clean up empty fields if any!
-$list = array_map('array_filter',($list));
-$list = array_filter($list);
+// JSON encode the current data for usage with knockout!
+$json_items = json_encode($list);
+
 ?>
 
-<!-- START -->
+<script src="http://knockoutjs.com/downloads/knockout-3.0.0.debug.js" type="text/javascript"></script>
 
 <div class="list-page-layout no-page-image row">
     <!-- main-page-layout -->
@@ -77,10 +102,10 @@ $list = array_filter($list);
 
             <div class="large-9 medium-8 columns article-column">
 
-                <!-- TODO: Slider OR empty -->
-                <div class="row no-image"><!-- OBS! addera no-image om denna container INTE innehåller en orbit-slider -->
-                <!-- If NO ORBIT  -->
-
+                <!-- Slider -->
+                <?php $hasSlides = (is_active_sidebar('slider-area') == TRUE) ? '' : 'no-image'; ?>
+                <div class="row <?php echo $hasSlides; ?>">
+                    <?php dynamic_sidebar("slider-area"); ?>
                 </div><!-- /.row -->
 
                   <?php /* Start loop */ ?>
@@ -93,46 +118,37 @@ $list = array_filter($list);
                         <h1 class="article-title"><?php the_title(); ?></h1>
                       </header>
                       <div class="article-body">
-                          <p>
-                          <?php the_content(); ?>
-                          </p>
-                          <div class="filter-search">
-                              <input type="text" placeholder="Sök i listan..."/>
-                              <input type="submit" value="sök">
-                          </div>
 
-                          <table class="table-list">
-                                    <thead>
-                                      <tr>
-                                        <th>Rubrik</th>
-                                        <?php
-                                        foreach ($headers as $header) {
-                                          echo '<th>' . $header . '</th>';
-                                        }
-                                        ?>
-                                      </tr>
-                                    </thead>
-                                    <tbody>
-                                      <?php
+                        <p>
+                        <?php the_content(); ?>
+                        </p>
 
-                                      foreach ($list as $row => $value) {
-                                        echo '<tr class="table-item">';
-                                        echo('<th rowspan="2" scope="2">' . $titles[$row] . "</th>");
-                                        foreach ($headers as $column => $data) {
-                                          echo '<td>' . $list[$row][$column] . '</td>';
-                                        }
-                                        echo '</tr>';
-                                        echo '<tr class="table-content">';
-                                        echo '<td colspan="' . count($headers) . '">';
-                                        echo '<h2>' . $titles[$row] . '</h2>';
-                                        echo '<div class="td-content"><p>' . $content[$row] . '</p><div>';
-                                        echo '</td>';
-                                        echo '</tr>';
-                                      }
+                        <div class="filter-search">
+                            <input type="text" placeholder="Sök i listan..." data-bind="value: query, valueUpdate: 'keyup'" autocomplete="off"/>
+                            <input type="submit" value="sök">
+                        </div>
 
-                                      ?>
-                                    </tbody>
-                                  </table>
+                        <table class="table-list">
+                          <thead>
+                            <tr>
+                              <th></th>
+                              <?php foreach ($headers as $header) :
+                                echo('<th>' . $header . '</th>');
+                              endforeach; ?>
+                            </tr>
+                          </thead>
+                            <!-- Todo: Generate table body -->
+                          <tbody data-bind="foreach: { data: itemstoshow, afterRender: afterRender }">
+                              <tr class="table-item">
+                                <?php foreach ($header_keys as $key) :
+                                  echo('<td data-bind="text: ' . $key . '"></td>');
+                                endforeach; ?>
+                              </tr>
+                              <tr class="table-content">
+                                  <td colspan="<?php echo count($headers); ?>" data-bind="text: content"></td>
+                              </tr>
+                          </tbody>
+                        </table>
 
                       </div>
                       <footer>
@@ -140,55 +156,92 @@ $list = array_filter($list);
                             <li class="fbook"><a href="#">Facebook</a></li>
                             <li class="twitter"><a href="#">Twitter</a></li>
                         </ul>
+
+                        <script type="text/javascript" language="javascript">
+                          function ListViewModel() {
+                              var self = this;
+                              var itemjson = <?php echo $json_items; ?>
+
+                              self.query = ko.observable('');
+
+                              self.itemstoshow = ko.dependentObservable(function() {
+                                  var search = this.query().toLowerCase();
+                                  return ko.utils.arrayFilter(itemjson, function(item) {
+                                    return ((item.content.toLowerCase().indexOf(search) >= 0) ||
+                                    (item.title.toLowerCase().indexOf(search) >= 0) ||
+                                    <?php foreach ($header_keys as $number => $key) :
+                                      echo '(item.' . $key . '.toLowerCase().indexOf(search) >= 0)';
+                                      if ($number != (count($header_keys) - 1)) { echo ' || '; }
+                                    endforeach; ?>
+                                    );
+
+                                  });
+                              }, self);
+
+                          }
+                          ko.applyBindings(new ListViewModel());
+
+                          function afterRender() {
+                            $('.show-support-nav').bind('click', function(){
+                                 $('.support-nav-list').toggle();
+                                 $(this).toggleClass('active');
+                             });
+
+                             $('.show-mobile-nav').bind('click', function(){
+                                $(this).toggleClass('active');
+                             });
+                             $('.exit-off-canvas').bind('click', function(){
+                                 if($('.show-mobile-nav').hasClass('active')) {
+                                   $('.show-mobile-nav').removeClass('active');
+                                 }
+                             });
+
+                             $('.show-mobile-search').bind('click', function(e){
+                                 $('.mobile-search').toggle();
+                                 e.preventDefault();
+                                 $(this).toggleClass('active');
+                             });
+
+
+                              if($('.table-list').length > 0) {
+
+                                 $('.table-item').bind('click', function(){
+                                     if($(this).not('active')) {
+                                         $('.table-item').removeClass('active');
+                                         $('.table-content').removeClass('open');
+                                         $(this).addClass('active');
+                                         $(this).next('.table-content').addClass('open');
+                                     } else if($(this).hasClass('active')){
+                                         $('.table-item').removeClass('active');
+                                         $('.table-content').removeClass('open');
+                                     }
+                                 });
+
+                                 $('.table-list tr td:last-child').append('<span class="icon"></span>');
+                                 $('.table-list .table-item:odd').addClass('odd');
+                                 //$('.table-list').tablesorter();
+                               }
+                          }
+                        </script>
+
                       </footer>
                     </article>
                   <?php endwhile; // End the loop ?>
-
         </div><!-- /.columns -->
     </div><!-- /.main-content -->
 
         <div class="lower-content row">
-            <div class="sidebar large-3 medium-4 columns">
+            <div class="sidebar large-4 columns">
                 <div class="row">
-                    <!-- PUSH LINKS -->
-                    <div class="push-links-widget widget large-12 columns">
-                        <ul class="push-links-list">
-                            <li class="item-1"><a href="#">Självservice</a></li>
-                            <li class="item-2"><a href="#">Felanmälan</a></li>
-                            <li class="item-3"><a href="#">Tyck till</a></li>
-                            <li class="item-4"><a href="#">Turism</a></li>
-                            <li class="item-5"><a href="#">Företag</a></li>
-                            <li class="item-6"><a href="#">Inspiration</a></li>
-
-                        </ul>
-
-                    </div><!-- /.widget -->
+                  <?php if ( (is_active_sidebar('left-sidebar-bottom') == TRUE) ) : ?>
+                    <?php dynamic_sidebar("left-sidebar-bottom"); ?>
+                  <?php endif; ?>
                 </div><!-- /.row -->
             </div><!-- /.sidebar -->
 
-            <section class="large-9 medium-8 columns">
-                <ul class="block-list news-block-list large-block-grid-3 medium-block-grid-3 small-block-grid-2">
-                        <li>
-                            <img src="http://www.placehold.it/330x170" alt="alt-text"/>
-                        </li>
-                        <li>
-                            <img src="http://www.placehold.it/330x370" alt="alt-text"/>
-                        </li>
-                        <li>
-                            <img src="http://www.placehold.it/330x270" alt="alt-text"/>
-                        </li>
-                        <li>
-                            <img src="http://www.placehold.it/330x270" alt="alt-text"/>
-                        </li>
-                        <li>
-                            <img src="http://www.placehold.it/330x270" alt="alt-text"/>
-                        </li>
-                        <li>
-                            <img src="http://www.placehold.it/330x270" alt="alt-text"/>
-                        </li>
-                    </ul>
-
-            </section>
+            <?php if ( (is_active_sidebar('content-area-bottom') == TRUE) ) : ?>
+              <?php dynamic_sidebar("content-area-bottom"); ?>
+            <?php endif; ?>
 
         </div><!-- /.lower-content -->
     </div>  <!-- /.main-area -->
@@ -198,7 +251,6 @@ $list = array_filter($list);
 </div><!-- /.main-site-container -->
 <script src="<?php echo get_stylesheet_directory_uri() ; ?>/js/app.js"></script>
 <script src="<?php echo get_stylesheet_directory_uri() ; ?>/js/dev/hbg.dev.js"></script>
-<script src="<?php echo get_stylesheet_directory_uri() ; ?>/js/knockout/dist/knockout.js"></script>
 <script src="<?php echo get_stylesheet_directory_uri() ; ?>/js/plugins/jquery.tablesorter.min.js"></script>
 <!-- END -->
 
