@@ -28,7 +28,7 @@
 // Include the widget files
 include_once('classes/link-list-widget.php');
 include_once('classes/news-list-widget.php');
-include_once('classes/slider-widget.php');
+//include_once('classes/slider-widget.php');
 include_once('classes/index-widget.php');
 include_once('classes/index-large-widget.php');
 include_once('classes/image-list-widget.php');
@@ -36,7 +36,7 @@ include_once('classes/image-list-widget.php');
 // Initiate widgets
 $SimpleLinkList = new SimpleLinkList();
 $News_List_Widget = new News_List_Widget();
-$Slider_Widget = new Slider_Widget();
+//$Slider_Widget = new Slider_Widget();
 $Index_Widget = new Index_Widget();
 $Index_Large_Widget = new Index_Large_Widget();
 $Image_List = new Image_List();

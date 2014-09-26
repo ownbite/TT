@@ -47,12 +47,14 @@ if (!class_exists('SimpleLinkListWidget')) {
         $item_ids[$i-1] = $instance['item_id'.$i];
       }
 
+      $widget_class = ($show_rss == 'rss_yes') ? 'news' : 'quick-links';
+
       if ($show_placement == 'show_in_sidebar') : ?>
 
-        <div class="quick-links-widget widget large-12 medium-6 columns">
+        <div class="<?php echo $widget_class; ?>-widget widget large-12 medium-6 columns">
           <div class="widget-content">
             <h2 class="widget-title"><?php echo $title ?>
-              <?php if ($show_rss == 'rss_yes') { echo('<span class="icon">∞</span>'); } // TODO: Add link onclick ?>
+              <?php if ($show_rss == 'rss_yes') { echo('<span class="icon"></span>'); } ?>
             </h2>
 
             <div class="divider">

@@ -54,50 +54,8 @@
 	<div class="off-canvas-wrap" data-offcanvas>
 	<div class="inner-wrap">
 
-
 	<aside class="left-off-canvas-menu">
-			<ul class="mobile-nav-list" role="navigation">
-					<li><a href="#">Arbete</a></li>
-					<li><a href="#">Bygga, Bo och miljö</a></li>
-					<li><a href="#">Förskola och utbildning</a></li>
-					<li><a href="#">Kommun och politik</a></li>
-					<li><a href="#">Omsorg och stöd</a></li>
-					<li class="current-node">
-							<a href="#">Trafik och stadsplanering</a>
-
-							<ul>
-									<li><a href="#">Biltrafik</a></li>
-									<li><a href="#">Buss, båt och tåg</a></li>
-									<li><a href="#">Cykling</a></li>
-									<li><a href="#">Gator och trottoarer</a></li>
-									<li><a href="#">Parkering</a></li>
-									<li>
-											<a href="#">Planering och utveckling</a>
-											<ul>
-													<li><a href="#">Detaljplanering</a></li>
-													<li class="current">
-															<a href="#">Översiktsplanering</a>
-															<ul>
-																	<li><a href="#">Gällande översiksplaner</a></li>
-																	<li><a href="#">Översiktsplaner under arbete</a></li>
-
-															</ul>
-													</li>
-													<li><a href="#">Renhållning och snöröjning</a></li>
-													<li><a href="#">Trafik -och byggprojekt</a></li>
-
-											</ul>
-									</li>
-									<li><a href="#">Parkering</a></li>
-									<li><a href="#">Test nod</a></li>
-									<li><a href="#">Test nod</a></li>
-							</ul>
-
-					</li>
-					<li><a href="#">Uppleva och göra</a></li>
-					<li><a href="#">Uppleva och göra - test</a></li>
-					<li><a href="#">Uppleva och göra - test</a></li>
-			</ul>
+		<?php Helsingborg_mobile_menu(); ?>
 	</aside>
 
 	<a class="exit-off-canvas"></a>
@@ -119,23 +77,11 @@
 		<div class="site-bg"></div>
 			<div class="site-header row">
 					<div class="site-logo large-4 medium-4 columns">
-							<a href="#" class="logo-link">
+							<a href="<?php echo get_site_url(); ?>" class="logo-link">
 									<img src="<?php echo get_stylesheet_directory_uri() ; ?>/assets/img/images/hbg-logo.svg" alt="helsingborg stad" class="logo" />
 							</a>
 					</div><!-- /.site-logo -->
-					<div class="support-nav large-8 medium-8 columns">
 
-							<a href="#" class="show-support-nav">Hjälpmeny </a>
+					<?php Helsingborg_support_menu(); ?>
 
-							<ul class="support-nav-list inline-list">
-									<li><a href="#">Press</a></li>
-									<li><a href="#">Larm</a></li>
-									<li><a href="#">Teckenspråk</a></li>
-									<li><a href="#">Lättläst</a></li>
-									<li><a href="#">RSS</a></li>
-									<li><a href="#">English</a></li>
-									<li><a href="#">Translate</a></li>
-
-							</ul>
-					</div><!-- /.support-nav -->
 			</div><!-- /.site-header -->

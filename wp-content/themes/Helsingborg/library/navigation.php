@@ -5,10 +5,9 @@
  * http://codex.wordpress.org/Function_Reference/register_nav_menus#Examples
  */
 register_nav_menus(array(
-    'sidebar-menu' => 'Sidebar menu',
-    'top-bar-l' => 'Left Top Bar', // registers the menu in the WordPress admin menu editor
-    'top-bar-r' => 'Right Top Bar',
-    'mobile-off-canvas' => 'Mobile'
+    'sidebar-menu' => 'Huvudmeny',
+    'support-menu' => 'Hjälpmeny',
+    'mobile-menu' => 'Mobilmeny'
 ));
 
 
@@ -29,6 +28,37 @@ if ( ! function_exists( 'Helsingborg_sidebar_menu' ) ) {
           'link_after'      => '',
           'items_wrap'      => '<ul class="main-nav-list">%3$s</ul>',
           'depth'           => 5,
+          'walker'          => new sidebar_menu_walker()
+        ));
+  }
+}
+
+if ( ! function_exists( 'Helsingborg_support_menu' ) ) {
+  function Helsingborg_support_menu() {
+      wp_nav_menu(array(
+          'theme_location'  => 'support-menu' ,
+          'container'       => 'div',
+          'container_class' => 'support-nav large-8 medium-8 columns',
+          'container_id'    => '',
+          'menu_class'      => 'support-nav-list inline-list',
+          'menu_id'         => 'support-nav',
+          'depth'           => 0,
+          'echo'            => true,
+          'walker'          => new sidebar_menu_walker()
+        ));
+  }
+}
+
+if ( ! function_exists( 'Helsingborg_mobile_menu' ) ) {
+  function Helsingborg_mobile_menu() {
+      wp_nav_menu(array(
+          'theme_location'  => 'mobile-menu' ,
+          'container'       => false,
+          'container_id'    => '',
+          'menu_class'      => 'mobile-nav-list',
+          'menu_id'         => 'mobile-nav',
+          'depth'           => 0,
+          'echo'            => true,
           'walker'          => new sidebar_menu_walker()
         ));
   }
