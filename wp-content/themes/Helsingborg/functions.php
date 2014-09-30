@@ -1,9 +1,4 @@
 <?php
-/*
-Author: Ole Fredrik Lie
-URL: http://olefredrik.com
-*/
-
 
 // Various clean up functions
 require_once('library/cleanup.php');
@@ -37,6 +32,7 @@ require_once('meta_boxes/meta-functions.php');
 add_filter('nav_menu_css_class', 'my_css_attributes_filter', 100, 1);
 add_filter('nav_menu_item_id', 'my_css_attributes_filter', 100, 1);
 add_filter('page_css_class', 'my_css_attributes_filter', 100, 1);
+
 function my_css_attributes_filter($var) {
   return is_array($var) ? array_intersect($var, array('current-menu-item')) : '';
 }

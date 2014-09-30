@@ -26,12 +26,11 @@ function helsingborg_meta_init()
 
       // LIST PAGE
       if ($template_file == 'templates/list-page.php') {
-        // TODO
+        add_meta_box('helsingborg_all_meta', "Listpresentation", 'helsingborg_meta_ListPage', $type, 'normal', 'high');
       }
 
-      // LIST PRESENTATION PAGE
-      else if ($template_file == 'templates/list-presentation-page.php') {
-        add_meta_box('helsingborg_all_meta', "Listpresentation", 'helsingborg_meta_List', $type, 'normal', 'high');
+      else if ($template_file == 'templates/article-page.php') {
+        add_meta_box('helsingborg_all_meta', "Artikelsida", 'helsingborg_meta_ArticlePage', $type, 'normal', 'high');
       }
 
       // RSS PAGE
@@ -41,11 +40,78 @@ function helsingborg_meta_init()
         remove_post_type_support('page', 'custom-fields');
         add_meta_box('helsingborg_all_meta', "RSS nod", 'helsingborg_meta_RSS', $type, 'normal', 'high');
       }
-        //add_meta_box('helsingborg_all_meta', 'helsingborg Custom Meta Box', 'helsingborg_meta_setup', $type, 'normal', 'high');
     }
 
     // add a callback function to save any data a user enters in
     add_action('save_post','helsingborg_meta_save');
+}
+
+function helsingborg_meta_ArticlePage() {
+  global $post;
+
+  // Get this page meta
+  $meta = get_post_meta($post->ID,'_helsingborg_meta',TRUE);
+
+  // Used if parent is list and metaboxes should be shown, same list will be used
+  include(helsingborg_THEME_FOLDER . '/UI/list-array.php');
+
+  // See if this page has any parents
+  if ($post->ancestors) {
+
+    // Get the current parent
+    $parent = end($post->ancestors);
+
+    // Check if the parent actually exists
+    if ($parent) {
+
+      // Get the parent meta
+      $parent_meta = get_post_meta(end($post->ancestors),'_helsingborg_meta',TRUE);
+
+      // Check if parent want some data
+      if (!empty($parent_meta['list_options'])) {
+
+        // Take all keys from parent
+        $parent_keys = explode( ',', $parent_meta['list_options']);
+
+        // Go through all items in list-array
+        foreach ($list as $key => $value) :
+
+          // If the item is present among parent keys, then setup so this value can be used
+          if (in_array($key, $parent_keys)) :
+
+            // Retrieve the value if it has been set
+            $set_value = $meta['article_options_' . $key];
+
+            // Print the form form for this item and make sure it can be saved as meta
+          ?>
+          <p>
+            <label style="font-weight:bold;" for="_helsingborg_meta[article_options_<?php echo $key ?>]"><?php echo $value ?></label>
+            <input type="text" name="_helsingborg_meta[article_options_<?php echo $key ?>]" id="_helsingborg_meta[article_options_<?php echo $key ?>]" style="width:100%;" value="<?php echo $set_value ?>" />
+          </p>
+        <?php
+          endif;
+        endforeach;
+      }
+    }
+  }
+
+  // create a custom nonce for submit verification later
+  echo '<input type="hidden" name="helsingborg_meta_noncename" value="' . wp_create_nonce(__FILE__) . '" />';
+}
+
+function helsingborg_meta_ListPage() {
+  global $post;
+  $meta = get_post_meta($post->ID,'_helsingborg_meta',TRUE);
+  $selected = $meta['list_options'];
+
+  // Only need one list to change
+  include(helsingborg_THEME_FOLDER . '/UI/list-array.php');
+
+  // Include the form for UI
+  include(helsingborg_THEME_FOLDER . '/UI/meta-ui-listselection.php');
+
+  // create a custom nonce for submit verification later
+  echo '<input type="hidden" name="helsingborg_meta_noncename" value="' . wp_create_nonce(__FILE__) . '" />';
 }
 
 function helsingborg_meta_RSS()
