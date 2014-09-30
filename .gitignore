@@ -24,7 +24,15 @@ wp-content/*
  
 # Ignore everything in the "plugins" directory, except the plugins you
 # specify (see the commented-out examples for hints on how to do this.)
-wp-content/plugins/gravityforms/*
+wp-content/plugins/*
+!wp-content/plugins/advanced-custom-fields
+!wp-content/plugins/cms-tree-page-view
+!wp-content/plugins/daskal
+!wp-content/plugins/helsingborg-widgets
+!wp-content/plugins/image-widget
+!wp-content/plugins/nextgen-gallery
+!wp-content/plugins/the-events-calendar
+!wp-content/plugins/wp-page-widget
 # !wp-content/plugins/my-single-file-plugin.php
 # !wp-content/plugins/my-directory-plugin/
  
