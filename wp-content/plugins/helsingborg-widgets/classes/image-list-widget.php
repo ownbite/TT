@@ -179,8 +179,11 @@ if (!class_exists('Image_List_Widget')) {
         <label for="<?php echo $this->get_field_id('show_in_slider'); ?>"><input type="radio" name="<?php echo $this->get_field_name('show_placement'); ?>" value="show_in_slider" id="<?php echo $this->get_field_id('show_in_slider'); ?>" <?php checked($show_placement, "show_in_slider"); ?> /> <?php echo __("I bildspel"); ?></label>
       </div>
 
-      <ul class="sllw-instructions">
+      <div class="sllw-instructions">
         <?php echo __("<b>Bildmått: 1024 x 400 pixlar.</b>"); ?>
+      </div>
+
+      <ul class="sllw-instructions">
         <li><?php echo __("Notera att <b>minst</b> två bilder måste användas i denna widget om den ska befinna sig under innehållet!"); ?></li>
       </ul>
 
