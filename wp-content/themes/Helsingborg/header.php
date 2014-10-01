@@ -13,6 +13,7 @@
 
 		<script src="<?php echo get_stylesheet_directory_uri() ; ?>/js/modernizr/modernizr.min.js"></script>
 		<script src="<?php echo get_stylesheet_directory_uri() ; ?>/js/jquery/dist/jquery.min.js"></script>
+		<script src="<?php echo get_stylesheet_directory_uri() ; ?>/js/jquery/dist/jquery-ui.min.js"></script>
 
 		<link rel="icon" href="<?php echo get_stylesheet_directory_uri() ; ?>/assets/img/icons/favicon.ico" type="image/x-icon">
 		<link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo get_stylesheet_directory_uri() ; ?>/assets/img/icons/apple-touch-icon-144x144-precomposed.png">
