@@ -180,6 +180,7 @@ if (!class_exists('Image_List_Widget')) {
       </div>
 
       <ul class="sllw-instructions">
+        <?php echo __("<b>Bildmått: 1024 x 400 pixlar.</b>"); ?>
         <li><?php echo __("Notera att <b>minst</b> två bilder måste användas i denna widget om den ska befinna sig under innehållet!"); ?></li>
       </ul>
 
