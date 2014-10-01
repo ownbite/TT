@@ -34,23 +34,26 @@ if (!class_exists('Image_List_Widget')) {
       extract($args);
 
       // Get all the data saved
-      $title = apply_filters('widget_title', empty($instance['title']) ? __('List') : $instance['title']);
-      $rss_link = empty($instance['rss_link']) ? '#' : $instance['rss_link']; // TODO: Proper default ?
-      $show_rss = empty($instance['show_rss']) ? 'rss_no' : $instance['show_rss'];
+      $title          = apply_filters('widget_title', empty($instance['title']) ? __('List') : $instance['title']);
+      $rss_link       = empty($instance['rss_link'])       ? '#' : $instance['rss_link']; // TODO: Proper default ?
+      $show_rss       = empty($instance['show_rss'])       ? 'rss_no' : $instance['show_rss'];
       $show_placement = empty($instance['show_placement']) ? 'show_in_sidebar' : $instance['show_placement'];
-      $show_dates = isset($instance['show_dates']) ? $instance['show_dates'] : false;
-      $amount = empty($instance['amount']) ? 1 : $instance['amount'];
+      $show_dates     = isset($instance['show_dates'])     ? $instance['show_dates'] : false;
+      $amount         = empty($instance['amount'])         ? 1 : $instance['amount'];
 
       // Retrieved all links
       for ($i = 1; $i <= $amount; $i++) {
         $items[$i-1] = $instance['item'.$i];
-        $item_links[$i-1] = $instance['item_link'.$i];
-        $item_targets[$i-1] = isset($instance['item_target'.$i]) ? $instance['item_target'.$i] : false;
-        $item_ids[$i-1] = $instance['item_id'.$i];
-        $item_attachement_id[$i-1] = $instance['attachment_id'.$i];
-        $item_imageurl[$i-1] = $instance['imageurl'.$i];
-        $item_alts[$i-1] = $instance['alt'.$i];
-        $item_texts[$i-1] = $instance['item_text'.$i];
+        $item_links[$i-1]               = $instance['item_link'.$i];
+        $item_targets[$i-1]             = isset($instance['item_target'.$i]) ? $instance['item_target'.$i] : false;
+        $item_ids[$i-1]                 = $instance['item_id'.$i];
+        $item_attachement_id[$i-1]      = $instance['attachment_id'.$i];
+        $item_imageurl[$i-1]            = $instance['imageurl'.$i];
+        $item_alts[$i-1]                = $instance['alt'.$i];
+        $item_texts[$i-1]               = $instance['item_text'.$i];
+        $item_force_widths[$i-1]        = $instance['item_force_width'.$i];
+        $item_force_margins[$i-1]       = $instance['item_force_margin'.$i];
+        $item_force_margin_values[$i-1] = $instance['item_force_margin_value'.$i];
       }
 
       // Important to define which area these images will be rendered in!
@@ -70,10 +73,12 @@ if (!class_exists('Image_List_Widget')) {
         // Make sure to skip bunch of stuff if there is only a single image
         $data_options = (count($items) == 1) ? 'data-options="navigation_arrows:false;slide_number:false;timer:false;"' : '';
         echo('<div class="large-12 columns slider-container">');
-          echo('<ul class="example-orbit" data-orbit ' . $data_options . '>');
+          echo('<ul class="helsingborg-orbit" data-orbit ' . $data_options . '>');
           foreach ($items as $num => $item) :
+            $force_width  = (!empty($item_force_widths[$num])) ? 'width:100%;' : '';
+            $force_margin = (!empty($item_force_margins[$num]) && !empty($item_force_margin_values[$num])) ? ' margin-top:-' . $item_force_margin_values[$num] . 'px;' : '';
             echo('<li>');
-              echo('<img class="img-slide" src="' . $item_imageurl[$num] . '" alt="' . $item_alts[$num] . '"  />');
+              echo('<img class="img-slide" src="' . $item_imageurl[$num] . '" alt="' . $item_alts[$num] . '" style="' . $force_width . $force_margin .'" />');
               echo('<div class="orbit-caption">');
                 echo $item_texts[$num];
               echo('</div>');
@@ -100,10 +105,10 @@ if (!class_exists('Image_List_Widget')) {
     // This is where we end up upon "Save" button being used. Make sure to save all fields here!
     public function update( $new_instance, $old_instance) {
       // Save the data
-      $instance['title'] = strip_tags($new_instance['title']);
+      $instance['title']    = strip_tags($new_instance['title']);
       $instance['rss_link'] = strip_tags($new_instance['rss_link']);
-      $amount = $new_instance['amount'];
-      $new_item = empty($new_instance['new_item']) ? false : strip_tags($new_instance['new_item']);
+      $amount               = $new_instance['amount'];
+      $new_item             = empty($new_instance['new_item']) ? false : strip_tags($new_instance['new_item']);
 
       // Make sure to pick up each new item created
       if ( isset($new_instance['position1'])) {
@@ -136,18 +141,23 @@ if (!class_exists('Image_List_Widget')) {
       // Go through each item created
       if($order){
         foreach ($order as $i => $item_num) {
-          $instance['item'.($i+1)]          = empty($new_instance['item'.$item_num])          ? '' : strip_tags($new_instance['item'.$item_num]);
-          $instance['item_link'.($i+1)]     = empty($new_instance['item_link'.$item_num])     ? '' : strip_tags($new_instance['item_link'.$item_num]);
-          $instance['item_class'.($i+1)]    = empty($new_instance['item_class'.$item_num])    ? '' : strip_tags($new_instance['item_class'.$item_num]);
-          $instance['item_id'.($i+1)]       = empty($new_instance['item_id'.$item_num])       ? '' : strip_tags($new_instance['item_id'.$item_num]);
-          $instance['attachment_id'.($i+1)] = empty($new_instance['attachment_id'.$item_num]) ? '' : strip_tags($new_instance['attachment_id'.$item_num]);
-          $instance['imageurl'.($i+1)]      = empty($new_instance['imageurl'.$item_num])      ? '' : strip_tags($new_instance['imageurl'.$item_num]);
-          $instance['alt'.($i+1)]           = empty($new_instance['alt'.$item_num])           ? '' : strip_tags($new_instance['alt'.$item_num]);
-          $instance['item_text'.($i+1)]     = empty($new_instance['item_text'.$item_num])     ? '' : strip_tags($new_instance['item_text'.$item_num]);
+          $instance['item'.($i+1)]                     = empty($new_instance['item'.$item_num])                    ? '' : strip_tags($new_instance['item'.$item_num]);
+          $instance['item_link'.($i+1)]                = empty($new_instance['item_link'.$item_num])               ? '' : strip_tags($new_instance['item_link'.$item_num]);
+          $instance['item_target'.($i+1)]              = empty($new_instance['item_target'.$item_num])           ? '' : strip_tags($new_instance['item_target'.$item_num]);
+          $instance['item_class'.($i+1)]               = empty($new_instance['item_class'.$item_num])              ? '' : strip_tags($new_instance['item_class'.$item_num]);
+          $instance['item_id'.($i+1)]                  = empty($new_instance['item_id'.$item_num])                 ? '' : strip_tags($new_instance['item_id'.$item_num]);
+          $instance['attachment_id'.($i+1)]            = empty($new_instance['attachment_id'.$item_num])           ? '' : strip_tags($new_instance['attachment_id'.$item_num]);
+          $instance['title'.($i+1)]                    = empty($new_instance['title'.$item_num])                   ? '' : strip_tags($new_instance['title'.$item_num]);
+          $instance['imageurl'.($i+1)]                 = empty($new_instance['imageurl'.$item_num])                ? '' : strip_tags($new_instance['imageurl'.$item_num]);
+          $instance['alt'.($i+1)]                      = empty($new_instance['alt'.$item_num])                     ? '' : strip_tags($new_instance['alt'.$item_num]);
+          $instance['item_text'.($i+1)]                = empty($new_instance['item_text'.$item_num])               ? '' : strip_tags($new_instance['item_text'.$item_num]);
+          $instance['item_force_width'.($i+1)]         = empty($new_instance['item_force_width'.$item_num])        ? '' : strip_tags($new_instance['item_force_width'.$item_num]);
+          $instance['item_force_margin'.($i+1)]        = empty($new_instance['item_force_margin'.$item_num])       ? '' : strip_tags($new_instance['item_force_margin'.$item_num]);
+          $instance['item_force_margin_value'.($i+1)]  = empty($new_instance['item_force_margin_value'.$item_num]) ? '' : strip_tags($new_instance['item_force_margin_value'.$item_num]);
         }
       }
 
-      $instance['amount'] = $amount;
+      $instance['amount']         = $amount;
       $instance['show_placement'] = strip_tags($new_instance['show_placement']);
 
       return $instance;
@@ -157,19 +167,23 @@ if (!class_exists('Image_List_Widget')) {
     public function form( $instance ) {
 
       // First retrieve all saved data from before, if any
-      $instance = wp_parse_args( (array) $instance, array( 'title' => '', 'text' => '', 'title_link' => '' ) );
+      $instance       = wp_parse_args( (array) $instance, array( 'title' => '', 'text' => '', 'title_link' => '' ) );
       $show_placement = empty($instance['show_placement']) ? 'show_in_sidebar' : $instance['show_placement'];
-      $amount = empty($instance['amount']) ? 1 : $instance['amount'];
+      $amount         = empty($instance['amount']) ? 1 : $instance['amount'];
 
       for ($i = 1; $i <= $amount; $i++) {
-        $items[$i]                = empty($instance['item'.$i])           ? '' : $instance['item'.$i];
-        $item_links[$i]           = empty($instance['item_link'.$i])      ? '' : $instance['item_link'.$i];
-        $item_targets[$i]         = empty($instance['item_target'.$i])    ? '' : $instance['item_target'.$i];
-        $item_ids[$i]             = empty($instance['item_id'.$i])        ? '' : $instance['item_id'.$i];
-        $item_imageurl[$i]        = empty($instance['imageurl'.$i])       ? '' : $instance['imageurl'.$i];
-        $item_attachement_id[$i]  = empty($instance['attachment_id'.$i])  ? '' : $instance['attachment_id'.$i];
-        $item_alts[$i]            = empty($instance['alt'.$i])            ? '' : $instance['alt'.$i];
-        $item_texts[$i]           = empty($instance['item_text'.$i])      ? '' : $instance['item_text'.$i];
+        $items[$i]                    = empty($instance['item'.$i])                    ? '' : $instance['item'.$i];
+        $item_links[$i]               = empty($instance['item_link'.$i])               ? '' : $instance['item_link'.$i];
+        $item_targets[$i]             = empty($instance['item_target'.$i])             ? '' : $instance['item_target'.$i];
+        $item_ids[$i]                 = empty($instance['item_id'.$i])                 ? '' : $instance['item_id'.$i];
+        $item_titles[$i]              = empty($instance['title'.$i])                   ? '' : $instance['title'.$i];
+        $item_imageurl[$i]            = empty($instance['imageurl'.$i])                ? '' : $instance['imageurl'.$i];
+        $item_attachement_id[$i]      = empty($instance['attachment_id'.$i])           ? '' : $instance['attachment_id'.$i];
+        $item_alts[$i]                = empty($instance['alt'.$i])                     ? '' : $instance['alt'.$i];
+        $item_texts[$i]               = empty($instance['item_text'.$i])               ? '' : $instance['item_text'.$i];
+        $item_force_widths[$i]        = empty($instance['item_force_width'.$i])        ? '' : $instance['item_force_width'.$i];
+        $item_force_margins[$i]       = empty($instance['item_force_margin'.$i])       ? '' : $instance['item_force_margin'.$i];
+        $item_force_margin_values[$i] = empty($instance['item_force_margin_value'.$i]) ? '' : $instance['item_force_margin_value'.$i];
       } ?>
 
       <div class="sllw-row">
@@ -180,25 +194,29 @@ if (!class_exists('Image_List_Widget')) {
       </div>
 
       <ul class="sllw-instructions">
-        <li><?php echo __("Notera att <b>minst</b> två bilder måste användas i denna widget om den ska befinna sig under innehållet!"); ?></li>
+        <li style="word-break: break-all;"><?php echo __("Notera att <b>minst</b> två bilder måste användas i denna <br> widget om den ska befinna sig under innehållet!"); ?></li>
       </ul>
 
       <div class="simple-link-list">
       <?php
       // Now render each item
       foreach ($items as $num => $item) :
-        $item           = esc_attr($item);
-        $item_link      = esc_attr($item_links[$num]);
-        $checked        = checked($item_targets[$num], 'on', false);
-        $item_id        = esc_attr($item_ids[$num]);
-        $image_url      = esc_attr($item_imageurl[$num]);
-        $attachement_id = esc_attr($item_attachement_id[$num]);
-        $item_text      = esc_attr($item_texts[$num]);
-        $click_event    = "helsingborgImageWidget.uploader('" . $this->get_field_id($num) . "', '" . $this->get_field_id('') . "', '" . $num . "' ); return false;";
+        $item               = esc_attr($item);
+        $item_link          = esc_attr($item_links[$num]);
+        $item_id            = esc_attr($item_ids[$num]);
+        $image_title        = esc_attr($item_titles[$num]);
+        $image_url          = esc_attr($item_imageurl[$num]);
+        $attachement_id     = esc_attr($item_attachement_id[$num]);
+        $item_text          = esc_attr($item_texts[$num]);
+        $force_margin_value = esc_attr($item_force_margin_values[$num]);
+        $force_width        = checked($item_force_widths[$num],  'on', false);
+        $force_margin       = checked($item_force_margins[$num], 'on', false);
+        $checked            = checked($item_targets[$num],       'on', false);
+        $click_event        = "helsingborgImageWidget.uploader('" . $this->get_field_id($num) . "', '" . $this->get_field_id('') . "', '" . $num . "' ); return false;";
         ?>
 
         <div id="<?php echo $this->get_field_id($num); ?>" class="list-item">
-          <h5 class="moving-handle"><span class="number"><?php echo $num; ?></span>. <span class="item-title"><?php echo $image_url; ?></span><a class="sllw-action hide-if-no-js"></a></h5>
+          <h5 class="moving-handle"><span class="number"><?php echo $num; ?></span>. <span class="item-title"><?php echo $image_title; ?></span><a class="sllw-action hide-if-no-js"></a></h5>
           <div class="sllw-edit-item" style="display: table;margin: auto;">
 
             <div class="uploader" style="display: table;margin: auto;">
@@ -209,6 +227,7 @@ if (!class_exists('Image_List_Widget')) {
               <br>
               <input type="submit" class="button" style="display: table; margin: auto;" name="<?php echo $this->get_field_name('uploader_button'.$num); ?>" id="<?php echo $this->get_field_id('uploader_button'.$num); ?>" value="Välj bild" onclick="<?php echo $click_event; ?>" />
               <input type="hidden" id="<?php echo $this->get_field_id('attachment_id'.$num); ?>" name="<?php echo $this->get_field_name('attachment_id'.$num); ?>" value="<?php echo abs($instance['attachment_id'.$num]); ?>" />
+              <input type="hidden" id="<?php echo $this->get_field_id('title'.$num); ?>" name="<?php echo $this->get_field_name('title'.$num); ?>" value="<?php echo $instance['title'.$num]; ?>" />
               <input type="hidden" id="<?php echo $this->get_field_id('imageurl'.$num); ?>" name="<?php echo $this->get_field_name('imageurl'.$num); ?>" value="<?php echo $instance['imageurl'.$num]; ?>" />
               <input type="hidden" id="<?php echo $this->get_field_id('alt'.$num); ?>" name="<?php echo $this->get_field_name('alt'.$num); ?>" value="<?php echo esc_attr(strip_tags($instance['alt'])); ?>" />
             </div>
@@ -220,6 +239,15 @@ if (!class_exists('Image_List_Widget')) {
             <label for="<?php echo $this->get_field_id('item_text'.$num); ?>"><?php echo __("Bildspelstext:"); ?></label>
             <textarea rows="4" cols="30" id="<?php echo $this->get_field_id('item_text'.$num); ?>" name="<?php echo $this->get_field_name('item_text'.$num); ?>" type="text" style="width:100%;"><?php echo $item_text; ?></textarea>
 
+            <ul class="sllw-instructions">
+              <li><?php echo __("<b>Bildinställningar</b>"); ?></li>
+            </ul>
+
+            <input type="checkbox" name="<?php echo $this->get_field_name('item_force_width'.$num); ?>" id="<?php echo $this->get_field_id('item_force_width'.$num); ?>" <?php echo $force_width; ?> /> <label for="<?php echo $this->get_field_id('item_force_width'.$num); ?>"><?php echo __("Tvinga bilden att anpassa i bredd (endast bildspel)"); ?></label>
+            <br>
+            <input type="checkbox" name="<?php echo $this->get_field_name('item_force_margin'.$num); ?>" id="<?php echo $this->get_field_id('item_force_margin'.$num); ?>" <?php echo $force_margin; ?> /> <label for="<?php echo $this->get_field_id('item_force_margin'.$num); ?>"><?php echo __("Tvinga förskjutning i Y-led med "); ?></label>
+            <input maxlength="4" size="4" id="<?php echo $this->get_field_id('item_force_margin_value'.$num); ?>" name="<?php echo $this->get_field_name('item_force_margin_value'.$num); ?>" type="text" value="<?php echo $force_margin_value; ?>" /> <label for="<?php echo $this->get_field_id('item_force_margin_value'.$num); ?>"><?php echo __(" pixlar. (endast bildspel)"); ?></label>
+            <br>
             <input type="checkbox" name="<?php echo $this->get_field_name('item_target'.$num); ?>" id="<?php echo $this->get_field_id('item_target'.$num); ?>" <?php echo $checked; ?> /> <label for="<?php echo $this->get_field_id('item_target'.$num); ?>"><?php echo __("Öppna i nytt fönster"); ?></label>
             <a class="sllw-delete hide-if-no-js"><img src="<?php echo plugins_url('../images/delete.png', __FILE__ ); ?>" /> <?php echo __("Remove"); ?></a>
           </div>
