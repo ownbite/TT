@@ -48,6 +48,7 @@ module.exports = function(grunt) {
       dist: {
         src: [
           'js/foundation/js/foundation.min.js',
+          'js/foundation/js/foundation/foundation.orbit.js',
           'js/custom/*.js'
         ],
 
