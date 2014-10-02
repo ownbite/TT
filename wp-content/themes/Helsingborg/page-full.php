@@ -1,6 +1,6 @@
 <?php
 /*
- Template Name: -- Full Width
+ 
 */
 get_header(); ?>
 <div class="row">
