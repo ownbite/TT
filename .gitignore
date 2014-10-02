@@ -33,6 +33,8 @@ wp-content/plugins/*
 !wp-content/plugins/nextgen-gallery
 !wp-content/plugins/the-events-calendar
 !wp-content/plugins/wp-page-widget
+!wp-content/plugins/convert-post-types
+!wp-content/plugins/wp-ultimate-csv-importer
 # !wp-content/plugins/my-single-file-plugin.php
 # !wp-content/plugins/my-directory-plugin/
  
