@@ -1,134 +1,121 @@
 <?php
-/**
- * Customize the output of menus for Foundation top bar
- */
 
 class sidebar_menu_walker extends Walker_Nav_Menu {
 
-    function display_element( $element, &$children_elements, $max_depth, $depth=0, $args, &$output ) {
-        $element->has_children = !empty( $children_elements[$element->ID] );
-        $element->classes[] = ( $element->current || $element->current_item_ancestor ) ? 'current' : '';
-        $element->classes[] = ( $element->has_children && $max_depth !== 1 ) ? 'has-dropdown' : '';
+  // Custom version of nav-menu-template.php
+  public function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
+    $indent = ( $depth ) ? str_repeat( "\t", $depth ) : '';
 
+    $classes = empty( $item->classes ) ? array() : (array) $item->classes;
+    $classes[] = 'menu-item-' . $item->ID;
+
+    /**
+     * Filter the CSS class(es) applied to a menu item's <li>.
+     *
+     * @since 3.0.0
+     *
+     * @see wp_nav_menu()
+     *
+     * @param array  $classes The CSS classes that are applied to the menu item's <li>.
+     * @param object $item    The current menu item.
+     * @param array  $args    An array of wp_nav_menu() arguments.
+     */
+    $class_names = join( ' ', apply_filters( 'nav_menu_css_class', array_filter( $classes ), $item, $args ) );
+    $class_names = $class_names ? ' class="' . esc_attr( $class_names ) . '"' : '';
+
+    /**
+     * Filter the ID applied to a menu item's <li>.
+     *
+     * @since 3.0.1
+     *
+     * @see wp_nav_menu()
+     *
+     * @param string $menu_id The ID that is applied to the menu item's <li>.
+     * @param object $item    The current menu item.
+     * @param array  $args    An array of wp_nav_menu() arguments.
+     */
+    $id = apply_filters( 'nav_menu_item_id', 'menu-item-'. $item->ID, $item, $args );
+    $id = $id ? ' id="' . esc_attr( $id ) . '"' : '';
+
+    if ($item->current)
+      $output .= $indent . '<li class="current">';
+    elseif ($item->current_item_ancestor && $depth == 0)
+      $output .= $indent . '<li class="current-node">';
+    else
+      $output .= $indent . '<li>';
+
+    $atts = array();
+    $atts['title']  = ! empty( $item->attr_title ) ? $item->attr_title : '';
+    $atts['target'] = ! empty( $item->target )     ? $item->target     : '';
+    $atts['rel']    = ! empty( $item->xfn )        ? $item->xfn        : '';
+    $atts['href']   = ! empty( $item->url )        ? $item->url        : '';
+
+    /**
+     * Filter the HTML attributes applied to a menu item's <a>.
+     *
+     * @since 3.6.0
+     *
+     * @see wp_nav_menu()
+     *
+     * @param array $atts {
+     *     The HTML attributes applied to the menu item's <a>, empty strings are ignored.
+     *
+     *     @type string $title  Title attribute.
+     *     @type string $target Target attribute.
+     *     @type string $rel    The rel attribute.
+     *     @type string $href   The href attribute.
+     * }
+     * @param object $item The current menu item.
+     * @param array  $args An array of wp_nav_menu() arguments.
+     */
+    $atts = apply_filters( 'nav_menu_link_attributes', $atts, $item, $args );
+
+    $attributes = '';
+    foreach ( $atts as $attr => $value ) {
+      if ( ! empty( $value ) ) {
+        $value = ( 'href' === $attr ) ? esc_url( $value ) : esc_attr( $value );
+        $attributes .= ' ' . $attr . '="' . $value . '"';
+      }
+    }
+
+    $item_output = $args->before;
+    $item_output .= '<a'. $attributes .'>';
+    /** This filter is documented in wp-includes/post-template.php */
+    $item_output .= $args->link_before . apply_filters( 'the_title', $item->title, $item->ID ) . $args->link_after;
+    $item_output .= '</a>';
+    $item_output .= $args->after;
+
+    /**
+     * Filter a menu item's starting output.
+     *
+     * The menu item's starting output only includes $args->before, the opening <a>,
+     * the menu item's title, the closing </a>, and $args->after. Currently, there is
+     * no filter for modifying the opening and closing <li> for a menu item.
+     *
+     * @since 3.0.0
+     *
+     * @see wp_nav_menu()
+     *
+     * @param string $item_output The menu item's starting HTML output.
+     * @param object $item        Menu item data object.
+     * @param int    $depth       Depth of menu item. Used for padding.
+     * @param array  $args        An array of wp_nav_menu() arguments.
+     */
+    $output .= apply_filters( 'walker_nav_menu_start_el', $item_output, $item, $depth, $args );
+  }
+
+  // Only follow down one branch
+  function display_element( $element, &$children_elements, $max_depth, $depth=0, $args, &$output ) {
+
+      $element->has_children = !empty( $children_elements[$element->ID] );
+      $element->classes[] = ( $element->current || $element->current_item_ancestor ) ? 'active' : '';
+      $element->classes[] = ( $element->has_children && $max_depth !== 1 ) ? 'has-children' : '';
+
+      if ($element->current || $element->current_item_ancestor)
         parent::display_element( $element, $children_elements, $max_depth, $depth, $args, $output );
-    }
+      else
+        parent::display_element( $element, $children_elements, -1, $depth, $args, $output );
 
-    // Displays start of a level. E.g '<ul>'
-    // @see Walker::start_lvl()
-    function start_lvl(&$output, $depth=0, $args=array()) {
-        $output .= "\n<ul>\n";
-    }
-
-    // Displays end of a level. E.g '</ul>'
-    // @see Walker::end_lvl()
-    function end_lvl(&$output, $depth=0, $args=array()) {
-        $output .= "</ul>\n";
-    }
-
-    function walk( $elements, $max_depth) {
-
-        $args = array_slice(func_get_args(), 2);
-        $output = '';
-
-        if ($max_depth < -1) //invalid parameter
-            return $output;
-
-        if (empty($elements)) //nothing to walk
-            return $output;
-
-        $id_field = $this->db_fields['id'];
-        $parent_field = $this->db_fields['parent'];
-
-        // flat display
-        if ( -1 == $max_depth ) {
-            $empty_array = array();
-            foreach ( $elements as $e )
-                $this->display_element( $e, $empty_array, 1, 0, $args, $output );
-            return $output;
-        }
-
-        /*
-         * need to display in hierarchical order
-         * separate elements into two buckets: top level and children elements
-         * children_elements is two dimensional array, eg.
-         * children_elements[10][] contains all sub-elements whose parent is 10.
-         */
-        $top_level_elements = array();
-        $children_elements  = array();
-        foreach ( $elements as $e) {
-            if ( 0 == $e->$parent_field )
-                $top_level_elements[] = $e;
-            else
-                $children_elements[ $e->$parent_field ][] = $e;
-        }
-
-        /*
-         * when none of the elements is top level
-         * assume the first one must be root of the sub elements
-         */
-        if ( empty($top_level_elements) ) {
-
-            $first = array_slice( $elements, 0, 1 );
-            $root = $first[0];
-
-            $top_level_elements = array();
-            $children_elements  = array();
-            foreach ( $elements as $e) {
-                if ( $root->$parent_field == $e->$parent_field )
-                    $top_level_elements[] = $e;
-                else
-                    $children_elements[ $e->$parent_field ][] = $e;
-            }
-        }
-
-        $current_element_markers = array( 'current-menu-item', 'current-menu-parent', 'current-menu-ancestor' );  //added by continent7
-        foreach ( $top_level_elements as $e ){  //changed by continent7
-            // descend only on current tree
-            $descend_test = array_intersect( $current_element_markers, $e->classes );
-            if ( !empty( $descend_test ) )
-                $this->display_element( $e, $children_elements, 5, 0, $args, $output );
-            else
-                $this->display_element( $e, $children_elements, 1, 0, $args, $output );
-        }
-
-        /*
-         * if we are displaying all levels, and remaining children_elements is not empty,
-         * then we got orphans, which should be displayed regardless
-         */
-         /* removed by continent7
-        if ( ( $max_depth == 0 ) && count( $children_elements ) > 0 ) {
-            $empty_array = array();
-            foreach ( $children_elements as $orphans )
-                foreach( $orphans as $op )
-                    $this->display_element( $op, $empty_array, 1, 0, $args, $output );
-         }
-        */
-         return $output;
-    }
-
-    // function start_el( &$output, $object, $depth = 0, $args = array(), $current_object_id = 0 ) {
-    //     $item_html = '';
-    //     parent::start_el( $item_html, $object, $depth, $args );
-    //
-    //     //$output .= ( $depth == 0 ) ? '<li class="divider"></li>' : '';
-    //
-    //     $classes = empty( $object->classes ) ? array() : (array) $object->classes;
-    //
-    //     if( in_array('label', $classes) ) {
-    //         //$output .= '<li class="divider"></li>';
-    //         $item_html = preg_replace( '/<a[^>]*>(.*)<\/a>/iU', '<label>$1</label>', $item_html );
-    //     }
-    //
-    // // if ( in_array('divider', $classes) ) {
-    // //     $item_html = preg_replace( '/<a[^>]*>( .* )<\/a>/iU', '', $item_html );
-    // // }
-    //
-    //     $output .= $item_html;
-    // }
-    //
-    // function start_lvl( &$output, $depth = 0, $args = array() ) {
-    //     $output .= "\n<ul class=\"sub-menu dropdown\">\n";
-    // }
-
+  }
 }
 ?>
