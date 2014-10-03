@@ -10,18 +10,18 @@
 # See the comments below for more info on how to add exceptions for your
 # content. Or see git's documentation for more info on .gitignore files:
 # http://kernel.org/pub/software/scm/git/docs/gitignore.html
- 
+
 # Ignore everything in the root except the "wp-content" directory.
 /*
 !.gitignore
 !wp-content/
- 
+
 # Ignore everything in the "wp-content" directory, except the "plugins"
 # and "themes" directories.
 wp-content/*
 !wp-content/plugins/
 !wp-content/themes/
- 
+
 # Ignore everything in the "plugins" directory, except the plugins you
 # specify (see the commented-out examples for hints on how to do this.)
 wp-content/plugins/*
@@ -31,13 +31,14 @@ wp-content/plugins/*
 !wp-content/plugins/helsingborg-widgets
 !wp-content/plugins/image-widget
 !wp-content/plugins/nextgen-gallery
-!wp-content/plugins/the-events-calendar
 !wp-content/plugins/wp-page-widget
 !wp-content/plugins/convert-post-types
 !wp-content/plugins/wp-ultimate-csv-importer
+!wp-content/plugins/faster-appearance-menus
+!wp-content/plugins/menu_management_enhancer
 # !wp-content/plugins/my-single-file-plugin.php
 # !wp-content/plugins/my-directory-plugin/
- 
+
 # Ignore everything in the "themes" directory, except the themes you
 # specify (see the commented-out example for a hint on how to do this.)
 wp-content/themes/*
