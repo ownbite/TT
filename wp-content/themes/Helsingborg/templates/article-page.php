@@ -3,6 +3,12 @@
 Template Name: Artikelsida
 */
 get_header();
+
+// Get the content, see if <!--more--> is inserted
+$the_content = get_extended($post->post_content);
+
+$main = $the_content['main'];
+$content = $the_content['extended']; // If content is empty, no <!--more--> tag was used -> content is in $main
 ?>
 
 <div class="article-page-layout row">
@@ -47,8 +53,16 @@ get_header();
                         <header>
                           <h1 class="article-title"><?php the_title(); ?></h1>
                         </header>
+                        <?php if (!empty($content)) : ?>
+                          <div class="ingress">
+                            <?php echo wpautop($main, true); ?>
+                          </div><!-- /.ingress -->
+                        <?php endif; ?>
                         <div class="article-body">
-                          <?php the_content(); ?>
+                          <?php if(!empty($content)){
+                            echo wpautop($content, true);
+                            } else {
+                              echo wpautop($main, true);} ?>
                         </div>
                         <footer>
                           <ul class="socialmedia-list">
@@ -58,8 +72,6 @@ get_header();
                         </footer>
                       </article>
                     <?php endwhile; // End the loop ?>
-
-            <!-- List "puffar" + "blockpuffar" se : http://www.helsingborg.se/Medborgare/Uppleva-och-gora/ + http://www.helsingborg.se/Medborgare/Trafik-och-stadsplanering/ -->
 
             <?php if ( (is_active_sidebar('content-area') == TRUE) ) : ?>
               <?php dynamic_sidebar("content-area"); ?>

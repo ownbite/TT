@@ -397,6 +397,14 @@ img.alignright {
 		img {
 			border-radius: $border-radius;
 		}
+		.ingress p {
+			margin-bottom: rem-calc(10);
+			font-weight: bold;
+		}
+		.ingress {
+			margin-bottom: rem-calc(10);
+			font-weight: bold;
+		}
 	}
 
 	.article-body {

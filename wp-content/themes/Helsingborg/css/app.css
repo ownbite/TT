@@ -5901,6 +5901,12 @@ only screen and (min-resolution: 2dppx) {
 
 .article img {
   border-radius: 4px; }
+.article .ingress p {
+  margin-bottom: 0.625rem;
+  font-weight: bold; }
+.article .ingress {
+  margin-bottom: 0.625rem;
+  font-weight: bold; }
 
 .article-body img {
   max-width: 100%; }

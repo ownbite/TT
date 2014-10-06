@@ -81,7 +81,12 @@ for ($i = 0; $i < count($pages); $i++) {
 
 // JSON encode the current data for usage with knockout!
 $json_items = json_encode($list_items);
-// var_dump($json_items);
+
+// Get the content, see if <!--more--> is inserted
+$the_content = get_extended($post->post_content);
+
+$main = $the_content['main'];
+$content = $the_content['extended']; // If content is empty, no <!--more--> tag was used -> content is in $main
 ?>
 
 <script src="http://knockoutjs.com/downloads/knockout-3.0.0.debug.js" type="text/javascript"></script>
@@ -121,18 +126,25 @@ $json_items = json_encode($list_items);
 
                   <?php /* Start loop */ ?>
                   <?php while (have_posts()) : the_post(); ?>
-                    <article <?php post_class() ?> id="post-<?php the_ID(); ?>">
+                    <article class="article">
                       <header>
                         <div class="listen-to">
                             <a href="#" class="icon"><span>Lyssna på innehållet</span></a>
                         </div>
                         <h1 class="article-title"><?php the_title(); ?></h1>
                       </header>
-                      <div class="article-body">
 
-                        <p>
-                        <?php the_content(); ?>
-                        </p>
+                        <?php if (!empty($content)) : ?>
+                          <div class="ingress">
+                            <?php echo wpautop($main, true); ?>
+                          </div><!-- /.ingress -->
+                        <?php endif; ?>
+                        <div class="article-body">
+                          <?php if(!empty($content)){
+                            echo wpautop($content, true);
+                            } else {
+                              echo wpautop($main, true);} ?>
+                        </div>
 
                         <div class="filter-search">
                             <input type="text" placeholder="Sök i listan..." data-bind="value: query, valueUpdate: 'keyup'" autocomplete="off"/>
