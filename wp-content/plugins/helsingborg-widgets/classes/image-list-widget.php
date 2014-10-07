@@ -43,7 +43,7 @@ if (!class_exists('Image_List_Widget')) {
 
       // Retrieved all links
       for ($i = 1; $i <= $amount; $i++) {
-        $items[$i-1] = $instance['item'.$i];
+        $items[$i-1]                    = $instance['item'.$i];
         $item_links[$i-1]               = $instance['item_link'.$i];
         $item_targets[$i-1]             = isset($instance['item_target'.$i]) ? $instance['item_target'.$i] : false;
         $item_ids[$i-1]                 = $instance['item_id'.$i];
@@ -216,7 +216,7 @@ if (!class_exists('Image_List_Widget')) {
         $force_width        = checked($item_force_widths[$num],  'on', false);
         $force_margin       = checked($item_force_margins[$num], 'on', false);
         $checked            = checked($item_targets[$num],       'on', false);
-        $click_event        = "helsingborgImageWidget.uploader('" . $this->get_field_id($num) . "', '" . $this->get_field_id('') . "', '" . $num . "' ); return false;";
+        $button_click       = "helsingborgMediaSelector.create('" . $this->get_field_id($num) . "', '" . $this->get_field_id('') . "', '" . $num . "' ); return false;";
         ?>
 
         <div id="<?php echo $this->get_field_id($num); ?>" class="list-item">
@@ -229,11 +229,11 @@ if (!class_exists('Image_List_Widget')) {
                 <img src="<?php echo $image_url; ?>" />
               </div>
               <br>
-              <input type="submit" class="button" style="display: table; margin: auto;" name="<?php echo $this->get_field_name('uploader_button'.$num); ?>" id="<?php echo $this->get_field_id('uploader_button'.$num); ?>" value="Välj bild" onclick="<?php echo $click_event; ?>" />
-              <input type="hidden" id="<?php echo $this->get_field_id('attachment_id'.$num); ?>" name="<?php echo $this->get_field_name('attachment_id'.$num); ?>" value="<?php echo abs($instance['attachment_id'.$num]); ?>" />
+              <input type="submit" class="button" style="display: table; margin: auto;" name="<?php echo $this->get_field_name('uploader_button'.$num); ?>" id="<?php echo $this->get_field_id('uploader_button'.$num); ?>" value="Välj bild" onclick="<?php echo $button_click; ?>" />
               <input type="hidden" id="<?php echo $this->get_field_id('title'.$num); ?>" name="<?php echo $this->get_field_name('title'.$num); ?>" value="<?php echo $instance['title'.$num]; ?>" />
               <input type="hidden" id="<?php echo $this->get_field_id('imageurl'.$num); ?>" name="<?php echo $this->get_field_name('imageurl'.$num); ?>" value="<?php echo $instance['imageurl'.$num]; ?>" />
               <input type="hidden" id="<?php echo $this->get_field_id('alt'.$num); ?>" name="<?php echo $this->get_field_name('alt'.$num); ?>" value="<?php echo esc_attr(strip_tags($instance['alt'])); ?>" />
+
             </div>
             <br clear="all" />
 

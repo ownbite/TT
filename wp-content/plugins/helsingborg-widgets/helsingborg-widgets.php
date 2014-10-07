@@ -33,6 +33,14 @@ include_once('classes/index-widget.php');
 include_once('classes/index-large-widget.php');
 include_once('classes/image-list-widget.php');
 
+// Required for setting up DB
+require_once('models/event_model.php');
+
+if (!class_exists( 'post_author' ) ) {
+    include_once ('classes/post_author.php');
+    $post_author_filter = new post_author_filter();
+}
+
 // Initiate widgets
 $SimpleLinkList = new SimpleLinkList();
 $News_List_Widget = new News_List_Widget();
@@ -44,4 +52,4 @@ $Image_List = new Image_List();
 // Add resources used by link-list-widget
 wp_enqueue_style( 'sllw-css', plugin_dir_url(__FILE__) .'css/sllw.css');
 wp_enqueue_script( 'sllw-sort-js', plugin_dir_url(__FILE__) .'js/sllw-sort.js');
-wp_enqueue_script( 'image-widget-js', plugin_dir_url(__FILE__) .'js/image-widget.js');
+wp_enqueue_script( 'media-selector-js', plugin_dir_url(__FILE__) .'js/media-selector.js');
