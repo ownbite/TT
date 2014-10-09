@@ -33,7 +33,7 @@ include_once('classes/index-widget.php');
 include_once('classes/index-large-widget.php');
 include_once('classes/image-list-widget.php');
 
-// Required for setting up DB
+// Setup event handling
 require_once('models/event_model.php');
 
 if (!class_exists( 'post_author' ) ) {
