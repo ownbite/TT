@@ -62,7 +62,7 @@
 }
 
 
-.main-page-layout .main-nav .main-nav-list li:first-child a, .article-page-layout .main-nav .main-nav-list li:first-child a
+.main-page-layout .main-nav .main-nav-list li:first-child a, .article-page-layout .main-nav .main-nav-list li:first-child a, .list-page-layout .main-nav .main-nav-list li:first-child a
 /* Lägg till övriga sidtyper */
 {
 		background-image: url(#{$wp-root-url}/#{$wp-theme-img-url}/fi-home.svg);
@@ -71,7 +71,7 @@
 		text-indent:-999999px;
 }
 
-.main-page-layout .main-nav .sub-menu li:first-child a, .article-page-layout .main-nav .sub-menu li:first-child a
+.main-page-layout .main-nav .sub-menu li:first-child a, .article-page-layout .main-nav .sub-menu li:first-child a, .list-page-layout .main-nav .sub-menu li:first-child a
 {
 		background-image: none;
 		text-indent: 0;
