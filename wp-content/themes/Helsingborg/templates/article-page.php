@@ -5,7 +5,13 @@ Template Name: Artikelsida
 get_header();
 
 // Get the content, see if <!--more--> is inserted
-$the_content = get_extended($post->post_content);
+$the_content = get_extended(strip_shortcodes($post->post_content));
+
+$pattern = get_shortcode_regex();
+preg_match('/'.$pattern.'/s', $post->post_content, $matches);
+if (is_array($matches) && $matches[2] == 'gravityform') {
+	$shortcode = $matches[0];
+}
 
 $main = $the_content['main'];
 $content = $the_content['extended']; // If content is empty, no <!--more--> tag was used -> content is in $main
@@ -62,7 +68,12 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                           <?php if(!empty($content)){
                             echo wpautop($content, true);
                             } else {
-                              echo wpautop($main, true);} ?>
+                              echo wpautop($main, true);
+														}
+														if ($shortcode) {
+															echo do_shortcode($shortcode);
+														}
+														?>
                         </div>
                         <footer>
                           <ul class="socialmedia-list">

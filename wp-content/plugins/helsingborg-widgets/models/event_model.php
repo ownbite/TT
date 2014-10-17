@@ -48,8 +48,8 @@ class HelsingborgEventModel {
       return 'happy_event_external_event';
   }
 
-  public static function get_happy_event_images_table(){
-      return 'happy_event_images';
+  public static function get_happy_images_table(){
+      return 'happy_images';
   }
 
   public static function get_happy_event_organizers_table(){
@@ -66,6 +66,159 @@ class HelsingborgEventModel {
 
   public static function get_happy_event_user_administration_unit_table(){
       return 'happy_event_user_administration_unit';
+  }
+
+  public static function load_events() {
+    global $wpdb;
+
+    /*
+    SELECT DISTINCT hE.EventID, hE.Name, hE.Description, hETid.Date FROM
+            happy_event hE,
+            happy_event_times hETid,
+            happy_event_administration_unit hEFE,
+            happy_administration_unit hFE
+            WHERE hE.Approved = 1
+             AND hE.EventID = hETid.EventID
+             AND hETid.Date >= CURDATE()
+             AND hE.EventID = hEFE.EventID
+             AND hEFE.AdministrationUnitID = hFE.AdministrationUnitID
+             ORDER BY hETid.Date LIMIT 30
+
+
+             SELECT DISTINCT hE.EventID, hE.Name, hE.Description, hETid.Date, hIM.ImagePath FROM
+            happy_event hE,
+            happy_event_times hETid,
+            happy_event_administration_unit hEFE,
+            happy_administration_unit hFE,
+            happy_images hIM
+            WHERE hE.Approved = 1
+             AND hE.EventID = hETid.EventID
+             AND hIM.EventID = he.EventID
+             AND hETid.Date >= CURDATE()
+             AND hE.EventID = hEFE.EventID
+             AND hEFE.AdministrationUnitID = hFE.AdministrationUnitID
+             ORDER BY hETid.Date LIMIT 30
+    */
+
+    $events = $wpdb->get_results('SELECT DISTINCT hE.EventID, hE.Name, hE.Description, hETid.Date, hIM.ImagePath FROM '
+            . self::get_happy_event_table() . ' hE,'
+            . self::get_happy_event_times_table() . ' hETid,'
+            . self::get_happy_event_administration_unit_table() . ' hEFE,'
+            . self::get_happy_administration_unit_table() . ' hFE, '
+            . self::get_happy_images_table() . ' hIM ' .
+             'WHERE hE.Approved = 1
+             AND hE.EventID = hETid.EventID
+             AND hETid.Date >= CURDATE()
+             AND hE.EventID = hEFE.EventID
+             AND hE.EventID = hIM.EventID
+             AND hEFE.AdministrationUnitID = hFE.AdministrationUnitID
+             ORDER BY hETid.Date LIMIT 30', OBJECT
+            );
+
+    return $events;
+            // if (!String.IsNullOrEmpty(forvaltningsEnheter))
+            // {
+            //     commandString += "AND hFE.Namn in (" + forvaltningsEnheter + ") ";
+            // }
+
+  }
+
+  public static function load_unpublished_events($happy_user_id = -1) {
+    if ($happy_user_id == -1)
+      return; // Escape
+
+    global $wpdb;
+
+//      string commandString = "SELECT DISTINCT hE.EvenemangsID, hE.Namn, hE.Beskrivning, hETid.Datum ";
+//             commandString += "FROM Happy_Evenemang hE, ";
+//             commandString += "Happy_Evenemangstider hETid, ";
+//             commandString += "Happy_EvenemangstypsGruppering hETG, ";
+//             commandString += "Happy_EvenemangsForvaltningsenheter hEFE, ";
+//             commandString += "Happy_Forvaltningsenheter hFE ";
+//             commandString += "WHERE hE.Godkannt = 1 ";
+//             commandString += "AND hE.EvenemangsID = hETG.EvenemangsID ";
+//             if (!String.IsNullOrEmpty(typeOfEventSearch))
+//             {
+//                 // The '+' have been replased by ' ' when getting the string with Request.QueryString
+//                 commandString += "AND hETG.Evenemangstypsnamn in (" + typeOfEventSearch.Replace(' ', ',') + ") ";
+//             }
+//             if (!String.IsNullOrEmpty(placeSearch))
+//             {
+//                 commandString += "AND hE.Plats LIKE '%" + placeSearch + "%' ";
+//             }
+//             commandString += "AND hE.EvenemangsID = hETid.EvenemangsID ";
+//             commandString += "AND hETid.Datum >= convert(VARCHAR(10), GETDATE(), 120) ";
+//             if (!String.IsNullOrEmpty(fromDateSearch))
+//             {
+//                 commandString += "AND hETid.Datum >= ('" + fromDateSearch + "') ";
+//             }
+//             if (!String.IsNullOrEmpty(toDateSearch))
+//             {
+//                 commandString += "AND hETid.Datum <= ('" + toDateSearch + "') ";
+//             }
+//             if (!String.IsNullOrEmpty(allEventsSearch) && allEventsSearch.Equals("SelectedUnits"))
+//             {
+//                 commandString += "AND hE.EvenemangsID = hEFE.EvenemangsID ";
+//                 commandString += "AND hEFE.ForvaltningsenhetsID = hFE.ForvaltningsenhetsID ";
+//                 if (!String.IsNullOrEmpty(forvaltningsEnheter))
+//                 {
+//                     commandString += "AND hFE.Namn in (" + forvaltningsEnheter + ") ";
+//                 }
+//             }
+//             if (!String.IsNullOrEmpty(freeTextSearch))
+//             {
+//                 commandString += "AND hE.Namn LIKE '%" + freeTextSearch + "%' ";
+//                 commandString += "AND hE.Beskrivning LIKE '%" + freeTextSearch + "%' ";
+//             }
+//             commandString += "ORDER BY hETid.Datum";
+//
+//
+//
+// ID->3 + 6037 == 4
+    // 1. Get all AdministrationUnitIDs connected to happy_user_id
+    // SELECT `AdministrationUnitID` FROM `happy_user_administration_unit`WHERE `UserID`=4
+
+    // 2. Get all EventIDs connected to the AdministrationUnitIDs
+    // SELECT `AdministrationUnitID` FROM `happy_event_administration_unit` WHERE `AdministrationUnitID`=47 OR `AdministrationUnitID`=48
+
+    // 3. Get all happy_event_times where EventIDs are used
+
+    // 4. Get all EventIDs where:
+    // $sql = 'SELECT *
+    //       FROM `table`
+    //      WHERE `id` IN (' . implode(',', array_map('intval', $array)) . ')';
+    //                          EventID exist
+    //                          Approved == false
+    //                          ExternalEventID == NULL
+    //                          happy_event_time > today
+    //
+
+    // 5. Got the list with EventIDs
+
+
+
+    // 6. Build events from these EventIDs
+
+    // 7. Return the list !
+
+    // string commandString1 = "SELECT hE.Namn, hE.Beskrivning, hE.Plats, hETid.Datum, hETid.Tid ";
+    //         commandString1 += "FROM Happy_Evenemangstider hETid, Happy_Evenemang hE ";
+    //         commandString1 += "WHERE hETid.Datum >= convert(VARCHAR(10), GETDATE(), 120) ";
+    //         commandString1 += "AND hE.EvenemangsID = hETid.EvenemangsID ";
+    //         commandString1 += "AND hE.EvenemangsID = " + ChoosenHappyEventID;
+    //         commandString1 += " ORDER BY hETid.Datum";
+    //         string commandString2 = "SELECT hArr.Webbadress ";
+    //         commandString2 += "FROM Happy_Evenemang hE, Happy_Arrangorer hArr ";
+    //         commandString2 += "WHERE hE.ArrangorsID = hArr.ArrangorsID ";
+    //         commandString2 += "AND hE.EvenemangsID = " + ChoosenHappyEventID;
+
+    $result_events = $wpdb->get_results('SELECT he.Name, he.Description, he.Location, heT.Date, heT.Time
+                                    FROM ' . $happy_event_times . ' heT, ' . $happy_event . ' he
+                                    WHERE heT.Date >= convert(VARCHAR(10), GETDATE(), 120)
+                                    AND he.EventID = heT.EventID
+                                    AND he.EventID = ' . $event_id . '
+                                    ORDER BY heT.Date',
+                                    OBJECT);
   }
 
   public static function load_event($event_id = -1) {
@@ -161,130 +314,28 @@ class HelsingborgEventModel {
                                             );
   }
 
-  public static function create_event($data) {
-
+  public static function create_event($event, $group, $administration, $image) {
     global $wpdb;
+
     $wpdb->query( $wpdb->prepare(
-      'INSERT INTO happy_event (Name, Description, Approved, OrganizerID, Location, ExternalEventID)
-      VALUES (%s, %s, %d, %d, %s, NULL),' $data
+      'INSERT INTO ' . self::get_happy_event_table() . ' (Name, Description, Approved, OrganizerID, Location, ExternalEventID)
+      VALUES (%s, %s, %d, %d, %s, NULL),' . $event
     ));
 
-            // Get highest event ID
-            // string connetionString = ConfigurationManager.ConnectionStrings["EPiServerDB"].ConnectionString;
-            // string checkLastID = "SELECT MAX(EvenemangsID) FROM Happy_Evenemang";
+    $wpdb->query( $wpdb->prepare(
+      'INSERT INTO ' . self::get_happy_event_types_group_table() . ' (EventTypesName, EventID)
+      VALUES (%s, %d),' . $group
+    ));
 
-            // INSERT BLOCK HAPPY_EVENEMANG
-            // string insertHappyEvenemang = "INSERT INTO Happy_Evenemang(Namn, Beskrivning, Godkannt, ArrangorsID, Plats) ";
-            // insertHappyEvenemang += "VALUES (@eventNamn, @eventDescription, @published, @organizerID, @eventDestination)";
-            // con = new SqlConnection(connetionString);
-            // SqlCommand command = con.CreateCommand();
-            // command.CommandText = insertHappyEvenemang;
-            //
-            // //Adding parameters for Happy_Evenemang
-            // command.Parameters.AddWithValue("@eventNamn", SqlDbType.VarChar);
-            // command.Parameters.AddWithValue("@eventDescription", SqlDbType.VarChar);
-            // command.Parameters.AddWithValue("@published", SqlDbType.Bit);
-            // command.Parameters.AddWithValue("@organizerID", SqlDbType.SmallInt);
-            // command.Parameters.AddWithValue("@eventDestination", SqlDbType.VarChar);
-            //
-            // //Adding parameters values
-            // command.Parameters["@eventNamn"].Value = EventNameTextBox.Text;
-            //
-            // //Adding variable parameters values
-            // if (DescriptionTextBox.Text == string.Empty)
-            // {
-            //     command.Parameters["@eventDescription"].Value = DBNull.Value;
-            // }
-            // else
-            // {
-            //     command.Parameters["@eventDescription"].Value = DescriptionTextBox.Text;
-            // }
-            // if (pToBeePublished)
-            // {
-            //     command.Parameters["@published"].Value = 1;
-            // }
-            // else
-            // {
-            //     command.Parameters["@published"].Value = 0;
-            // }
-            // if (OrganizerNamesddl.SelectedIndex > 0)
-            // {
-            //     command.Parameters["@organizerID"].Value = Convert.ToInt16(OrganizerNamesddl.SelectedValue);
-            // }
-            // else
-            // {
-            //     command.Parameters["@organizerID"].Value = DBNull.Value;
-            // }
-            // if (PlaceTextBox.Text == string.Empty)
-            // {
-            //     command.Parameters["@eventDestination"].Value = DBNull.Value;
-            // }
-            // else
-            // {
-            //     command.Parameters["@eventDestination"].Value = PlaceTextBox.Text;
-            // }
+    $wpdb->query( $wpdb->prepare(
+      'INSERT INTO ' . self::get_happy_event_administration_unit_table() . ' (AdministrationUnitID, EventID)
+      VALUES (%s, %d),' . $administration
+    ));
 
-            // INSERT BLOCK HAPPY_EVENEMANGTYPSGRUPPERING
-            // string insertHappyEvenemangsTypGruppering = "INSERT INTO Happy_EvenemangstypsGruppering(Evenemangstypsnamn, EvenemangsID) ";
-            // insertHappyEvenemangsTypGruppering += "VALUES (@Evenemangstypsnamn, @evenemangsID)";
-            // con = new SqlConnection(connetionString);
-            // SqlCommand command3 = con.CreateCommand();
-            // command3.CommandText = insertHappyEvenemangsTypGruppering;
-            //
-            // //Adding parameters for Happy_EvenemangstypsGruppering
-            // command3.Parameters.AddWithValue("@Evenemangstypsnamn", SqlDbType.VarChar);
-            // command3.Parameters.AddWithValue("@evenemangsID", SqlDbType.Int);
-            //
-            // //Adding parameters values
-            // command3.Parameters["@evenemangsID"].Value = lastInsertedEventID;
-            //
-            // ListItemCollection col = TypeOfEventDropDownCheckBoxes.Items;
-            // try
-            // {
-            //     con.Open();
-            //     foreach (ListItem item in col)
-            //     {
-            //         if (item.Selected)
-            //         {
-            //             command3.Parameters["@Evenemangstypsnamn"].Value = item.Text;
-            //             command3.ExecuteNonQuery();
-            //         }
-            //     }
-            // }
-
-            // INSERT BLOCK HAPPY_EVENEMANGSFÖRVALTNINGSENHETER
-            // string insertHappyEvenemangsForvaltningsenheter = "INSERT INTO Happy_EvenemangsForvaltningsenheter(ForvaltningsenhetsID, EvenemangsID) ";
-            // insertHappyEvenemangsForvaltningsenheter += "VALUES (@forvaltningsenhetsID, @evenemangsID)";
-            // con = new SqlConnection(connetionString);
-            // SqlCommand command5 = con.CreateCommand();
-            // command5.CommandText = insertHappyEvenemangsForvaltningsenheter;
-            //
-            // command5.Parameters.AddWithValue("@forvaltningsenhetsID", SqlDbType.SmallInt);
-            // command5.Parameters.AddWithValue("@evenemangsID", SqlDbType.Int);
-            //
-            // //Adding parameters values
-            // command5.Parameters["@evenemangsID"].Value = lastInsertedEventID;
-            //
-            // ListItemCollection forvaltningsenhetsItems = UnitDropDownCheckBoxes.Items;
-            // try
-            // {
-            //     con.Open();
-            //     foreach (ListItem item in forvaltningsenhetsItems)
-            //     {
-            //         if (item.Selected)
-            //         {
-            //             command5.Parameters["@forvaltningsenhetsID"].Value = Convert.ToInt16(item.Value);
-            //             command5.ExecuteNonQuery();
-            //         }
-            //     }
-            // }
-
-            // INSERT BLOCK HAPPY_BILDER
-            // if (FileUploadControl.HasFile && (FileUploadControl.PostedFile.FileName.EndsWith(".JPG") || FileUploadControl.PostedFile.FileName.EndsWith(".jpg")))
-            // {
-            //     InsertToHappy_Bilder(lastInsertedEventID.ToString());
-            //     SaveEventImageOnServers(lastInsertedEventID.ToString());
-            // }
+    $wpdb->query( $wpdb->prepare(
+      'INSERT INTO ' . self::get_happy_event_images_table() . ' (ImageID, EventID, ImagePath, Author)
+      VALUES (%s, %d, %s, %s),' . $image
+    ));
   }
 
   public static function update_event() {
