@@ -8,7 +8,7 @@
 		margin-bottom: rem-calc(32);
 		li a {
 			font-size: rem-calc(18);
-			color: $black; 
+			color: $black;
 			display: block;
 			padding-left: rem-calc(18);
 
@@ -51,10 +51,34 @@
 		}
 		ul ul ul li a {
 			padding-left: rem-calc(50);
-		}			
+		}
 	}
 }
 
+/* home-link */
+
+.main-page-layout .main-nav .main-nav-list li:first-child {
+		background-color:#fff;
+}
+
+
+.main-page-layout .main-nav .main-nav-list li:first-child a, .article-page-layout .main-nav .main-nav-list li:first-child a, .list-page-layout .main-nav .main-nav-list li:first-child a
+/* Lägg till övriga sidtyper */
+{
+		background-image: url(#{$wp-root-url}/#{$wp-theme-img-url}/fi-home.svg);
+		width: 2.5rem;
+		height: 2.5rem;
+		text-indent:-999999px;
+}
+
+.main-page-layout .main-nav .sub-menu li:first-child a, .article-page-layout .main-nav .sub-menu li:first-child a, .list-page-layout .main-nav .sub-menu li:first-child a
+{
+		background-image: none;
+		text-indent: 0;
+		width: auto;
+		height: auto;
+
+}
 
 /* support-nav */
 .show-support-nav {
@@ -120,7 +144,7 @@
 			padding-top: rem-calc(5);
 			padding-right: rem-calc(30);
 			padding-left: rem-calc(30);
-			padding-bottom: rem-calc(5);		
+			padding-bottom: rem-calc(5);
 			font-size: rem-calc(16);
 			line-height: rem-calc(32);
 			text-align: center;
@@ -143,7 +167,7 @@
 					@include hbg-icons($search);
 					margin-right: rem-calc(5);
 				}
-			}			
+			}
 		}
 	}
 .mobile-nav-list {
@@ -157,7 +181,7 @@
 			border-bottom: none;
 		}
 		&:first-child {
-			border-top: 1px solid $mobile-nav-border-color; 
+			border-top: 1px solid $mobile-nav-border-color;
 		}
 		.current {
 			background-color: $mobile-nav-border-color;
@@ -202,7 +226,7 @@
 	}
 	ul ul ul li a {
 		padding-left: rem-calc(60);
-	}		
+	}
 }
 
 /* Mobile search */
@@ -259,7 +283,7 @@
 			margin-left: 0;
 			a {
 				padding: rem-calc(5) rem-calc(10);
-				line-height: rem-calc(24);	
+				line-height: rem-calc(24);
 				&:hover {
 					background-color: $mobile-nav-active-color;
 					text-decoration: none;
@@ -277,16 +301,13 @@
 }
 
 @media #{$small-only} {
-	.mobile-nav {		
+	.mobile-nav {
 		display: block;
 		background-color: $blue-1;
-		
+
 	}
 
 	.support-nav {
 		display: none;
 	}
 }
-
-
-
