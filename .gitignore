@@ -36,6 +36,9 @@ wp-content/plugins/*
 !wp-content/plugins/wp-ultimate-csv-importer
 !wp-content/plugins/faster-appearance-menus
 !wp-content/plugins/menu_management_enhancer
+!wp-content/plugins/all-in-one-seo-pack
+!wp-content/plugins/redirection
+!wp-content/plugins/post-expirator
 # !wp-content/plugins/my-single-file-plugin.php
 # !wp-content/plugins/my-directory-plugin/
 
