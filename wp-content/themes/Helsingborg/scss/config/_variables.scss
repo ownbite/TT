@@ -9,7 +9,7 @@ $black				:	#000000;
 $black-text			:	#222;
 
 $hbg-header-color	:	#8fa5b1;
-	
+
 $blue-1				:	#45697d;
 $blue-2				:	#009cde;
 $blue-3				:	#00629b;
@@ -39,7 +39,7 @@ $headline-color			: 	scale-color($black, $lightness: 20%);
 /* colors for .push-link-widget */
 $self-service-color		:	#4cbae8;
 $report-error-color		:	#78ba71;
-$feedback-color			:	#eadc4c;	
+$feedback-color			:	#eadc4c;
 $tourism-color			:	#dadf99;
 $company-color			:	#f3eb99;
 $inspiration-color		:	#f5cddd;
@@ -63,9 +63,9 @@ $level-4			:	100;
 
 
 /* URLs */
-$wp-root-url		:	"/wp-content/themes/Helsingborg";
-$wp-theme-img-url	:	"/assets/img/images";
-$wp-font-url		:	"/assets/fonts";
+$wp-root-url		:	"/TT/wp-content/themes/Helsingborg";
+$wp-theme-img-url	:	"assets/img/images";
+$wp-font-url		:	"assets/fonts";
 
 /* Borders */
 $border-radius		:	4px;

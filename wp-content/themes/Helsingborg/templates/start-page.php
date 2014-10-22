@@ -52,31 +52,17 @@ get_header(); ?>
 
         <div class="lower-content row">
             <div class="sidebar large-4 columns">
-              <?php dynamic_sidebar("left-sidebar-bottom"); ?>
-            </div>
+                <div class="row">
+                  <?php if ( (is_active_sidebar('left-sidebar-bottom') == TRUE) ) : ?>
+                    <?php dynamic_sidebar("left-sidebar-bottom"); ?>
+                  <?php endif; ?>
+                </div><!-- /.row -->
+            </div><!-- /.sidebar -->
 
-            <section class="large-8 columns">
-              <ul class="block-list news-block-list large-block-grid-3 medium-block-grid-3 small-block-grid-2">
-                <li>
-                  <img src="http://www.placehold.it/330x270" alt="alt-text"/>
-                </li>
-                <li>
-                  <img src="http://www.placehold.it/330x270" alt="alt-text"/>
-                </li>
-                <li>
-                  <img src="http://www.placehold.it/330x270" alt="alt-text"/>
-                </li>
-                <li>
-                  <img src="http://www.placehold.it/330x270" alt="alt-text"/>
-                </li>
-                <li>
-                  <img src="http://www.placehold.it/330x270" alt="alt-text"/>
-                </li>
-                <li>
-                  <img src="http://www.placehold.it/330x270" alt="alt-text"/>
-                </li>
-              </ul>
-            </section>
+            <?php if ( (is_active_sidebar('content-area-bottom') == TRUE) ) : ?>
+              <?php dynamic_sidebar("content-area-bottom"); ?>
+            <?php endif; ?>
+
 
           </div><!-- /.lower-content -->
         </div>  <!-- /.main-area -->

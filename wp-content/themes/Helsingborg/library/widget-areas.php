@@ -56,10 +56,10 @@ function Helsingborg_sidebar_widgets() {
       'id' => 'right-sidebar',
       'name' => __('Höger area', 'Helsingborg'),
       'description' => __('Lägg till de widgets som ska visas i högra sidebaren.', 'Helsingborg'),
-      'before_widget' => '',
-      'after_widget' => '',
+      'before_widget' => '<div class="quick-links-widget widget large-12 medium-6 columns"><div class="widget-content">',
+      'after_widget' => '</div>',
       'before_title' => '<h2>',
-      'after_title' => '</h2>'
+      'after_title' => '</h2><div class="divider"><div class="upper-divider"></div><div class="lower-divider"></div></div>'
   ));
 }
 
