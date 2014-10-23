@@ -62,7 +62,7 @@ if (!class_exists('Image_List_Widget')) {
         echo('<div class="push-links-widget widget large-12 columns">');
           echo('<ul class="push-links-list">');
           foreach ($items as $num => $item) :
-            echo('<li class="item-' . ($num + 1) . '">');
+            echo('<li>');
               echo('<a href="' . $items_links[$num] . '"><img src="' . $item_imageurl[$num] . '" alt="' . $item_alts[$num] . '" /></a>');
             echo('</li>');
           endforeach;
