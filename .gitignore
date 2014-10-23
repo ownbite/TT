@@ -39,6 +39,7 @@ wp-content/plugins/*
 !wp-content/plugins/all-in-one-seo-pack
 !wp-content/plugins/redirection
 !wp-content/plugins/post-expirator
+!wp-content/plugins/convert-post-types
 # !wp-content/plugins/my-single-file-plugin.php
 # !wp-content/plugins/my-directory-plugin/
 
