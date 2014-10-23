@@ -79,9 +79,11 @@ if (!class_exists('Image_List_Widget')) {
             $force_margin = (!empty($item_force_margins[$num]) && !empty($item_force_margin_values[$num])) ? ' margin-top:-' . $item_force_margin_values[$num] . 'px;' : '';
             echo('<li>');
               echo('<img class="img-slide" src="' . $item_imageurl[$num] . '" alt="' . $item_alts[$num] . '" style="' . $force_width . $force_margin .'" />');
-              echo('<div class="orbit-caption">');
-                echo $item_texts[$num];
-              echo('</div>');
+              if (!empty($item_texts[$num])) :
+                echo('<div class="orbit-caption">');
+                  echo $item_texts[$num];
+                echo('</div>');
+              endif;
             echo('</li>');
           endforeach;
           echo('</ul>');
