@@ -1,6 +1,6 @@
 jQuery(document).ready(function($) {
 	if(!$('body').hasClass('widgets_access')){
-		sllwSetupList($);
+		sllwSetupTheList($);
 		$('.sllw-edit-item').addClass('toggled-off');
 		sllwSetupHandlers($);
 	}
@@ -11,7 +11,7 @@ jQuery(document).ready(function($) {
 	});
 });
 
-function sllwSetupList($){
+function sllwSetupTheList($){
 	$( ".simple-link-list" ).sortable({
 		items: '.list-item',
 		opacity: 0.6,
@@ -28,7 +28,7 @@ function sllwSetupList($){
 	});
 
 	$( ".simple-link-list .moving-handle" ).disableSelection();
-}
+}*/
 
 
 // All Event handlers
