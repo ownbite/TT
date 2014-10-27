@@ -51,5 +51,5 @@ $Image_List = new Image_List();
 
 // Add resources used by link-list-widget
 wp_enqueue_style( 'sllw-css', plugin_dir_url(__FILE__) .'css/sllw.css');
-wp_enqueue_script( 'sllw-sort-js', plugin_dir_url(__FILE__) .'js/sllw-sort.js');
+wp_enqueue_script( 'helsingborg-list-sort-js', plugin_dir_url(__FILE__) .'js/helsingborg-list-sort.js');
 wp_enqueue_script( 'media-selector-js', plugin_dir_url(__FILE__) .'js/media-selector.js');
