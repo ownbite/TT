@@ -1,10 +1,6 @@
 jQuery(document).ready(function($) {
 	if(!$('body').hasClass('widgets_access')){
-<<<<<<< HEAD:wp-content/plugins/helsingborg-widgets/js/helsingborg-list-sort.js
 		helsingborgSetupList($);
-=======
-		sllwSetupTheList($);
->>>>>>> 3246f45a36dda195f41e33ebece74d0f6b3dfad3:wp-content/plugins/helsingborg-widgets/js/sllw-sort.js
 		$('.sllw-edit-item').addClass('toggled-off');
 		helsingborgSetupHandlers($);
 	}
@@ -15,11 +11,7 @@ jQuery(document).ready(function($) {
 	});
 });
 
-<<<<<<< HEAD:wp-content/plugins/helsingborg-widgets/js/helsingborg-list-sort.js
 function helsingborgSetupList($){
-=======
-function sllwSetupTheList($){
->>>>>>> 3246f45a36dda195f41e33ebece74d0f6b3dfad3:wp-content/plugins/helsingborg-widgets/js/sllw-sort.js
 	$( ".simple-link-list" ).sortable({
 		items: '.list-item',
 		opacity: 0.6,
@@ -36,8 +28,7 @@ function sllwSetupTheList($){
 	});
 
 	$( ".simple-link-list .moving-handle" ).disableSelection();
-}*/
-
+}
 
 // All Event handlers
 function helsingborgSetupHandlers($){
