@@ -5,21 +5,6 @@
 
 class HelsingborgEventModel {
 
-  /*
-
-    -- USEFUL STUFF --
-
-  $mydb = new wpdb('username','password','database','localhost');
-  $rows = $mydb->get_results("select Name from my_table");
-  echo "<ul>";
-    foreach ($rows as $obj) :
-      echo "<li>".$obj->Name."</li>";
-    endforeach;
-  echo "</ul>";
-
-  */
-
-
   public static function get_happy_event_table(){
       return 'happy_event';
   }
@@ -72,35 +57,24 @@ class HelsingborgEventModel {
     global $wpdb;
 
     /*
-    SELECT DISTINCT hE.EventID, hE.Name, hE.Description, hETid.Date FROM
-            happy_event hE,
-            happy_event_times hETid,
-            happy_event_administration_unit hEFE,
-            happy_administration_unit hFE
-            WHERE hE.Approved = 1
-             AND hE.EventID = hETid.EventID
-             AND hETid.Date >= CURDATE()
-             AND hE.EventID = hEFE.EventID
-             AND hEFE.AdministrationUnitID = hFE.AdministrationUnitID
-             ORDER BY hETid.Date LIMIT 30
-
-
-             SELECT DISTINCT hE.EventID, hE.Name, hE.Description, hETid.Date, hIM.ImagePath FROM
+             SELECT DISTINCT hE.EventID, hE.Name, hE.Description, hETid.Date, hIM.ImagePath, hETG.EventTypesName FROM
             happy_event hE,
             happy_event_times hETid,
             happy_event_administration_unit hEFE,
             happy_administration_unit hFE,
-            happy_images hIM
+            happy_images hIM,
+            happy_event_types_group hETG
             WHERE hE.Approved = 1
              AND hE.EventID = hETid.EventID
              AND hIM.EventID = he.EventID
              AND hETid.Date >= CURDATE()
              AND hE.EventID = hEFE.EventID
              AND hEFE.AdministrationUnitID = hFE.AdministrationUnitID
+             AND hETG.EventID = hE.EventID
              ORDER BY hETid.Date LIMIT 30
     */
 
-    $events = $wpdb->get_results('SELECT DISTINCT hE.EventID, hE.Name, hE.Description, hETid.Date, hIM.ImagePath FROM '
+    $events = $wpdb->get_results('SELECT DISTINCT hE.EventID, hE.Name, hE.Description, hETid.Date, hIM.ImagePath, hE.Location FROM '
             . self::get_happy_event_table() . ' hE,'
             . self::get_happy_event_times_table() . ' hETid,'
             . self::get_happy_event_administration_unit_table() . ' hEFE,'
@@ -112,15 +86,20 @@ class HelsingborgEventModel {
              AND hE.EventID = hEFE.EventID
              AND hE.EventID = hIM.EventID
              AND hEFE.AdministrationUnitID = hFE.AdministrationUnitID
-             ORDER BY hETid.Date LIMIT 30', OBJECT
-            );
+             ORDER BY hETid.Date', OBJECT);
 
-    return $events;
-            // if (!String.IsNullOrEmpty(forvaltningsEnheter))
-            // {
-            //     commandString += "AND hFE.Namn in (" + forvaltningsEnheter + ") ";
-            // }
+    $new_list = [];
+    foreach($events as $event) {
+      $rows = $wpdb->get_results('SELECT DISTINCT hETG.EventTypesName FROM '
+              . self::get_happy_event_types_group_table() . ' hETG ' .
+               'WHERE hETG.EventID = ' . $event->EventID, ARRAY_A);
 
+      $event_array = (array)$event;
+      array_push($event_array, $rows);
+      array_push($new_list, $event_array);
+    }
+
+    return $new_list;
   }
 
   public static function load_unpublished_events($happy_user_id = -1) {
@@ -129,96 +108,33 @@ class HelsingborgEventModel {
 
     global $wpdb;
 
-//      string commandString = "SELECT DISTINCT hE.EvenemangsID, hE.Namn, hE.Beskrivning, hETid.Datum ";
-//             commandString += "FROM Happy_Evenemang hE, ";
-//             commandString += "Happy_Evenemangstider hETid, ";
-//             commandString += "Happy_EvenemangstypsGruppering hETG, ";
-//             commandString += "Happy_EvenemangsForvaltningsenheter hEFE, ";
-//             commandString += "Happy_Forvaltningsenheter hFE ";
-//             commandString += "WHERE hE.Godkannt = 1 ";
-//             commandString += "AND hE.EvenemangsID = hETG.EvenemangsID ";
-//             if (!String.IsNullOrEmpty(typeOfEventSearch))
-//             {
-//                 // The '+' have been replased by ' ' when getting the string with Request.QueryString
-//                 commandString += "AND hETG.Evenemangstypsnamn in (" + typeOfEventSearch.Replace(' ', ',') + ") ";
-//             }
-//             if (!String.IsNullOrEmpty(placeSearch))
-//             {
-//                 commandString += "AND hE.Plats LIKE '%" + placeSearch + "%' ";
-//             }
-//             commandString += "AND hE.EvenemangsID = hETid.EvenemangsID ";
-//             commandString += "AND hETid.Datum >= convert(VARCHAR(10), GETDATE(), 120) ";
-//             if (!String.IsNullOrEmpty(fromDateSearch))
-//             {
-//                 commandString += "AND hETid.Datum >= ('" + fromDateSearch + "') ";
-//             }
-//             if (!String.IsNullOrEmpty(toDateSearch))
-//             {
-//                 commandString += "AND hETid.Datum <= ('" + toDateSearch + "') ";
-//             }
-//             if (!String.IsNullOrEmpty(allEventsSearch) && allEventsSearch.Equals("SelectedUnits"))
-//             {
-//                 commandString += "AND hE.EvenemangsID = hEFE.EvenemangsID ";
-//                 commandString += "AND hEFE.ForvaltningsenhetsID = hFE.ForvaltningsenhetsID ";
-//                 if (!String.IsNullOrEmpty(forvaltningsEnheter))
-//                 {
-//                     commandString += "AND hFE.Namn in (" + forvaltningsEnheter + ") ";
-//                 }
-//             }
-//             if (!String.IsNullOrEmpty(freeTextSearch))
-//             {
-//                 commandString += "AND hE.Namn LIKE '%" + freeTextSearch + "%' ";
-//                 commandString += "AND hE.Beskrivning LIKE '%" + freeTextSearch + "%' ";
-//             }
-//             commandString += "ORDER BY hETid.Datum";
-//
-//
-//
-// ID->3 + 6037 == 4
-    // 1. Get all AdministrationUnitIDs connected to happy_user_id
-    // SELECT `AdministrationUnitID` FROM `happy_user_administration_unit`WHERE `UserID`=4
+    $events = $wpdb->get_results('SELECT DISTINCT hE.EventID, hE.Name, hE.Description, hETid.Date, hIM.ImagePath, hE.Location FROM '
+            . self::get_happy_event_table() . ' hE,'
+            . self::get_happy_event_times_table() . ' hETid,'
+            . self::get_happy_event_administration_unit_table() . ' hEFE,'
+            . self::get_happy_administration_unit_table() . ' hFE, '
+            . self::get_happy_images_table() . ' hIM ' .
+             'WHERE hE.Approved = 0
+             AND
+             AND hE.EventID = hETid.EventID
+             AND hETid.Date >= CURDATE()
+             AND hE.EventID = hEFE.EventID
+             AND hE.EventID = hIM.EventID
+             AND hEFE.AdministrationUnitID = hFE.AdministrationUnitID
+             ORDER BY hETid.Date', OBJECT);
 
-    // 2. Get all EventIDs connected to the AdministrationUnitIDs
-    // SELECT `AdministrationUnitID` FROM `happy_event_administration_unit` WHERE `AdministrationUnitID`=47 OR `AdministrationUnitID`=48
+    $new_list = [];
+    foreach($events as $event) {
+      $rows = $wpdb->get_results('SELECT DISTINCT hETG.EventTypesName FROM '
+              . self::get_happy_event_types_group_table() . ' hETG ' .
+               'WHERE hETG.EventID = ' . $event->EventID, ARRAY_A);
 
-    // 3. Get all happy_event_times where EventIDs are used
+      $event_array = (array)$event;
+      array_push($event_array, $rows);
+      array_push($new_list, $event_array);
+    }
 
-    // 4. Get all EventIDs where:
-    // $sql = 'SELECT *
-    //       FROM `table`
-    //      WHERE `id` IN (' . implode(',', array_map('intval', $array)) . ')';
-    //                          EventID exist
-    //                          Approved == false
-    //                          ExternalEventID == NULL
-    //                          happy_event_time > today
-    //
-
-    // 5. Got the list with EventIDs
-
-
-
-    // 6. Build events from these EventIDs
-
-    // 7. Return the list !
-
-    // string commandString1 = "SELECT hE.Namn, hE.Beskrivning, hE.Plats, hETid.Datum, hETid.Tid ";
-    //         commandString1 += "FROM Happy_Evenemangstider hETid, Happy_Evenemang hE ";
-    //         commandString1 += "WHERE hETid.Datum >= convert(VARCHAR(10), GETDATE(), 120) ";
-    //         commandString1 += "AND hE.EvenemangsID = hETid.EvenemangsID ";
-    //         commandString1 += "AND hE.EvenemangsID = " + ChoosenHappyEventID;
-    //         commandString1 += " ORDER BY hETid.Datum";
-    //         string commandString2 = "SELECT hArr.Webbadress ";
-    //         commandString2 += "FROM Happy_Evenemang hE, Happy_Arrangorer hArr ";
-    //         commandString2 += "WHERE hE.ArrangorsID = hArr.ArrangorsID ";
-    //         commandString2 += "AND hE.EvenemangsID = " + ChoosenHappyEventID;
-
-    $result_events = $wpdb->get_results('SELECT he.Name, he.Description, he.Location, heT.Date, heT.Time
-                                    FROM ' . $happy_event_times . ' heT, ' . $happy_event . ' he
-                                    WHERE heT.Date >= convert(VARCHAR(10), GETDATE(), 120)
-                                    AND he.EventID = heT.EventID
-                                    AND he.EventID = ' . $event_id . '
-                                    ORDER BY heT.Date',
-                                    OBJECT);
+    return $new_list;
   }
 
   public static function load_event($event_id = -1) {

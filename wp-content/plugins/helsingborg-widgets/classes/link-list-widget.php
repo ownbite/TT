@@ -242,13 +242,13 @@ if (!class_exists('SimpleLinkListWidget')) {
       <p><label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:'); ?></label>
       <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr($title); ?>" /></p>
 
-      <div class="sllw-row">
+      <div class="hbgllw-row">
         <label><b>OBS! Vart ska denna visas?  </b></label><br>
         <label for="<?php echo $this->get_field_id('show_in_content'); ?>"><input type="radio" name="<?php echo $this->get_field_name('show_placement'); ?>" value="show_in_content" id="<?php echo $this->get_field_id('show_in_content'); ?>" <?php checked($show_placement, "show_in_content"); ?> />  <?php echo __("Under innehållet"); ?></label>
         <label for="<?php echo $this->get_field_id('show_in_sidebar'); ?>"><input type="radio" name="<?php echo $this->get_field_name('show_placement'); ?>" value="show_in_sidebar" id="<?php echo $this->get_field_id('show_in_sidebar'); ?>" <?php checked($show_placement, "show_in_sidebar"); ?> /> <?php echo __("I högerkolumnen"); ?></label>
       </div>
 
-      <ul class="sllw-instructions">
+      <ul class="hbgllw-instructions">
         <li><?php echo __("Titel är det som visas i widgetens header."); ?></li>
         <li><?php echo __("Om en länk refererar till en intern sida (dvs. dropdownen) så används den."); ?></li>
         <li><?php echo __("Om en länk vill hämta en extern länk, så måste 'Titel för objekt'."); ?></li>
@@ -256,7 +256,7 @@ if (!class_exists('SimpleLinkListWidget')) {
         <li><?php echo __("Om 'Visa RSS' är satt till 'Ja', så syns en ikon uppe i headern."); ?></li>
         <li><?php echo __("'Visa datum' fungerar endast på interna sidor, då skrivs datumen ut under länken."); ?></li>
       </ul>
-      <div class="simple-link-list">
+      <div class="helsingborg-link-list">
       <?php foreach ($items as $num => $item) :
         $item = esc_attr($item);
         $item_link = esc_attr($item_links[$num]);
@@ -269,8 +269,8 @@ if (!class_exists('SimpleLinkListWidget')) {
       ?>
 
         <div id="<?php echo $this->get_field_id($num); ?>" class="list-item">
-          <h5 class="moving-handle"><span class="number"><?php echo $num; ?></span>. <span class="item-title"><?php echo $h5; ?></span><a class="sllw-action hide-if-no-js"></a></h5>
-          <div class="sllw-edit-item">
+          <h5 class="moving-handle"><span class="number"><?php echo $num; ?></span>. <span class="item-title"><?php echo $h5; ?></span><a class="hbgllw-action hide-if-no-js"></a></h5>
+          <div class="hbgllw-edit-item">
 
             <label for="<?php echo $this->get_field_id('item'.$num); ?>"><?php echo __("Titel för objekt:"); ?></label>
             <input class="widefat" id="<?php echo $this->get_field_id('item'.$num); ?>" name="<?php echo $this->get_field_name('item'.$num); ?>" type="text" value="<?php echo $item; ?>" />
@@ -289,7 +289,7 @@ if (!class_exists('SimpleLinkListWidget')) {
             </p>
 
             <input type="checkbox" name="<?php echo $this->get_field_name('item_target'.$num); ?>" id="<?php echo $this->get_field_id('item_target'.$num); ?>" <?php echo $checked; ?> /> <label for="<?php echo $this->get_field_id('item_target'.$num); ?>"><?php echo __("Öppna i nytt fönster"); ?></label>
-            <a class="sllw-delete hide-if-no-js"><img src="<?php echo plugins_url('../images/delete.png', __FILE__ ); ?>" /> <?php echo __("Remove"); ?></a>
+            <a class="hbgllw-delete hide-if-no-js"><img src="<?php echo plugins_url('../images/delete.png', __FILE__ ); ?>" /> <?php echo __("Remove"); ?></a>
           </div>
         </div>
 
@@ -320,20 +320,20 @@ if (!class_exists('SimpleLinkListWidget')) {
           </tbody>
         </table>
 
-        <div class="sllw-row">
+        <div class="hbgllw-row">
           <input type="checkbox" name="<?php echo $this->get_field_name('new_item'); ?>" id="<?php echo $this->get_field_id('new_item'); ?>" /> <label for="<?php echo $this->get_field_id('new_item'); ?>"><?php echo __("Add New Item"); ?></label>
         </div>
       <?php endif; ?>
 
       </div>
-      <div class="sllw-row hide-if-no-js">
-        <a class="sllw-add button-secondary"><img src="<?php echo plugins_url('../images/add.png', __FILE__ )?>" /> <?php echo __("Lägg till länk"); ?></a>
+      <div class="hbgllw-row hide-if-no-js">
+        <a class="hbgllw-add button-secondary"><img src="<?php echo plugins_url('../images/add.png', __FILE__ )?>" /> <?php echo __("Lägg till länk"); ?></a>
       </div>
 
       <input type="hidden" id="<?php echo $this->get_field_id('amount'); ?>" class="amount" name="<?php echo $this->get_field_name('amount'); ?>" value="<?php echo $amount ?>" />
       <input type="hidden" id="<?php echo $this->get_field_id('order'); ?>" class="order" name="<?php echo $this->get_field_name('order'); ?>" value="<?php echo implode(',',range(1,$amount)); ?>" />
 
-      <div class="sllw-row">
+      <div class="hbgllw-row">
         <label>Visa RSS?  </label>
         <label for="<?php echo $this->get_field_id('rss_yes'); ?>"><input type="radio" name="<?php echo $this->get_field_name('show_rss'); ?>" value="rss_yes" id="<?php echo $this->get_field_id('rss_yes'); ?>" <?php checked($show_rss, "rss_yes"); ?> />  <?php echo __("Ja"); ?></label>
         <label for="<?php echo $this->get_field_id('rss_no'); ?>"><input type="radio" name="<?php echo $this->get_field_name('show_rss'); ?>" value="rss_no" id="<?php echo $this->get_field_id('rss_no'); ?>" <?php checked($show_rss, "rss_no"); ?> /> <?php echo __("Nej"); ?></label>
@@ -342,7 +342,7 @@ if (!class_exists('SimpleLinkListWidget')) {
       <p><label for="<?php echo $this->get_field_id('rss_link'); ?>"><?php _e('RSS Länk:'); ?></label>
       <input class="widefat" id="<?php echo $this->get_field_id('rss_link'); ?>" name="<?php echo $this->get_field_name('rss_link'); ?>" type="text" value="<?php echo esc_attr($rss_link); ?>" /></p>
 
-      <div class="sllw-row">
+      <div class="hbgllw-row">
         <input type="checkbox" name="<?php echo $this->get_field_name('show_dates'); ?>" id="<?php echo $this->get_field_id('show_dates'); ?>" <?php checked($show_dates, 'on'); ?> /> <label for="<?php echo $this->get_field_id('show_dates'); ?>"><?php echo __("Visa datum?"); ?></label>
       </div>
 

@@ -17,6 +17,8 @@ if( is_user_logged_in() && has_shortcode( $post->post_content, 'gravityform' ) )
 $events = HelsingborgEventModel::load_events();
 $event_types = HelsingborgEventModel::load_event_types();
 
+// var_dump($events);
+
 $json_items = json_encode($events);
 // var_dump($json_items);
 
@@ -31,8 +33,9 @@ if (is_array($matches) && $matches[2] == 'gravityform') {
 
 $main = $the_content['main'];
 $content = $the_content['extended']; // If content is empty, no <!--more--> tag was used -> content is in $main
-?>
 
+
+// TODO: Change these to proper CSS !!! ?>
 <script src="<?php echo get_stylesheet_directory_uri() ; ?>/bower_components/foundation-multiselect/zmultiselect/zurb5-multiselect.js"></script>
 <link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri() ; ?>/bower_components/foundation-multiselect/zmultiselect/zurb5-multiselect.css">
 <script src="<?php echo get_stylesheet_directory_uri() ; ?>/js/jquery.datetimepicker.js"></script>
@@ -145,43 +148,69 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                         </tr>
                       </thead>
                     </table>
-                    <button type="button" class="button expand">Sök</button>
 
-                    <b>Filters:</b><br />
                     <div data-bind="foreach: filter.filters">
                         <div>
                             <span data-bind="text: Name"></span>:<br />
                         </div>
                         <div data-bind="if: Type == 'select'">
-                            <select data-bind="options: Options, optionsText: 'Name', value: CurrentOption"></select>
+                            <select data-bind="options: Options, optionsText: 'Name', value: CurrentOption" ></select>
                         </div>
                         <div data-bind="if: Type == 'text'">
                             <input type="text" data-bind="value: Value, valueUpdate: 'afterkeydown'" />
                         </div>
                     </div>
-                    <br />
-                    <b>Sorts:</b>
-                    Field:<br />
-                    <select data-bind="options: sorter.sortOptions, optionsText: 'Name', value: sorter.currentSortOption"></select>
-                    Direction:
-                    <select data-bind="options: sorter.sortDirections, optionsText: 'Name', value: sorter.currentSortDirection"></select>
-                    <br />
-                    <br />
 
                     <div class="Pager"></div>
                     <div class="NoRecords"></div>
-
                     <ul data-bind="template: {name:'eventTemplate',foreach: pager.currentPageRecords}" class="block-list page-block-list page-list large-block-grid-3 medium-block-grid-3 small-block-grid-2"></ul>
+                    <div class="Pager"></div>
+
+                    <div id="eventModal" class="reveal-modal" data-reveal>
+                      <img class="modalImage"/>
+                      <h2 class="modalTitle"></h2>
+                      <p class="modalDate"></p>
+                      <p class="modalDescription"></p>
+                      <a class="close-reveal-modal">&#215;</a>
+                    </div>
 
                     <script type="text/html" id="eventTemplate">
                       <li>
-                        <a href="#" desc="link-desc">
-                          <img src="http://www.placehold.it/300x200" alt="alt-text"/>
+                        <a class="modalLink" href="#" data-bind="attr: {id: EventID}" data-reveal-id="eventModal" desc="link-desc">
+                          <img data-bind="attr: {src: ImagePath}" alt="alt-text"/>
+                          <p data-bind="text: Location" style="display: none;"></p>
                           <h2 data-bind="text: Name" class="list-title"></h2>
                           <span data-bind="text: Date" class="news-date"></span>
-                          <div data-bind="text: Description" class="list-content"></div>
+                          <div data-bind="trimText: Description" class="list-content"></div>
                         </a>
                       </li>
+                    </script>
+
+                    <script>
+                      jQuery(document).ready(function() {
+                        jQuery(document).on('click', '.modalLink', function(event){
+                            event.preventDefault();
+                            var image = $('.modalImage');
+                            var title = $('.modalTitle');
+                            var date = $('.modalDate');
+                            var description = $('.modalDescription');
+
+                            var customer = _eventPageModel.customers;
+                            var result;
+
+                            for (var i = 0; i < customer.length; i++) {
+                              if (customer[i].EventID === this.id) {
+                                result = customer[i];
+                              }
+                            }
+
+                            jQuery(image).attr("src", result.ImagePath);
+                            jQuery(title).html(result.Name);
+                            jQuery(date).html(result.Date);
+                            jQuery(description).html(result.Description);
+                        });
+                      });
+
                     </script>
 
                     <script>
@@ -193,9 +222,13 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                       }
 
                       var self = this;
+                      self.EventID = data.EventID;
                       self.Date = data.Date;
                       self.Name = data.Name;
                       self.Description = data.Description;
+                      self.ImagePath = data.ImagePath;
+                      self.Location = data.Location;
+                      self.EventTypesName = data.EventTypesName;
                     }
 
                     function EventPageModel(data)
@@ -211,23 +244,34 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                       var filters = [
                         {
                           Type: "text",
-                          Name: "Name",
+                          Name: "Namn",
                           Value: ko.observable(""),
                           RecordValue: function(record) { return record.Name; }
                         },
                         {
+                          Type: "text",
+                          Name: "Plats",
+                          Value: ko.observable(""),
+                          RecordValue: function(record) { return (record.Location != null) ? record.Location : ""; }
+                        },
+                        {
                           Type: "select",
-                          Name: "Status",
+                          Name: "Evenemangstyp",
                           Options: [
                             GetOption("All", "All", null),
-                            GetOption("None", "None", "None"),
-                            GetOption("New", "New", "New"),
-                            GetOption("Recently Modified", "Recently Modified", "Recently Modified")
+                            <?php foreach($event_types as $item):
+                              echo('GetOption("'.$item->Name.'","'.$item->Name.'","'.$item->Name.'"),');
+                            endforeach; ?>
                           ],
                           CurrentOption: ko.observable(),
-                          RecordValue: function(record) { return record.status; }
+                          RecordValue: function(record)
+                          {
+                            var k = record.EventTypesName;
+                            return k; 
+                          }
                         }
                       ];
+
                       var sortOptions = [
                         {
                           Name: "Date",
@@ -247,22 +291,21 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                       ];
                       self.filter = new FilterModel(filters, self.customers);
                       self.sorter = new SorterModel(sortOptions, self.filter.filteredRecords);
-                      self.pager = new PagerModel(self.sorter.orderedRecords);
+                      self.pager = new PagerModel(self.filter.filteredRecords);
                     }
 
                     function PagerModel(records)
                     {
                       var self = this;
-                      self.pageSizeOptions = ko.observableArray([1,3, 5, 25, 50]);
 
                       self.records = GetObservableArray(records);
                       self.currentPageIndex = ko.observable(self.records().length > 0 ? 0 : -1);
-                      self.currentPageSize = ko.observable(25);
+                      self.currentPageSize = 7;
                       self.recordCount = ko.computed(function() {
                         return self.records().length;
                       });
                       self.maxPageIndex = ko.computed(function() {
-                        return Math.ceil(self.records().length / self.currentPageSize()) - 1;
+                        return Math.ceil(self.records().length / self.currentPageSize) - 1;
                       });
                       self.currentPageRecords = ko.computed(function() {
                         var newPageIndex = -1;
@@ -298,11 +341,17 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                           return [];
                         }
 
-                        var pageSize = self.currentPageSize();
+                        var pageSize = self.currentPageSize;
                         var startIndex = pageIndex * pageSize;
                         var endIndex = startIndex + pageSize;
                         return self.records().slice(startIndex, endIndex);
                       }).extend({ throttle: 5 });
+                      self.currentStatus = function(index) {
+                        return (self.currentPageIndex() == index) ? 'current' : '';
+                      };
+                      self.isHidden = function(index) {
+                        return (self.maxPageIndex() >= index) ? true : false;
+                      }
                       self.moveFirst = function() {
                         self.changePageIndex(0);
                       };
@@ -329,11 +378,17 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                         self.currentPageIndex(0);
                       };
                       self.renderPagers = function() {
-                        var pager = "<div><a href=\"#\" data-bind=\"click: pager.moveFirst, enable: pager.currentPageIndex() > 0\">&lt;&lt;</a><a href=\"#\" data-bind=\"click: pager.movePrevious, enable: pager.currentPageIndex() > 0\">&lt;</a>Page <span data-bind=\"text: pager.currentPageIndex() + 1\"></span> of <span data-bind=\"text: pager.maxPageIndex() + 1\"></span> [<span data-bind=\"text: pager.recordCount\"></span> Record(s)]<select data-bind=\"options: pager.pageSizeOptions, value: pager.currentPageSize, event: { change: pager.onPageSizeChange }\"></select><a href=\"#\" data-bind=\"click: pager.moveNext, enable: pager.currentPageIndex() < pager.maxPageIndex()\">&gt;</a><a href=\"#\" data-bind=\"click: pager.moveLast, enable: pager.currentPageIndex() < pager.maxPageIndex()\">&gt;&gt;</a></div>";
+                        var pager = '<ul class="pagination" role="menubar" aria-label="Pagination">';
+                        pager += '<li class="arrow"><a href="#" data-bind="click: pager.movePrevious, enable: pager.currentPageIndex() > 0">&laquo; Föregående</a></li>';
+                        for (i = 0; i <= self.maxPageIndex(); i++) {
+                          pager += '<li data-bind="css: pager.currentStatus('+i+'), visible: pager.isHidden('+i+')"><a href="#" data-bind="click: pager.currentPageIndex('+i+')">'+(i+1)+'</a></li>';
+                        }
+                        pager += '<li class="arrow"><a href="#" data-bind="click: pager.moveNext, enable: pager.currentPageIndex() < pager.maxPageIndex()">Nästa &raquo;</a></li>';
+                        pager += '</ul>';
                         $("div.Pager").html(pager);
                       };
                       self.renderNoRecords = function() {
-                        var message = "<span data-bind=\"visible: pager.recordCount() == 0\">No records found.</span>";
+                        var message = "<span data-bind=\"visible: pager.recordCount() == 0\">Hittade inga event.</span>";
                         $("div.NoRecords").html(message);
                       };
 
@@ -411,7 +466,7 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                           else if (filter.Value)
                           {
                             var filterValue = filter.Value();
-                            if (filterValue && filterValue != "")
+                            if (filterValue && filterValue != "" && filterValue != null)
                             {
                               var activeFilter = {
                                 Filter: filter,
@@ -548,7 +603,25 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                     var testData = {
                         customers: testCustomers
                     };
-                    ko.applyBindings(new EventPageModel(testData));
+                    ko.bindingHandlers.trimText = {
+                       init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
+                         var trimmedText = ko.computed(function () {
+                           var untrimmedText = ko.utils.unwrapObservable(valueAccessor());
+                           var minLength = 5;
+                           var maxLength = 250;
+                           var text = untrimmedText.length > maxLength ? untrimmedText.substring(0, maxLength - 1) + '...' : untrimmedText;
+                           return text;
+                         });
+                         ko.applyBindingsToNode(element, {
+                           text: trimmedText
+                         }, viewModel);
+                           return {
+                           controlsDescendantBindings: true
+                         };
+                       }
+                     };
+                     _eventPageModel = new EventPageModel(testData);
+                     ko.applyBindings(_eventPageModel);
 
                     </script>
 
@@ -560,7 +633,7 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                       <li><a href="">4</a></li>
                       <li><a href="">5</a></li>
                       <li><a href="">6</a></li>
-                      <li class="unavailable" aria-disabled="true"><a href="">&hellip;</a></li>
+                      <li class="unavailable" aria-disabled="true">&hellip;</li>
                       <li><a href="">10</a></li>
                       <li><a href="">11</a></li>
                       <li><a href="">12</a></li>

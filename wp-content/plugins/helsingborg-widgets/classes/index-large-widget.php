@@ -141,11 +141,11 @@ if (!class_exists('Index_Large_Widget_Box')) {
       }
   ?>
 
-      <ul class="sllw-instructions">
+      <ul class="hbgllw-instructions">
         <li><?php echo __("Lägg till de sidor som ni vill ska visas i listan."); ?></li>
       </ul>
 
-      <div class="simple-link-list">
+      <div class="helsingborg-link-list">
       <?php foreach ($items as $num => $item) :
         $item = esc_attr($item);
         $item_id = esc_attr($item_ids[$num]);
@@ -156,8 +156,8 @@ if (!class_exists('Index_Large_Widget_Box')) {
       ?>
 
         <div id="<?php echo $this->get_field_id($num); ?>" class="list-item">
-          <h5 class="moving-handle"><span class="number"><?php echo $num; ?></span>. <span class="item-title"><?php echo $h5; ?></span><a class="sllw-action hide-if-no-js"></a></h5>
-          <div class="sllw-edit-item">
+          <h5 class="moving-handle"><span class="number"><?php echo $num; ?></span>. <span class="item-title"><?php echo $h5; ?></span><a class="hbgllw-action hide-if-no-js"></a></h5>
+          <div class="hbgllw-edit-item">
             <p>
               <label for="<?php echo $this->get_field_id('item_id'.$num); ?>"><?php echo __("Sida att hämta: "); ?></label><br>
               <?php wp_dropdown_pages(array(
@@ -167,7 +167,7 @@ if (!class_exists('Index_Large_Widget_Box')) {
                       'name' => $this->get_field_name('item_id'.$num)
                     )); ?>
             </p>
-            <a class="sllw-delete hide-if-no-js"><img src="<?php echo plugins_url('../images/delete.png', __FILE__ ); ?>" /> <?php echo __("Remove"); ?></a>
+            <a class="hbgllw-delete hide-if-no-js"><img src="<?php echo plugins_url('../images/delete.png', __FILE__ ); ?>" /> <?php echo __("Remove"); ?></a>
             <br>
           </div>
         </div>
@@ -199,14 +199,14 @@ if (!class_exists('Index_Large_Widget_Box')) {
           </tbody>
         </table>
 
-        <div class="sllw-row">
+        <div class="hbgllw-row">
           <input type="checkbox" name="<?php echo $this->get_field_name('new_item'); ?>" id="<?php echo $this->get_field_id('new_item'); ?>" /> <label for="<?php echo $this->get_field_id('new_item'); ?>"><?php echo __("Add New Item"); ?></label>
         </div>
       <?php endif; ?>
 
       </div>
-      <div class="sllw-row hide-if-no-js">
-        <a class="sllw-add button-secondary"><img src="<?php echo plugins_url('../images/add.png', __FILE__ )?>" /> <?php echo __("Lägg till indexobjekt"); ?></a>
+      <div class="hbgllw-row hide-if-no-js">
+        <a class="hbgllw-add button-secondary"><img src="<?php echo plugins_url('../images/add.png', __FILE__ )?>" /> <?php echo __("Lägg till indexobjekt"); ?></a>
       </div>
 
       <input type="hidden" id="<?php echo $this->get_field_id('amount'); ?>" class="amount" name="<?php echo $this->get_field_name('amount'); ?>" value="<?php echo $amount ?>" />
