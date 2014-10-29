@@ -191,7 +191,7 @@
       var h = current.height();
       if (!settings.variable_height) {
         self.slides().each(function(){
-          if ($(this).height() < h) { h = $(this).height(); }
+          if ($(this).height() > h) { h = $(this).height(); }
         });
       }
       slides_container.height(h);

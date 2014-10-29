@@ -20,7 +20,7 @@
 /* HBG iconset */
 @font-face {
   font-family: 'hbg-se-iconset';
-  src: url(/wp-content/themes/Helsingborg//assets/fonts/hbg-se-iconset.eot); }
+  src: url(/TT/wp-content/themes/Helsingborg/assets/fonts/hbg-se-iconset.eot); }
 
 @font-face {
   font-family: 'hbg-se-iconset';
@@ -5454,7 +5454,7 @@ th.hide-for-touch {
 
 /* No SVG support fallback */
 .no-svg .logo-link {
-  background: url(/wp-content/themes/Helsingborg//assets/img/images/hbg-logo.png) no-repeat center center;
+  background: url(/TT/wp-content/themes/Helsingborg/assets/img/images/hbg-logo.png) no-repeat center center;
   max-width: 254px;
   height: 80px; }
 
@@ -5615,7 +5615,7 @@ th.hide-for-touch {
  * ----------------------------------------------------------------------------
  */
 body {
-  background: url(/wp-content/themes/Helsingborg//assets/img/images/hbg-bg.png) white repeat-x; }
+  background: url(/TT/wp-content/themes/Helsingborg/assets/img/images/hbg-bg.png) white repeat-x; }
 
 .site-bg {
   position: absolute;
@@ -5749,7 +5749,7 @@ blockquote.alignright, img.alignright {
     width: 32px;
     height: 32px;
     text-indent: -999em;
-    background: url(/wp-content/themes/Helsingborg/assets/socialmedia-icons/social-icon-sprite.png) 0 0 no-repeat; }
+    background: url(/TT/wp-content/themes/Helsingborg/assets/socialmedia-icons/social-icon-sprite.png) 0 0 no-repeat; }
   .socialmedia-list li.fbook a {
     background-position: 0 0; }
     .socialmedia-list li.fbook a:hover {
@@ -5766,7 +5766,7 @@ only screen and (min-device-pixel-ratio: 2),
 only screen and (min-resolution: 192dpi),
 only screen and (min-resolution: 2dppx) {
   .socialmedia-list li a {
-    background: url(/wp-content/themes/Helsingborg/assets/socialmedia-icons/social-icon-sprite2x.png) 0 0 no-repeat; } }
+    background: url(/TT/wp-content/themes/Helsingborg/assets/socialmedia-icons/social-icon-sprite2x.png) 0 0 no-repeat; } }
 
 /**
  * 4.0 Content
@@ -5842,6 +5842,9 @@ only screen and (min-resolution: 2dppx) {
 
 .news-image img {
   border-radius: 4px; }
+
+ul.news-list-large.row section.news-section ul.news-list-large.row li.news-item.large-12.columns div.row div.large-5.medium-4.small-4.columns.news-image img {
+  padding-left: 0.9375rem; }
 
 .news-title {
   font-size: 1.5rem;
@@ -5946,7 +5949,7 @@ only screen and (min-resolution: 2dppx) {
   border-spacing: 0;
   border-collapse: inherit; }
   .table-list .table-item td:last-child {
-    background: url(/wp-content/themes/Helsingborg/assets/img/tablesorter-icons/asc.gif) 95% center no-repeat; }
+    background: url(/TT/wp-content/themes/Helsingborg/assets/img/tablesorter-icons/asc.gif) 95% center no-repeat; }
   .table-list td, .table-list th {
     border: none;
     padding: 1rem 0.625rem; }
@@ -5982,12 +5985,12 @@ only screen and (min-resolution: 2dppx) {
 
 /* table sorter plugin style */
 .table-list .header {
-  background: url(/wp-content/themes/Helsingborg/assets/img/tablesorter-icons/bg.gif) right center no-repeat;
+  background: url(/TT/wp-content/themes/Helsingborg/assets/img/tablesorter-icons/bg.gif) right center no-repeat;
   cursor: pointer; }
   .table-list .header.headerSortDown {
-    background: url(/wp-content/themes/Helsingborg/assets/img/tablesorter-icons/asc.gif) right center no-repeat; }
+    background: url(/TT/wp-content/themes/Helsingborg/assets/img/tablesorter-icons/asc.gif) right center no-repeat; }
   .table-list .header.headerSortUp {
-    background: url(/wp-content/themes/Helsingborg/assets/img/tablesorter-icons/desc.gif) right center no-repeat; }
+    background: url(/TT/wp-content/themes/Helsingborg/assets/img/tablesorter-icons/desc.gif) right center no-repeat; }
   .table-list .header:last-child {
     background-position: 95% center; }
 
@@ -6097,6 +6100,22 @@ only screen and (min-resolution: 2dppx) {
     padding-left: 2.5rem; }
   .main-nav .main-nav-list ul ul ul li a {
     padding-left: 3.125rem; }
+
+/* home-link */
+.main-page-layout .main-nav .main-nav-list li:first-child {
+  background-color: white; }
+
+.main-page-layout .main-nav .main-nav-list li:first-child a, .article-page-layout .main-nav .main-nav-list li:first-child a, .list-page-layout .main-nav .main-nav-list li:first-child a {
+  background-image: url(/TT/wp-content/themes/Helsingborg/assets/img/images/fi-home.svg);
+  width: 2.5rem;
+  height: 2.5rem;
+  text-indent: -999999px; }
+
+.main-page-layout .main-nav .sub-menu li:first-child a, .article-page-layout .main-nav .sub-menu li:first-child a, .list-page-layout .main-nav .sub-menu li:first-child a {
+  background-image: none;
+  text-indent: 0;
+  width: auto;
+  height: auto; }
 
 /* support-nav */
 .show-support-nav {
