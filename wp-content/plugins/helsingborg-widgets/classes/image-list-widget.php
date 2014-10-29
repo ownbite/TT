@@ -62,7 +62,7 @@ if (!class_exists('Image_List_Widget')) {
         echo('<div class="push-links-widget widget large-12 columns">');
           echo('<ul class="push-links-list">');
           foreach ($items as $num => $item) :
-            echo('<li class="item-' . ($num + 1) . '">');
+            echo('<li>');
               echo('<a href="' . $items_links[$num] . '"><img src="' . $item_imageurl[$num] . '" alt="' . $item_alts[$num] . '" /></a>');
             echo('</li>');
           endforeach;
@@ -79,9 +79,11 @@ if (!class_exists('Image_List_Widget')) {
             $force_margin = (!empty($item_force_margins[$num]) && !empty($item_force_margin_values[$num])) ? ' margin-top:-' . $item_force_margin_values[$num] . 'px;' : '';
             echo('<li>');
               echo('<img class="img-slide" src="' . $item_imageurl[$num] . '" alt="' . $item_alts[$num] . '" style="' . $force_width . $force_margin .'" />');
-              echo('<div class="orbit-caption">');
-                echo $item_texts[$num];
-              echo('</div>');
+              if (!empty($item_texts[$num])) :
+                echo('<div class="orbit-caption">');
+                  echo $item_texts[$num];
+                echo('</div>');
+              endif;
             echo('</li>');
           endforeach;
           echo('</ul>');

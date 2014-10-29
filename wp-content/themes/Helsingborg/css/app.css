@@ -5464,7 +5464,7 @@ th.hide-for-touch {
   .orbit-container .img-slide {
     border-radius: 4px; }
   .orbit-container .orbit-slides-container .orbit-caption {
-    background: none; }
+    background: rgba(0, 0, 0, 0.7); }
 
 .orbit-bullets-container {
   display: none; }
@@ -5553,7 +5553,6 @@ th.hide-for-touch {
   font-size: 1.125rem; }
   .push-links-widget .push-links-list li a {
     color: black;
-    background-color: #d6d7d3;
     text-align: center;
     border-radius: 4px;
     display: block;

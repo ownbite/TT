@@ -1,17 +1,17 @@
 jQuery(document).ready(function($) {
 	if(!$('body').hasClass('widgets_access')){
-		sllwSetupList($);
+		helsingborgSetupList($);
 		$('.sllw-edit-item').addClass('toggled-off');
-		sllwSetupHandlers($);
+		helsingborgSetupHandlers($);
 	}
 
 	$(document).ajaxSuccess(function() {
-		sllwSetupList($);
+		helsingborgSetupList($);
 		$('.sllw-edit-item').addClass('toggled-off');
 	});
 });
 
-function sllwSetupList($){
+function helsingborgSetupList($){
 	$( ".simple-link-list" ).sortable({
 		items: '.list-item',
 		opacity: 0.6,
@@ -30,9 +30,8 @@ function sllwSetupList($){
 	$( ".simple-link-list .moving-handle" ).disableSelection();
 }
 
-
 // All Event handlers
-function sllwSetupHandlers($){
+function helsingborgSetupHandlers($){
 	$("body").on('click.sllw','.sllw-delete',function() {
 		$(this).parent().parent().fadeOut(500,function(){
 			var sllw = $(this).parents(".widget-content");

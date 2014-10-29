@@ -33,12 +33,10 @@ if (!class_exists('Slider_Widget_Box')) {
     /* Front-end display of widget*/
     /** @see WP_Widget::widget */
     function widget($args, $instance) {
-      
+
       $page_id = (int) apply_filters('widget_title', $instance['page_id']);
 
       if ( function_exists('icl_object_id') ) { $page_id = icl_object_id($page_id, "page"); }
-
-
 
       if(!$page_id){
         echo 'Ingen sida vald!';
@@ -64,7 +62,11 @@ if (!class_exists('Slider_Widget_Box')) {
       ?>
       <li class="active">
         <img src="<?php echo $image; ?>" alt="<?php echo $image_alt; ?>" class="img-slide" />
-        <div class="orbit-caption"><?php echo $caption_meta; ?></div>
+        <?php if (!empty($caption_meta)) : ?>
+          <div class="orbit-caption">
+            <?php echo $caption_meta; ?>
+          </div>
+        <?php endif; ?>
       </li>
 
       <?php
