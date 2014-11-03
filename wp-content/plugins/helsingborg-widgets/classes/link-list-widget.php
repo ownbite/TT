@@ -37,7 +37,7 @@ if (!class_exists('SimpleLinkListWidget')) {
       $show_rss = empty($instance['show_rss']) ? 'rss_no' : $instance['show_rss'];
       $show_placement = empty($instance['show_placement']) ? 'show_in_sidebar' : $instance['show_placement'];
       $show_dates = isset($instance['show_dates']) ? $instance['show_dates'] : false;
-      $amount = empty($instance['amount']) ? 3 : $instance['amount'];
+      $amount = empty($instance['amount']) ? 1 : $instance['amount'];
 
       // Retrieved all links
       for ($i = 1; $i <= $amount; $i++) {
@@ -47,12 +47,13 @@ if (!class_exists('SimpleLinkListWidget')) {
         $item_ids[$i-1] = $instance['item_id'.$i];
       }
 
-      $widget_class = ($show_rss == 'rss_yes') ? 'news' : 'quick-links';
+      $widget_class = ($show_rss == 'rss_yes') ? 'news-widget ' : 'quick-links-widget ';
+      // echo substr_replace($before_widget, $widget_class, strpos('widget'), 0);
+      $before_widget = str_replace('widget', $widget_class . 'widget', $before_widget);
 
-      if ($show_placement == 'show_in_sidebar') : ?>
 
-        <div class="<?php echo $widget_class; ?>-widget widget large-12 medium-6 columns">
-          <div class="widget-content">
+      if ($show_placement == 'show_in_sidebar') :
+        echo $before_widget; ?>
             <h2 class="widget-title"><?php echo $title ?>
               <?php if ($show_rss == 'rss_yes') { echo('<span class="icon"></span>'); } ?>
             </h2>
@@ -108,8 +109,6 @@ if (!class_exists('SimpleLinkListWidget')) {
             endforeach; ?>
 
             </ul>
-          </div><!-- /.widget-content -->
-        </div><!-- /.widget -->
       <?php
 
       else : ?>
@@ -163,7 +162,6 @@ if (!class_exists('SimpleLinkListWidget')) {
         </section>
 
       <?php endif;
-
 
       echo $after_widget;
     }
@@ -225,7 +223,7 @@ if (!class_exists('SimpleLinkListWidget')) {
       $instance = wp_parse_args( (array) $instance, array( 'title' => '', 'text' => '', 'title_link' => '' ) );
       $title = strip_tags($instance['title']);
       $rss_link = strip_tags($instance['rss_link']);
-      $amount = empty($instance['amount']) ? 3 : $instance['amount'];
+      $amount = empty($instance['amount']) ? 1 : $instance['amount'];
 
       for ($i = 1; $i <= $amount; $i++) {
         $items[$i] = empty($instance['item'.$i]) ? '' : $instance['item'.$i];
