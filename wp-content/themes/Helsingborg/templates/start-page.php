@@ -43,9 +43,7 @@ get_header(); ?>
                 </div>
 
                 <?php /* Start listing the news */ ?>
-                <ul class="news-list-large row">
-                  <?php dynamic_sidebar("content-area"); ?>
-                </ul>
+                <?php dynamic_sidebar("content-area"); ?>
 
 </section>
 </div><!-- /.main-content -->

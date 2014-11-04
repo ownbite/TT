@@ -46,6 +46,12 @@ if (!class_exists('News_List_Widget_Box')) {
 
       // Get the page and it's link
       $page = get_page($page_id, OBJECT, 'display');
+
+      // Get the content, see if <!--more--> is inserted
+      $the_content = get_extended(strip_shortcodes($page->post_content));
+      $main = $the_content['main'];
+      $content = $the_content['extended']; // If content is empty, no <!--more--> tag was used -> content is in $main
+
       $link = get_permalink($page->ID); ?>
 
       <li class="news-item large-12 columns">
@@ -64,29 +70,17 @@ if (!class_exists('News_List_Widget_Box')) {
           <div class="large-8 medium-8 small-8 columns news-content">
             <h2 class="news-title"><?php echo $page->post_title ?></h2>
             <span class="news-date"><?php echo $page->post_date ?></span>
-            <?php echo $this->fr_excerpt_by_id($page); ?>
+            <?php if(!empty($content)){
+                echo wpautop($content, true);
+              } else {
+                echo wpautop($main, true);
+              } ?>
             <a href='<?php echo $link ?>' class="read-more">Läs mer</a>
           </div>
         </div>
       </li>
 
     <?php }
-
-    // Function for retrieving the excerpt from page OR part of content if no excerpt was found
-    function fr_excerpt_by_id($the_post, $excerpt_length = 35, $line_breaks = TRUE){
-      $the_excerpt = $the_post->post_excerpt ? $the_post->post_excerpt : $the_post->post_content; //Gets post_excerpt or post_content to be used as a basis for the excerpt
-      $the_excerpt = apply_filters('the_excerpt', $the_excerpt);
-      $the_excerpt = $line_breaks ? strip_tags(strip_shortcodes($the_excerpt), '<p><br>') : strip_tags(strip_shortcodes($the_excerpt)); //Strips tags and images
-      $words = explode(' ', $the_excerpt, $excerpt_length + 1);
-      if(count($words) > $excerpt_length) :
-        array_pop($words);
-        array_push($words, '…');
-        $the_excerpt = implode(' ', $words);
-        $the_excerpt = $line_breaks ? $the_excerpt . '</p>' : $the_excerpt;
-      endif;
-      $the_excerpt = trim($the_excerpt);
-      return $the_excerpt;
-    }
 
     /** @see WP_Widget::update */
     function update($new_instance, $old_instance) {

@@ -34,53 +34,42 @@ if (!class_exists('Index_Widget_Box')) {
       // Get all the data saved
       $amount = empty($instance['amount']) ? 1 : $instance['amount'];
       $page_list = isset($instance['page_list']) ? $instance['page_list'] : false;
-      $page_list_output = ($page_list) ? 'page-list' : '';
 
       for ($i = 1; $i <= $amount; $i++) {
         $items[$i-1] = $instance['item'.$i];
         $item_ids[$i-1] = $instance['item_id'.$i];
       } ?>
 
-      <ul class="block-list page-block-list <?php echo $page_list_output; ?> large-block-grid-3 medium-block-grid-3 small-block-grid-2">
-      <?php // Go through all list items and present as a list
-      foreach ($items as $num => $item) :
-          $item_id = $item_ids[$num];
-          $page = get_page($item_id, OBJECT, 'display');
-          $link = get_permalink($page->ID); ?>
-        <li>
-          <a href="<?php echo $link ?>" desc="link-desc">
-            <?php if (has_post_thumbnail( $page->ID ) ) :
+      <ul class="block-list page-block-list page-list large-block-grid-3 medium-block-grid-3 small-block-grid-2">
+        <?php // Go through all list items and present as a list
+        foreach ($items as $num => $item) :
+            $item_id = $item_ids[$num];
+            $page = get_page($item_id, OBJECT, 'display');
+            $link = get_permalink($page->ID);
+
+            // Get the content, see if <!--more--> is inserted
+            $the_content = get_extended(strip_shortcodes($page->post_content));
+            $main = $the_content['main'];
+            $content = $the_content['extended'];
+
+            $image = "";
+            if (has_post_thumbnail( $page->ID ) ) :
               $image_id = get_post_thumbnail_id( $page->ID );
               $image = wp_get_attachment_image_src( $image_id, 'single-post-thumbnail' );
-              $alt_text = get_post_meta($image_id, '_wp_attachment_image_alt', true); ?>
+              $alt_text = get_post_meta($image_id, '_wp_attachment_image_alt', true);
+            endif; ?>
+          <li>
+            <a href="<?php echo $link ?>" desc="link-desc">
               <img src="<?php echo $image[0]; ?>" alt="<?php echo $alt_text; ?>">
-            <?php endif; ?>
-            <h2 class="list-title"><?php echo $page->post_title ?></h2>
-            <div class="list-content">
-              <?php echo $this->fr_excerpt_by_id($page); ?>
-            </div>
-          </a>
-        </li>
-      <?php endforeach; ?>
+              <h2 class="list-title"><?php echo $page->post_title ?></h2>
+              <div class="list-content">
+                <?php echo $main; ?>
+              </div>
+            </a>
+          </li>
+        <?php endforeach; ?>
       </ul>
-
       <?php
-    }
-
-    // Function for retrieving the excerpt from page OR part of content if no excerpt was found
-    function fr_excerpt_by_id($the_post, $excerpt_length = 35, $line_breaks = TRUE){
-      $the_excerpt = $the_post->post_excerpt ? $the_post->post_excerpt : $the_post->post_content; //Gets post_excerpt or post_content to be used as a basis for the excerpt
-      $the_excerpt = apply_filters('the_excerpt', $the_excerpt);
-      $the_excerpt = $line_breaks ? strip_tags(strip_shortcodes($the_excerpt), '<p><br>') : strip_tags(strip_shortcodes($the_excerpt)); //Strips tags and images
-      $words = explode(' ', $the_excerpt, $excerpt_length + 1);
-      if(count($words) > $excerpt_length) :
-        array_pop($words);
-        array_push($words, '…');
-        $the_excerpt = implode(' ', $words);
-        $the_excerpt = $line_breaks ? $the_excerpt . '</p>' : $the_excerpt;
-      endif;
-      $the_excerpt = trim($the_excerpt);
-      return $the_excerpt;
     }
 
     public function update( $new_instance, $old_instance) {
