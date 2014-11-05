@@ -63,7 +63,7 @@ if (!class_exists('Index_Widget_Box')) {
               <img src="<?php echo $image[0]; ?>" alt="<?php echo $alt_text; ?>">
               <h2 class="list-title"><?php echo $page->post_title ?></h2>
               <div class="list-content">
-                <?php echo $main; ?>
+                <?php echo wpautop($main, true); ?>
               </div>
             </a>
           </li>

@@ -70,11 +70,7 @@ if (!class_exists('News_List_Widget_Box')) {
           <div class="large-8 medium-8 small-8 columns news-content">
             <h2 class="news-title"><?php echo $page->post_title ?></h2>
             <span class="news-date"><?php echo $page->post_date ?></span>
-            <?php if(!empty($content)){
-                echo wpautop($content, true);
-              } else {
-                echo wpautop($main, true);
-              } ?>
+            <?php echo wpautop($main, true); ?>
             <a href='<?php echo $link ?>' class="read-more">Läs mer</a>
           </div>
         </div>
