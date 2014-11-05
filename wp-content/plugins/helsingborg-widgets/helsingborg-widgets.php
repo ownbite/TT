@@ -35,6 +35,7 @@ include_once('classes/image-list-widget.php');
 
 // Setup event handling
 require_once('models/event_model.php');
+require_once ('classes/helsingborg-post-thumbnail.php');
 
 if (!class_exists( 'post_author' ) ) {
     include_once ('classes/post_author.php');

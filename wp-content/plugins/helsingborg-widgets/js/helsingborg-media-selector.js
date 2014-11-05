@@ -4,19 +4,27 @@ jQuery(document).ready( function(){
   var ctrl_is_down = false;
   var current_dir = "/";
   var num = 0;
+  var nounce;
 
   helsingborgMediaSelector = {
 
-    create : function( widget_id, widget_id_string, number ) {
+    remove : function(post_id, nonce){
+      jQuery.post(ajaxurl, {
+        action: 'set-post-thumbnail', post_id: post_id, thumbnail_id: -1, _ajax_nonce: nonce, cookie: encodeURIComponent( document.cookie )
+      }, function(str){
+        if ( str == '0' ) {
+          alert( setPostThumbnailL10n.error );
+        } else {
+          WPSetThumbnailHTML(str);
+          location.reload();
+        }
+      }
+      );
+    },
 
-      // _orig_send_attachment = wp.media.editor.send.attachment;
-      // _orig_send_to_editor = window.send_to_editor;
-      //
-      // var _custom_media = true;
-      var button_id ='#'+widget_id_string+num;
-      var button = jQuery(button_id);
+    create : function( widget_id, widget_id_string, number, _nounce) {
       num = number;
-
+      nounce = _nounce;
       var mrl_files_data;
       var mrl_subdir_data;
       var mrl_get_data_count = 0;
@@ -559,11 +567,37 @@ jQuery(document).ready( function(){
               //     }
               }
 
-              // Add to our area
-              jQuery("#" + widget_id_string + 'preview' + num).html('<img src="' + img_url + '" />');
-              jQuery("#" + widget_id_string + 'title' + num).val(title);
-              jQuery("#" + widget_id_string + 'imageurl' + num).val(img_url);
-              jQuery("#" + widget_id_string + 'alt' + num).val(caption);
+              if (widget_id_string.id == "featured_img") {
+                // Return value to Featured Image area
+                    jQuery.post(ajaxurl, {
+                            action:"set-post-thumbnail", post_id: widget_id, thumbnail_id: mrl_data['posts']['ID'], _ajax_nonce: nounce , cookie: encodeURIComponent(document.cookie)
+                        }, function(str){
+                            var win = window.dialogArguments || opener || parent || top;
+                            if ( str == '0' ) {
+                                alert( setPostThumbnailL10n.error );
+                            } else {
+                                 jQuery('#postimagediv .inside').html(str);
+                                 jQuery('#postimagediv .inside #plupload-upload-ui').hide();
+                            }
+                        }
+                        );
+                        // Clear selection
+                        mfma_mrl_remove_all_selected_items()
+                        check_button();
+
+                        // Close and return
+                        close_pop_up();
+                        close_edit();
+
+                        // Force reload
+                        location.reload();
+              } else {
+                // Add to our area
+                jQuery("#" + widget_id_string + 'preview' + num).html('<img src="' + img_url + '" />');
+                jQuery("#" + widget_id_string + 'title' + num).val(title);
+                jQuery("#" + widget_id_string + 'imageurl' + num).val(img_url);
+                jQuery("#" + widget_id_string + 'alt' + num).val(caption);
+              }
 
               // Clear selection
               mfma_mrl_remove_all_selected_items()
