@@ -59,7 +59,7 @@ class helsingborgPostThumbnail {
 
     global $_wp_additional_image_sizes, $post_ID;
 
-    $set_thumbnail_link = '<p class="hide-if-no-js"><a title="' . esc_attr__( 'Set featured image' ) . '" href="%s" id="set-post-thumbnail" class="thickbox">%s</a></p>';
+    $set_thumbnail_link = '<p class="hide-if-no-js"><a title="' . esc_attr__( 'Set featured image' ) . '" id="set-post-thumbnail" class="thickbox">%s</a></p>';
     $upload_iframe_src = esc_url( get_upload_iframe_src('image', $post_ID ) );
 
     if (empty($thumbnail_id)) {
@@ -68,10 +68,9 @@ class helsingborgPostThumbnail {
       $content = '<p style="width:100%;text-align:center;" class="button" name="featured_img" id="featured_img" onclick="' . $button_click . '">Välj utvald bild</p>';
     } else {
       $img_src = wp_get_attachment_image( $thumbnail_id, 'post-thumbnail' );
-      echo $img_src;
       $ajax_nonce = wp_create_nonce( "set_post_thumbnail-$post_ID" );
       $button_click = "helsingborgMediaSelector.remove( ".$post_ID.", '" . $ajax_nonce . "'); return false;";
-      $content = sprintf($set_thumbnail_link, $thumbnail_html);
+      $content = sprintf($set_thumbnail_link, $img_src);
       $content .= '<p class="hide-if-no-js"><a href="#" id="remove-post-thumbnail" onclick="' . $button_click . '">' . esc_html__( 'Remove featured image' ) . '</a></p>';
     }
 
