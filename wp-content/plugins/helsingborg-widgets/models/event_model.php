@@ -88,18 +88,22 @@ class HelsingborgEventModel {
              AND hEFE.AdministrationUnitID = hFE.AdministrationUnitID
              ORDER BY hETid.Date', OBJECT);
 
-    $new_list = [];
     foreach($events as $event) {
       $rows = $wpdb->get_results('SELECT DISTINCT hETG.EventTypesName FROM '
               . self::get_happy_event_types_group_table() . ' hETG ' .
                'WHERE hETG.EventID = ' . $event->EventID, ARRAY_A);
 
-      $event_array = (array)$event;
-      array_push($event_array, $rows);
-      array_push($new_list, $event_array);
+      $event_types = array();
+      foreach($rows as $row) {
+        foreach($row as $key => $value) {
+          array_push($event_types, $value);
+        }
+      }
+      $event_types_string = implode(',', $event_types);
+      $event->EventTypesName = $event_types_string;
     }
 
-    return $new_list;
+    return $events;
   }
 
   public static function load_unpublished_events($happy_user_id = -1) {
@@ -129,8 +133,15 @@ class HelsingborgEventModel {
               . self::get_happy_event_types_group_table() . ' hETG ' .
                'WHERE hETG.EventID = ' . $event->EventID, ARRAY_A);
 
-      $event_array = (array)$event;
-      array_push($event_array, $rows);
+      $event_types = "";
+      foreach($rows as $row) {
+        foreach($row as $key => $value) {
+          $event_types .= $value;
+        }
+      }
+
+      // $event_array = (array)$event;
+      $event_array->EventTypesName = $event_types;
       array_push($new_list, $event_array);
     }
 
@@ -188,6 +199,11 @@ class HelsingborgEventModel {
                                                ORDER BY Name',
                                                OBJECT
                                             );
+
+
+    foreach ($result_event_types as $key => $value) {
+      $result_event_types[$key]->ID = $key;
+    }
     return $result_event_types;
   }
 

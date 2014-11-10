@@ -17,10 +17,9 @@ if( is_user_logged_in() && has_shortcode( $post->post_content, 'gravityform' ) )
 $events = HelsingborgEventModel::load_events();
 $event_types = HelsingborgEventModel::load_event_types();
 
-// var_dump($events);
-
 $json_items = json_encode($events);
-// var_dump($json_items);
+$json_event_types = json_encode($event_types);
+// var_dump($json_event_types);
 
 // Get the content, see if <!--more--> is inserted
 $the_content = get_extended(strip_shortcodes($post->post_content));
@@ -109,57 +108,36 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                       </article>
                     <?php endwhile; // End the loop ?>
 
-                     <table class="table">
+
+
+                    <table>
                       <thead>
-                        <tr>
-                         <th>Evenemangstyp:
-                           <select id="events_multi">
-                             <?php
-                             // List has been loaded in meta-functions.php
-                             $i=0;
-                             foreach ($event_types as $item) {
-                               echo('<option value="' . $i++ . '">' . $item->Name . '</option>');
-                             } ?>
-                           </select>
-                         <th>Plats:
-                           <input type="text" id="event_location"/>
-                         </th>
-                         </th>
-                        </tr>
-                      </thead>
-                      <thead>
-                        <tr>
-                          <th>Startdatum:
-                            <input type="text" id="datetimepicker2"/>
-                          </th>
-                          <th>Slutdatum:
-                            <input type="text" id="datetimepicker21"/>
-                          </th>
-                        </tr>
-                      </thead>
-                      <thead>
-                        <tr>
-                          <th>Fritext:
-                            <input type="text" id="event_text"/>
-                          </th>
-                          <th>Alla Helsingborgs evenemang:<br>
-                            <input type="checkbox" id="event_all"/>
-                          </th>
-                        </tr>
+                        <!-- ko foreach: filter.filters -->
+                          <tr>
+                            <td><span data-bind="text: Name"></span>:<br /></td>
+                          </tr>
+                          <!-- ko if: (Type == 'select') -->
+                            <tr>
+                              <td>
+                                <select id="events_multi" data-bind="options: Options, optionsText: 'Name', optionsValue: 'Name', value: Options, click: $root.change" ></select>
+                              </td>
+                            </tr>
+                          <!-- /ko -->
+                          <!-- ko if: (Type == 'text') -->
+                            <tr>
+                              <td><input type="text" data-bind="value: Value, valueUpdate: 'afterkeydown'" /></td>
+                            </tr>
+                          <!-- /ko -->
+                          <!-- ko if: (Type == 'calendar') -->
+                            <tr>
+                              <td><input type="text" data-bind="value: Value, valueUpdate: 'afterkeydown', attr: {id: CalendarID}" /></td>
+                            </tr>
+                          <!-- /ko -->
+                        <!-- /ko -->
                       </thead>
                     </table>
 
-                    <div data-bind="foreach: filter.filters">
-                        <div>
-                            <span data-bind="text: Name"></span>:<br />
-                        </div>
-                        <div data-bind="if: Type == 'select'">
-                            <select data-bind="options: Options, optionsText: 'Name', value: CurrentOption" ></select>
-                        </div>
-                        <div data-bind="if: Type == 'text'">
-                            <input type="text" data-bind="value: Value, valueUpdate: 'afterkeydown'" />
-                        </div>
-                    </div>
+                    <input type="text" id="selectedTypes" style="display: none;" data-bind="textInput: selectedEventTypes"/>
 
                     <div class="Pager"></div>
                     <div class="NoRecords"></div>
@@ -179,6 +157,7 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                         <a class="modalLink" href="#" data-bind="attr: {id: EventID}" data-reveal-id="eventModal" desc="link-desc">
                           <img data-bind="attr: {src: ImagePath}" alt="alt-text"/>
                           <p data-bind="text: Location" style="display: none;"></p>
+                          <p data-bind="text: EventTypesName" style="display: none;"></p>
                           <h2 data-bind="text: Name" class="list-title"></h2>
                           <span data-bind="text: Date" class="news-date"></span>
                           <div data-bind="trimText: Description" class="list-content"></div>
@@ -195,7 +174,7 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                             var date = $('.modalDate');
                             var description = $('.modalDescription');
 
-                            var customer = _eventPageModel.customers;
+                            var customer = _eventPageModel.events;
                             var result;
 
                             for (var i = 0; i < customer.length; i++) {
@@ -231,6 +210,17 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                       self.EventTypesName = data.EventTypesName;
                     }
 
+                    function TypeModel(data) {
+                      if (!data)
+                      {
+                        data = {};
+                      }
+
+                      var self = this;
+                      self.ID = data.ID;
+                      self.Name = data.Name;
+                    }
+
                     function EventPageModel(data)
                     {
                       if (!data)
@@ -239,7 +229,13 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                       }
 
                       var self = this;
-                      self.customers = ExtractModels(self, data.customers, EventModel);
+                      self.events = ExtractModels(self, data.events, EventModel);
+                      self.eventTypes = ExtractModels(self, data.eventTypes, TypeModel);
+                      self.selectedEventTypes = ko.observable();
+
+                      self.change = function() {
+                        jQuery('#selectedTypes').trigger('change');
+                      }
 
                       var filters = [
                         {
@@ -255,20 +251,25 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                           RecordValue: function(record) { return (record.Location != null) ? record.Location : ""; }
                         },
                         {
+                          Type: "calendar",
+                          Name: "Startdatum",
+                          CalendarID: "datetimepickerstart",
+                          Value: ko.observable(""),
+                          RecordValue: function(record) { return (record.Date != null) ? record.Date : ""; }
+                        },
+                        {
+                          Type: "calendar",
+                          Name: "Slutdatum",
+                          CalendarID: "datetimepickerend",
+                          Value: ko.observable(""),
+                          RecordValue: function(record) { return (record.Date != null) ? record.Date : ""; }
+                        },
+                        {
                           Type: "select",
                           Name: "Evenemangstyp",
-                          Options: [
-                            GetOption("All", "All", null),
-                            <?php foreach($event_types as $item):
-                              echo('GetOption("'.$item->Name.'","'.$item->Name.'","'.$item->Name.'"),');
-                            endforeach; ?>
-                          ],
-                          CurrentOption: ko.observable(),
-                          RecordValue: function(record)
-                          {
-                            var k = record.EventTypesName;
-                            return k; 
-                          }
+                          Options: self.eventTypes,
+                          CurrentOption: self.selectedEventTypes,
+                          RecordValue: function(record) { return (record.EventTypesName != null ) ? record.EventTypesName : ""; }
                         }
                       ];
 
@@ -289,7 +290,7 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                           Sort: function(left, right) { return CompareCaseInsensitive(left.Description, right.Description); }
                         }
                       ];
-                      self.filter = new FilterModel(filters, self.customers);
+                      self.filter = new FilterModel(filters, self.events);
                       self.sorter = new SorterModel(sortOptions, self.filter.filteredRecords);
                       self.pager = new PagerModel(self.filter.filteredRecords);
                     }
@@ -444,7 +445,7 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                           if (filter.CurrentOption)
                           {
                             var filterOption = filter.CurrentOption();
-                            if (filterOption && filterOption.FilterValue != null)
+                            if (filterOption != null)
                             {
                               var activeFilter = {
                                 Filter: filter,
@@ -457,7 +458,7 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                                   }
 
                                   var recordValue = filter.RecordValue(record);
-                                  return recordValue != filterOption.FilterValue;NoMat
+                                  return filterOption.indexOf(recordValue) == -1;
                                 }
                               };
                               activeFilters.push(activeFilter);
@@ -477,7 +478,19 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
 
                                   var recordValue = filter.RecordValue(record);
                                   recordValue = recordValue.toUpperCase();
-                                  return recordValue.indexOf(filterValue) == -1;
+
+                                  if (filter.Type == "calendar") {
+                                    var recordDate   = new Date(filterValue);
+                                    var selectedDate = new Date(recordValue);
+
+                                    if (filter.Name.indexOf("Start") > -1 ){
+                                      return recordDate > selectedDate;
+                                    }else{
+                                      return recordDate < selectedDate;
+                                    }
+                                  } else {
+                                    return recordValue.indexOf(filterValue) == -1;
+                                  }
                                 }
                               };
                               activeFilters.push(activeFilter);
@@ -599,10 +612,11 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                       return array;
                     }
 
-                    var testCustomers = <?php echo $json_items; ?>;
-                    var testData = {
-                        customers: testCustomers
+                    var eventsData = {
+                        events: <?php echo $json_items; ?>,
+                        eventTypes: <?php echo $json_event_types; ?>
                     };
+
                     ko.bindingHandlers.trimText = {
                        init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
                          var trimmedText = ko.computed(function () {
@@ -620,7 +634,7 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                          };
                        }
                      };
-                     _eventPageModel = new EventPageModel(testData);
+                     _eventPageModel = new EventPageModel(eventsData);
                      ko.applyBindings(_eventPageModel);
 
                     </script>
@@ -643,19 +657,22 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
 
                     <script>
                     jQuery("select#events_multi").zmultiselect({
+                      live: "#selectedTypes",
                       filter: true,
-                      filterPlaceholder: 'Filter...',
+                      filterPlaceholder: 'Filtrera...',
                       filterResult: true,
-                      filterResultText: "Showed",
+                      filterResultText: "Visar",
                       selectedText: ['Valt','av'],
                       selectAll: true,
                       selectAllText: ['Markera alla','Avmarkera alla']
                     });
+                    jQuery("#events_multi").zmultiselect('checkall');
                     </script>
 
             <?php if ( (is_active_sidebar('content-area') == TRUE) ) : ?>
               <?php dynamic_sidebar("content-area"); ?>
             <?php endif; ?>
+
 
             <!-- END LIST + BLOCK puffs :-) -->
         </div><!-- /.columns -->
@@ -696,7 +713,7 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
 var dateToDisable1 = new Date();
 dateToDisable1.setDate(dateToDisable1.getDate());
 
-jQuery('#datetimepicker2').datetimepicker({
+jQuery('#datetimepickerstart').datetimepicker({
   beforeShowDay: function(date) {
     if (date.getMonth() == dateToDisable1.getMonth() && date.getDate() == dateToDisable1.getDate()) {
       return [false, ""]
@@ -705,15 +722,15 @@ jQuery('#datetimepicker2').datetimepicker({
   },
   lang:'se',
   timepicker:false,
-  format:'d/m/Y',
-  formatDate:'Y/m/d'
+  format:'Y-m-d',
+  formatDate:'Y-m-d'
 });
 
-jQuery('#datetimepicker21').datetimepicker({
+jQuery('#datetimepickerend').datetimepicker({
   lang:'se',
   timepicker:false,
-  format:'d/m/Y',
-  formatDate:'Y/m/d',
+  format:'Y-m-d',
+  formatDate:'Y-m-d',
 
 });
 </script>
