@@ -3,13 +3,13 @@
 function Helsingborg_sidebar_widgets() {
 
   register_sidebar(array(
-      'id' => 'footer-widgets',
+      'id' => 'footer-area',
       'name' => __('Footerarea', 'Helsingborg'),
       'description' => __('Arean längst ner', 'Helsingborg'),
-      'before_widget' => '<div class="large-3 medium-12 columns">',
-      'after_widget' => '</div>',
-      'before_title' => '',
-      'after_title' => ''
+      'before_widget' => '<div class="large-3 medium-12 columns"><div class="footer-content">',
+      'after_widget' => '</div></div>',
+      'before_title' => '<h2 class="footer-title">',
+      'after_title' => '</h2>'
   ));
 
   register_sidebar(array(
