@@ -57,15 +57,15 @@ function helsingborg_meta_ArticlePage() {
 
   // See if this page has any parents
   if ($post->ancestors) {
-
     // Get the current parent
-    $parent = end($post->ancestors);
-
+    $parent = $post->ancestors;
     // Check if the parent actually exists
     if ($parent) {
+      // Make sure the first ancestor is retrieved -> parent
+      $post_parent = $parent[0];
 
       // Get the parent meta
-      $parent_meta = get_post_meta(end($post->ancestors),'_helsingborg_meta',TRUE);
+      $parent_meta = get_post_meta($post_parent,'_helsingborg_meta',TRUE);
 
       // Check if parent want some data
       if (!empty($parent_meta['list_options'])) {
