@@ -273,25 +273,7 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                         }
                       ];
 
-                      var sortOptions = [
-                        {
-                          Name: "Date",
-                          Value: "Date",
-                          Sort: function(left, right) { return CompareCaseInsensitive(left.Date, right.Date) }
-                        },
-                            {
-                          Name: "Name",
-                          Value: "Name",
-                          Sort: function(left, right) { return CompareCaseInsensitive(left.Name, right.Name); }
-                        },
-                        {
-                          Name: "Description",
-                          Value: "Description",
-                          Sort: function(left, right) { return CompareCaseInsensitive(left.Description, right.Description); }
-                        }
-                      ];
                       self.filter = new FilterModel(filters, self.events);
-                      self.sorter = new SorterModel(sortOptions, self.filter.filteredRecords);
                       self.pager = new PagerModel(self.filter.filteredRecords);
                     }
 
@@ -372,7 +354,6 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                         {
                           return;
                         }
-
                         self.currentPageIndex(newIndex);
                       };
                       self.onPageSizeChange = function() {
@@ -381,8 +362,9 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                       self.renderPagers = function() {
                         var pager = '<ul class="pagination" role="menubar" aria-label="Pagination">';
                         pager += '<li class="arrow"><a href="#" data-bind="click: pager.movePrevious, enable: pager.currentPageIndex() > 0">&laquo; Föregående</a></li>';
-                        for (i = 0; i <= self.maxPageIndex(); i++) {
-                          pager += '<li data-bind="css: pager.currentStatus('+i+'), visible: pager.isHidden('+i+')"><a href="#" data-bind="click: pager.currentPageIndex('+i+')">'+(i+1)+'</a></li>';
+                        var max = self.maxPageIndex();
+                        for (i = 0; i <= max; i++) {
+                          pager += '<li data-bind="css: pager.currentStatus('+i+'), visible: pager.isHidden('+i+')"><a href="#" data-bind="click: function(data, event) { pager.currentPageIndex('+i+') }">'+(i+1)+'</a></li>';
                         }
                         pager += '<li class="arrow"><a href="#" data-bind="click: pager.moveNext, enable: pager.currentPageIndex() < pager.maxPageIndex()">Nästa &raquo;</a></li>';
                         pager += '</ul>';
@@ -392,44 +374,10 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                         var message = "<span data-bind=\"visible: pager.recordCount() == 0\">Hittade inga event.</span>";
                         $("div.NoRecords").html(message);
                       };
-
                       self.renderPagers();
                       self.renderNoRecords();
                     }
 
-                    function SorterModel(sortOptions, records)
-                    {
-                      var self = this;
-                      self.records = GetObservableArray(records);
-                      self.sortOptions = ko.observableArray(sortOptions);
-                      self.sortDirections = ko.observableArray([
-                        {
-                          Name: "Asc",
-                          Value: "Asc",
-                          Sort: false
-                        },
-                        {
-                          Name: "Desc",
-                          Value: "Desc",
-                          Sort: true
-                        }]);
-                      self.currentSortOption = ko.observable(self.sortOptions()[0]);
-                      self.currentSortDirection = ko.observable(self.sortDirections()[0]);
-                      self.orderedRecords = ko.computed(function()
-                      {
-                        var records = self.records();
-                        var sortOption = self.currentSortOption();
-                        var sortDirection = self.currentSortDirection();
-                        if (sortOption == null || sortDirection == null)
-                        {
-                          return records;
-                        }
-
-                        var sortedRecords = records.slice(0, records.length);
-                        SortArray(sortedRecords, sortDirection.Sort, sortOption.Sort);
-                        return sortedRecords;
-                      }).extend({ throttle: 5 });
-                    }
 
                     function FilterModel(filters, records)
                     {
@@ -638,22 +586,6 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                      ko.applyBindings(_eventPageModel);
 
                     </script>
-
-                    <!-- <ul class="pagination" role="menubar" aria-label="Pagination">
-                      <li class="arrow unavailable" aria-disabled="true"><a href="">&laquo; Föregående</a></li>
-                      <li class="current"><a href="">1</a></li>
-                      <li><a href="">2</a></li>
-                      <li><a href="">3</a></li>
-                      <li><a href="">4</a></li>
-                      <li><a href="">5</a></li>
-                      <li><a href="">6</a></li>
-                      <li class="unavailable" aria-disabled="true">&hellip;</li>
-                      <li><a href="">10</a></li>
-                      <li><a href="">11</a></li>
-                      <li><a href="">12</a></li>
-                      <li><a href="">13</a></li>
-                      <li class="arrow"><a href="">Nästa &raquo;</a></li>
-                    </ul> -->
 
                     <script>
                     jQuery("select#events_multi").zmultiselect({
