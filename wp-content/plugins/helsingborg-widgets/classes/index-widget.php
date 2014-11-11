@@ -45,6 +45,8 @@ if (!class_exists('Index_Widget_Box')) {
         foreach ($items as $num => $item) :
             $item_id = $item_ids[$num];
             $page = get_page($item_id, OBJECT, 'display');
+            if ($page->post_status !== 'publish') continue;
+
             $link = get_permalink($page->ID);
 
             // Get the content, see if <!--more--> is inserted

@@ -47,6 +47,7 @@ if (!class_exists('News_List_Widget_Box')) {
         foreach ($items as $num => $item) :
             $item_id = $item_ids[$num];
             $page = get_page($item_id, OBJECT, 'display');
+            if ($page->post_status !== 'publish') continue;
 
             // Get the content, see if <!--more--> is inserted
             $the_content = get_extended(strip_shortcodes($page->post_content));
