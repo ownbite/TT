@@ -35,11 +35,11 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
 
 
 // TODO: Change these to proper CSS !!! ?>
-<script src="<?php echo get_stylesheet_directory_uri() ; ?>/bower_components/foundation-multiselect/zmultiselect/zurb5-multiselect.js"></script>
+<script src="<?php echo get_stylesheet_directory_uri() ; ?>/js/foundation-multiselect/zmultiselect/zurb5-multiselect.js"></script>
 <link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri() ; ?>/bower_components/foundation-multiselect/zmultiselect/zurb5-multiselect.css">
 <script src="<?php echo get_stylesheet_directory_uri() ; ?>/js/jquery.datetimepicker.js"></script>
 <link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri() ; ?>/js/jquery.datetimepicker.css">
-<script src="<?php echo get_stylesheet_directory_uri() ; ?>/bower_components/knockout/dist/knockout.debug.js"></script>
+<script src="<?php echo get_stylesheet_directory_uri() ; ?>/js/knockout/dist/knockout.js"></script>
 
 <div class="article-page-layout row">
     <!-- main-page-layout -->
@@ -107,8 +107,6 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                         </footer>
                       </article>
                     <?php endwhile; // End the loop ?>
-
-
 
                     <table>
                       <thead>
@@ -378,7 +376,6 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                       self.renderNoRecords();
                     }
 
-
                     function FilterModel(filters, records)
                     {
                       var self = this;
@@ -598,7 +595,7 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                       selectAll: true,
                       selectAllText: ['Markera alla','Avmarkera alla']
                     });
-                    jQuery("#events_multi").zmultiselect('checkall');
+                    // jQuery("#events_multi").zmultiselect('checkall');
                     </script>
 
             <?php if ( (is_active_sidebar('content-area') == TRUE) ) : ?>
@@ -642,28 +639,36 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
 </div><!-- /.main-site-container -->
 
 <script>
-var dateToDisable1 = new Date();
-dateToDisable1.setDate(dateToDisable1.getDate());
+jQuery(function() {
+  var currentDate = new Date();
+  currentDate.setDate(currentDate.getDate());
 
-jQuery('#datetimepickerstart').datetimepicker({
-  beforeShowDay: function(date) {
-    if (date.getMonth() == dateToDisable1.getMonth() && date.getDate() == dateToDisable1.getDate()) {
-      return [false, ""]
+  jQuery('#datetimepickerstart').datetimepicker({
+    minDate: currentDate,
+    weeks: true,
+    lang:'se',
+    timepicker:false,
+    format:'Y-m-d',
+    formatDate:'Y-m-d',
+    onShow:function( ct ){
+     this.setOptions({
+      maxDate:jQuery('#datetimepickerend').val()?jQuery('#datetimepickerend').val():false
+     })
     }
-    return [true, ""];
-  },
-  lang:'se',
-  timepicker:false,
-  format:'Y-m-d',
-  formatDate:'Y-m-d'
-});
+  });
 
-jQuery('#datetimepickerend').datetimepicker({
-  lang:'se',
-  timepicker:false,
-  format:'Y-m-d',
-  formatDate:'Y-m-d',
-
+  jQuery('#datetimepickerend').datetimepicker({
+    weeks: true,
+    lang:'se',
+    timepicker:false,
+    format:'Y-m-d',
+    formatDate:'Y-m-d',
+    onShow:function( ct ){
+     this.setOptions({
+      minDate:jQuery('#datetimepickerstart').val()?jQuery('#datetimepickerstart').val():false
+     })
+    }
+  });
 });
 </script>
 
