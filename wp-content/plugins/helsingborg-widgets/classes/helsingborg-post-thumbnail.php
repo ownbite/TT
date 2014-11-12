@@ -65,7 +65,7 @@ class helsingborgPostThumbnail {
     if (empty($thumbnail_id)) {
       $ajax_nonce = wp_create_nonce( "set_post_thumbnail-$post_ID" );
       $button_click = "helsingborgMediaSelector.create( ".$post_ID.", featured_img, 0, '" . $ajax_nonce . "'); return false;";
-      $content = '<p style="width:100%;text-align:center;" class="button" name="featured_img" id="featured_img" onclick="' . $button_click . '">Välj utvald bild</p>';
+      $content = '<p>Används för nyhetslistning och indexpuffar. Bredd 300 px.</p><p style="width:100%;text-align:center;" class="button" name="featured_img" id="featured_img" onclick="' . $button_click . '">Välj utvald bild</p>';
     } else {
       $img_src = wp_get_attachment_image( $thumbnail_id, 'post-thumbnail' );
       $ajax_nonce = wp_create_nonce( "set_post_thumbnail-$post_ID" );
