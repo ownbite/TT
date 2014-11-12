@@ -15,7 +15,8 @@ if (!function_exists('Helsingborg_scripts')) :
     wp_enqueue_script('modernizr');
     wp_enqueue_script('jquery');
     wp_enqueue_script('foundation');
-
+    wp_enqueue_script('jquery-ui-dialog');
+    wp_enqueue_script('jquery-ui-sortable');
   }
 
   add_action( 'wp_enqueue_scripts', 'Helsingborg_scripts' );
