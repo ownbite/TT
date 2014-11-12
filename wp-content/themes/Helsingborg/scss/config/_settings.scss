@@ -190,12 +190,19 @@ $custom-large-up: "#{$screen} and (min-width:#{lower-bound($custom-large-range)}
 // $xxlarge-up: "#{$screen} and (min-width:#{lower-bound($xxlarge-range)})";
 // $xxlarge-only: "#{$screen} and (min-width:#{lower-bound($xxlarge-range)}) and (max-width:#{upper-bound($xxlarge-range)})";
 
-$retina: "#{$screen} and (-webkit-min-device-pixel-ratio: 2),
-only screen and (min--moz-device-pixel-ratio: 2),
-only screen and (-o-min-device-pixel-ratio: 2/1),
-only screen and (min-device-pixel-ratio: 2),
-only screen and (min-resolution: 192dpi),
-only screen and (min-resolution: 2dppx)";
+$retina: "#{$screen} and (-webkit-min-device-pixel-ratio: 2) and (max-device-width: 1080px),
+#{$screen} and (min--moz-device-pixel-ratio: 2) and (max-device-width: 1080px),
+#{$screen} and (-o-min-device-pixel-ratio: 2/1) and (max-device-width: 1080px),
+#{$screen} and (     min-device-pixel-ratio: 2) and (max-device-width: 1080px),
+#{$screen} and (        min-resolution: 192dpi) and (max-device-width: 1080px),
+#{$screen} and (         min-resolution: 2dppx) and (max-device-width: 1080px)";
+
+$retina-macbook: "#{$screen} and (-webkit-min-device-pixel-ratio: 2) and (min-device-width: 1080px),
+#{$screen} and (   min--moz-device-pixel-ratio: 2) and (min-device-width: 1080px),
+#{$screen} and (   -o-min-device-pixel-ratio: 2/1) and (min-device-width: 1080px),
+#{$screen} and (        min-device-pixel-ratio: 2) and (min-device-width: 1080px),
+#{$screen} and (           min-resolution: 192dpi) and (min-device-width: 1080px),
+#{$screen} and (            min-resolution: 2dppx) and (min-device-width: 1080px)";
 
 // Legacy
 // $small: $medium-up;
