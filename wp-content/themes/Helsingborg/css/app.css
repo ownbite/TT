@@ -5609,6 +5609,7 @@ th.hide-for-touch {
  *	4.4 - Comments
   *	4.5 - Lists
   * 4.6 - Forms
+	* 4.7 Table-List + List search
  * 5.0 - Plugins
 
  * ----------------------------------------------------------------------------
@@ -5758,12 +5759,12 @@ blockquote.alignright, img.alignright {
     .socialmedia-list li.twitter a:hover {
       background-position: 0 -95px; }
 
-@media only screen and (-webkit-min-device-pixel-ratio: 2),
-only screen and (min--moz-device-pixel-ratio: 2),
-only screen and (-o-min-device-pixel-ratio: 2/1),
-only screen and (min-device-pixel-ratio: 2),
-only screen and (min-resolution: 192dpi),
-only screen and (min-resolution: 2dppx) {
+@media only screen and (-webkit-min-device-pixel-ratio: 2) and (max-device-width: 1080px),
+only screen and (min--moz-device-pixel-ratio: 2) and (max-device-width: 1080px),
+only screen and (-o-min-device-pixel-ratio: 2/1) and (max-device-width: 1080px),
+only screen and (     min-device-pixel-ratio: 2) and (max-device-width: 1080px),
+only screen and (        min-resolution: 192dpi) and (max-device-width: 1080px),
+only screen and (         min-resolution: 2dppx) and (max-device-width: 1080px) {
   .socialmedia-list li a {
     background: url(/TT/wp-content/themes/Helsingborg/assets/socialmedia-icons/social-icon-sprite2x.png) 0 0 no-repeat; } }
 
@@ -5916,7 +5917,22 @@ ul.news-list-large.row section.news-section ul.news-list-large.row li.news-item.
     max-width: 66%; }
 
 /**
-	 * 4.6 Table-List + List search
+* 4.6 Forms
+* ------------------------------------
+*/
+.gform_button.button {
+  border-radius: 4px;
+  -moz-box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.45);
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.45);
+  padding: 0.5rem 0;
+  margin: 0;
+  width: 20%;
+  background-color: #ed8b00;
+  color: white;
+  cursor: pointer; }
+
+/**
+	 * 4.7 Table-List + List search
 	 * ------------------------------------
 	 */
 /* Search in List */
