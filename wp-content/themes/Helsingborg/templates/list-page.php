@@ -131,6 +131,7 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                         <div class="listen-to">
                             <a href="#" class="icon"><span>Lyssna på innehållet</span></a>
                         </div>
+                        <?php the_breadcrumb(); ?>
                         <h1 class="article-title"><?php the_title(); ?></h1>
                       </header>
 

@@ -77,6 +77,8 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                     <a href="#" class="icon"><span>Lyssna på innehållet</span></a>
                 </div>
 
+                <?php the_breadcrumb(); ?>
+
                 <?php /* Start loop */ ?>
                     <?php while (have_posts()) : the_post(); ?>
                       <article class="article">

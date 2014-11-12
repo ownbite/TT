@@ -20,6 +20,8 @@ get_header();
                     <a href="#" class="icon"><span>Lyssna på innehållet</span></a>
                 </div>
 
+                <?php the_breadcrumb(); ?>
+
                 <?php /* Start loop */ ?>
                 <?php while (have_posts()) : the_post(); ?>
                   <article class="article">

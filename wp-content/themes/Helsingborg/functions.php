@@ -229,10 +229,40 @@ function trim_text($input, $length, $ellipses = true, $strip_tag = true,$strip_s
         //add ellipses (...)
         if ($ellipses) {
         $trimmed_text .= '...';
-        }       
+        }
     }
 
     return $trimmed_text;
+}
+
+function the_breadcrumb() {
+    global $post;
+    $title = get_the_title();
+    echo '<ul class="breadcrumbs">';
+    if (!is_front_page()) {
+        if (is_category() || is_single()) {
+            echo '<li>';
+            the_category(' <li> ');
+            if (is_single()) {
+                echo '<li>';
+                the_title();
+                echo '</li>';
+            }
+        } elseif (is_page()) {
+            if($post->post_parent){
+                $anc = get_post_ancestors( $post->ID );
+                $title = get_the_title();
+                foreach ( $anc as $ancestor ) {
+                    $output = '<li><a href="'.get_permalink($ancestor).'" title="'.get_the_title($ancestor).'">'.get_the_title($ancestor).'</a></li></li>' . $output;
+                }
+                echo $output;
+                echo '<strong title="'.$title.'"> '.$title.'</strong>';
+            } else {
+                echo '<li><strong> '.get_the_title().'</strong></li>';
+            }
+        }
+    }
+    echo '</ul>';
 }
 
 ?>
