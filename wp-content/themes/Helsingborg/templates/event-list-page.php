@@ -4,15 +4,14 @@ Template Name: Evenemangslistning
 */
 get_header();
 
-if( is_user_logged_in() && has_shortcode( $post->post_content, 'gravityform' ) ) {
-
-  $user_meta = get_user_meta(get_current_user_id(), 'happy_user_id', TRUE );
-  if (!empty($user_meta)) {
-    //$events = HelsingborgEventModel::load_unpublished_events($user_meta);
-    // $events = HelsingborgEventModel::load_events();
-    //var_dump($events);
-  }
-}
+// if( is_user_logged_in() ) {
+//   $user_meta = get_user_meta(get_current_user_id(), 'happy_user_id', TRUE );
+//   echo " USER ID: " . $user_meta . "; ";
+//   if (!empty($user_meta)) {
+//     $unpublished_events = HelsingborgEventModel::load_unpublished_events($user_meta);
+//     // var_dump($unpublished_events);
+//   }
+// }
 
 $events = HelsingborgEventModel::load_events();
 $event_types = HelsingborgEventModel::load_event_types();
@@ -22,14 +21,7 @@ $json_event_types = json_encode($event_types);
 // var_dump($json_event_types);
 
 // Get the content, see if <!--more--> is inserted
-$the_content = get_extended(strip_shortcodes($post->post_content));
-
-$pattern = get_shortcode_regex();
-preg_match('/'.$pattern.'/s', $post->post_content, $matches);
-if (is_array($matches) && $matches[2] == 'gravityform') {
-   $shortcode = $matches[0];
-}
-
+$the_content = get_extended($post->post_content);
 $main = $the_content['main'];
 $content = $the_content['extended']; // If content is empty, no <!--more--> tag was used -> content is in $main
 
@@ -87,19 +79,15 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                         </header>
                         <?php if (!empty($content)) : ?>
                           <div class="ingress">
-                            <?php echo wpautop($main, true); ?>
+                            <?php apply_filters('the_content', $main); ?>
                           </div><!-- /.ingress -->
                         <?php endif; ?>
                         <div class="article-body">
                           <?php if(!empty($content)){
-                            echo wpautop($content, true);
+                              echo apply_filters('the_content', $content);
                             } else {
-                              echo wpautop($main, true);
-                            }
-                            if ($shortcode) {
-                              echo do_shortcode($shortcode);
-                            }
-                            ?>
+                              echo apply_filters('the_content', $main);
+                            } ?>
                         </div>
                         <footer>
                           <ul class="socialmedia-list">

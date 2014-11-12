@@ -84,7 +84,6 @@ $json_items = json_encode($list_items);
 
 // Get the content, see if <!--more--> is inserted
 $the_content = get_extended($post->post_content);
-
 $main = $the_content['main'];
 $content = $the_content['extended']; // If content is empty, no <!--more--> tag was used -> content is in $main
 ?>
@@ -137,14 +136,15 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
 
                         <?php if (!empty($content)) : ?>
                           <div class="ingress">
-                            <?php echo wpautop($main, true); ?>
+                            <?php apply_filters('the_content', $main); ?>
                           </div><!-- /.ingress -->
                         <?php endif; ?>
                         <div class="article-body">
                           <?php if(!empty($content)){
-                            echo wpautop($content, true);
+                              echo apply_filters('the_content', $content);
                             } else {
-                              echo wpautop($main, true);} ?>
+                              echo apply_filters('the_content', $main);
+                            } ?>
                         </div>
 
                         <div class="filter-search">
