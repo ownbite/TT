@@ -26,24 +26,17 @@ jQuery(document).ready(function(){
       $(this).toggleClass('active');
   });
 
-
-   if($('.table-list').length > 0) {
-
-      $('.table-item').bind('click', function(){
-          if($(this).not('active')) {
-              $('.table-item').removeClass('active');
-              $('.table-content').removeClass('open');
-              $(this).addClass('active');
-              $(this).next('.table-content').addClass('open');
-          } else if($(this).hasClass('active')){
-              $('.table-item').removeClass('active');
-              $('.table-content').removeClass('open');
-          }
-      });
-
-      $('.table-list tr td:last-child').append('<span class="icon"></span>');
-      $('.table-list .table-item:odd').addClass('odd');
-      //$('.table-list').tablesorter();
-    }
-
+  if($('.table-list').length > 0) {
+     $('.table-list').delegate('tbody tr.table-item','click', function(){
+       if(!$(this).is('.active')) {
+         $('.table-item').removeClass('active');
+         $('.table-content').removeClass('open');
+         $(this).addClass('active');
+         $(this).next('.table-content').addClass('open');
+       } else if($(this).hasClass('active')) {
+         $(this).toggleClass('active');
+         $(this).next('.table-content').removeClass('open');
+       }
+     });
+  }
 });
