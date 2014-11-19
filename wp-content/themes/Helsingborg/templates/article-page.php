@@ -34,7 +34,7 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                 </div><!-- /.row -->
             </div><!-- /.sidebar-left -->
 
-            <div class="large-8 medium-8 columns">
+            <div class="large-8 medium-8 columns article-column">
 
                 <!-- Slider -->
                 <?php $hasSlides = (is_active_sidebar('slider-area') == TRUE) ? '' : 'no-image'; ?>
@@ -108,9 +108,11 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
 
     </div><!-- /.rows -->
 </div><!-- /.sidebar -->
-
 </div><!-- /.article-page-layout -->
 </div><!-- /.main-site-container -->
 
+<script src="<?php echo get_stylesheet_directory_uri() ; ?>/js/app.js"></script>
+<script src="<?php echo get_stylesheet_directory_uri() ; ?>/js/dev/hbg.dev.js"></script>
+<script src="<?php echo get_stylesheet_directory_uri() ; ?>/js/plugins/jquery.tablesorter.min.js"></script>
 
 <?php get_footer(); ?>
