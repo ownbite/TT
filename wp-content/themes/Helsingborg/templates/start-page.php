@@ -35,7 +35,8 @@ get_header(); ?>
                         <a href="#" class="icon"><span>Lyssna på innehållet</span></a>
                     </div>
 
-                <h1 class="section-title">Aktuellt i Helsingborg stad</h1>
+                <?php $title = get_field('content_title'); ?>
+                <h1 class="section-title"><?php echo $title; ?></h1>
 
                 <div class="divider fade">
                     <div class="upper-divider"></div>
