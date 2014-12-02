@@ -4,21 +4,11 @@ Template Name: Evenemangslistning
 */
 get_header();
 
-// if( is_user_logged_in() ) {
-//   $user_meta = get_user_meta(get_current_user_id(), 'happy_user_id', TRUE );
-//   echo " USER ID: " . $user_meta . "; ";
-//   if (!empty($user_meta)) {
-//     $unpublished_events = HelsingborgEventModel::load_unpublished_events($user_meta);
-//     // var_dump($unpublished_events);
-//   }
-// }
-
-$events = HelsingborgEventModel::load_events();
+$events      = HelsingborgEventModel::load_events();
 $event_types = HelsingborgEventModel::load_event_types();
 
 $json_items = json_encode($events);
 $json_event_types = json_encode($event_types);
-// var_dump($json_event_types);
 
 // Get the content, see if <!--more--> is inserted
 $the_content = get_extended($post->post_content);
@@ -70,6 +60,16 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                 </div>
 
                 <?php the_breadcrumb(); ?>
+
+                <?php // Present the list of new events bounded to the user
+                if (is_user_logged_in() && !empty($unpublished_events)) {
+                  echo "<ul>";
+                  foreach($unpublished_events as $new_event) {
+                    echo "<a href='http://localhost/TT/wp-admin/admin.php?page=gf_entries&view=entry&id=3&lid=2&filter=&paged=1&pos=0&field_id=&operator='>";
+                    echo "<li>" . $new_event->Name . " - " . $new_event->EventID . " - " . $new_event->Date . "</li></a>";
+                  }
+                  echo "</ul>";
+                } ?>
 
                 <?php /* Start loop */ ?>
                     <?php while (have_posts()) : the_post(); ?>
@@ -162,12 +162,12 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                             var date = $('.modalDate');
                             var description = $('.modalDescription');
 
-                            var customer = _eventPageModel.events;
+                            var events = _eventPageModel.events;
                             var result;
 
-                            for (var i = 0; i < customer.length; i++) {
-                              if (customer[i].EventID === this.id) {
-                                result = customer[i];
+                            for (var i = 0; i < events.length; i++) {
+                              if (events[i].EventID === this.id) {
+                                result = events[i];
                               }
                             }
 
