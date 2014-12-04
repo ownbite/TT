@@ -80,7 +80,10 @@ function helsingborg_meta_ArticlePage() {
           if (in_array($key, $parent_keys)) :
 
             // Retrieve the value if it has been set
-            $set_value = $meta['article_options_' . $key];
+            if (!is_array($meta) || !array_key_exists('article_options_' . $key, $meta))
+              $set_value = '';
+            else
+              $set_value = $meta['article_options_' . $key];
 
             // Print the form form for this item and make sure it can be saved as meta
           ?>
