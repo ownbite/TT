@@ -41,6 +41,7 @@ wp-content/plugins/*
 !wp-content/plugins/post-expirator
 !wp-content/plugins/convert-post-types
 !wp-content/plugins/google-analytics-dashboard-for-wp
+!wp-content/plugins/helsingborg-alarm
 # !wp-content/plugins/my-single-file-plugin.php
 # !wp-content/plugins/my-directory-plugin/
 
