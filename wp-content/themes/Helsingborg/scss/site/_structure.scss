@@ -12,6 +12,8 @@
   *	4.5 - Lists
   * 4.6 - Forms
 	* 4.7 - Table-List + List search
+	* 4.8 - 404-page
+	* 4.9 - Breadcrumb
  * 5.0 - Plugins
 
  * ----------------------------------------------------------------------------
@@ -556,10 +558,33 @@ img.alignright {
 * 4.8 - 404-page
 * -----------------------------------------------------------------------------
 */
-/*html.js.flexbox.flexboxlegacy.canvas.canvastext.webgl.no-touch.geolocation.postmessage.no-websqldatabase.indexeddb.hashchange.history.draganddrop.websockets.rgba.hsla.multiplebgs.backgroundsize.borderimage.borderradius.boxshadow.textshadow.opacity.cssanimations.csscolumns.cssgradients.no-cssreflections.csstransforms.csstransforms3d.csstransitions.fontface.generatedcontent.video.audio.localstorage.sessionstorage.webworkers.applicationcache.svg.inlinesvg.smil.svgclippaths.js.flexbox.flexboxlegacy.canvas.canvastext.webgl.no-touch.geolocation.postmessage.no-websqldatabase.indexeddb.hashchange.history.draganddrop.websockets.rgba.hsla.multiplebgs.backgroundsize.borderimage.borderradius.boxshadow.textshadow.opacity.cssanimations.csscolumns.cssgradients.no-cssreflections.csstransforms.csstransforms3d.csstransitions.fontface.generatedcontent.video.audio.localstorage.sessionstorage.webworkers.applicationcache.svg.inlinesvg.smil.svgclippaths body.customize-support div.off-canvas-wrap div.inner-wrap div.main-site-container div.row {
-	width: 66.6667%;
 
-}*/
+div.main-site-container div.row.errorpage {
+	width: 66.667%;
+	@include border-top-radius;
+	@include box-shadow-advanced(0, 3, 1, 255,255,255,1, false, true, 3, 0, 2, 0,0,0,0.4, false);
+	background-color: $white;
+	padding-left: 0.9375rem;
+	padding-right: 0.9375rem;
+	min-height: rem-calc(400);
+
+}
+
+/**
+* 4.9 - Breadcrumb
+* -----------------------------------------------------------------------------
+*/
+.breadcrumbs {
+	background-color: #fff;
+	border:0;
+}
+ul.breadcrumbs li {
+	font-size: 0.63rem;
+}
+ul.breadcrumbs li strong {
+	font-size: 0.63rem;
+}
+
 
 /**
  * Custom MQ - Structure
@@ -567,7 +592,13 @@ img.alignright {
  */
 
  @media #{$small-only} {
- 	.article-page-layout {
+	div.main-site-container div.row.errorpage {
+		width: 90.6667%;
+	}
+	div.main-site-container div.row.errorpage h1 {
+		font-size: 1.9em;
+	}
+	.article-page-layout {
  		.sidebar-left {
  			display: none;
  		}
@@ -591,7 +622,7 @@ img.alignright {
  	}
  }
 @media #{$small-up} {
- 	.site-bg {
+	.site-bg {
  		top: rem-calc(200);
  	}
 	.block-list.page-block-list.page-list {
