@@ -12,6 +12,8 @@
   *	4.5 - Lists
   * 4.6 - Forms
 	* 4.7 - Table-List + List search
+	* 4.8 - 404-page
+	* 4.9 - Breadcrumb
  * 5.0 - Plugins
 
  * ----------------------------------------------------------------------------
@@ -567,6 +569,22 @@ div.main-site-container div.row.errorpage {
 	min-height: rem-calc(400);
 
 }
+
+/**
+* 4.9 - Breadcrumb
+* -----------------------------------------------------------------------------
+*/
+.breadcrumbs {
+	background-color: #fff;
+	border:0;
+}
+ul.breadcrumbs li {
+	font-size: 0.63rem;
+}
+ul.breadcrumbs li strong {
+	font-size: 0.63rem;
+}
+
 
 /**
  * Custom MQ - Structure
