@@ -18,12 +18,10 @@ $selected_list_options_meta = $meta['list_options'];
 $selected_list_options = explode(",",$selected_list_options_meta);
 $headers = [];
 
-// Compare the selection with the actual list to save key and value
-foreach($list as $key => $value) {
-  if (in_array(($key), $selected_list_options)) {
-    array_push($header_keys, $key);
-    array_push($headers, $value);
-  }
+// Prepare the list and headers
+foreach($selected_list_options as $option) {
+  array_push($header_keys, $option);
+  array_push($headers, $list[$option]);
 }
 
 // Get the child pages
