@@ -97,35 +97,40 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                         </footer>
                       </article>
                     <?php endwhile; // End the loop ?>
+<!--
+                      <form class="event-list-form">
 
-                    <table>
-                      <thead>
+                        <label for="input-name" data-bind="text: Name"></label>
+                        <input type="text" id="input-name"/>
+
+                        <select id="events_multi" data-bind="options: Options, optionsText: 'Name', optionsValue: 'Name', value: Options, click: $root.change" ></select>
+
+                        <input type="text" data-bind="value: Value, valueUpdate: 'afterkeydown'" />
+
+                        <input type="text" data-bind="value: Value, valueUpdate: 'afterkeydown', attr: {id: CalendarID}" />
+
+                        <input type="text" id="selectedTypes" style="display: none;" data-bind="textInput: selectedEventTypes"/>
+
+
+                    </form>-->
+
+                        <form class="event-list-form">
                         <!-- ko foreach: filter.filters -->
-                          <tr>
-                            <td><span data-bind="text: Name"></span>:<br /></td>
-                          </tr>
+                              <label data-bind="text: Name">:</label>
+
                           <!-- ko if: (Type == 'select') -->
-                            <tr>
-                              <td>
+
                                 <select id="events_multi" data-bind="options: Options, optionsText: 'Name', optionsValue: 'Name', value: Options, click: $root.change" ></select>
-                              </td>
-                            </tr>
                           <!-- /ko -->
                           <!-- ko if: (Type == 'text') -->
-                            <tr>
-                              <td><input type="text" data-bind="value: Value, valueUpdate: 'afterkeydown'" /></td>
-                            </tr>
+                                <input type="text" data-bind="value: Value, valueUpdate: 'afterkeydown'" />
                           <!-- /ko -->
                           <!-- ko if: (Type == 'calendar') -->
-                            <tr>
-                              <td><input type="text" data-bind="value: Value, valueUpdate: 'afterkeydown', attr: {id: CalendarID}" /></td>
-                            </tr>
+                                <input type="text" data-bind="value: Value, valueUpdate: 'afterkeydown', attr: {id: CalendarID}" />
                           <!-- /ko -->
                         <!-- /ko -->
-                      </thead>
-                    </table>
-
                     <input type="text" id="selectedTypes" style="display: none;" data-bind="textInput: selectedEventTypes"/>
+                    </div>
 
                     <div class="Pager"></div>
                     <div class="NoRecords"></div>
