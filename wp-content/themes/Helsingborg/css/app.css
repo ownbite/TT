@@ -6116,6 +6116,7 @@ ul.news-list-large.row section.news-section ul.news-list-large.row li.news-item.
 
 /* table-list */
 .table-list {
+  width: 100%;
   border-spacing: 0;
   border-collapse: inherit; }
   .table-list .table-item td:last-child {
@@ -6574,6 +6575,20 @@ ul.breadcrumbs li strong {
         color: #cccccc; }
   .footer-content .push-link {
     color: #009cde; }
+
+/* Site components */
+/*
+  Forms, inputs etc.
+
+*/
+.event-list-form {
+  margin-bottom: 1rem; }
+
+
+.input-calendar {
+  width: 50%;
+  float: left;
+  padding-left: ; }
 
 /* Assets */
 /* 

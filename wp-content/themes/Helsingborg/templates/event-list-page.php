@@ -97,7 +97,7 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                         </footer>
                       </article>
                     <?php endwhile; // End the loop ?>
-<!--
+                      <!--
                       <form class="event-list-form">
 
                         <label for="input-name" data-bind="text: Name"></label>
@@ -114,29 +114,37 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
 
                     </form>-->
 
-                        <form class="event-list-form">
-                        <!-- ko foreach: filter.filters -->
-                              <label data-bind="text: Name">:</label>
-
+                    <form class="event-list-form">
+                          <!-- ko foreach: filter.filters -->
+                          <!--<label data-bind="text: Name">:</label>-->
                           <!-- ko if: (Type == 'select') -->
-
-                                <select id="events_multi" data-bind="options: Options, optionsText: 'Name', optionsValue: 'Name', value: Options, click: $root.change" ></select>
+                                <div class="input-column">
+                                  <select class="select-box" id="events_multi" data-bind="options: Options, optionsText: 'Name', optionsValue: 'Name', value: Options, click: $root.change" ></select>
+                                </div>
                           <!-- /ko -->
                           <!-- ko if: (Type == 'text') -->
-                                <input type="text" data-bind="value: Value, valueUpdate: 'afterkeydown'" />
+                                <div class="input-column">
+                                  <input type="text" class="input-text" data-bind="value: Value, valueUpdate: 'afterkeydown'" />
+                                </div>
                           <!-- /ko -->
                           <!-- ko if: (Type == 'calendar') -->
-                                <input type="text" data-bind="value: Value, valueUpdate: 'afterkeydown', attr: {id: CalendarID}" />
+                                <div class="input-column input-calendar">
+                                    <input type="text" class="input-calendar" data-bind="value: Value, valueUpdate: 'afterkeydown', attr: {id: CalendarID}" />
+                                </div>
                           <!-- /ko -->
                         <!-- /ko -->
-                    <input type="text" id="selectedTypes" style="display: none;" data-bind="textInput: selectedEventTypes"/>
-                    </div>
+                        <input type="text" id="selectedTypes" style="display: none;" data-bind="textInput: selectedEventTypes"/>
+                  </form><!-- /.event-list-form -->
+                  </div><!-- large-8 columns -->
+
+                  <div class="large-8 columns event-list-container">
 
                     <div class="Pager"></div>
-                    <div class="NoRecords"></div>
-                    <ul data-bind="template: {name:'eventTemplate',foreach: pager.currentPageRecords}" class="block-list page-block-list page-list large-block-grid-3 medium-block-grid-3 small-block-grid-2"></ul>
+                      <div class="NoRecords"></div>
+                      <ul data-bind="template: {name:'eventTemplate',foreach: pager.currentPageRecords}" class="block-list page-block-list page-list large-block-grid-3 medium-block-grid-3 small-block-grid-2"></ul>
                     <div class="Pager"></div>
 
+                    <!-- MODAL -->
                     <div id="eventModal" class="reveal-modal" data-reveal>
                       <img class="modalImage"/>
                       <h2 class="modalTitle"></h2>
@@ -144,6 +152,7 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                       <p class="modalDescription"></p>
                       <a class="close-reveal-modal">&#215;</a>
                     </div>
+                    <!-- /MODAL -->
 
                     <script type="text/html" id="eventTemplate">
                       <li>
@@ -597,7 +606,7 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
               <?php dynamic_sidebar("content-area"); ?>
             <?php endif; ?>
 
-
+          </div><!-- .event-list-container -->
             <!-- END LIST + BLOCK puffs :-) -->
         </div><!-- /.columns -->
     </div><!-- /.main-content -->
