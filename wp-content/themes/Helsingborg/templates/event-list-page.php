@@ -97,71 +97,133 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                         </footer>
                       </article>
                     <?php endwhile; // End the loop ?>
-                      <!--
-                      <form class="event-list-form">
 
-                        <label for="input-name" data-bind="text: Name"></label>
-                        <input type="text" id="input-name"/>
-
-                        <select id="events_multi" data-bind="options: Options, optionsText: 'Name', optionsValue: 'Name', value: Options, click: $root.change" ></select>
-
-                        <input type="text" data-bind="value: Value, valueUpdate: 'afterkeydown'" />
-
-                        <input type="text" data-bind="value: Value, valueUpdate: 'afterkeydown', attr: {id: CalendarID}" />
-
-                        <input type="text" id="selectedTypes" style="display: none;" data-bind="textInput: selectedEventTypes"/>
-
-
-                    </form>-->
 
                     <form class="event-list-form">
                           <!-- ko foreach: filter.filters -->
                           <!--<label data-bind="text: Name">:</label>-->
                           <!-- ko if: (Type == 'select') -->
                                 <div class="input-column">
-                                  <select class="select-box" id="events_multi" data-bind="options: Options, optionsText: 'Name', optionsValue: 'Name', value: Options, click: $root.change" ></select>
+                                  <div>
+                                    <label for="municipality_multiselect">Selectbox rubrik</label>
+                                    <select id="municipality_multiselect">
+                                      <option value="Bjuv">Bjuv</option>
+                                      <option value="Helsingborg" data-selected>Helsingborg</option>
+                                      <option value="Höganäs">Höganäs</option>
+                                      <option value="Klippan">Klippan</option>
+                                      <option value="Landskrona">Landskrona</option>
+                                      <option value="Åstorp">Åstorp</option>
+                                      <option value="Ängelholm">Ängelholm</option>
+                                      <option value="Örkelljunga">Örkelljunga</option>
+                                    </select>
+                                  </div>
+
                                 </div>
                           <!-- /ko -->
                           <!-- ko if: (Type == 'text') -->
                                 <div class="input-column">
+                                  <label for="ID på det specifka fältet">Input rubrik</label>
                                   <input type="text" class="input-text" data-bind="value: Value, valueUpdate: 'afterkeydown'" />
                                 </div>
                           <!-- /ko -->
                           <!-- ko if: (Type == 'calendar') -->
-                                <div class="input-column input-calendar">
-                                    <input type="text" class="input-calendar" data-bind="value: Value, valueUpdate: 'afterkeydown', attr: {id: CalendarID}" />
+                                <div class="input-column-container">
+                                  <div class="input-column input-column-half">
+                                      <label for="ID på det specifka fältet">Input rubrik</label>
+                                      <input type="text" class="input-calendar" data-bind="value: Value, valueUpdate: 'afterkeydown', attr: {id: CalendarID}" />
+                                  </div>
                                 </div>
                           <!-- /ko -->
                         <!-- /ko -->
                         <input type="text" id="selectedTypes" style="display: none;" data-bind="textInput: selectedEventTypes"/>
                   </form><!-- /.event-list-form -->
-                  </div><!-- large-8 columns -->
 
-                  <div class="large-8 columns event-list-container">
+                  <div class="event-list-container">
+
+                      <h2 class="section-title">Din sökning</h2>
+                      <div class="divider fade">
+                        <div class="upper-divider"></div>
+                        <div class="lower-divider"></div>
+                      </div>
 
                     <div class="Pager"></div>
-                      <div class="NoRecords"></div>
-                      <ul data-bind="template: {name:'eventTemplate',foreach: pager.currentPageRecords}" class="block-list page-block-list page-list large-block-grid-3 medium-block-grid-3 small-block-grid-2"></ul>
+                    <div class="NoRecords"></div>
+                        <ul data-bind="template: {name:'eventTemplate',foreach: pager.currentPageRecords}" class="block-list page-block-list page-list large-block-grid-3 medium-block-grid-3 small-block-grid-2"></ul>
                     <div class="Pager"></div>
 
-                    <!-- MODAL -->
-                    <div id="eventModal" class="reveal-modal" data-reveal>
-                      <img class="modalImage"/>
-                      <h2 class="modalTitle"></h2>
-                      <p class="modalDate"></p>
-                      <p class="modalDescription"></p>
+                    <!-- MODAL TEMPLATE -->
+                    <div id="eventModal" class="reveal-modal modal" data-reveal>
+                      <img class="modal-image"/>
+
+                      <div class="row">
+                        <div class="modal-event-info large-12 columns">
+                            <h2 class="modal-title"></h2>
+                            <p class="modal-description"></p>
+                            <!--<p class="modal-date"></p>-->
+                        </div>
+                      </div>
+                      <!-- IF arrangör exist -->
+                      <div class="row">
+                      <div class="large-6 columns">
+                          <h2 class="section-title">Datum, tid och plats</h2>
+                          <div class="divider fade">
+                            <div class="upper-divider"></div>
+                            <div class="lower-divider"></div>
+                          </div>
+
+                          <ul class="modal-list">
+                            <li><span>2014-12-07</span><span>kl 20.00</span><span>Dunkers kulturhus</span></li>
+                            <li><span>2014-12-10</span><span>kl 20.00</span><span>Dunkers kulturhus</span></li>
+                            <li><span>2014-12-11</span><span>kl 20.00</span><span>Dunkers kulturhus</span></li>
+                            <li><span>2014-12-15</span><span>kl 20.00</span><span>Dunkers kulturhus</span></li>
+
+                          </ul>
+                        </div><!-- /.modal-column -->
+                        <div class="large-6 columns">
+                          <h2 class="section-title">Arrangör</h2>
+                          <div class="divider fade">
+                            <div class="upper-divider"></div>
+                            <div class="lower-divider"></div>
+                          </div>
+
+                          <ul class="modal-list">
+                            <li><a href="#">Tic-Net</a></li>
+
+                          </ul>
+                        </div><!-- /.modal-column -->
+
+                        <!-- ELSE --><!--
+                        <div class="large-12 columns">
+                          <h2 class="section-title">Datum, tid och plats</h2>
+                          <div class="divider fade">
+                            <div class="upper-divider"></div>
+                            <div class="lower-divider"></div>
+                          </div>
+
+                          <ul class="modal-list">
+                            <li><span>2014-12-07</span><span>kl 20.00</span><span>Dunkers kulturhus</span></li>
+                            <li><span>2014-12-10</span><span>kl 20.00</span><span>Dunkers kulturhus</span></li>
+                            <li><span>2014-12-11</span><span>kl 20.00</span><span>Dunkers kulturhus</span></li>
+                            <li><span>2014-12-15</span><span>kl 20.00</span><span>Dunkers kulturhus</span></li>
+
+                          </ul>
+                        </div>
+                        --><!-- /.large-12 -->
+                        <!-- END ELSE -->
+
+                      </div><!-- /.row -->
                       <a class="close-reveal-modal">&#215;</a>
                     </div>
-                    <!-- /MODAL -->
+                    <!-- END MODAL -->
 
                     <script type="text/html" id="eventTemplate">
                       <li>
-                        <a class="modalLink" href="#" data-bind="attr: {id: EventID}" data-reveal-id="eventModal" desc="link-desc">
+                        <a class="modal-link" href="#" data-bind="attr: {id: EventID}" data-reveal-id="eventModal" desc="link-desc">
                           <img data-bind="attr: {src: ImagePath}" alt="alt-text"/>
                           <p data-bind="text: Location" style="display: none;"></p>
                           <p data-bind="text: EventTypesName" style="display: none;"></p>
                           <h2 data-bind="text: Name" class="list-title"></h2>
-                          <span data-bind="text: Date" class="news-date"></span>
+                          <span data-bind="text: Date" class="list-date"></span>
                           <div data-bind="trimText: Description" class="list-content"></div>
                         </a>
                       </li>
@@ -169,12 +231,12 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
 
                     <script>
                       jQuery(document).ready(function() {
-                        jQuery(document).on('click', '.modalLink', function(event){
+                        jQuery(document).on('click', '.modal-link', function(event){
                             event.preventDefault();
-                            var image = $('.modalImage');
-                            var title = $('.modalTitle');
-                            var date = $('.modalDate');
-                            var description = $('.modalDescription');
+                            var image = $('.modal-image');
+                            var title = $('.modal-title');
+                            var date = $('.modal-date');
+                            var description = $('.modal-description');
 
                             var events = _eventPageModel.events;
                             var result;
@@ -589,7 +651,7 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                     </script>
 
                     <script>
-                    jQuery("select#events_multi").zmultiselect({
+                    jQuery("select#municipality_multiselect").zmultiselect({
                       live: "#selectedTypes",
                       filter: true,
                       filterPlaceholder: 'Filtrera...',
@@ -635,12 +697,10 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
             <?php dynamic_sidebar("right-sidebar"); ?>
           <?php endif; ?>
 
-    </div><!-- /.rows -->
-</div><!-- /.sidebar -->
+        </div><!-- /.rows -->
+    </div><!-- /.sidebar -->
 
 </div><!-- /.article-page-layout -->
-</div>
-</div><!-- /.main-site-container -->
 
 <script>
 jQuery(function() {

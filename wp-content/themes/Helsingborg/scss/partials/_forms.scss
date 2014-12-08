@@ -1,17 +1,94 @@
 /*
   Forms, inputs etc.
-
 */
 
-.event-list-form {
+/* Generic placeholder style */
+%form-style {
+  border-radius: $border-radius;
   margin-bottom: rem-calc(16);
+  padding: rem-calc(16);
+  background-color: lighten($black, 90%);
+  border: 1px solid $input-border-color;
+  box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.4);
 }
 
+%form-input-style {
+  border-radius: $border-radius;
+}
+
+/* Generic HTML styles */
+label {
+  font-size: rem-calc(14);
+  font-weight: 500;
+}
+
+form {
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  textarea {
+    @extend %form-input-style;
+  }
+}
+
+/* specific styles */
 .event-list-form {
+  @extend %form-style;
 }
 
-.input-calendar {
+.input-column-container {
+    margin-left: - rem-calc(16);
+    margin-right: - rem-calc(16);
+}
+
+.input-column-half {
     width: 50%;
     float: left;
-    padding-left:
+    padding-right: rem-calc(16);
+    padding-left: rem-calc(16);
+}
+.input-column-right {
+  width: 50%;
+  float: left;
+  padding-left: rem-calc(16);
+}
+
+
+/* foundation Multiselect component */
+.zselect {
+    overflow: hidden;
+    background-color: lighten($black, 98%) !important;
+    border: 1px solid $input-border-color;
+    cursor: pointer;
+    .zmshead {
+      color: $input-font-color;
+    }
+    .deselectall,
+    .zmsfilter  {
+      margin-bottom: rem-calc(16);
+    }
+}
+
+.event-list-form .zselect {
+  @extend %form-input-style;
+  ul {
+      margin-top: rem-calc(6);
+      margin-left: - rem-calc(9);
+      padding-bottom: rem-calc(16);
+      background-color: lighten($black, 98%) !important;
+  }
+  input[type="checkbox"] {
+      margin-right: rem-calc(16);
+  }
+}
+
+/* Gravity forms */
+.gform_wrapper {
+  @extend %form-style;
+  ul {
+    list-style: none;
+    margin-left: 0;
+    li {
+    }
+  }
 }

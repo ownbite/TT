@@ -1,8 +1,77 @@
 /*
-tables
+Misc Page components
+*/
+
+
+/*
+Tables
 
 */
 
 .table-list {
   width: 100%;
+}
+
+
+
+/*
+
+Modals
+
+*/
+/* eventmodal */
+.modal {
+  .section-title {
+    padding-left: 0;
+  }
+  a {
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.modal-image {
+  margin: 0 auto rem-calc(32);
+  display: block;
+  box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.4);
+  border-radius: $border-radius;
+  max-height: 300px;
+}
+.modal-title,
+.modal-date {
+  text-align: center;
+}
+.modal-title {
+  margin-bottom: rem-calc(32);
+  margin-top: 0;
+}
+.modal-description {
+  margin-bottom: rem-calc(32);
+}
+.modal-list {
+  list-style: none;
+  margin-left: 0;
+  li {
+    margin-bottom: rem-calc(8);
+    color: $gray-1;
+  }
+  span {
+    margin-right: rem-calc(32);
+  }
+}
+
+.reveal-modal .close-reveal-modal {
+  padding: rem-calc(7.5) rem-calc(10.5) rem-calc(13);
+  line-height: rem-calc(20);
+  font-size: rem-calc(32);
+  background-color: lighten($gray-3, 10%);
+  border: 1px solid lighten($gray-3, 5%);
+  border-radius: $border-radius-circle;
+  display: block;
+  font-weight: normal;
+  &:hover {
+    background-color: lighten($gray-3, 5%);
+    text-decoration: none;
+  }
 }
