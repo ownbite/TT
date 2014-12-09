@@ -30,15 +30,16 @@ if (!class_exists('AlarmListWidget')) {
 
     public function widget( $args, $instance ) {
       extract($args);
-      global $HELSINGBORG_ALARM_BASE;
 
       // Only load scripts and styles if widget is used
-      wp_enqueue_style('multiselect-css', $HELSINGBORG_ALARM_BASE .'/css/multiselect.css');
-      wp_enqueue_script('multiselect-js', $HELSINGBORG_ALARM_BASE .'/js/multiselect.js');
+      wp_enqueue_style('multiselect-css',       HELSINGBORG_ALARM_BASE .'/css/multiselect.css');
+      wp_enqueue_script('multiselect-js',       HELSINGBORG_ALARM_BASE .'/js/multiselect.js');
+      wp_enqueue_script('foundation-js',        HELSINGBORG_ALARM_BASE .'/js/foundation.min.js');
+      wp_enqueue_script('foundation-reveal-js', HELSINGBORG_ALARM_BASE .'/js/foundation.reveal.js');
 
       $title     = empty($instance['title'])     ? __('Aktuella larm') : $instance['title'];
-      $link      = empty($instance['link'])      ? '#' : $instance['link'];
-      $amount    = empty($instance['amount'])    ? 10 : $instance['amount'];
+      $link      = empty($instance['link'])      ? '#'                 : $instance['link'];
+      $amount    = empty($instance['amount'])    ? 10                  : $instance['amount'];
 
       // Get the default values
       $json = file_get_contents('http://alarmservice.helsingborg.se/AlarmServices.svc/GetAlarmsForCities/Helsingborg');
@@ -109,82 +110,6 @@ if (!class_exists('AlarmListWidget')) {
       <script>
         var _amount = <?php echo $amount; ?>;
         var _alarms = <?php echo $json; ?>;
-      </script>
-
-      <script>
-        jQuery(document).ready(function() {
-          jQuery("select#municipality_multiselect").zmultiselect({
-            live: "#selectedMunicipality",
-            filter: false,
-            filterResult: false,
-            selectedText: ['Valt','av'],
-            selectAll: true,
-            addButton: onUpdateClick,
-            selectAllText: ['Markera alla','Avmarkera alla']
-          });
-
-          jQuery(document).on('click', '.modalLink', function(event){
-              event.preventDefault();
-
-              var _date = $('.modalDate');
-              var _event = $('.modalEvent');
-              var _station = $('.modalStation');
-              var _id = $('.modalID');
-              var _state = $('.modalState');
-              var _address = $('.modalAddress');
-              var _location = $('.modalLocation');
-              var _area = $('.modalArea');
-              var _municipality = $('.modalMunicipality');
-
-              var result;
-
-              for (var i = 0; i < _alarms.GetAlarmsForCitiesResult.length; i++) {
-                if (_alarms.GetAlarmsForCitiesResult[i].ID === this.id) {
-                  result = _alarms.GetAlarmsForCitiesResult[i];
-                }
-              }
-
-              jQuery(_date).html(result.SentTime);
-              jQuery(_event).html(result.HtText);
-              jQuery(_station).html(result.Station);
-              jQuery(_id).html(result.ID);
-              jQuery(_state).html(result.PresGrp);
-              jQuery(_address).html(result.Address);
-              jQuery(_location).html(result.Place);
-              jQuery(_area).html(result.Zone);
-              jQuery(_municipality).html(result.Zone);
-          });
-        });
-
-        function onUpdateClick() {
-          $("select#municipality_multiselect").zmultiselect('close')
-          var selectedValues = $("select#municipality_multiselect").zmultiselect('getValue');
-          if (selectedValues == '') {selectedValues = 'Helsingborg'; $("select#municipality_multiselect").zmultiselect('set','Helsingborg',true); }
-
-          $.ajax({
-              type: "GET",
-              url: "http://alarmservice.helsingborg.se/AlarmServices.svc/GetAlarmsForCities/" + selectedValues.join(";"),
-              success: function(result)
-              {
-                if(result) {
-                  _alarms = result;
-                  updateList(result.GetAlarmsForCitiesResult);
-                }
-              }
-          });
-        }
-
-        function updateList(items) {
-          $('.alarm-list').empty();
-          $.each(items,function(i, item){
-            var alarm = '<li>';
-            alarm += '<span class="date">'+item.SentTime+'</span>';
-            alarm += '<a href="#" class="modalLink" id="'+item.ID+'" data-reveal-id="eventModal">'+item.HtText+'</a>';
-            alarm += '</li>';
-            $(alarm).appendTo($('.alarm-list'));
-            return i<(_amount-1);
-          });
-        }
       </script>
 
       <?php

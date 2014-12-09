@@ -1,0 +1,140 @@
+jQuery(document).ready(function() {
+  jQuery("select#municipality_multiselect").zmultiselect({
+    live: "#selectedMunicipality",
+    filter: true,
+    filterResult: true,
+    selectedText: ['Valt','av'],
+    selectAll: true,
+    addButton: onUpdateClick,
+    selectAllText: ['Markera alla','Avmarkera alla']
+  });
+
+  jQuery(document).on('click', '.modalLink', function(event){
+    event.preventDefault();
+
+    var _date = jQuery('.modalDate');
+    var _event = jQuery('.modalEvent');
+    var _station = jQuery('.modalStation');
+    var _id = jQuery('.modalID');
+    var _state = jQuery('.modalState');
+    var _address = jQuery('.modalAddress');
+    var _location = jQuery('.modalLocation');
+    var _area = jQuery('.modalArea');
+    var _municipality = jQuery('.modalMunicipality');
+
+    var result;
+
+    for (var i = 0; i < _alarms.GetAlarmsForCitiesResult.length; i++) {
+      if (_alarms.GetAlarmsForCitiesResult[i].ID === this.id) {
+        result = _alarms.GetAlarmsForCitiesResult[i];
+      }
+    }
+
+    jQuery(_date).html(result.SentTime);
+    jQuery(_event).html(result.HtText);
+    jQuery(_station).html(result.Station);
+    jQuery(_id).html(result.ID);
+    jQuery(_state).html(result.PresGrp);
+    jQuery(_address).html(result.Address);
+    jQuery(_location).html(result.Place);
+    jQuery(_area).html(result.Zone);
+    jQuery(_municipality).html(result.Zone);
+  });
+
+  function onUpdateClick() {
+    setupMarkers();
+    jQuery("select#municipality_multiselect").zmultiselect('close')
+    var selectedValues = jQuery("select#municipality_multiselect").zmultiselect('getValue');
+    if (selectedValues == '') {selectedValues = 'Helsingborg'; jQuery("select#municipality_multiselect").zmultiselect('set','Helsingborg',true); }
+
+    jQuery.ajax({
+      type: 'GET',
+      url: ajaxalarm.url,
+      data: {
+        action: 'get_alarm_for_cities',
+        options: options
+      },
+      success: function(result) {
+        if(result) {
+          var data = jQuery.parseJSON(result);
+          _alarms = data;
+          updateList(data.GetAlarmsForCitiesResult);
+        }
+      }
+    });
+  }
+
+  function updateList(items) {
+    jQuery('.alarm-list').empty();
+    jQuery.each(items,function(i, item){
+      var alarm = '<li>';
+      alarm += '<span class="date">'+item.SentTime+'</span>';
+      alarm += '<a href="#" class="modalLink" id="'+item.ID+'" data-reveal-id="eventModal">'+item.HtText+'</a>';
+      alarm += '</li>';
+      jQuery(alarm).appendTo(jQuery('.alarm-list'));
+      return i<(_amount-1);
+    });
+  }
+
+  var mapOptions = {zoom: 9, center: new google.maps.LatLng(56.100769,12.854576)};
+  var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+  var infowindow = new google.maps.InfoWindow({content: ""});
+  var bounds = new google.maps.LatLngBounds();
+  var markers = [];
+  var infoArray = [];
+  var counter = 0;
+  var options;
+
+  function setupMarkers() {
+    removeMarkers();
+    var selectedValues = jQuery("select#municipality_multiselect").zmultiselect('getValue');
+    if(selectedValues) {options = selectedValues.join(",");}
+    loadMarkers(options);
+  }
+
+  function loadMarkers(options) {
+    jQuery.ajax({
+      type: 'GET',
+      url: ajaxalarm.url,
+      data: {
+        action: 'get_markers',
+        options: options
+      },
+      success: function(result) {
+        if (result)
+          setMarkers(map, jQuery.parseJSON(result));
+      }
+    });
+  }
+
+  function removeMarkers() {
+    for (var i=0; i<markers.length; i++) {
+      markers[i].setMap(null);
+    }
+    markers = [];
+  }
+
+  function setMarkers(map, locations) {
+    for (var i = 0; i < locations.length; i++) {
+      var alarm = locations[i];
+      var myLatLng = new google.maps.LatLng(alarm.Latitude, alarm.Longitude);
+      bounds.extend(myLatLng);
+      var marker = new google.maps.Marker({
+        position: myLatLng,
+        map: map,
+        html: '<div id="infowindow" style="height:50px;"><div><b>' + alarm.Time + '</b></div><div>' + alarm.Information + '</div></div>',
+        title: alarm.Information,
+        icon: alarm.Icon
+      });
+
+      google.maps.event.addListener(marker, 'click', function () {
+        infowindow.setContent(this.html);
+        infowindow.open(map, this);
+      });
+
+      markers.push(marker);
+    }
+  }
+
+  google.maps.event.addDomListener(window, 'load', setupMarkers);
+});
