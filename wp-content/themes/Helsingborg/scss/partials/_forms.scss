@@ -7,33 +7,81 @@
   border-radius: $border-radius;
   margin-bottom: rem-calc(16);
   padding: rem-calc(16);
-  background-color: lighten($black, 90%);
+  background-color: lighten($black, 92%);
   border: 1px solid $input-border-color;
   box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.4);
+  color: $form-text-color;
 }
 
 %form-input-style {
+  border-radius: $border-radius;
+  background-color: $input-bg-color;
+  box-shadow: $input-box-shadow;
+  border: {
+    style: $input-border-style;
+    width: $input-border-width;
+    color: $input-border-color;
+  }
+}
+
+%form-error-theme {
+  color: $red;
+}
+
+%form-multiselect-style {
+  border-radius: $border-radius;
+  box-shadow: $input-box-shadow;
+  background-color: lighten($black, 98%) !important;
+  border: {
+    style: $input-border-style;
+    width: $input-border-width;
+    color: $input-border-color;
+  }
+}
+
+%form-tag-style {
+  background-color: lighten($black, 85%);
+  border-radius: $border-radius;
+  font-size: rem-calc(10);
+  line-height: rem-calc(14);
+  padding: rem-calc(2) rem-calc(6);
+  text-transform: uppercase;
+  color: $black-text;
+  margin-right: rem-calc(8);
+  border: 1px solid darken($input-border-color, 10%);
+}
+
+%form-text {
+  font-size: rem-calc(14);
+}
+
+%form-validation-message {
+  font-size: rem-calc(14);
+  padding: rem-calc(8);
+  border-style: solid;
+  border-width: 1px;
   border-radius: $border-radius;
 }
 
 /* Generic HTML styles */
 label {
-  font-size: rem-calc(14);
+  @extend %form-text;
   font-weight: 500;
+  margin-bottom: rem-calc(4);
+  clear: both;
 }
 
-form {
+
+/* specific styles */
+.event-list-form {
+  @extend %form-style;
+
   input[type="text"],
   input[type="email"],
   input[type="password"],
   textarea {
     @extend %form-input-style;
   }
-}
-
-/* specific styles */
-.event-list-form {
-  @extend %form-style;
 }
 
 .input-column-container {
@@ -48,17 +96,16 @@ form {
     padding-left: rem-calc(16);
 }
 .input-column-right {
-  width: 50%;
-  float: left;
-  padding-left: rem-calc(16);
+    width: 50%;
+    float: left;
+    padding-left: rem-calc(16);
 }
 
 
 /* foundation Multiselect component */
 .zselect {
+    @extend %form-multiselect-style;
     overflow: hidden;
-    background-color: lighten($black, 98%) !important;
-    border: 1px solid $input-border-color;
     cursor: pointer;
     .zmshead {
       color: $input-font-color;
@@ -71,6 +118,7 @@ form {
 
 .event-list-form .zselect {
   @extend %form-input-style;
+
   ul {
       margin-top: rem-calc(6);
       margin-left: - rem-calc(9);
@@ -83,12 +131,225 @@ form {
 }
 
 /* Gravity forms */
+
+/* validation error */
+.validation_message,
+.validation_error {
+  @extend %form-validation-message;
+  margin-bottom: rem-calc(16);
+  margin-top: rem-calc(8);
+  background-color: lighten($form-validation-color, 40%);
+  border-color: $form-validation-color;
+  color: darken($form-validation-color, 10%);
+}
+
+/* Gform generics */
 .gform_wrapper {
   @extend %form-style;
   ul {
     list-style: none;
     margin-left: 0;
-    li {
+    li.gfield {
+
     }
   }
+  input[type="file"] {
+    @extend %form-text;
+  }
+}
+
+.gform_fields {
+}
+
+.ginput_container {
+  position: relative;
+
+  input[type="text"],
+  textarea {
+    @extend %form-input-style;
+    margin-bottom: 0 ;
+  }
+}
+
+//datepicker + select dates
+.datepicker {
+
+}
+.gfield .ui-datepicker-trigger {
+  position: absolute;
+  right: rem-calc(8);
+  top: rem-calc(10);
+}
+
+.gfield_time_hour,
+.gfield_time_minute {
+  width: 80px;
+  float: left;
+  input[type="text"] {
+    width: 70%;
+    display: inline-block;
+  }
+}
+
+//datepicker calendar
+.ui-datepicker {
+  background-color: lighten($black, 85%);
+  padding: rem-calc(8);
+  border: 1px solid $input-border-color;
+  @include box-shadow;
+  border-radius: $border-radius;
+
+  select,
+  .ui-datepicker-header > a {
+    margin-bottom: rem-calc(8);
+    @extend %form-text;
+    cursor: pointer;
+  }
+  .ui-datepicker-next,
+  .ui-datepicker-prev {
+      padding: rem-calc(4);
+  }
+  .ui-datepicker-next {
+    &:after {
+      content: "\BB";
+      padding-left: rem-calc(4);
+    }
+  }
+  .ui-datepicker-prev {
+    &:before {
+      content: "\AB";
+      padding-right: rem-calc(4);
+    }
+  }
+}
+
+
+//End datepicker
+
+
+
+.gform_heading,
+.gfield {
+  margin-bottom: rem-calc(24);
+}
+
+.gform_heading {
+  @extend %form-text;
+}
+
+.clear-multi {
+  overflow: hidden;
+}
+
+.gfield_required {
+  color: $red;
+  margin-left: rem-calc(8);
+}
+
+.gfield_description {
+  @extend %form-text;
+}
+.ginput_counter {
+  font-size: rem-calc(11);
+  color: lighten($form-text-color, 20%);
+  margin-top: rem-calc(4);
+}
+
+.gfield_select {
+  @extend %form-text;
+  border-radius: $border-radius;
+  cursor: pointer;
+  height: auto;
+}
+
+/* gform footer */
+.gform_footer {
+  overflow: hidden;
+}
+
+.gform_button {
+  float: right;
+  margin-right: rem-calc(4);
+}
+
+
+/* gform - multiselectbox */
+.chosen-container {
+  @extend %form-input-style;
+  width: 100% !important;
+  position:relative;
+  padding: rem-calc(8);
+
+  li.search-choice {
+    @extend %form-tag-style;
+    display: inline-block;
+    span {
+      float: left;
+      display: block;
+    }
+    .search-choice-close {
+      display: block;
+      float: left;
+      font-size: rem-calc(14);
+      width: 14px;
+      height: 14px;
+      margin-left: rem-calc(8);
+      line-height: 90%;
+      &:before {
+        content: "\D7";
+        color: $black-text;
+      }
+    }
+  }
+  li.search-field input[type="text"] {
+    margin-bottom: 0;
+    background: none;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    height: auto;
+  }
+}
+
+//multiselect dropdown
+.chosen-container.chosen-with-drop {
+  .chosen-drop {
+    left: 0;
+  }
+}
+.chosen-drop {
+
+    @include box-shadow;
+    position: absolute;
+    z-index: 800;
+    left: -999em;
+    top: rem-calc(28);
+    max-height: rem-calc(250);
+    width: auto;
+    overflow-y: scroll;
+    background-color: lighten($black, 98%) !important;
+
+    border-radius: $border-radius;
+    border: {
+      style: $input-border-style;
+      width: $input-border-width;
+      color: $input-border-color;
+    }
+    ul {
+      padding: rem-calc(8) 0;
+      position: relative;
+      overflow-x: hidden;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      min-width: 200px;
+      li {
+        padding: rem-calc(4) rem-calc(8);
+        @extend %form-text;
+        cursor: pointer;
+        &.highlighted {
+          background-color: $primary-color;
+          color: $white ;
+        }
+      }
+    }
 }

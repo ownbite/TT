@@ -446,7 +446,6 @@ img.alignright {
 	border-radius: $border-radius;
 	@include box-shadow-advanced(1, 1, 3, 0,0,0,0.45, false,false);
 	padding: rem-calc(8) 0;
-	margin: 0;
 	width: 20%;
 	background-color: $orange;
 	color: $white;
