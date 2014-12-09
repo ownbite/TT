@@ -105,7 +105,11 @@ function helsingborg_meta_ArticlePage() {
 function helsingborg_meta_ListPage() {
   global $post;
   $meta = get_post_meta($post->ID,'_helsingborg_meta',TRUE);
-  $selected = $meta['list_options'];
+
+  // Check if meta is available
+  if (is_array($meta)){
+    $selected = $meta['list_options'];
+  }
 
   // Only need one list to change
   include(helsingborg_THEME_FOLDER . '/UI/list-array.php');
