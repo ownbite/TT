@@ -4,44 +4,44 @@
  */
 
  /* colors */
-$white 				:	#FFFFFF;
-$black				:	#000000;
+$white 				  :	#FFFFFF;
+$black				  :	#000000;
 $black-text			:	#222;
 
 $hbg-header-color	:	#8fa5b1;
 
-$blue-1				:	#45697d;
-$blue-2				:	#009cde;
-$blue-3				:	#00629b;
-$blue-4				:	#93b1cc;
-$blue-5				:	#dde8ec;
+$blue-1				 :	#45697d;
+$blue-2				 :	#009cde;
+$blue-3				 :	#00629b;
+$blue-4				 :	#93b1cc;
+$blue-5				 :	#dde8ec;
 
-$brown-1			:	#665547;
-$brown-2			:	#d6d7d3;
+$brown-1			 :	#665547;
+$brown-2			 :	#d6d7d3;
 
-$gray-1				:	#747779;
-$gray-2				:	#aeafaf;
-$gray-3				:	#d6d7d3;
+$gray-1				 :	#747779;
+$gray-2				 :	#aeafaf;
+$gray-3				 :	#d6d7d3;
 
-$red				:	#d62b1f;
-$orange				:	#ed8b00;
-$pink				:	#e782a9;
-$green				:	#3f9c35;
-$light-green		:	#a3ae00;
-$yellow				:	#e1cd00;
+$red				   :	#d62b1f;
+$orange				 :	#ed8b00;
+$pink				   :	#e782a9;
+$green				 :	#3f9c35;
+$light-green	 :	#a3ae00;
+$yellow				 :	#e1cd00;
 
 
 /* color - interpolations */
 /* push links */
 $main-nav-hover-color 	:	 ;
-$headline-color			: 	scale-color($black, $lightness: 20%);
+$headline-color			  : 	scale-color($black, $lightness: 20%);
 
 /* colors for .push-link-widget */
 $self-service-color		:	#4cbae8;
 $report-error-color		:	#78ba71;
-$feedback-color			:	#eadc4c;
-$tourism-color			:	#dadf99;
-$company-color			:	#f3eb99;
+$feedback-color			  :	#eadc4c;
+$tourism-color			  :	#dadf99;
+$company-color			  :	#f3eb99;
 $inspiration-color		:	#f5cddd;
 
 /* border-colors */
@@ -49,11 +49,11 @@ $mobile-nav-border-color	:  #507a91;
 $mobile-nav-active-color	:  $mobile-nav-border-color;
 
 /* Box-shadows */
-$box-shadow-color 	:	"0, 0, 0, 0.5";
+$box-shadow-color 	     :	"0, 0, 0, 0.5";
 
 /* Grid and MQ adjustments */
-$max-site-width		:	1280;	/* Extends the foundation max width */
-$site-outer-padding :	15;		/* Outer container padding */
+$max-site-width		       :	1280;	/* Extends the foundation max width */
+$site-outer-padding      :	15;		/* Outer container padding */
 
 /* positioning and z-index levels */
 $level-1 			:	100;
@@ -63,31 +63,31 @@ $level-4			:	100;
 
 
 /* URLs */
-$wp-root-url		:	"/wp-content/themes/Helsingborg";
-$wp-theme-img-url	:	"assets/img/images";
-$wp-font-url		:	"assets/fonts";
+$wp-root-url		        :	"/wp-content/themes/Helsingborg";
+$wp-theme-img-url	      :	"assets/img/images";
+$wp-font-url		        :	"assets/fonts";
 
 /* Borders */
-$border-radius		:	4px;
-
+$border-radius		      :	4px;
+$border-radius-circle   : 200px;
 /* Icons */
-$arrow-solid-down		:	"\e606";
-$arrow-solid-right		:	"\e607";
-$arrow-thin-right		:	"\e608";
-$check					:	"\e609";
-$close					:	"\e60a";
-$home					:	"\e60b";
-$link					:	"\e60c";
-$menu-1					:	"\e60d";
-$menu-2					:	"\e60e";
-$minus					:	"\e60f";
-$plus					:	"\e610";
-$rss					:	"\e611";
-$search					:	"\e612";
-$listen					:	"\e600";
-$facebook				:	"\e614";
-$twitter				:	"\e613";
+$arrow-solid-down		    :	"\e606";
+$arrow-solid-right		  :	"\e607";
+$arrow-thin-right		    :	"\e608";
+$check					        :	"\e609";
+$close					        :	"\e60a";
+$home					          :	"\e60b";
+$link					          :	"\e60c";
+$menu-1					        :	"\e60d";
+$menu-2					        :	"\e60e";
+$minus					        :	"\e60f";
+$plus					          :	"\e610";
+$rss					          :	"\e611";
+$search					        :	"\e612";
+$listen					        :	"\e600";
+$facebook				        :	"\e614";
+$twitter				        :	"\e613";
 
 /* unicode symbols */
-$text-arrow				: 	"»";
-$nbsp					:	"\00a0";
+$text-arrow				     : 	"»";
+$nbsp					         :	"\00a0";

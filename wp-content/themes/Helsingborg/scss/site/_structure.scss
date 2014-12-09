@@ -229,7 +229,7 @@ img.alignright {
  	/* No image on article page behaviour */
  		 .row.no-image {
  			background-color: $white;
-  			@include border-top-radius;
+  		@include border-top-radius;
 			@include box-shadow-advanced(0, 3, 1, 255,255,255,1, false, true, 3, 0, 2, 0,0,0,0.4, false);
 			min-height: rem-calc(400);
 			position: absolute;
@@ -295,7 +295,10 @@ img.alignright {
 
 
 	 .news-list-large {
-	 	li { }
+	 	li {
+				margin-bottom: rem-calc(16);
+
+			}
 	  }
 	  .news-list-small {
 	  	li {
@@ -336,9 +339,9 @@ img.alignright {
 	  /* block style + generics */
 	  .block-list {
 		@extend %comp-end-margin;
-		img {
-			border-radius: $border-radius;
-		}
+			img {
+				border-radius: $border-radius;
+			}
 	  }
 	  .block-list.page-block-list {
   		li {
@@ -358,6 +361,14 @@ img.alignright {
   					content: $nbsp $text-arrow;
   				}
   			}
+				a .list-date {
+					font-size: rem-calc(12);
+					display: block;
+					color: $gray-1;
+				}
+				a img {
+					margin-bottom: rem-calc(8);
+				}
   		}
 	  }
 
@@ -378,10 +389,13 @@ img.alignright {
 	  		a .list-content {
 	  			display: block;
 	  		}
-	  	}
+			}
 	  }
 
-	  /* */
+	  /* event-list */
+	.event-list-container {
+		padding-bottom: rem-calc(64);
+	}
 
 	/**
 	 * 4.2 article-page
@@ -478,6 +492,7 @@ img.alignright {
 
 	 /* table-list */
 	 .table-list {
+		width: 100%;
 	 	border-spacing: 0;
 		border-collapse: inherit;
 	 	.table-item td:last-child {

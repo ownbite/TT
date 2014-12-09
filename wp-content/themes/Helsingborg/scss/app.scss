@@ -12,5 +12,9 @@
 /* Site structure */
 @import "site/global";
 
+/* Site components */
+@import "partials/forms";
+@import "partials/page-components";
+
 /* Assets */
 @import "assets/icons";
