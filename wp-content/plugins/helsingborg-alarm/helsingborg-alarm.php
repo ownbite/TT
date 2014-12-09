@@ -14,8 +14,8 @@ define('ALARM_MARKERS_BASE_URL', 'http://alarmservice.helsingborg.se/AlarmServic
 define('ALARM_FOR_CITIES_URL'  , 'http://alarmservice.helsingborg.se/AlarmServices.svc/GetAlarmsForCities/');
 
 // Load jQuery
-wp_enqueue_script('jquery-min-js'   , HELSINGBORG_ALARM_BASE .'/js/jquery.min.js');
-wp_enqueue_script('jquery-ui-min-js', HELSINGBORG_ALARM_BASE .'/js/jquery-ui.min.js');
+wp_enqueue_script('jquery'   , HELSINGBORG_ALARM_BASE .'/js/jquery.min.js');
+wp_enqueue_script('jquery-ui', HELSINGBORG_ALARM_BASE .'/js/jquery-ui.min.js');
 
 // Include the neccessary classes
 include_once('classes/alarm-widget.php');
@@ -41,7 +41,7 @@ add_action( 'wp_ajax_get_alarm_for_cities', 'get_alarm_for_cities_callback' );
 add_action( 'wp_ajax_nopriv_get_alarm_for_cities', 'get_alarm_for_cities_callback' );
 function get_alarm_for_cities_callback() {
   $options = $_GET['options'];
-  $url = ALARM_FOR_CITIES_URL . encode_values($options, ',', ';');
+  $url = ALARM_FOR_CITIES_URL . urlencode($options);
   $result = file_get_contents($url);
   die($result);
 }

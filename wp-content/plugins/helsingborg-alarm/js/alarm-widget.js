@@ -1,45 +1,48 @@
 jQuery(document).ready(function() {
-  jQuery("select#municipality_multiselect").zmultiselect({
-    live: "#selectedMunicipality",
-    filter: true,
-    filterResult: true,
-    selectedText: ['Valt','av'],
-    selectAll: true,
-    addButton: onUpdateClick,
-    selectAllText: ['Markera alla','Avmarkera alla']
-  });
+  var municipalities = jQuery("select#municipality_multiselect");
 
-  jQuery(document).on('click', '.modalLink', function(event){
-    event.preventDefault();
+  if (municipalities.val()){
+    municipalities.zmultiselect({
+      live: "#selectedMunicipality",
+      filter: true,
+      filterResult: true,
+      selectedText: ['Valt','av'],
+      selectAll: true,
+      addButton: onUpdateClick,
+      selectAllText: ['Markera alla','Avmarkera alla']
+    });
 
-    var _date = jQuery('.modalDate');
-    var _event = jQuery('.modalEvent');
-    var _station = jQuery('.modalStation');
-    var _id = jQuery('.modalID');
-    var _state = jQuery('.modalState');
-    var _address = jQuery('.modalAddress');
-    var _location = jQuery('.modalLocation');
-    var _area = jQuery('.modalArea');
-    var _municipality = jQuery('.modalMunicipality');
+    jQuery(document).on('click', '.modalLink', function(event){
+      event.preventDefault();
 
-    var result;
+      var _date = jQuery('.modalDate');
+      var _event = jQuery('.modalEvent');
+      var _station = jQuery('.modalStation');
+      var _id = jQuery('.modalID');
+      var _state = jQuery('.modalState');
+      var _address = jQuery('.modalAddress');
+      var _location = jQuery('.modalLocation');
+      var _area = jQuery('.modalArea');
+      var _municipality = jQuery('.modalMunicipality');
+      var result;
 
-    for (var i = 0; i < _alarms.GetAlarmsForCitiesResult.length; i++) {
-      if (_alarms.GetAlarmsForCitiesResult[i].ID === this.id) {
-        result = _alarms.GetAlarmsForCitiesResult[i];
+      for (var i = 0; i < _alarms.GetAlarmsForCitiesResult.length; i++) {
+        if (_alarms.GetAlarmsForCitiesResult[i].ID === this.id) {
+          result = _alarms.GetAlarmsForCitiesResult[i];
+        }
       }
-    }
 
-    jQuery(_date).html(result.SentTime);
-    jQuery(_event).html(result.HtText);
-    jQuery(_station).html(result.Station);
-    jQuery(_id).html(result.ID);
-    jQuery(_state).html(result.PresGrp);
-    jQuery(_address).html(result.Address);
-    jQuery(_location).html(result.Place);
-    jQuery(_area).html(result.Zone);
-    jQuery(_municipality).html(result.Zone);
-  });
+      jQuery(_date).html(result.SentTime);
+      jQuery(_event).html(result.HtText);
+      jQuery(_station).html(result.Station);
+      jQuery(_id).html(result.ID);
+      jQuery(_state).html(result.PresGrp);
+      jQuery(_address).html(result.Address);
+      jQuery(_location).html(result.Place);
+      jQuery(_area).html(result.Zone);
+      jQuery(_municipality).html(result.Zone);
+    });
+  }
 
   function onUpdateClick() {
     setupMarkers();
@@ -52,7 +55,7 @@ jQuery(document).ready(function() {
       url: ajaxalarm.url,
       data: {
         action: 'get_alarm_for_cities',
-        options: options
+        options: selectedValues.join(';')
       },
       success: function(result) {
         if(result) {
@@ -76,8 +79,9 @@ jQuery(document).ready(function() {
     });
   }
 
+  var mapCanvas = document.getElementById('map-canvas');
   var mapOptions = {zoom: 9, center: new google.maps.LatLng(56.100769,12.854576)};
-  var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+  var map = mapCanvas ? new google.maps.Map(mapCanvas, mapOptions) : null;
   var infowindow = new google.maps.InfoWindow({content: ""});
   var bounds = new google.maps.LatLngBounds();
   var markers = [];
@@ -86,10 +90,14 @@ jQuery(document).ready(function() {
   var options;
 
   function setupMarkers() {
-    removeMarkers();
-    var selectedValues = jQuery("select#municipality_multiselect").zmultiselect('getValue');
-    if(selectedValues) {options = selectedValues.join(",");}
-    loadMarkers(options);
+    if (map){
+      var select = jQuery("select#municipality_multiselect");
+      if (select.val()){
+        var selectedValues = select.zmultiselect('getValue');
+        if(selectedValues) {options = selectedValues.join(",");}
+      }
+      loadMarkers(options);
+    }
   }
 
   function loadMarkers(options) {
@@ -115,6 +123,8 @@ jQuery(document).ready(function() {
   }
 
   function setMarkers(map, locations) {
+    removeMarkers();
+    bounds = new google.maps.LatLngBounds();
     for (var i = 0; i < locations.length; i++) {
       var alarm = locations[i];
       var myLatLng = new google.maps.LatLng(alarm.Latitude, alarm.Longitude);
@@ -134,6 +144,8 @@ jQuery(document).ready(function() {
 
       markers.push(marker);
     }
+    map.fitBounds(bounds);
+    google.maps.event.trigger(map, "rezise");
   }
 
   google.maps.event.addDomListener(window, 'load', setupMarkers);
