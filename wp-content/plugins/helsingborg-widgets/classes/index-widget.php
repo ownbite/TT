@@ -25,7 +25,7 @@ if (!class_exists('Index_Widget_Box')) {
 
     /** constructor */
     function Index_Widget_Box() {
-      parent::WP_Widget(false, '* Indexpuffar', array('description' => 'Lägg till de indexpuffar som du vill visa.'));
+      parent::WP_Widget(false, '* Index', array('description' => 'Lägg till de index som du vill visa.'));
     }
 
     public function widget( $args, $instance ) {

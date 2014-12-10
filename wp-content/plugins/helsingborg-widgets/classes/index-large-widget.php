@@ -25,7 +25,7 @@ if (!class_exists('Index_Large_Widget_Box')) {
 
     /** constructor */
     function Index_Large_Widget_Box() {
-      parent::WP_Widget(false, '* Nyhetspuffar', array('description' => 'Lägg till de nyhetspuffar som du vill visa.'));
+      parent::WP_Widget(false, '* Nyhetslista', array('description' => 'Lägg till de nyheter som du vill visa.'));
     }
 
     public function widget( $args, $instance ) {

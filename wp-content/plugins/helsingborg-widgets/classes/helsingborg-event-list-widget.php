@@ -25,7 +25,7 @@ if (!class_exists('EventListWidget')) {
 
     /** constructor */
     function EventListWidget() {
-      parent::WP_Widget(false, '* Evenemangspuff', array('description' => 'Listar de senaste evenemangen.'));
+      parent::WP_Widget(false, '* Evenemangskalender', array('description' => 'Listar de senaste evenemangen.'));
     }
 
     public function widget( $args, $instance ) {

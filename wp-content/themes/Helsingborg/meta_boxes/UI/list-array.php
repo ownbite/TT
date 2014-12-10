@@ -34,7 +34,6 @@ $list = array(
 ,'Efternamn'
 ,'Evenemang/Möte'
 ,'Fastighetsägare'
-,'fgdg'
 ,'Filmnamn'
 ,'Format'
 ,'Frist'
