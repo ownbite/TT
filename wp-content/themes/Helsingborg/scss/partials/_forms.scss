@@ -49,6 +49,7 @@
   color: $black-text;
   margin-right: rem-calc(8);
   border: 1px solid darken($input-border-color, 10%);
+  @include box-shadow(1px, 0.1);
 }
 
 %form-text {
@@ -84,6 +85,7 @@ label {
   }
 }
 
+/* form layout classes */
 .input-column-container {
     margin-left: - rem-calc(16);
     margin-right: - rem-calc(16);
@@ -103,7 +105,7 @@ label {
 
 
 /* foundation Multiselect component */
-.zselect {
+.main-area .zselect {
     @extend %form-multiselect-style;
     overflow: hidden;
     cursor: pointer;
@@ -116,8 +118,8 @@ label {
     }
 }
 
-.event-list-form .zselect {
-  @extend %form-input-style;
+.zselect {
+//  @extend %form-input-style;
 
   ul {
       margin-top: rem-calc(6);
@@ -138,9 +140,10 @@ label {
   @extend %form-validation-message;
   margin-bottom: rem-calc(16);
   margin-top: rem-calc(8);
-  background-color: lighten($form-validation-color, 40%);
+  background-color: $form-validation-bg-color;
   border-color: $form-validation-color;
-  color: darken($form-validation-color, 10%);
+  color: $form-validation-text-color;
+  font-weight: 500;
 }
 
 /* Gform generics */
@@ -193,7 +196,7 @@ label {
 
 //datepicker calendar
 .ui-datepicker {
-  background-color: lighten($black, 85%);
+  background-color: lighten($black, 98%);
   padding: rem-calc(8);
   border: 1px solid $input-border-color;
   @include box-shadow;
@@ -211,13 +214,13 @@ label {
   }
   .ui-datepicker-next {
     &:after {
-      content: "\BB";
+      content: $arrow-next;
       padding-left: rem-calc(4);
     }
   }
   .ui-datepicker-prev {
     &:before {
-      content: "\AB";
+      content: $arrow-prev;
       padding-right: rem-calc(4);
     }
   }
@@ -267,11 +270,6 @@ label {
   overflow: hidden;
 }
 
-.gform_button {
-  float: right;
-  margin-right: rem-calc(4);
-}
-
 
 /* gform - multiselectbox */
 .chosen-container {
@@ -296,7 +294,7 @@ label {
       margin-left: rem-calc(8);
       line-height: 90%;
       &:before {
-        content: "\D7";
+        content: $close;
         color: $black-text;
       }
     }
@@ -324,9 +322,6 @@ label {
     z-index: 800;
     left: -999em;
     top: rem-calc(28);
-    max-height: rem-calc(250);
-    width: auto;
-    overflow-y: scroll;
     background-color: lighten($black, 98%) !important;
 
     border-radius: $border-radius;
@@ -335,20 +330,26 @@ label {
       width: $input-border-width;
       color: $input-border-color;
     }
-    ul {
+    .chosen-results {
       padding: rem-calc(8) 0;
       position: relative;
       overflow-x: hidden;
       overflow-y: auto;
+      max-height: rem-calc(250);
+      min-width: rem-calc(200);
       -webkit-overflow-scrolling: touch;
-      min-width: 200px;
       li {
+        display: list-item;
+        overflow: visible;
         padding: rem-calc(4) rem-calc(8);
         @extend %form-text;
         cursor: pointer;
         &.highlighted {
           background-color: $primary-color;
           color: $white ;
+        }
+        &.result-selected {
+          color: lighten($black-text, 50%) !important;
         }
       }
     }

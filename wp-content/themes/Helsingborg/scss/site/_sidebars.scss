@@ -101,10 +101,10 @@
 		}
 		ul {
 			@extend %widget-generic-list-style;
-		li {
-			.date {
-				display: block;
-			}
+			li {
+				.date {
+					display: block;
+				}
 		}
 	}
 }
