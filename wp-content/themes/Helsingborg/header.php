@@ -18,7 +18,7 @@
 		<link rel="apple-touch-icon-precomposed" href="<?php echo get_stylesheet_directory_uri() ; ?>/assets/img/icons/apple-touch-icon-precomposed.png">
 
 		<?php
-		$colorcode = get_field('color_code');
+		$colorcode = get_option('helsingborg_color_code', '#ed8b00');
 		if ($colorcode !== NULL) :
 			if($colorcode == '') {
 				$colorcode = '#ed8b00'; // Default color

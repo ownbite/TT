@@ -40,8 +40,7 @@ function helsingborg_panel_func_eventhandling(){
   include('includes/panel_eventhandling.php');
 }
 function helsingborg_panel_func_settings(){
-  echo '<div class="wrap"><div id="icon-options-general" class="icon32"><br></div>
-  <h2>Inställningar</h2></div>';
+  include('pages/settings-page.php');
 }
 function helsingborg_panel_func_event_details(){
   include('pages/event-page.php');
