@@ -99,7 +99,7 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                     <?php endwhile; // End the loop ?>
 
 
-                    <form class="event-list-form">
+                    <form class="list-form">
                           <!-- ko foreach: filter.filters -->
                           <!--<label data-bind="text: Name">:</label>-->
                           <!-- ko if: (Type == 'select') -->
@@ -138,7 +138,7 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                         <input type="text" id="selectedTypes" style="display: none;" data-bind="textInput: selectedEventTypes"/>
                   </form><!-- /.event-list-form -->
 
-                  <div class="event-list-container">
+                  <div class="list-container">
 
                       <h2 class="section-title">Din sökning</h2>
                       <div class="divider fade">

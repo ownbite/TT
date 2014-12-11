@@ -60,7 +60,6 @@ Modals
   span {
     margin-right: rem-calc(32);
   }
-
 }
 
 .reveal-modal .close-reveal-modal {
@@ -72,8 +71,159 @@ Modals
   border-radius: $border-radius-circle;
   display: block;
   font-weight: normal;
+  top: rem-calc(16);
+  right: rem-calc(16);
+
   &:hover {
     background-color: lighten($gray-3, 5%);
     text-decoration: none;
+  }
+}
+
+.modal .main-title {
+  margin-bottom: rem-calc(24);
+}
+
+/* modal item list */
+.modal-item-list {
+  list-style: none;
+  margin-left: 0;
+  overflow: hidden;
+
+  li {
+    margin-bottom: rem-calc(16);
+    width: 100%;
+    float: left;
+    > span {
+      display: block;
+    }
+  }
+  .item-label {
+    font-size: rem-calc(14);
+    font-weight: 500;
+    color: $list-item-label-color;
+  }
+  .item-value {
+    font-size: rem-calc(18);
+  }
+}
+
+
+/*
+  ALARM LIST
+*/
+.mini-item-list {
+  list-style: none;
+  margin-left: 0;
+  overflow: hidden;
+
+  li {
+    display: block;
+    overflow: hidden;
+  }
+  span {
+    display: block;
+    float: left;
+    box-sizing: border-box;
+  }
+  .item-value {
+    font-size: rem-calc(14);
+  }
+  .item-label {
+    color: $list-item-label-color;
+    font-weight: 500;
+    font-size: rem-calc(14);
+    padding-right: rem-calc(16);
+  }
+}
+
+/* mini-item-list in block-grid/block-list view */
+.page-block-list {
+  .mini-item-list li > * {
+    width: 100%;
+  }
+  .mini-item-list li {
+    margin-bottom: 0;
+    a {
+      display: block;
+      float: left;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+.page-block-list {
+  .mini-item-list {
+    .item-label {
+
+    }
+    .item-value {
+      font-weight: normal;
+      font-size: rem-calc(14);
+    }
+  }
+}
+
+.page-block-list.page-list {
+  .mini-item-list {
+    .item-label {
+
+    }
+    .item-value {
+      font-size: rem-calc(14);
+      font-weight: 500;
+    }
+  }
+}
+
+/*  MQ - page components  */
+
+/* mini-item-list */
+@media #{$small-up} {
+  .page-block-list.page-list {
+    .mini-item-list li {
+      margin-bottom: 0;
+      .item-label {
+        width: 33.33%;
+      }
+      .item-value {
+        width: 66.33%;
+      }
+    }
+  }
+
+  .mini-item-list {
+    li {
+    }
+  }
+}
+
+@media #{$medium-up} {
+  .page-block-list.page-list {
+    .mini-item-list li {
+      margin-bottom: 0;
+      .item-label {
+        width: 25%;
+      }
+      .item-value {
+        width: 75%;
+      }
+    }
+  }
+
+  .modal-item-list {
+    li {
+      width: 50%;
+    }
+  }
+}
+
+@media #{$large-up} {
+  .mini-item-list {
+    li {
+      font-size: rem-calc(16);
+    }
   }
 }

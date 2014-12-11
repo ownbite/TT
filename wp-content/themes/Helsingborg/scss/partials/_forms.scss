@@ -5,12 +5,12 @@
 /* Generic placeholder style */
 %form-style {
   border-radius: $border-radius;
-  margin-bottom: rem-calc(16);
+  margin-bottom: rem-calc(32);
   padding: rem-calc(16);
   background-color: lighten($black, 92%);
   border: 1px solid $input-border-color;
-  box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.4);
   color: $form-text-color;
+  @include box-shadow(2px, 0.2);
 }
 
 %form-input-style {
@@ -74,8 +74,9 @@ label {
 
 
 /* specific styles */
-.event-list-form {
+.list-form {
   @extend %form-style;
+  overflow: hidden;
 
   input[type="text"],
   input[type="email"],
@@ -105,7 +106,8 @@ label {
 
 
 /* foundation Multiselect component */
-.main-area .zselect {
+.main-area .zselect,
+.sidebar .zselect {
     @extend %form-multiselect-style;
     overflow: hidden;
     cursor: pointer;
@@ -118,10 +120,10 @@ label {
     }
 }
 
-.zselect {
+.main-area .zselect,
+.sidebar .zselect {
 //  @extend %form-input-style;
-
-  ul {
+ul {
       margin-top: rem-calc(6);
       margin-left: - rem-calc(9);
       padding-bottom: rem-calc(16);
