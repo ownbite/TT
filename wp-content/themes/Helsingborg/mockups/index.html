@@ -36,9 +36,13 @@
                     background-color: rgba(237,139,0, 1);
                 }
                 .button {
-                /*  background-color: rgba(237,139,0, 1) !important;
-                    border-color: rgba(237,139,0, 0.5) !important;
-                */}
+                  background-color: rgba(237,139,0, 1) !important;
+                  border: 1px solid rgba(237,139,0, 0.5) !important;
+                  color: #FFF !important;
+                }
+                .input-field {
+                  border: 2px solid rgba(237,139,0, 0.5) !important;
+                }
 
         </style>
         <!-- EN PHPify -->
@@ -213,8 +217,8 @@
                             <div class="row">
 
                             <div class="search-inputs large-12 columns">
-                                <input type="text" placeholder="Vad letar du efter?" name="search"/>
-                                <input type="submit" value="Sök" class="button">
+                                <input type="text" placeholder="Vad letar du efter?" name="search" class="input-field"/>
+                                <input type="submit" value="Sök" class="button search">
 
                             <a href="#" class="archive-search-link">S&ouml;k i arkivet</a>
 
@@ -555,15 +559,18 @@
                     <div class="footer-content">
                         <h2 class="footer-title">Helsingborgs stad i sociala medier</h2>
 
-                        <a href="#">
-                            <img src="http://www.placehold.it/60x60" alt="facebook"/>
-                        </a>
-                        <a href="#">
-                            <img src="http://www.placehold.it/60x60" alt="twitter"/>
-                        </a>
-                        <a href="#">
-                            <img src="http://www.placehold.it/60x60" alt="instagram"/>
-                        </a>
+                        <ul class="icon-link-list">
+                          <li>
+                              <a href="#" class="facebook-icon icon-link" title="följ Helsingborg på facebook">följ Helsingborg på facebook</a>
+                          </li>
+                          <li>
+                              <a href="#" class="twitter-icon icon-link" title="följ Helsingborg på twitter">Helsingborg stads twitter flöde</a>
+                          </li>
+                          <li>
+                              <a href="#" class="instagram-icon icon-link" title="Helsingborg stad på Instagram">Helsingborg stad på Instagram</a>
+                          </li>
+                        </ul>
+
                     </div><!-- /.footer-content -->
                 </div>
             </div>

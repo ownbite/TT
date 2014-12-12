@@ -3,8 +3,9 @@
 	background-color: $footer-bg-color;
 	margin-top: rem-calc(32);
 	a {
+		color: scale-color($footer-bg-color, $lightness: 75%);
 		&:hover {
-			color: scale-color($blue-2, $lightness: 20%);
+			color: $white;
 		}
 	}
 }
@@ -14,6 +15,11 @@
 	padding-top: rem-calc(16);
 	padding-bottom: rem-calc(16);
 	font-size: rem-calc(14);
+	line-height: rem-calc(24);
+
+	.footer-title {
+		margin-bottom: rem-calc(19);
+	}
 
 	h1, h2, h3, h4, h5, h6 {
 		color: $white;
@@ -21,19 +27,70 @@
 	}
 	p, ul {
 		font-size: rem-calc(14);
+		margin-bottom: rem-calc(24);
+		line-height: rem-calc(24);
 	}
 
 	ul {
 		list-style: none;
 		a {
-			color: $white;
-			&:hover {
-				color: scale-color($black, $lightness: 80%);
+			&:before {
+				@include hbg-icons($arrow-thin-right $nbsp);
+				color: scale-color($footer-bg-color, $lightness: 75%)
+			}
+		}
+		a:hover {
+			&:before {
+				text-decoration: none;
 			}
 		}
 	}
 
 	.push-link {
-		color: $blue-2;
+		&:before {
+			@include hbg-icons($arrow-thin-right $nbsp);
+		}
+	}
+}
+.icon-link-list {
+	li {
+		display: block;
+		float: left;
+		margin-right: rem-calc(8);
+
+
+		a.icon-link {
+			display: block;
+			width: rem-calc(38);
+			height: rem-calc(38);
+			overflow: hidden;
+			line-height: rem-calc(24);
+			padding-right: - rem-calc(4);
+
+			&:hover {
+				text-decoration: none;
+				&:before {
+					color: $white;
+				}
+			}
+			&:before {
+				font-size: rem-calc(42);
+			}
+		}
+		a.facebook-icon {
+			&:before {
+				@include hbg-icons($facebook);
+			}
+		}
+		a.twitter-icon {
+			&:before {
+				@include hbg-icons($twitter);
+			}
+		}
+		a.instagram {
+			&:before {
+				@include hbg-icons($twitter);
+			}
+		}
 	}
 }

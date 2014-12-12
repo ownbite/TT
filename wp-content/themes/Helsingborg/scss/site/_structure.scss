@@ -405,7 +405,6 @@ img.alignright {
 	 * ------------------------------------
 	 */
 
-	/* sidebar adjustments */
 	.article-page-layout {
 		.slider-container {
 			margin-bottom: rem-calc(10);
@@ -461,6 +460,7 @@ img.alignright {
 		width: 100%;
 	 	border-spacing: 0;
 		border-collapse: inherit;
+		border-radius: $border-radius;
 	 	.table-item td:last-child {
 	  		background: url(#{$wp-root-url}/assets/img/tablesorter-icons/asc.gif) 95% center no-repeat;
 	 	}
@@ -592,6 +592,7 @@ ul.breadcrumbs li strong {
 	 			display: none;
 	 	}
 	 	.table-content td {
+			word-break: break-word;
 	 		display: table-cell;
 	 		box-shadow: none;
 	 	}
