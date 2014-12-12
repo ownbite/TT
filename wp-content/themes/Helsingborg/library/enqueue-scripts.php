@@ -18,6 +18,29 @@ if (!function_exists('Helsingborg_scripts')) :
     wp_enqueue_script('foundation');
     wp_enqueue_script('jquery-ui-dialog');
     wp_enqueue_script('jquery-ui-sortable');
+
+    /**
+     * EVENT LIST PAGE
+     **/
+    if ( is_page_template( 'templates/event-list-page.php' )) {
+      // Register script and styles
+      wp_register_script( 'zurb5-multiselect',     get_template_directory_uri() . '/js/foundation-multiselect/zmultiselect/zurb5-multiselect.js', array(), '1.0.0', false );
+      wp_register_script( 'jquery-datetimepicker', get_template_directory_uri() . '/js/jquery.datetimepicker.js', array(), '1.0.0', false );
+      wp_register_script( 'knockout',              get_template_directory_uri() . '/js/knockout/dist/knockout.js', array(), '3.2.0', false );
+      wp_register_script( 'event-list-model',      get_template_directory_uri() . '/js/helsingborg/event_list_model.js', array(), '1.0.0', false );
+
+      wp_register_style( 'zurb5-multiselect',      get_template_directory_uri() . '/css/multiple-select.css', array(), '1.0.0', 'all' );
+      wp_register_style( 'jquery-datetimepicker',  get_template_directory_uri() . '/js/jquery.datetimepicker.css', array(), '1.0.0', 'all' );
+
+      // Enqueue script and styles
+      wp_enqueue_script('zurb5-multiselect');
+      wp_enqueue_script('jquery-datetimepicker');
+      wp_enqueue_script('knockout');
+      wp_enqueue_script('event-list-model');
+
+      wp_enqueue_style('zurb5-multiselect');
+      wp_enqueue_style('jquery-datetimepicker');
+    }
   }
 
   add_action( 'wp_enqueue_scripts', 'Helsingborg_scripts' );
