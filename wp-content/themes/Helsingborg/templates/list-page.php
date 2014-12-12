@@ -145,6 +145,11 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                             } ?>
                         </div>
 
+                        <ul class="socialmedia-list">
+                          <li class="fbook"><a href="#">Facebook</a></li>
+                          <li class="twitter"><a href="#">Twitter</a></li>
+                        </ul>
+
                         <div class="filter-search">
                             <input type="text" placeholder="Sök i listan..." data-bind="value: query, valueUpdate: 'keyup'" autocomplete="off"/>
                             <input type="submit" value="sök">
@@ -174,11 +179,6 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
 
                       </div>
                       <footer>
-                        <ul class="socialmedia-list">
-                            <li class="fbook"><a href="#">Facebook</a></li>
-                            <li class="twitter"><a href="#">Twitter</a></li>
-                        </ul>
-
                         <script type="text/javascript" language="javascript">
                           function ListViewModel() {
                               var self = this;
