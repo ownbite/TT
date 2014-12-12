@@ -42,13 +42,14 @@
         .divider .lower-divider {
               background-color: rgb(<?php echo "$r,$g,$b" ?>);
           		}
-				.search-inputs input[type="submit"] {
+
+				.button {
 							background-color: rgb(<?php echo "$r,$g,$b" ?>);
-							border: 2px solid rgb(<?php echo "$r,$g,$b" ?>);
+							border: 1px solid rgb(<?php echo "$r,$g,$b" ?>);
 							}
-				.search-inputs input[type="text"] {
+				/*.search-inputs input[type="text"] {
 							border: 2px solid rgb(<?php echo "$r,$g,$b" ?>);
-							}
+							}*/
 			</style>
 	<?php endif; ?>
 	<?php wp_head(); ?>
