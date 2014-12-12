@@ -63,7 +63,7 @@ if (!class_exists('Image_List_Widget')) {
           echo('<ul class="push-links-list">');
           foreach ($items as $num => $item) :
             echo('<li>');
-              echo('<a href="' . $items_links[$num] . '"><img src="' . $item_imageurl[$num] . '" alt="' . $item_alts[$num] . '" /></a>');
+              echo('<a href="' . $item_links[$num] . '"><img src="' . $item_imageurl[$num] . '" alt="' . $item_alts[$num] . '" /></a>');
             echo('</li>');
           endforeach;
           echo('</ul>');
