@@ -109,6 +109,8 @@ function helsingborg_meta_ListPage() {
   // Check if meta is available
   if (is_array($meta)){
     $selected = $meta['list_options'];
+  } else {
+    $selected = '';
   }
 
   // Only need one list to change
