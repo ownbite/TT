@@ -5,6 +5,18 @@ if (!current_user_can('manage_options')) {
   wp_die('Du har inte behörighet att editera dessa inställningar. Var god kontakta administratören.');
 }
 
+if (isset($_POST["update_settings"])) {
+
+  // Do the saving
+  $color_code = esc_attr($_POST["color_code"]);
+  update_option('helsingborg_color_code', $color_code);
+
+  $event_form_id = esc_attr($_POST["event_form_id"]);
+  update_option('helsingborg_event_form_id', $event_form_id);
+
+  echo('<div id="message" class="updated">Dina inställningar är sparade!</div>');
+}
+
 $color_code    = get_option('helsingborg_color_code');
 $event_form_id = get_option('helsingborg_event_form_id');
 
@@ -42,18 +54,3 @@ $event_form_id = get_option('helsingborg_event_form_id');
     </p>
   </form>
 </div>
-
-
-<?php
-if (isset($_POST["update_settings"])) {
-
-  // Do the saving
-  $color_code = esc_attr($_POST["color_code"]);
-  update_option('helsingborg_color_code', $color_code);
-
-  $event_form_id = esc_attr($_POST["event_form_id"]);
-  update_option('helsingborg_event_form_id', $event_form_id);
-
-  echo('<div id="message" class="updated">Dina inställningar är sparade!</div>');
-}
-?>
