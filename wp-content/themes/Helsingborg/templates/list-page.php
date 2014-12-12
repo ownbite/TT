@@ -47,6 +47,7 @@ for ($i = 0; $i < count($pages); $i++) {
 
     // Get the meta data from child
     $child_meta = get_post_meta($pages[$i]->ID,'_helsingborg_meta',TRUE);
+    if (is_array($child_meta))
     $data = $child_meta['article_options_'.$header_keys[$j]];
 
     // We dont want empty data, show "-" instead !
@@ -97,9 +98,9 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
             <!-- SIDEBAR LEFT -->
             <div class="sidebar sidebar-left large-3 medium-4 columns">
                 <div class="search-container row">
-                    <div class="search-inputs large-12 columns">
-                        <input type="text" placeholder="Vad letar du efter?" name="search"/>
-                        <input type="submit" value="Sök">
+                    <div class="search-inputs large-12 columns" role="search">
+                        <input type="text" placeholder="Vad letar du efter?" name="search" class="input-field"/>
+                        <input type="submit" value="Sök" class="button search">
                     </div>
                 </div><!-- /.search-container -->
 
@@ -152,7 +153,7 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
 
                         <div class="filter-search">
                             <input type="text" placeholder="Sök i listan..." data-bind="value: query, valueUpdate: 'keyup'" autocomplete="off"/>
-                            <input type="submit" value="sök">
+                            <input type="submit" value="sök" class="button">
                         </div>
 
                         <table class="table-list">

@@ -72,19 +72,19 @@ label {
   clear: both;
 }
 
-
-/* specific styles */
-.list-form {
+form {
   @extend %form-style;
   overflow: hidden;
-
-  input[type="text"],
-  input[type="email"],
-  input[type="password"],
-  textarea {
-    @extend %form-input-style;
-  }
 }
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea {
+  @extend %form-input-style;
+}
+
+/* specific styles */
 
 /* form layout classes */
 .input-column-container {

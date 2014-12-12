@@ -19,8 +19,8 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
             <div class="sidebar sidebar-left large-4 medium-4 columns">
                 <div class="search-container row">
                     <div class="search-inputs large-12 columns">
-                        <input type="text" placeholder="Vad letar du efter?" name="search"/>
-                        <input type="submit" value="Sök">
+                        <input type="text" placeholder="Vad letar du efter?" name="search" class="input-field"/>
+                        <input type="submit" value="Sök" class="button search">
                     </div>
                 </div><!-- /.search-container -->
 

@@ -44,13 +44,14 @@
           		}
 
 				.button {
-							background-color: rgb(<?php echo "$r,$g,$b" ?>);
-							border: 1px solid rgb(<?php echo "$r,$g,$b" ?>);
+							background-color: rgb(<?php echo "$r,$g,$b" ?>) !important;
+							border: 1px solid rgb(<?php echo "$r,$g,$b" ?>) !important;
+							color: #FFF !important;
 							}
-				/*.search-inputs input[type="text"] {
-							border: 2px solid rgb(<?php echo "$r,$g,$b" ?>);
-							}*/
-			</style>
+				.input-field {
+						border: 2px solid rgb(<?php echo "$r,$g,$b" ?>) !important;
+					}
+				</style>
 	<?php endif; ?>
 	<?php wp_head(); ?>
 
@@ -70,11 +71,11 @@
 					<a href="#" class="show-mobile-search">Sök</a>
 			</div>
 			<div class="mobile-search">
-									<div class="mobile-search-input-container">
-											<input type="text" class="mobile-search-input" placeholder="Din S&ouml;kning"/>
-											<input type="submit" class="mobile-search-btn" value="s&ouml;k" />
-									</div>
-							</div>
+					<div class="mobile-search-input-container">
+							<input type="text" class="mobile-search-input" placeholder="Din S&ouml;kning"/>
+							<input type="submit" class="mobile-search-btn" value="s&ouml;k" />
+					</div>
+			</div>
 	</nav><!-- mobile top nav -->
 
 	<!-- HEADER START -->

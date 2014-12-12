@@ -18,8 +18,8 @@ get_header(); ?>
       <div class="row">
 
       <div class="search-inputs large-12 columns">
-          <input type="text" placeholder="Vad letar du efter?" name="search"/>
-          <input type="submit" value="Sök">
+          <input type="text" placeholder="Vad letar du efter?" name="search" class="input-field"/>
+          <input type="submit" value="Sök" class="button search">
 
       <a href="#" class="archive-search-link">S&ouml;k i arkivet</a>
       </div><!-- /.search-inputs -->

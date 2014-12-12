@@ -1,10 +1,15 @@
 /* Helsingborg.se - navigation */
 
 /* desktop navigation */
+/*.main-nav .main-nav-list {
+	> li > a {
+		padding-left: 0 !important;
+	}
+}*/
+
 .main-nav {
 	.main-nav-list {
 		list-style: none;
-		margin-left: 0;
 		margin-bottom: rem-calc(32);
 		li a {
 			font-size: rem-calc(18);

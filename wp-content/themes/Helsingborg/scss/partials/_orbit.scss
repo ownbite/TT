@@ -1,6 +1,11 @@
 /* foundation orbit slider */
 
-/* slider */
+/* orbit slider container */
+.slider-container {
+  margin-bottom: rem-calc(16);
+}
+
+/* orbit slider slider component */
 .orbit-container {
   @include box-shadow(5px);
   .img-slide {
