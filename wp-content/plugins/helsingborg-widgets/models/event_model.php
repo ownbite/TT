@@ -105,26 +105,15 @@ class HelsingborgEventModel {
     $query = 'SELECT DISTINCT he.EventID, he.Name, MIN(het.Date) AS Date
               FROM happy_event he, happy_event_times het, happy_event_administration_unit hefe
               WHERE het.Date >= CURDATE()
-              -- AND he.Approved = 1
+              AND he.Approved = 0
               AND he.EventID = het.EventID
-              -- AND hefe.EventID= he.EventID
-              -- '.$and_units.'
+              AND hefe.EventID= he.EventID
+              '.$and_units.'
               Group by he.EventID, he.Name
               ORDER BY Date, he.EventID';
 
-    // $query = 'SELECT DISTINCT he.EventID, he.Name, MIN(het.Date) AS Date
-    //           FROM happy_event he, happy_event_times het,
-    //                happy_event_administration_unit hefe
-    //           WHERE het.Date >= convert(VARCHAR(10), GETDATE(), 120)
-    //           AND he.Approved = 0
-    //           AND he.EventID = het.EventID
-    //           AND hefe.EventID= he.EventID
-    //           AND hefe.AdministrationUnitID IN ('.$administration_units.')
-    //           Group by he.EventID, he.Name
-    //           ORDER BY Date, he.EventID';
-
-    echo $and_units;
     $events = $wpdb->get_results($query, ARRAY_A);
+    if (!$events || empty($events)) { $events = array(); }
 
     // foreach($events as $event) {
     //   $rows = $wpdb->get_results('SELECT DISTINCT hETG.EventTypesName
