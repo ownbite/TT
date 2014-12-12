@@ -8,7 +8,7 @@
 		margin-bottom: rem-calc(32);
 		li a {
 			font-size: rem-calc(18);
-			color: $black;
+			color: $main-nav-text-color;
 			display: block;
 			padding-left: rem-calc(18);
 
@@ -85,7 +85,7 @@
 	display: none;
 	float: right;
 	margin-bottom: 0;
-	color: $white;
+	color: $mobile-nav-text-color;
 	font-size: rem-calc(14);
 	line-height: rem-calc(40);
 	padding: 0 rem-calc(10);
@@ -96,7 +96,7 @@
 	}
 	&:hover {
 		text-decoration: underline;
-		color: $white;
+		color: $mobile-nav-text-color;
 	}
 	&.active:before {
 		@include hbg-icons($arrow-solid-down);
@@ -128,13 +128,13 @@
 }
 
 .left-off-canvas-menu {
-	background: $blue-1;
+	background: $mobile-nav-bg-color;
 }
 
 .mobile-nav {
 	display: none;
 	width: 100%;
-	background: $blue-1;
+	background: $mobile-nav-bg-color;
 	@extend .clearfix;
 	@include drop-shadow;
 }
@@ -149,7 +149,7 @@
 			line-height: rem-calc(32);
 			text-align: center;
 			display: block;
-			color: $white;
+			color: $mobile-nav-text-color;
 			&.active {
 				background-color: $mobile-nav-active-color;
 			}
@@ -185,6 +185,9 @@
 		}
 		.current {
 			background-color: $mobile-nav-border-color;
+			> a {
+				color: lighten($mobile-nav-active-color, 33%);
+			}
 			> a:before {
 				@include hbg-icons($arrow-solid-right);
 				font-size: rem-calc(12);
@@ -274,7 +277,7 @@
 		z-index: $level-1;
 		top: rem-calc(60);
 		right: rem-calc(10);
-		background-color: $blue-1;
+		background-color: $mobile-nav-bg-color;
 		border-radius: $border-radius;
 		li {
 			border-bottom: 1px solid $mobile-nav-border-color;
@@ -303,7 +306,7 @@
 @media #{$small-only} {
 	.mobile-nav {
 		display: block;
-		background-color: $blue-1;
+		background-color: $mobile-nav-bg-color;
 
 	}
 

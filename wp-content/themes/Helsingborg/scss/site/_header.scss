@@ -19,22 +19,6 @@
 	}
 }
 
-/* slider */
-.orbit-container {
-	@include box-shadow(5px);
-	.img-slide {
-		border-radius: $border-radius;
-	}
-	.orbit-slides-container {
-		.orbit-caption {
-			background: rgba(0,0,0,0.7);
-		}
-	}
-}
-.orbit-bullets-container {
-	display: none;
-}
-
 /* placeholder style */
 %search-inputs {
 	border-radius: $border-radius;
@@ -53,15 +37,6 @@
 			margin-right: 5%;
 			width: 75%;
 			margin-bottom: 0;
-	}
-	input[type="submit"] {
-		@extend %search-inputs;
-		padding: rem-calc(8) 0;
-		margin: 0;
-		width: 20%;
-		background-color: $orange;
-		color: $white;
-		cursor: pointer;
 	}
 }
 
