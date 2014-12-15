@@ -21,6 +21,10 @@
 			&:hover {
 				background-color: $main-nav-hover-color;
 			}
+			&:before {
+				@include hbg-icons($nbsp);
+				margin-left: rem-calc(4);
+			}
 		}
 		li.current-node > a {
 			text-decoration: underline;
@@ -32,9 +36,9 @@
 			> a {
 				color: $blue-1;
 				&:before {
-					@include hbg-icons($arrow-solid-right);
-					margin-left: - rem-calc(9);
-					margin-right: rem-calc(5);
+					@include hbg-icons($arrow-solid-right $nbsp);
+					margin-left: - rem-calc(13);
+					//margin-right: rem-calc(5);
 				}
 				&:hover {
 					text-decoration: none;
@@ -62,13 +66,30 @@
 
 /* home-link */
 
+.main-nav-list {
+	> li:first-child {
+		a,
+		&.current a {
+			&:before {
+				@include hbg-icons($home-2 $nbsp);
+				margin-left: - rem-calc(13);
+				//margin-right: rem-calc(5);
+
+			}
+		}
+	}
+}
+
+
+
+/* OLD CODE - remove if
 .main-page-layout .main-nav .main-nav-list li:first-child {
 		background-color:#fff;
 }
 
 
 .main-page-layout .main-nav .main-nav-list li:first-child a, .article-page-layout .main-nav .main-nav-list li:first-child a, .list-page-layout .main-nav .main-nav-list li:first-child a
-/* Lägg till övriga sidtyper */
+/* Lägg till övriga sidtyper *//*
 {
 		background-image: url(#{$wp-root-url}/#{$wp-theme-img-url}/fi-home.svg);
 		width: 2.5rem;
@@ -82,8 +103,10 @@
 		text-indent: 0;
 		width: auto;
 		height: auto;
-
 }
+*/
+
+
 
 /* support-nav */
 .show-support-nav {
