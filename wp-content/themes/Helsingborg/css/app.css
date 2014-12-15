@@ -5800,7 +5800,9 @@ blockquote.alignright, img.alignright {
   font-weight: 500; }
 
 .article-page-layout h1 {
-  margin-top: 0.5rem; }
+  margin-top: 0;
+  margin-bottom: 0.875rem;
+  padding-right: 5.75rem; }
 
 .page-block-list .list-title:after {
   content: ""; }
@@ -5830,30 +5832,23 @@ blockquote.alignright, img.alignright {
     color: #45697d; }
 
 /* accesability icons */
-.listen-to {
-  margin-top: 1rem; }
-  .listen-to .icon {
-    display: block; }
-    .listen-to .icon:before {
-      font-family: hbg-se-iconset;
-      speak: none;
-      font-style: normal;
-      font-weight: normal;
-      font-variant: normal;
-      text-transform: none;
-      line-height: 1;
-      content: "\e600";
-      /* Better Font Rendering =========== */
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      font-size: 2rem;
-      color: #45697d; }
-    .listen-to .icon span {
-      left: -999em;
-      position: absolute; }
-    .listen-to .icon:hover {
-      text-decoration: none; }
-
+/*.listen-to {
+	margin-top: rem-calc(16);
+	.icon {
+		display: block;
+		&:before {
+			@include hbg-icons($listen);
+			font-size: rem-calc(32);
+			color: $blue-1;
+		}
+		span {
+			@include hidden-text;
+		}
+		&:hover {
+			text-decoration: none;
+		}
+	}
+}*/
 .main-page-layout .listen-to {
   margin-top: 0; }
 
@@ -6036,7 +6031,9 @@ ul.news-list-large.row section.news-section ul.news-list-large.row li.news-item.
   border-top-right-radius: 4px; }
 
 .article {
-  margin-bottom: 2rem; }
+  margin-bottom: 2rem;
+  overflow: hidden;
+  margin-top: 1rem; }
   .article img {
     border-radius: 4px; }
   .article .ingress p {
@@ -6946,6 +6943,41 @@ Tables
 */
 ul.breadcrumbs {
   padding-left: 0; }
+  ul.breadcrumbs li a {
+    color: #009cde; }
+
+/*
+  Accessability-menu
+
+*/
+.accessability-menu {
+  list-style: none;
+  margin-left: 0;
+  margin-bottom: 0;
+  width: auto;
+  float: right; }
+  .accessability-menu li {
+    display: inline-block; }
+    .accessability-menu li a {
+      font-size: 0.875rem;
+      display: block; }
+      .accessability-menu li a:before {
+        font-family: hbg-se-iconset;
+        speak: none;
+        font-style: normal;
+        font-weight: normal;
+        font-variant: normal;
+        text-transform: none;
+        line-height: 1;
+        content: "\e600";
+        /* Better Font Rendering =========== */
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        font-size: 1.125rem;
+        display: block;
+        float: left;
+        margin-right: 0.25rem;
+        margin-top: 0.125rem; }
 
 /*
   Modal

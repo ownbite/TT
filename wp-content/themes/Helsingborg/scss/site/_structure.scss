@@ -113,7 +113,9 @@ img.alignright {
 }
 
 .article-page-layout h1 {
-	margin-top: rem-calc(8);
+	margin-top: 0;
+	margin-bottom: rem-calc(14);
+	padding-right: rem-calc(92);	
 }
 
 .page-block-list .list-title {
@@ -164,7 +166,7 @@ img.alignright {
 
 
 /* accesability icons */
-.listen-to {
+/*.listen-to {
 	margin-top: rem-calc(16);
 	.icon {
 		display: block;
@@ -180,7 +182,7 @@ img.alignright {
 			text-decoration: none;
 		}
 	}
-}
+}*/
 
 .main-page-layout .listen-to {
 	margin-top: 0;
@@ -419,6 +421,8 @@ img.alignright {
 	.article {
 		@extend %comp-end-margin;
 		margin-bottom: rem-calc(32);
+		overflow: hidden;
+		margin-top: rem-calc(16);
 
 		img {
 			border-radius: $border-radius;

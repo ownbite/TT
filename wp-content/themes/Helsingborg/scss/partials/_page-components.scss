@@ -18,6 +18,38 @@ Tables
 */
 ul.breadcrumbs {
   padding-left: 0;
+  li a {
+    color: $blue-2;
+  }
+}
+
+/*
+  Accessability-menu
+
+*/
+.accessability-menu {
+  list-style: none;
+  margin-left: 0;
+  margin-bottom: 0;
+
+  width: auto;
+  float: right;
+  li {
+    display: inline-block;
+
+    a {
+      font-size: rem-calc(14);
+      display: block;
+      &:before {
+        @include hbg-icons($speaker);
+        font-size: rem-calc(18);
+        display: block;
+        float: left;
+        margin-right: rem-calc(4);
+        margin-top: rem-calc(2);
+      }
+    }
+  }
 }
 
 
