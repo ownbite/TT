@@ -31,9 +31,8 @@ get_header(); ?>
     </div><!-- /.sidebar-left -->
 
             <section class="news-section large-8 medium-8 columns">
-                    <div class="listen-to">
-                        <a href="#" class="icon"><span>Lyssna på innehållet</span></a>
-                    </div>
+
+                <?php get_template_part('templates/partials/accessability','menu'); ?>
 
                 <?php $title = get_field('content_title'); ?>
                 <h1 class="section-title"><?php echo $title; ?></h1>

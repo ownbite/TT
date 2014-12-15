@@ -16,16 +16,14 @@ get_header();
                 <div class="row no-image">
                 </div><!-- /.row -->
 
-                <div class="listen-to">
-                    <a href="#" class="icon"><span>Lyssna på innehållet</span></a>
-                </div>
-
                 <?php the_breadcrumb(); ?>
 
                 <?php /* Start loop */ ?>
                 <?php while (have_posts()) : the_post(); ?>
                   <article class="article">
                     <header>
+                      <?php get_template_part('templates/partials/accessability','menu'); ?>
+                      
                       <h1 class="article-title"><?php the_title(); ?></h1>
                     </header>
                     <div class="article-body">

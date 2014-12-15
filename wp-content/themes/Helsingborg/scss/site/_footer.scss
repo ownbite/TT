@@ -53,6 +53,8 @@
 	}
 }
 .icon-link-list {
+	overflow: hidden;
+
 	li {
 		display: block;
 		float: left;
@@ -64,7 +66,7 @@
 			width: rem-calc(38);
 			height: rem-calc(38);
 			overflow: hidden;
-			line-height: rem-calc(24);
+			//line-height: rem-calc(24);
 			padding-right: - rem-calc(4);
 
 			&:hover {
@@ -87,9 +89,9 @@
 				@include hbg-icons($twitter);
 			}
 		}
-		a.instagram {
+		a.instagram-icon {
 			&:before {
-				@include hbg-icons($twitter);
+				@include hbg-icons($instagram);
 			}
 		}
 	}

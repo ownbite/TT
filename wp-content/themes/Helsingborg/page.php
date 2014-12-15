@@ -8,6 +8,8 @@
 	<?php while (have_posts()) : the_post(); ?>
 		<article <?php post_class() ?> id="post-<?php the_ID(); ?>">
 			<header>
+				<?php get_template_part('templates/partials/accessability','menu'); ?>
+				
 				<h1 class="entry-title"><?php the_title(); ?></h1>
 			</header>
 			<?php do_action('Helsingborg_page_before_entry_content'); ?>

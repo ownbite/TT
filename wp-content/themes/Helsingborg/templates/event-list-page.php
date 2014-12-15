@@ -49,10 +49,6 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                     <?php dynamic_sidebar("slider-area"); ?>
                 </div><!-- /.row -->
 
-                <div class="listen-to">
-                    <a href="#" class="icon"><span>Lyssna på innehållet</span></a>
-                </div>
-
                 <?php the_breadcrumb(); ?>
 
                 <?php // Present the list of new events bounded to the user
@@ -69,6 +65,8 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                     <?php while (have_posts()) : the_post(); ?>
                       <article class="article">
                         <header>
+                          <?php get_template_part('templates/partials/accessability','menu'); ?>
+                          
                           <h1 class="article-title"><?php the_title(); ?></h1>
                         </header>
                         <?php if (!empty($content)) : ?>
