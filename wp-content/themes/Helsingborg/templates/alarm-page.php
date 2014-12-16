@@ -1,6 +1,6 @@
 <?php
 /*
-Template Name: Alarmsida
+Template Name: Alarm
 */
 get_header(); ?>
 <div class="row">

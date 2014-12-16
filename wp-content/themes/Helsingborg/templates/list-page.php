@@ -1,6 +1,6 @@
 <?php
 /*
-Template Name: Listsida
+Template Name: Lista
 */
 get_header();
 

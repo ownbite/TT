@@ -1,6 +1,6 @@
 <?php
 /*
-Template Name: Startsida
+Template Name: Start
 */
 get_header(); ?>
 

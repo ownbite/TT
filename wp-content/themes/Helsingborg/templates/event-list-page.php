@@ -1,6 +1,6 @@
 <?php
 /*
-Template Name: Evenemangslistning
+Template Name: Evenemang
 */
 get_header();
 
@@ -66,7 +66,7 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                       <article class="article">
                         <header>
                           <?php get_template_part('templates/partials/accessability','menu'); ?>
-                          
+
                           <h1 class="article-title"><?php the_title(); ?></h1>
                         </header>
                         <?php if (!empty($content)) : ?>

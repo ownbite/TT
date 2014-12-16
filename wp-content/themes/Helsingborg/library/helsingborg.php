@@ -1,4 +1,15 @@
 <?php
+
+// Fix to rename Default Template text to 'Artikel', since this page is default
+function change_default_template_to_artikel( $translation, $text, $domain ) {
+  if ( $text == 'Default Template' ) {
+    return _('Artikel');
+  }
+  return $translation;
+}
+add_filter( 'gettext', 'change_default_template_to_artikel', 10, 3 );
+
+
 function my_css_attributes_filter($var) {
   return is_array($var) ? array_intersect($var, array('current-menu-item')) : '';
 }
@@ -250,7 +261,7 @@ function deny_event_callback() {
   global $wpdb;
   $id     = $_POST['id'];
   $result = HelsingborgEventModel::deny_event($id);
-  
+
   die();
 }
 
