@@ -29,7 +29,7 @@
 /* HBG iconset */
 @font-face {
   font-family: 'hbg-se-iconset';
-  src: url(/wp-content/themes/Helsingborg/assets/fonts/hbg-se-iconset.eot); }
+  src: url(/TT/wp-content/themes/Helsingborg/assets/fonts/hbg-se-iconset.eot); }
 
 @font-face {
   font-family: 'hbg-se-iconset';
@@ -5616,7 +5616,7 @@ th.hide-for-touch {
 
 /* No SVG support fallback */
 .no-svg .logo-link {
-  background: url(/wp-content/themes/Helsingborg/assets/img/images/hbg-logo.png) no-repeat center center;
+  background: url(/TT/wp-content/themes/Helsingborg/assets/img/images/hbg-logo.png) no-repeat center center;
   max-width: 254px;
   height: 80px; }
 
@@ -5734,7 +5734,7 @@ th.hide-for-touch {
  * ----------------------------------------------------------------------------
  */
 body {
-  background: url(/wp-content/themes/Helsingborg/assets/img/images/hbg-bg.png) white repeat-x; }
+  background: url(/TT/wp-content/themes/Helsingborg/assets/img/images/hbg-bg.png) white repeat-x; }
 
 .site-bg {
   position: absolute;
@@ -5865,7 +5865,7 @@ blockquote.alignright, img.alignright {
     width: 32px;
     height: 32px;
     text-indent: -999em;
-    background: url(/wp-content/themes/Helsingborg/assets/socialmedia-icons/social-icon-sprite.png) 0 0 no-repeat; }
+    background: url(/TT/wp-content/themes/Helsingborg/assets/socialmedia-icons/social-icon-sprite.png) 0 0 no-repeat; }
   .socialmedia-list li.fbook a {
     background-position: 0 0; }
     .socialmedia-list li.fbook a:hover {
@@ -5882,7 +5882,7 @@ only screen and (     min-device-pixel-ratio: 2) and (max-device-width: 1080px),
 only screen and (        min-resolution: 192dpi) and (max-device-width: 1080px),
 only screen and (         min-resolution: 2dppx) and (max-device-width: 1080px) {
   .socialmedia-list li a {
-    background: url(/wp-content/themes/Helsingborg/assets/socialmedia-icons/social-icon-sprite2x.png) 0 0 no-repeat; } }
+    background: url(/TT/wp-content/themes/Helsingborg/assets/socialmedia-icons/social-icon-sprite2x.png) 0 0 no-repeat; } }
 
 /**
  * 4.0 Content
@@ -6063,7 +6063,7 @@ ul.news-list-large.row section.news-section ul.news-list-large.row li.news-item.
   border-collapse: inherit;
   border-radius: 4px; }
   .table-list .table-item td:last-child {
-    background: url(/wp-content/themes/Helsingborg/assets/img/tablesorter-icons/asc.gif) 95% center no-repeat; }
+    background: url(/TT/wp-content/themes/Helsingborg/assets/img/tablesorter-icons/asc.gif) 95% center no-repeat; }
   .table-list td, .table-list th {
     border: none;
     padding: 1rem 0.625rem; }
@@ -6099,12 +6099,12 @@ ul.news-list-large.row section.news-section ul.news-list-large.row li.news-item.
 
 /* table sorter plugin style */
 .table-list .header {
-  background: url(/wp-content/themes/Helsingborg/assets/img/tablesorter-icons/bg.gif) right center no-repeat;
+  background: url(/TT/wp-content/themes/Helsingborg/assets/img/tablesorter-icons/bg.gif) right center no-repeat;
   cursor: pointer; }
   .table-list .header.headerSortDown {
-    background: url(/wp-content/themes/Helsingborg/assets/img/tablesorter-icons/asc.gif) right center no-repeat; }
+    background: url(/TT/wp-content/themes/Helsingborg/assets/img/tablesorter-icons/asc.gif) right center no-repeat; }
   .table-list .header.headerSortUp {
-    background: url(/wp-content/themes/Helsingborg/assets/img/tablesorter-icons/desc.gif) right center no-repeat; }
+    background: url(/TT/wp-content/themes/Helsingborg/assets/img/tablesorter-icons/desc.gif) right center no-repeat; }
   .table-list .header:last-child {
     background-position: 95% center; }
 
@@ -6262,7 +6262,7 @@ ul.breadcrumbs li strong {
   background-color: white; }
 
 .main-page-layout .main-nav .main-nav-list li:first-child a, .article-page-layout .main-nav .main-nav-list li:first-child a, .list-page-layout .main-nav .main-nav-list li:first-child a {
-  background-image: url(/wp-content/themes/Helsingborg/assets/img/images/fi-home.svg);
+  background-image: url(/TT/wp-content/themes/Helsingborg/assets/img/images/fi-home.svg);
   width: 2.5rem;
   height: 2.5rem;
   text-indent: -999999px; }
