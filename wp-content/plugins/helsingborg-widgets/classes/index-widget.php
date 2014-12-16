@@ -34,13 +34,15 @@ if (!class_exists('Index_Widget_Box')) {
       // Get all the data saved
       $amount = empty($instance['amount']) ? 1 : $instance['amount'];
       $page_list = isset($instance['page_list']) ? $instance['page_list'] : false;
+      $list_class = $page_list !== 'on' ? ' ' : ' page-list ';
 
       for ($i = 1; $i <= $amount; $i++) {
         $items[$i-1] = $instance['item'.$i];
         $item_ids[$i-1] = $instance['item_id'.$i];
-      } ?>
+      }
+      ?>
 
-      <ul class="block-list page-block-list page-list large-block-grid-3 medium-block-grid-3 small-block-grid-2">
+      <ul class="block-list page-block-list<?php echo $list_class; ?>large-block-grid-3 medium-block-grid-3 small-block-grid-2">
         <?php // Go through all list items and present as a list
         foreach ($items as $num => $item) :
             $item_id = $item_ids[$num];
