@@ -1,0 +1,6 @@
+/*
+WP Page Widgets Plugin Override
+*/
+#pw-sidebars-customize > div.widget-liquid-left { width: 20%; }
+#pw-sidebars-customize > div.widget-liquid-right { width: 75%; }
+#pw-sidebars-customize div.widget-liquid-left div#widgets-left div#available-widgets.widgets-holder-wrap.ui-droppable div.widget-holder div#widget-list div.widget.ui-draggable { width: 97%; }
