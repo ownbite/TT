@@ -21,7 +21,7 @@ include_once('helsingborg-settings.php');
 
 // Setup event handling
 require_once('models/event_model.php');
-require_once ('classes/helsingborg-post-thumbnail.php');
+// require_once ('classes/helsingborg-post-thumbnail.php');
 
 if (!class_exists( 'post_author' ) ) {
     include_once ('classes/post_author.php');
@@ -39,4 +39,4 @@ $EventList          = new EventList();
 // Add resources used by link-list-widget
 wp_enqueue_style( 'helsingborg-widgets-css', plugin_dir_url(__FILE__) .'css/helsingborg-widgets.css');
 wp_enqueue_script( 'helsingborg-list-sort-js', plugin_dir_url(__FILE__) .'js/helsingborg-list-sort.js');
-wp_enqueue_script( 'helsingborg-media-selector-js', plugin_dir_url(__FILE__) .'js/helsingborg-media-selector.js');
+wp_enqueue_script( 'helsingborg-media-selector-original-js', plugin_dir_url(__FILE__) .'js/helsingborg-media-selector-original.js');
