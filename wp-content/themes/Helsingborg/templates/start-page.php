@@ -2,7 +2,9 @@
 /*
 Template Name: Start
 */
-get_header(); ?>
+get_header();
+$content = $post->post_content;
+?>
 
 <div class="main-page-layout row">
   <!-- main-page-layout -->
@@ -30,22 +32,29 @@ get_header(); ?>
       </div><!-- /.row -->
     </div><!-- /.sidebar-left -->
 
-            <section class="news-section large-8 medium-8 columns">
+    <?php /* Show content if available */ ?>
+    <?php if(!empty($content)) : ?>
+      <div class="large-8 medium-8 columns">
+        <?php echo apply_filters('the_content', $content); ?>
+      </div>
+    <?php endif; ?>
 
-                <?php get_template_part('templates/partials/accessability','menu'); ?>
+    <section class="news-section large-8 medium-8 columns">
 
-                <?php $title = get_field('content_title'); ?>
-                <h1 class="section-title"><?php echo $title; ?></h1>
+      <?php get_template_part('templates/partials/accessability','menu'); ?>
 
-                <div class="divider fade">
-                    <div class="upper-divider"></div>
-                    <div class="lower-divider"></div>
-                </div>
+      <?php $title = get_field('content_title'); ?>
+      <h1 class="section-title"><?php echo $title; ?></h1>
 
-                <?php /* Start listing the news */ ?>
-                <?php dynamic_sidebar("content-area"); ?>
+      <div class="divider fade">
+          <div class="upper-divider"></div>
+          <div class="lower-divider"></div>
+      </div>
 
-</section>
+      <?php /* Start listing the news */ ?>
+      <?php dynamic_sidebar("content-area"); ?>
+
+    </section>
 </div><!-- /.main-content -->
 
         <div class="lower-content row">
