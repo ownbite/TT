@@ -34,7 +34,7 @@ $content = $post->post_content;
 
     <?php /* Show content if available */ ?>
     <?php if(!empty($content)) : ?>
-      <div class="large-8 medium-8 columns">
+      <div class="start-content large-8 medium-8 columns">
         <?php echo apply_filters('the_content', $content); ?>
       </div>
     <?php endif; ?>

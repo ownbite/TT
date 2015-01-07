@@ -115,7 +115,7 @@ img.alignright {
 .article-page-layout h1 {
 	margin-top: 0;
 	margin-bottom: rem-calc(14);
-	padding-right: rem-calc(92);	
+	padding-right: rem-calc(92);
 }
 
 .page-block-list .list-title {
@@ -257,6 +257,9 @@ img.alignright {
 	 * 4.1 Startpage - content area
 	 * ------------------------------------
 	 */
+	 .start-content {
+		margin-top: rem-calc(12);
+	}
 
 	 /*  news list */
 	 .section-title {
