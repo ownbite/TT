@@ -22,12 +22,8 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
 				</div><!-- /.search-container -->
 
 				<div class="row">
-
-					<!-- large-up menu-->
 					<?php dynamic_sidebar("left-sidebar"); ?>
-					<?php Helsingborg_sidebar_menu(); ?>
-					<!-- END large up menu-->
-
+					<?php get_template_part('templates/partials/sidebar','menu'); ?>
 				</div><!-- /.row -->
 			</div><!-- /.sidebar-left -->
 

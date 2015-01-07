@@ -66,9 +66,7 @@
 		background-color:#fff;
 }
 
-
-.main-page-layout .main-nav .main-nav-list li:first-child a, .article-page-layout .main-nav .main-nav-list li:first-child a, .list-page-layout .main-nav .main-nav-list li:first-child a
-/* Lägg till övriga sidtyper */
+nav > ul > li.nav-home a
 {
 		background-image: url(#{$wp-root-url}/#{$wp-theme-img-url}/fi-home.svg);
 		width: 2.5rem;

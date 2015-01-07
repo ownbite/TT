@@ -27,7 +27,7 @@ $content = $post->post_content;
       </div><!-- /.search-inputs -->
 
               <?php dynamic_sidebar("left-sidebar"); ?>
-              <?php Helsingborg_sidebar_menu(); ?>
+              <?php get_template_part('templates/partials/sidebar','menu'); ?>
 
       </div><!-- /.row -->
     </div><!-- /.sidebar-left -->
