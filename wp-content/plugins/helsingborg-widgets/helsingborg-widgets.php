@@ -38,5 +38,6 @@ $EventList          = new EventList();
 
 // Add resources used by link-list-widget
 wp_enqueue_style( 'helsingborg-widgets-css', plugin_dir_url(__FILE__) .'css/helsingborg-widgets.css');
+wp_enqueue_script( 'jquery', get_template_directory_uri() . '/js/jquery/dist/jquery.min.js');
 wp_enqueue_script( 'helsingborg-list-sort-js', plugin_dir_url(__FILE__) .'js/helsingborg-list-sort.js');
 wp_enqueue_script( 'helsingborg-media-selector-original-js', plugin_dir_url(__FILE__) .'js/helsingborg-media-selector-original.js');

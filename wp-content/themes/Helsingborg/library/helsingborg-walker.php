@@ -87,6 +87,27 @@ class Helsingborg_Walker extends Walker {
       if ( in_array( $page->ID, $_current_page->ancestors) && get_post_meta($page->ID,'_wp_page_template',TRUE) == 'templates/list-page.php') {
         $css_class = 'class="current"';
       }
+
+
+      /*
+      If the current items parent is set as PRIVATE(and should not be visible in menus),
+      the private parent should be set as current instead.
+
+      Example with ancestors:
+          25    5220         5776            5781          5785
+        (root) (node)  (set to current)   (private)   (actual current)
+      http://localhost/startsida/omsorg-och-stod/frivilligt-arbete-och-foreningar/info/las-mer-om-socialt-arbete-med-ersattning/
+      */
+      if ( get_post_status($_current_page->post_parent) == 'private' && in_array( $page->ID, $_current_page->ancestors)) {
+        $_current_page_ansectors = $_current_page->ancestors;
+        $last_element = count($_current_page_ansectors) - 1; // We want last index
+
+        // -2 for seletion of grandparent
+        $selector = $last_element > 1 ? $_current_page_ansectors[$last_element-2] : 0;
+        if ($selector && $page->ID == $selector) {
+          $css_class = 'class="current"';
+        }
+      }
     }
 
     /* Now let's build the item */
