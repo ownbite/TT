@@ -1,6 +1,6 @@
 <?php
 
-// Fix to rename Default Template text to 'Artikel', since this page is default
+/* Fix to rename Default Template text to 'Artikel', since this page is default */
 function change_default_template_to_artikel( $translation, $text, $domain ) {
   if ( $text == 'Default Template' ) {
     return _('Artikel');
@@ -9,15 +9,10 @@ function change_default_template_to_artikel( $translation, $text, $domain ) {
 }
 add_filter( 'gettext', 'change_default_template_to_artikel', 10, 3 );
 
-
-function my_css_attributes_filter($var) {
-  return is_array($var) ? array_intersect($var, array('current-menu-item')) : '';
-}
-
+/* Add ID field for each user, which is used for listing events */
 add_action( 'show_user_profile', 'helsingborg_happy_user_id_field' );
 add_action( 'edit_user_profile', 'helsingborg_happy_user_id_field' );
-function helsingborg_happy_user_id_field( $user ) {
-?>
+function helsingborg_happy_user_id_field( $user ) { ?>
   <h3><?php _e("Evenemangshantering", "blank"); ?></h3>
   <table class="form-table">
     <tr>
@@ -32,6 +27,7 @@ function helsingborg_happy_user_id_field( $user ) {
 <?php
 }
 
+/* When the users ID is saved */
 add_action( 'personal_options_update', 'helsingborg_save_happy_user_id_field' );
 add_action( 'edit_user_profile_update', 'helsingborg_save_happy_user_id_field' );
 function helsingborg_save_happy_user_id_field( $user_id ) {
@@ -43,11 +39,12 @@ function helsingborg_save_happy_user_id_field( $user_id ) {
   return true;
 }
 
-// Change to pre_submission !
+/* Adds the event to the database, then deletes the entry */
 add_action('gform_after_submission', 'event_add_entry_to_db', 10, 2);
 function event_add_entry_to_db($entry, $form) {
 
-  if (strcmp($entry['form_id'], '3') === 0) {
+  // Make sure to only hijack the event form -> set in settings
+  if (strcmp($entry['form_id'], get_option('helsingborg_event_form_id')) === 0) {
     // Event
     $name         = $entry[1];
     $description  = $entry[15];
@@ -118,7 +115,7 @@ function event_add_entry_to_db($entry, $form) {
   }
 }
 
-
+/* Copies the image to the new location. Returns an array with the new image path and author */
 function handle_gf_image($path, $author) {
   $image_path   = $path;
   $file_name    = basename($image_path);
@@ -136,18 +133,14 @@ function handle_gf_image($path, $author) {
   return array( 'ImagePath' => $save_path, 'Author' => $auther);
 }
 
+/* Completely removes all trace of an entry */
 function delete_form_entry( $entry ) {
   $delete = GFAPI::delete_entry( $entry['id'] );
   $result = ( $delete ) ? "entry {$entry['id']} successfully deleted." : $delete;
   GFCommon::log_debug( "GFAPI::delete_entry() - form #{$form['id']}: " . print_r( $result, true ) );
 }
 
-/**
- * Filter the days so only those in $days_array is returned.
- * @param string $dates_array Array with date strings
- * @param string $days_array Array with numbers representing days. (1 Monday - 7 Sunday)
- * @return array with dates
- */
+/* Filter the days so only those in $days_array is returned. */
 function filter_date_array_by_days($dates_array, $days_array) {
   $return_array=array();
   foreach($dates_array as $date_string) {
@@ -158,11 +151,7 @@ function filter_date_array_by_days($dates_array, $days_array) {
   return $return_array;
 }
 
-/**
- * Creates an Array with strings with all dates between the from and to dates inserted.
- * @param string $strDateFrom Date string from
- * @param string $strDateTo Date string to
- */
+/* Creates an Array with strings with all dates between the from and to dates inserted. */
 function create_date_range_array($strDateFrom,$strDateTo)
 {
     $aryRange=array();
@@ -212,6 +201,7 @@ function trim_text($input, $length, $ellipses = true, $strip_tag = true,$strip_s
     return $trimmed_text;
 }
 
+/* Prints the breadcrumb */
 function the_breadcrumb() {
     global $post;
     $title = get_the_title();
@@ -244,13 +234,13 @@ function the_breadcrumb() {
     echo '</ul>';
 }
 
-// Add AJAX functions for admin. So Event may be changed by users
-// Note: wp_ajax_nopriv_X is not used, since events cannot be changed by other than logged in users
+/* Add AJAX functions for admin. So Event may be changed by users
+ Note: wp_ajax_nopriv_X is not used, since events cannot be changed by other than logged in users */
 add_action( 'wp_ajax_approve_event', 'approve_event_callback' );
 add_action( 'wp_ajax_deny_event',    'deny_event_callback' );
 add_action( 'wp_ajax_save_event',    'save_event_callback' );
 
-// Function for approving events, returns true if success.
+/* Function for approving events, returns true if success. */
 function approve_event_callback() {
   global $wpdb;
   $id     = $_POST['id'];
@@ -258,7 +248,7 @@ function approve_event_callback() {
   die();
 }
 
-// Function for denying events, returns true if success.
+/* Function for denying events, returns true if success. */
 function deny_event_callback() {
   global $wpdb;
   $id     = $_POST['id'];
@@ -267,7 +257,7 @@ function deny_event_callback() {
   die();
 }
 
-// Function for saving events, returns true if success.
+/* Function for saving events, returns true if success. */
 function save_event_callback() {
 	global $wpdb;
 
@@ -335,9 +325,4 @@ function save_event_callback() {
 
 	die();
 }
-
-
-add_filter('nav_menu_css_class', 'my_css_attributes_filter', 100, 1);
-add_filter('nav_menu_item_id', 'my_css_attributes_filter', 100, 1);
-add_filter('page_css_class', 'my_css_attributes_filter', 100, 1);
 ?>
