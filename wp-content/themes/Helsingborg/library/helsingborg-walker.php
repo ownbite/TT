@@ -75,6 +75,7 @@ class Helsingborg_Walker extends Walker {
 
     if ( ! empty( $current_page ) ) {
       $_current_page = get_post( $current_page );
+      $css_class = '';
 
       if ( in_array( $page->ID, $_current_page->ancestors ) && $page->post_parent == get_option('page_on_front') ) {
         $css_class = 'class="current-node"';

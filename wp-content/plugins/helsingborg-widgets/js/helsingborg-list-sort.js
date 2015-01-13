@@ -62,6 +62,10 @@ function helsingborgSetupHandlers($){
 			$('.widefat',item).attr('id',increment_last_num(preview_id));
 		}
 
+		$('script', item).each(function() {
+			this.remove();
+		});
+
 		$('label',item).each(function() {
 			var for_val = $(this).attr('for');
 			$(this).attr('for',increment_last_num(for_val));
@@ -70,6 +74,10 @@ function helsingborgSetupHandlers($){
 		$('input',item).each(function() {
 			var id_val = $(this).attr('id');
 			var name_val = $(this).attr('name');
+
+			if ($(this).hasClass('select2-focusser') || $(this).hasClass("select2-input"))
+				return;
+
 			var value = $(this).attr('onclick');
 			if (value !== undefined) {
 				value = value.replace(/\d\u0027+/g, num + "'");
@@ -93,12 +101,19 @@ function helsingborgSetupHandlers($){
 			var name_val = $(this).attr('name');
 			$(this).attr('id',increment_last_num(id_val));
 			$(this).attr('name',increment_last_num(name_val));
-			$(this).val('0');
+			$(this).val(null);
+			$(this).select2();
 		});
 
 		$('img', item).each(function() {
 			$(this).remove();
 		});
+
+		var count = item.find('.select2-container').length;
+		if (count > 1){
+			item.find('.select2-container')[0].remove();
+		}
+		item.find('.select2-container').removeAttr('style');
 
 		hbgllw.find('.helsingborg-link-list').append(item);
 		hbgllw.find('.order').val(hbgllw.find('.helsingborg-link-list').sortable('toArray'));

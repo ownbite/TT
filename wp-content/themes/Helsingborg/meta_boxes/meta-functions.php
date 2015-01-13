@@ -17,7 +17,12 @@ function helsingborg_meta_init()
 
     // review the function reference for parameter details
     // http://codex.wordpress.org/Function_Reference/add_meta_box
-    $post_id = $_GET['post'] ? $_GET['post'] : $_POST['post_ID'] ;
+    $post_id = '';
+    if (isset($_GET['post'])) {
+      $post_id = $_GET['post'];
+    } else if (isset($_GET['post_ID'])) {
+      $post_id = $_POST['post_ID'];
+    }
     $template_file = get_post_meta($post_id,'_wp_page_template',TRUE);
 
     // add a meta box for each of the wordpress page types: posts and pages

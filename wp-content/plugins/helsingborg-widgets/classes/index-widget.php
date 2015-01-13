@@ -153,12 +153,19 @@ if (!class_exists('Index_Widget_Box')) {
             <p>
               <label for="<?php echo $this->get_field_id('item_id'.$num); ?>"><?php echo __("Sida att hämta: "); ?></label><br>
               <?php wp_dropdown_pages(array(
-                      'show_option_none' => 'Ingen sida vald',
-                      'selected' => $item_ids[$num],
-                      'id' => $this->get_field_id('item_id'.$num),
-                      'name' => $this->get_field_name('item_id'.$num)
-                    )); ?>
+                'show_option_none' => 'Ingen sida vald',
+                'selected' => $item_ids[$num],
+                'id' => $this->get_field_id('item_id'.$num),
+                'name' => $this->get_field_name('item_id'.$num)
+              )); ?>
             </p>
+
+            <script>
+              jQuery(document).ready(function() {
+                 jQuery('#<?php echo $this->get_field_id('item_id'.$num); ?>').select2();
+              });
+            </script>
+
             <a class="hbgllw-delete hide-if-no-js"><img src="<?php echo plugins_url('../images/delete.png', __FILE__ ); ?>" /> <?php echo __("Remove"); ?></a>
             <br>
           </div>

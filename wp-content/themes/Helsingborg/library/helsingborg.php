@@ -205,6 +205,7 @@ function trim_text($input, $length, $ellipses = true, $strip_tag = true,$strip_s
 function the_breadcrumb() {
     global $post;
     $title = get_the_title();
+    $output = '';
     echo '<ul class="breadcrumbs">';
     if (!is_front_page()) {
         if (is_category() || is_single()) {
