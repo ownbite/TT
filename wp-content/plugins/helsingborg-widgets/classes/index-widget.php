@@ -52,11 +52,11 @@ if (!class_exists('Index_Widget_Box')) {
             $link = get_permalink($page->ID);
 
             // Get the content, see if <!--more--> is inserted
-            $the_content = get_extended(strip_shortcodes($page->post_content));
+            $the_content = get_extended($page->post_content);
             $main = $the_content['main'];
             $content = $the_content['extended'];
 
-            $image = "";
+            $image = false;
             if (has_post_thumbnail( $page->ID ) ) :
               $image_id = get_post_thumbnail_id( $page->ID );
               $image = wp_get_attachment_image_src( $image_id, 'single-post-thumbnail' );
@@ -64,7 +64,7 @@ if (!class_exists('Index_Widget_Box')) {
             endif; ?>
           <li>
             <a href="<?php echo $link ?>" desc="link-desc">
-              <img src="<?php echo $image[0]; ?>" alt="<?php echo $alt_text; ?>">
+              <?php if($image) : ?><img src="<?php echo $image[0]; ?>" alt="<?php echo $alt_text; ?>"><?php endif; ?>
               <h2 class="list-title"><?php echo $page->post_title ?></h2>
               <div class="list-content">
                 <?php echo wpautop($main, true); ?>

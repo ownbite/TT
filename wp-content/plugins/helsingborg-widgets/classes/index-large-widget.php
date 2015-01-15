@@ -55,14 +55,14 @@ if (!class_exists('Index_Large_Widget_Box')) {
             $link = get_permalink($page->ID); ?>
           <li class="news-item large-12 columns">
             <div class="row">
+              <?php if (has_post_thumbnail( $page->ID ) ) : ?>
               <div class="large-5 medium-4 small-4 columns news-image">
-              <?php if (has_post_thumbnail( $page->ID ) ) :
-                $image_id = get_post_thumbnail_id( $page->ID );
+                <?php $image_id = get_post_thumbnail_id( $page->ID );
                 $image = wp_get_attachment_image_src( $image_id, 'single-post-thumbnail' );
                 $alt_text = get_post_meta($image_id, '_wp_attachment_image_alt', true); ?>
                 <img src="<?php echo $image[0]; ?>" alt="<?php echo $alt_text; ?>">
-              <?php endif; ?>
               </div>
+              <?php endif; ?>
               <div class="large-7 medium-8 small-8 columns news-content">
                 <h2 class="news-title"><?php echo $page->post_title ?></h2>
                 <span class="news-date>"></span>

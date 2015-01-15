@@ -58,15 +58,16 @@ if (!class_exists('News_List_Widget_Box')) {
 
             <li class="news-item large-12 columns">
               <div class="row">
-                <div class="large-4 medium-4 small-4 columns news-image">
+
                 <?php // Try to get the thumbnail for the page
-                if (has_post_thumbnail( $page->ID ) ) :
-                  $image_id = get_post_thumbnail_id( $page->ID );
+                if (has_post_thumbnail( $page->ID ) ) : ?>
+                <div class="large-4 medium-4 small-4 columns news-image">
+                  <?php $image_id = get_post_thumbnail_id( $page->ID );
                   $image = wp_get_attachment_image_src( $image_id, 'single-post-thumbnail' );
                   $alt_text = get_post_meta($image_id, '_wp_attachment_image_alt', true); ?>
                   <img src="<?php echo $image[0]; ?>" alt="<?php echo $alt_text; ?>">
-                <?php endif; ?>
                 </div>
+                <?php endif; ?>
 
                 <div class="large-8 medium-8 small-8 columns news-content">
                   <h2 class="news-title"><?php echo $page->post_title ?></h2>
