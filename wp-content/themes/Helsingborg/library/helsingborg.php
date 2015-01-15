@@ -235,6 +235,15 @@ function the_breadcrumb() {
     echo '</ul>';
 }
 
+/* AJAX FUNCTIONS */
+add_action( 'wp_ajax_nopriv_load_events', 'load_events_callback' );
+add_action( 'wp_ajax_load_events', 'load_events_callback' );
+function load_events_callback() {
+  $result = HelsingborgEventModel::load_events();
+  echo json_encode($result);
+  die();
+}
+
 /* Add AJAX functions for admin. So Event may be changed by users
  Note: wp_ajax_nopriv_X is not used, since events cannot be changed by other than logged in users */
 add_action( 'wp_ajax_approve_event', 'approve_event_callback' );
@@ -326,4 +335,26 @@ function save_event_callback() {
 
 	die();
 }
+
+// Allow script & iframe tag within posts
+function allow_post_tags( $allowedposttags ){
+  $allowedposttags['script'] = array(
+    'type' => true,
+    'src' => true,
+    'height' => true,
+    'width' => true,
+  );
+  $allowedposttags['iframe'] = array(
+    'src' => true,
+    'width' => true,
+    'height' => true,
+    'class' => true,
+    'frameborder' => true,
+    'webkitAllowFullScreen' => true,
+    'mozallowfullscreen' => true,
+    'allowFullScreen' => true
+  );
+  return $allowedposttags;
+}
+add_filter('wp_kses_allowed_html','allow_post_tags', 1);
 ?>
