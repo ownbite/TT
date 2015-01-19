@@ -78,7 +78,9 @@ if (!class_exists('Image_List_Widget')) {
             $force_width  = (!empty($item_force_widths[$num])) ? 'width:100%;' : '';
             $force_margin = (!empty($item_force_margins[$num]) && !empty($item_force_margin_values[$num])) ? ' margin-top:-' . $item_force_margin_values[$num] . 'px;' : '';
             echo('<li>');
+              if (!empty($item_links[$num])) { echo('<a href="' . $item_links[$num] . '">'); }
               echo('<img class="img-slide" src="' . $item_imageurl[$num] . '" alt="' . $item_alts[$num] . '" style="' . $force_width . $force_margin .'" />');
+              if (!empty($item_links[$num])) { echo( '</a>'); }
               if (!empty($item_texts[$num])) :
                 echo('<div class="orbit-caption">');
                   echo $item_texts[$num];
