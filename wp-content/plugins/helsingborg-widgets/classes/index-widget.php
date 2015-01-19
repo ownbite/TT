@@ -129,8 +129,7 @@ if (!class_exists('Index_Widget_Box')) {
       for ($i = 1; $i <= $amount; $i++) {
         $items[$i] = empty($instance['item'.$i]) ? '' : $instance['item'.$i];
         $item_ids[$i] = empty($instance['item_id'.$i]) ? '' : $instance['item_id'.$i];
-      }
-  ?>
+      } ?>
 
       <ul class="hbgllw-instructions">
         <li><?php echo __("Lägg till de sidor som ni vill ska visas i listan."); ?></li>
@@ -148,32 +147,27 @@ if (!class_exists('Index_Widget_Box')) {
       ?>
 
         <div id="<?php echo $this->get_field_id($num); ?>" class="list-item">
-          <h5 class="moving-handle"><span class="number"><?php echo $num; ?></span>. <span class="item-title"><?php echo $h5; ?></span><a class="hbgllw-action hide-if-no-js"></a></h5>
+          <h5 class="moving-handle"><span class="number"><?php echo $num; ?></span>. <span class="item-title"><?php echo $h5 . ' (ID: ' . $item_id . ')'; ?></span><a class="hbgllw-action hide-if-no-js"></a></h5>
           <div class="hbgllw-edit-item">
             <p>
-              <label for="<?php echo $this->get_field_id('item_id'.$num); ?>"><?php echo __("Sida att hämta: "); ?></label><br>
-              <?php wp_dropdown_pages(array(
-                'show_option_none' => 'Ingen sida vald',
-                'selected' => $item_ids[$num],
-                'id' => $this->get_field_id('item_id'.$num),
-                'name' => $this->get_field_name('item_id'.$num)
-              )); ?>
+              <label for="<?php echo $this->get_field_id('item_id'.$num); ?>"><?php echo __("Sida att söka efter: "); ?></label><br>
+              <input id="input_<?php echo $this->get_field_id('item_id'.$num); ?>" type="text" class="input-text" />
+              <button id="button_<?php echo $this->get_field_id('item_id'.$num); ?>" name="<?php echo $this->get_field_name('item_id'.$num); ?>" type="button" class="button-secondary" onclick="load_page_containing(this.id, this.name)"><?php echo __("SÖK"); ?></button>
             </p>
 
-            <script>
-              jQuery(document).ready(function() {
-                 jQuery('#<?php echo $this->get_field_id('item_id'.$num); ?>').select2();
-              });
-            </script>
+            <div id="select_<?php echo $this->get_field_id('item_id'.$num); ?>" style="display: none;">
+              <select id="<?php echo $this->get_field_id('item_id'.$num); ?>" name="<?php echo $this->get_field_name('item_id'.$num); ?>">
+                <option value="<?php echo $item_id; ?>"><?php echo $h5; ?></option>
+              </select>
+            </div>
 
             <a class="hbgllw-delete hide-if-no-js"><img src="<?php echo plugins_url('../images/delete.png', __FILE__ ); ?>" /> <?php echo __("Remove"); ?></a>
             <br>
           </div>
         </div>
+      <?php endforeach; ?>
 
-      <?php endforeach;
-
-      if ( isset($_GET['editwidget']) && $_GET['editwidget'] ) : ?>
+      <?php if ( isset($_GET['editwidget']) && $_GET['editwidget'] ) : ?>
         <table class='widefat'>
           <thead><tr><th><?php echo __("Item"); ?></th><th><?php echo __("Position/Action"); ?></th></tr></thead>
           <tbody>
@@ -202,8 +196,28 @@ if (!class_exists('Index_Widget_Box')) {
           <input type="checkbox" name="<?php echo $this->get_field_name('new_item'); ?>" id="<?php echo $this->get_field_id('new_item'); ?>" /> <label for="<?php echo $this->get_field_id('new_item'); ?>"><?php echo __("Add New Item"); ?></label>
         </div>
       <?php endif; ?>
-
       </div>
+
+      <script>
+      function load_page_containing(from, name) {
+        var id = from.replace('button_', '');
+        document.getElementById('select_' + id).style.display = "block";
+        document.getElementById('select_' + id).innerHTML = "";
+
+        var data = {
+          action: 'load_pages',
+          id: id,
+          name: name,
+          title: document.getElementById('input_' + id).value
+        };
+
+        jQuery.post(ajaxurl, data, function(response) {
+          document.getElementById('select_' + id).innerHTML = response;
+        });
+
+      };
+      </script>
+
       <div class="hbgllw-row hide-if-no-js">
         <a class="hbgllw-add button-secondary"><img src="<?php echo plugins_url('../images/add.png', __FILE__ )?>" /> <?php echo __("Lägg till indexobjekt"); ?></a>
       </div>
@@ -214,7 +228,6 @@ if (!class_exists('Index_Widget_Box')) {
       <div class="hbgllw-row">
         <input type="checkbox" name="<?php echo $this->get_field_name('page_list'); ?>" id="<?php echo $this->get_field_id('page_list'); ?>" <?php checked($page_list, 'on'); ?> /> <label for="<?php echo $this->get_field_id('page_list'); ?>"><?php echo __("Visa som lista? "); ?></label>
       </div>
-
 <?php
     }
   }

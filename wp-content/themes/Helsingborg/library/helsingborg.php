@@ -236,6 +236,33 @@ function the_breadcrumb() {
 }
 
 /* AJAX FUNCTIONS */
+add_action( 'wp_ajax_load_pages', 'load_pages_callback');
+function load_pages_callback() {
+  global $wpdb;
+  $title     = $_POST['title'];
+  $id        = $_POST['id'];
+  $name      = $_POST['name'];
+
+  $pages = $wpdb->get_results(
+   "SELECT ID, post_title
+    FROM $wpdb->posts
+    WHERE post_type = 'page'
+    AND post_title LIKE '%" . $title . "%'"
+  );
+
+  $list = '<select id="' . $id . '" name="' . $name . '">';
+  foreach ($pages as $page) {
+    $list .= '<option value="' . $page->ID . '">';
+    $list .= $page->post_title . ' (' . $page->ID . ')';
+    $list .= '</option>';
+  }
+  $list .= '</select>';
+
+  echo $list;
+  die();
+}
+
+
 add_action( 'wp_ajax_nopriv_load_events', 'load_events_callback' );
 add_action( 'wp_ajax_load_events', 'load_events_callback' );
 function load_events_callback() {
@@ -335,6 +362,12 @@ function save_event_callback() {
 
 	die();
 }
+
+// Uncomment to speed up edit.php -> skip loading all pages with wp_list_pages
+// function hbg_remove_meta_boxes() {
+//   remove_meta_box('pageparentdiv', 'page', 'side');
+// }
+// add_action( 'add_meta_boxes', 'hbg_remove_meta_boxes' );
 
 // Allow script & iframe tag within posts
 function allow_post_tags( $allowedposttags ){
