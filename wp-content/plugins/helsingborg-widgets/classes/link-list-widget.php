@@ -277,20 +277,16 @@ if (!class_exists('SimpleLinkListWidget')) {
             <input class="widefat" id="<?php echo $this->get_field_id('item_link'.$num); ?>" name="<?php echo $this->get_field_name('item_link'.$num); ?>" type="text" value="<?php echo $item_link; ?>" />
 
             <p>
-              <label for="<?php echo $this->get_field_id('item_id'.$num); ?>"><?php echo __("Sida:"); ?></label>
-              <?php wp_dropdown_pages(array(
-                'show_option_none' => 'Ingen sida vald',
-                'selected' => $item_ids[$num],
-                'id' => $this->get_field_id('item_id'.$num),
-                'name' => $this->get_field_name('item_id'.$num)
-              )); ?>
+              <label for="<?php echo $this->get_field_id('item_id'.$num); ?>"><?php echo __("Sida att söka efter: "); ?></label><br>
+              <input id="input_<?php echo $this->get_field_id('item_id'.$num); ?>" type="text" class="input-text" />
+              <button id="button_<?php echo $this->get_field_id('item_id'.$num); ?>" name="<?php echo $this->get_field_name('item_id'.$num); ?>" type="button" class="button-secondary" onclick="load_page_containing(this.id, this.name)"><?php echo __("SÖK"); ?></button>
             </p>
 
-            <script>
-            jQuery(document).ready(function() {
-              jQuery('#<?php echo $this->get_field_id('item_id'.$num); ?>').select2();
-            });
-            </script>
+            <div id="select_<?php echo $this->get_field_id('item_id'.$num); ?>" style="display: none;">
+              <select id="<?php echo $this->get_field_id('item_id'.$num); ?>" name="<?php echo $this->get_field_name('item_id'.$num); ?>">
+                <option value="<?php echo $item_id; ?>"><?php echo $h5; ?></option>
+              </select>
+            </div>
 
             <input type="checkbox" name="<?php echo $this->get_field_name('item_target'.$num); ?>" id="<?php echo $this->get_field_id('item_target'.$num); ?>" <?php echo $checked; ?> /> <label for="<?php echo $this->get_field_id('item_target'.$num); ?>"><?php echo __("Öppna i nytt fönster"); ?></label>
             <a class="hbgllw-delete hide-if-no-js"><img src="<?php echo plugins_url('../images/delete.png', __FILE__ ); ?>" /> <?php echo __("Remove"); ?></a>
@@ -328,8 +324,28 @@ if (!class_exists('SimpleLinkListWidget')) {
           <input type="checkbox" name="<?php echo $this->get_field_name('new_item'); ?>" id="<?php echo $this->get_field_id('new_item'); ?>" /> <label for="<?php echo $this->get_field_id('new_item'); ?>"><?php echo __("Add New Item"); ?></label>
         </div>
       <?php endif; ?>
-
       </div>
+
+      <script>
+      function load_page_containing(from, name) {
+        var id = from.replace('button_', '');
+        document.getElementById('select_' + id).style.display = "block";
+        document.getElementById('select_' + id).innerHTML = "";
+
+        var data = {
+          action: 'load_pages',
+          id: id,
+          name: name,
+          title: document.getElementById('input_' + id).value
+        };
+
+        jQuery.post(ajaxurl, data, function(response) {
+          document.getElementById('select_' + id).innerHTML = response;
+        });
+
+      };
+      </script>
+
       <div class="hbgllw-row hide-if-no-js">
         <a class="hbgllw-add button-secondary"><img src="<?php echo plugins_url('../images/add.png', __FILE__ )?>" /> <?php echo __("Lägg till länk"); ?></a>
       </div>
