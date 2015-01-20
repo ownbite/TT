@@ -1,7 +1,7 @@
 <?php
 
 // Check that the user is allowed to update options
-if (!current_user_can('manage_options')) {
+if (!current_user_can('read_private_pages')) {
   wp_die('Du har inte behörighet att editera dessa inställningar. Var god kontakta administratören.');
 }
 

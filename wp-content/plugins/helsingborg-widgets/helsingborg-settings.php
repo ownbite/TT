@@ -3,21 +3,21 @@
 function helsingborg_panel(){
   add_menu_page('Helsingborg',                  // Page title
                 'Helsingborg',                  // Menu title
-                'manage_options',               // Capability
+                'read_private_pages',           // Capability
                 'helsingborg',                  // Slug
                 'helsingborg_panel_func');      // Function
 
   add_submenu_page( 'helsingborg',                           // Parent slug
                     'Hantera evenemang',                     // Page title
                     'Hantera evenemang',                     // Menu title
-                    'manage_options',                        // Capability
+                    'read_private_pages',                    // Capability
                     'helsingborg-eventhandling',             // Slug
                     'helsingborg_panel_func_eventhandling'); // Function
 
   add_submenu_page( 'helsingborg',
                     'Inställningar',
                     'Inställningar',
-                    'manage_options',
+                    'read_private_pages',
                     'helsingborg-settings',
                     'helsingborg_panel_func_settings');
 
@@ -25,7 +25,7 @@ function helsingborg_panel(){
   add_submenu_page( null,  // null makes the page accessible, but hidden in menu
                     'Ändra evenemang',
                     'Ändra evenemang',
-                    'manage_options',
+                    'read_private_pages',
                     'helsingborg-event-details',
                     'helsingborg_panel_func_event_details');
 }
