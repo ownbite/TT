@@ -33,17 +33,16 @@ function helsingborg_meta_init()
       if ($template_file == 'templates/list-page.php') {
         add_meta_box('helsingborg_all_meta', "Listpresentation", 'helsingborg_meta_ListPage', $type, 'normal', 'high');
       }
-
-      else if ($template_file == 'templates/article-page.php') {
-        add_meta_box('helsingborg_all_meta', "Artikelsida", 'helsingborg_meta_ArticlePage', $type, 'normal', 'high');
-      }
-
       // RSS PAGE
       else if ($template_file == 'templates/rss-page.php') {
         remove_post_type_support('page', 'editor');
         remove_post_type_support('page', 'comments');
         remove_post_type_support('page', 'custom-fields');
         add_meta_box('helsingborg_all_meta', "RSS nod", 'helsingborg_meta_RSS', $type, 'normal', 'high');
+      }
+      // Default page.php
+      else {
+        add_meta_box('helsingborg_all_meta', "Artikelsida", 'helsingborg_meta_ArticlePage', $type, 'normal', 'high');
       }
     }
 
