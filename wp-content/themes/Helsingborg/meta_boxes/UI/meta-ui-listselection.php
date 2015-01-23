@@ -10,7 +10,7 @@
 
 <input type="hidden" id="_helsingborg_meta[list_options]" name="_helsingborg_meta[list_options]" />
 
-<label for="helsingborg_meta_box_select_options">Välj kolumnen att lista: </label>
+<label for="helsingborg_meta_box_select_options">Välj kolumner att lista: </label>
 <select multiple="multiple" id="helsingborg_meta_box_select_options">
   <?php
   // List has been loaded in meta-functions.php
