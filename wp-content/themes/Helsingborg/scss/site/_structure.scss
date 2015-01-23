@@ -404,6 +404,15 @@ img.alignright {
 	.event-list-container {
 		padding-bottom: rem-calc(64);
 	}
+	.event-list-loader {
+		background: url(#{$wp-root-url}/assets/img/images/ajax-loader.gif) 0 0 no-repeat;
+		width: 32px;
+		height: 32px;
+		position: absolute;
+		left: 50%;
+		margin-left: -16px; /* -1 * image width / 2 */
+		margin-top: -16px; /* -1 * image height / 2 */
+	}
 
 	/**
 	 * 4.2 article-page

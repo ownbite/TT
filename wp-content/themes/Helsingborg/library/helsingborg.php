@@ -16,7 +16,7 @@ function helsingborg_happy_user_id_field( $user ) { ?>
   <h3><?php _e("Evenemangshantering", "blank"); ?></h3>
   <table class="form-table">
     <tr>
-      <th><label for="happy_user_id"><?php _e("Evenemangs ID"); ?></label></th>
+      <th><label for="happy_user_id"><?php _e("Användarens ID"); ?></label></th>
       <td>
         <input type="text" name="happy_user_id" id="happy_user_id" class="regular-text"
             value="<?php echo esc_attr( get_the_author_meta( 'happy_user_id', $user->ID ) ); ?>" /><br />
@@ -262,11 +262,38 @@ function load_pages_callback() {
   die();
 }
 
+add_action( 'wp_ajax_nopriv_load_event_organizers', 'load_event_organizers_callback' );
+add_action( 'wp_ajax_load_event_organizers', 'load_event_organizers_callback' );
+function load_event_organizers_callback() {
+  $id     = $_POST['id'];
+  $result = HelsingborgEventModel::get_organizers_with_event_id($id);
+  echo json_encode($result);
+  die();
+}
 
+add_action( 'wp_ajax_nopriv_load_event_dates', 'load_event_dates_callback' );
+add_action( 'wp_ajax_load_event_dates', 'load_event_dates_callback' );
+function load_event_dates_callback() {
+  $id     = $_POST['id'];
+  $result = HelsingborgEventModel::load_event_times_with_event_id($id);
+  echo json_encode($result);
+  die();
+}
+
+add_action( 'wp_ajax_nopriv_load_event_types', 'load_event_types_callback' );
+add_action( 'wp_ajax_load_event_types', 'load_event_types_callback' );
+function load_event_types_callback() {
+  $result = HelsingborgEventModel::load_event_types();
+  echo json_encode($result);
+  die();
+}
+
+/* Load events */
 add_action( 'wp_ajax_nopriv_load_events', 'load_events_callback' );
 add_action( 'wp_ajax_load_events', 'load_events_callback' );
 function load_events_callback() {
-  $result = HelsingborgEventModel::load_events();
+  $ids     = $_POST['ids'];
+  $result = HelsingborgEventModel::load_events($ids);
   echo json_encode($result);
   die();
 }
@@ -323,7 +350,12 @@ function save_event_callback() {
                             'ExternalEventID' => $external_id );
 
   // Event types
-  $event_types  = explode(',', $types);
+  $event_types_x  = explode(',', $types);
+  $event_types = array();
+  foreach ($event_types_x as $type) {
+    $new_type = array('Name' => $type);
+    array_push($event_types, $new_type);
+  }
 
   // Administration units
   if ($units && !empty($units)){
@@ -339,7 +371,7 @@ function save_event_callback() {
 
   // Create time/times
   $event_times = array();
-  if ($single_date) { // Single occurence
+  if (!$end_date) { // Single occurence
     $event_time = array('Date'  => $single_date,
                         'Time'  => $time,
                         'Price' => 0);
@@ -356,9 +388,7 @@ function save_event_callback() {
     }
   }
 
-  $result = HelsingborgEventModel::update_event($event, $event_types, $administration_units, $image, $times);
-
-  echo $result;
+  HelsingborgEventModel::update_event($event, $event_types, $administration_units, $image, $times);
 
 	die();
 }

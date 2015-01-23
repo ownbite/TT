@@ -16,8 +16,8 @@ if (!function_exists('Helsingborg_scripts')) :
     wp_enqueue_script('modernizr');
     wp_enqueue_script('jquery');
     wp_enqueue_script('foundation');
-    wp_enqueue_script('jquery-ui-dialog');
-    wp_enqueue_script('jquery-ui-sortable');
+    // wp_enqueue_script('jquery-ui-dialog');
+    // wp_enqueue_script('jquery-ui-sortable');
 
     /**
      * EVENT LIST PAGE
@@ -48,9 +48,11 @@ if (!function_exists('Helsingborg_scripts')) :
     wp_register_style( 'custom_wp_admin_css', get_template_directory_uri() . '/css/admin-hbg.css', false, '1.0.0' );
     wp_enqueue_style( 'custom_wp_admin_css' );
 
-    // select2 CSS available in admin-hbg.css
     wp_register_script( 'select2' , (get_template_directory_uri() . '/js/helsingborg/select2.min.js'), array(), '1.0.0', false);
+    // wp_register_script( 'helsingborg-list-sort-js' , plugin_dir_url(__FILE__) .'js/helsingborg-list-sort.js', array(), '1.0.0', false);
+
     wp_enqueue_script( 'select2' );
+    wp_enqueue_script( 'helsingborg-list-sort-js');
 
   }
   add_action( 'admin_enqueue_scripts', 'load_custom_wp_admin_style' );

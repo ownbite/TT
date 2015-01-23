@@ -21,10 +21,12 @@ $event_types          = HelsingborgEventModel::load_event_types();
 // Setup times that was selected
 $number_of_dates      = count($times);
 $checked_days         = array();
-foreach($times as $time) {
-  $day = date('N', strtotime($time->Date));
-  if(!in_array($day, $checked_days))
-    $checked_days[] = $day;
+if ($number_of_dates > 1) {
+  foreach($times as $time) {
+    $day = date('N', strtotime($time->Date));
+    if(!in_array($day, $checked_days))
+      $checked_days[] = $day;
+  }
 }
 
 $start_date = $times[0];
@@ -41,7 +43,7 @@ $end_date   = $number_of_dates > 1 ? $times[$number_of_dates - 1] : null;
 <h2>Hantering av evenemang</h2>
 
 <br>
-<input type="submit" class="button" onclick="location.href='http://localhost/TT/wp-admin/admin.php?page=helsingborg-eventhandling'" value="Tillbaks till listan">
+<input type="submit" class="button" onclick="location.href='http://localhost/wp-admin/admin.php?page=helsingborg-eventhandling'" value="Tillbaks till listan">
 <br>
 
 <form><fieldset>

@@ -33,7 +33,7 @@ class HelsingborgEventModel {
     return $events;
   }
 
-  public static function load_events() {
+  public static function load_events($administation_unit_ids) {
     global $wpdb;
 
     $events = $wpdb->get_results('SELECT DISTINCT hE.EventID,
@@ -53,6 +53,7 @@ class HelsingborgEventModel {
                                   AND hE.EventID = hEFE.EventID
                                   AND hE.EventID = hIM.EventID
                                   AND hEFE.AdministrationUnitID = hFE.AdministrationUnitID
+                                  AND hEFE.AdministrationUnitID IN (' . $administation_unit_ids . ')
                                   ORDER BY hETI.Date', OBJECT);
 
     foreach($events as $event) {
@@ -76,7 +77,7 @@ class HelsingborgEventModel {
   public static function get_administration_units_by_id($happy_user_id) {
     global $wpdb;
     $administration_units = array();
-    $units = $wpdb->get_results('SELECT AdministrationUnitID FROM happy_user_administration_unit WHERE UserID='.$happy_user_id, ARRAY_A);
+    $units = $wpdb->get_results('SELECT DISTINCT AdministrationUnitID FROM happy_user_administration_unit WHERE UserID IN('.$happy_user_id.') ORDER BY AdministrationUnitID', ARRAY_A);
     foreach($units as $unit) {
       $administration_units[] = $unit['AdministrationUnitID'];
     }
@@ -108,7 +109,7 @@ class HelsingborgEventModel {
               AND he.Approved = 0
               AND he.EventID = het.EventID
               AND hefe.EventID= he.EventID
-              '.$and_units.'
+              '. $and_units.'
               Group by he.EventID, he.Name
               ORDER BY Date, he.EventID';
 
@@ -143,9 +144,9 @@ class HelsingborgEventModel {
                       hE.Location
                FROM happy_event_times hETI,
                     happy_event hE
-               WHERE hETI.Date >= CURDATE()
-               AND hE.EventID = hETI.EventID
+               WHERE hE.EventID = hETI.EventID
                AND hE.EventID = ' . $event_id;
+               echo $events;
 
     return $wpdb->get_results($events, OBJECT)[0];
   }
@@ -181,13 +182,13 @@ class HelsingborgEventModel {
     global $wpdb;
 
     $organizer = 'SELECT hArr.Name,
-                         hArr.OrganizerID,
+                         hArr.OrganizerID
                   FROM happy_organizers hArr,
                        happy_event hE
                   WHERE hE.OrganizerID = hArr.OrganizerID
                   AND hE.EventID = ' . $event_id;
 
-    return $wpdb->get_results($organizer, OBJECT)[0];
+    return $wpdb->get_results($organizer, ARRAY_A);
   }
 
   public static function get_image_with_event_id($event_id) {
@@ -365,7 +366,7 @@ class HelsingborgEventModel {
       $wpdb->delete('happy_event_types_group', array('EventID' => $event['EventID']));
       // Now add the new ones
       foreach($event_types as $event_type) {
-        $wpdb->update('happy_event_types_group', array('EventTypesName' => $event_type['Name'],
+        $wpdb->insert('happy_event_types_group', array('EventTypesName' => $event_type['Name'],
                                                        'EventID'        => $event['EventID']));
       }
     }

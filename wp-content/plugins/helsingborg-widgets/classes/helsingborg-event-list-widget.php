@@ -31,14 +31,25 @@ if (!class_exists('EventListWidget')) {
     public function widget( $args, $instance ) {
       extract($args);
 
-      $title     = empty($instance['title'])     ? __('Kommande evenemang') : $instance['title'];
-      $link_text = empty($instance['link_text']) ? __('Fler evenemang') : $instance['link_text'];
-      $link      = empty($instance['link'])      ? '#' : $instance['link'];
-      $amount    = empty($instance['amount'])    ? 5 : $instance['amount'];
+      $title                = empty($instance['title'])                ? __('Kommande evenemang') : $instance['title'];
+      $link_text            = empty($instance['link_text'])            ? __('Fler evenemang')     : $instance['link_text'];
+      $link                 = empty($instance['link'])                 ? '#'                      : $instance['link'];
+      $amount               = empty($instance['amount'])               ? 5                        : $instance['amount'];
+      $administration_units = empty($instance['administration_units']) ? 'helsingborgsstad'       : $instance['administration_units'];
 
       // Get the events
       $events = HelsingborgEventModel::load_events_simple($amount);
+
+      $administration_ids = '';
+      foreach(explode(',',$administration_units) as $key => $value) {
+        $id = HelsingborgEventModel::get_administration_id_from_name($value);
+        if($key>0) { $administration_ids .= ',' . $id->AdministrationUnitID; }
+        else { $administration_ids .= $id->AdministrationUnitID;}
+      }
+
       $json_items = json_encode($events); // Used by modal view
+
+      $reference = $link . "?q=" . $administration_ids;
 
       echo $before_widget; ?>
 
@@ -68,7 +79,7 @@ if (!class_exists('EventListWidget')) {
 
       </ul><!-- .calendar-list -->
 
-      <a href="<?php echo $link; ?>" class="read-more"><?php echo $link_text; ?></a>
+      <a href="<?php echo $reference; ?>" class="read-more"><?php echo $link_text; ?></a>
 
 
       <div id="eventModal" class="reveal-modal" data-reveal>
@@ -112,20 +123,21 @@ if (!class_exists('EventListWidget')) {
     }
 
     public function update( $new_instance, $old_instance) {
-      $instance['title']     = strip_tags($new_instance['title']);
-      $instance['link']      = strip_tags($new_instance['link']);
-      $instance['link_text'] = strip_tags($new_instance['link_text']);
-      $amount                = $new_instance['amount'];
-      $instance['amount']    = $amount;
+      $instance['title']                = strip_tags($new_instance['title']);
+      $instance['link']                 = strip_tags($new_instance['link']);
+      $instance['link_text']            = strip_tags($new_instance['link_text']);
+      $instance['amount']               = $new_instance['amount'];
+      $instance['administration_units'] = strip_tags($new_instance['administration_units']);
       return $instance;
     }
 
     public function form( $instance ) {
-      $instance  = wp_parse_args( (array) $instance, array( 'title' => '', 'text' => '', 'link' => '' ) );
-      $title     = strip_tags($instance['title']);
-      $link      = strip_tags($instance['link']);
-      $link_text = strip_tags($instance['link_text']);
-      $amount    = empty($instance['amount']) ? 1 : $instance['amount'];
+      $instance             = wp_parse_args( (array) $instance, array( 'title' => '', 'text' => '', 'link' => '' ) );
+      $title                = strip_tags($instance['title']);
+      $link                 = strip_tags($instance['link']);
+      $link_text            = strip_tags($instance['link_text']);
+      $amount               = empty($instance['amount']) ? 1 : $instance['amount'];
+      $administration_units = strip_tags($instance['administration_units']);
   ?>
 
       <ul class="hbgllw-instructions">
@@ -150,6 +162,9 @@ if (!class_exists('EventListWidget')) {
 
       <p><label for="<?php echo $this->get_field_id('amount'); ?>"><?php _e('Antal evenemang:'); ?></label>
       <input class="widefat" id="<?php echo $this->get_field_id('amount'); ?>" name="<?php echo $this->get_field_name('amount'); ?>" type="number" value="<?php echo esc_attr($amount); ?>" /></p>
+
+      <p><label for="<?php echo $this->get_field_id('administration_units'); ?>"><?php _e('Förvaltningsenheter:'); ?></label>
+      <input class="widefat" id="<?php echo $this->get_field_id('administration_units'); ?>" name="<?php echo $this->get_field_name('administration_units'); ?>" type="text" value="<?php echo esc_attr($administration_units); ?>" /></p>
 <?php
     }
   }

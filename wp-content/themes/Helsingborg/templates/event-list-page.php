@@ -4,11 +4,9 @@ Template Name: Evenemang
 */
 get_header();
 
-$events      = HelsingborgEventModel::load_events();
-$event_types = HelsingborgEventModel::load_event_types();
-
-$json_items = json_encode($events);
-$json_event_types = json_encode($event_types);
+// Get all AdministrationUnitID -> so we can
+$administration_unit_ids = $_GET['q'];
+if(!$administration_unit_ids) { $administration_unit_ids = 0; }
 
 // Get the content, see if <!--more--> is inserted
 $the_content = get_extended($post->post_content);
@@ -47,16 +45,6 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
 
                 <?php the_breadcrumb(); ?>
 
-                <?php // Present the list of new events bounded to the user
-                if (is_user_logged_in() && !empty($unpublished_events)) {
-                  echo "<ul>";
-                  foreach($unpublished_events as $new_event) {
-                    echo "<a href='http://localhost/TT/wp-admin/admin.php?page=gf_entries&view=entry&id=3&lid=2&filter=&paged=1&pos=0&field_id=&operator='>";
-                    echo "<li>" . $new_event->Name . " - " . $new_event->EventID . " - " . $new_event->Date . "</li></a>";
-                  }
-                  echo "</ul>";
-                } ?>
-
                 <?php /* Start loop */ ?>
                     <?php while (have_posts()) : the_post(); ?>
                       <article class="article">
@@ -86,43 +74,35 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                       </article>
                     <?php endwhile; // End the loop ?>
 
-
                     <form class="list-form">
                           <!-- ko foreach: filter.filters -->
-                          <!--<label data-bind="text: Name">:</label>-->
                           <!-- ko if: (Type == 'select') -->
                                 <div class="input-column">
                                   <div>
-                                    <label for="municipality_multiselect">Selectbox rubrik</label>
-                                    <select id="municipality_multiselect">
-                                      <option value="Bjuv">Bjuv</option>
-                                      <option value="Helsingborg" data-selected>Helsingborg</option>
-                                      <option value="Höganäs">Höganäs</option>
-                                      <option value="Klippan">Klippan</option>
-                                      <option value="Landskrona">Landskrona</option>
-                                      <option value="Åstorp">Åstorp</option>
-                                      <option value="Ängelholm">Ängelholm</option>
-                                      <option value="Örkelljunga">Örkelljunga</option>
-                                    </select>
+                                    <span data-bind="text: Name"></span>:
+                                    <select id="municipality_multiselect" data-bind="options: Options, optionsText: 'Name', optionsValue: 'ID', value='CurrentOption'"></select>
                                   </div>
-
                                 </div>
                           <!-- /ko -->
                           <!-- ko if: (Type == 'text') -->
                                 <div class="input-column">
-                                  <label for="ID på det specifka fältet">Input rubrik</label>
+                                  <span data-bind="text: Name"></span>:
                                   <input type="text" class="input-text" data-bind="value: Value, valueUpdate: 'afterkeydown'" />
                                 </div>
                           <!-- /ko -->
                           <!-- ko if: (Type == 'calendar') -->
                                 <div class="input-column-container">
                                   <div class="input-column input-column-half">
-                                      <label for="ID på det specifka fältet">Input rubrik</label>
+                                      <span data-bind="text: Name"></span>
                                       <input type="text" class="input-calendar" data-bind="value: Value, valueUpdate: 'afterkeydown', attr: {id: CalendarID}" />
                                   </div>
                                 </div>
                           <!-- /ko -->
                         <!-- /ko -->
+                        <div class="input-column" style="padding-top: 1rem;">
+                          <input type="checkbox" onclick="updateEvents(this)"></input>
+                          <span>Alla Helsingborgs evenemang</span>
+                        </div>
                         <input type="text" id="selectedTypes" style="display: none;" data-bind="textInput: selectedEventTypes"/>
                   </form><!-- /.event-list-form -->
 
@@ -134,10 +114,11 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                         <div class="lower-divider"></div>
                       </div>
 
-                    <div class="Pager"></div>
-                    <div class="NoRecords"></div>
-                        <ul data-bind="template: {name:'eventTemplate',foreach: pager.currentPageRecords}" class="block-list page-block-list page-list large-block-grid-3 medium-block-grid-3 small-block-grid-2"></ul>
-                    <div class="Pager"></div>
+                    <div class="Pager" id="event-pager-top"></div>
+                    <div class="event-list-loader" id="loading-event"></div>
+                    <div class="NoEvents" id="no-event"></div>
+                    <ul data-bind="template: {name:'eventTemplate',foreach: pager.currentPageEvents}" class="block-list page-block-list page-list large-block-grid-3 medium-block-grid-3 small-block-grid-2"></ul>
+                    <div class="Pager" id="event-pager-bottom"></div>
 
                     <!-- MODAL TEMPLATE -->
                     <div id="eventModal" class="reveal-modal modal" data-reveal>
@@ -152,32 +133,23 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                       </div>
                       <!-- IF arrangör exist -->
                       <div class="row">
-                      <div class="large-6 columns">
+                        <div class="large-6 columns" id="event-times">
                           <h2 class="section-title">Datum, tid och plats</h2>
                           <div class="divider fade">
                             <div class="upper-divider"></div>
                             <div class="lower-divider"></div>
                           </div>
 
-                          <ul class="modal-list">
-                            <li><span>2014-12-07</span><span>kl 20.00</span><span>Dunkers kulturhus</span></li>
-                            <li><span>2014-12-10</span><span>kl 20.00</span><span>Dunkers kulturhus</span></li>
-                            <li><span>2014-12-11</span><span>kl 20.00</span><span>Dunkers kulturhus</span></li>
-                            <li><span>2014-12-15</span><span>kl 20.00</span><span>Dunkers kulturhus</span></li>
-
-                          </ul>
+                          <ul class="modal-list" id="time-modal"></ul>
                         </div><!-- /.modal-column -->
-                        <div class="large-6 columns">
+                        <div class="large-6 columns" id="event-organizers">
                           <h2 class="section-title">Arrangör</h2>
                           <div class="divider fade">
                             <div class="upper-divider"></div>
                             <div class="lower-divider"></div>
                           </div>
 
-                          <ul class="modal-list">
-                            <li><a href="#">Tic-Net</a></li>
-
-                          </ul>
+                          <ul class="modal-list" id="organizer-modal"></ul>
                         </div><!-- /.modal-column -->
 
                         <!-- ELSE --><!--
@@ -204,6 +176,10 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                     </div>
                     <!-- END MODAL -->
 
+                    <script type="text/javascript">
+                      var ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>';
+                    </script>
+
                     <script type="text/html" id="eventTemplate">
                       <li>
                         <a class="modal-link" href="#" data-bind="attr: {id: EventID}" data-reveal-id="eventModal" desc="link-desc">
@@ -218,15 +194,49 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                     </script>
 
                     <script>
+                      var _eventPageModel = null;
+
                       jQuery(document).ready(function() {
+                        var events = {};
+                        var eventTypes = {};
+
+                        document.getElementById('loading-event').style.display = "block";
+                        document.getElementById('no-event').style.display = "none";
+
+                        ko.bindingHandlers.trimText = {
+                          init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
+                            var trimmedText = ko.computed(function () {
+                              var untrimmedText = ko.utils.unwrapObservable(valueAccessor());
+                              var minLength = 5;
+                              var maxLength = 250;
+                              var text = untrimmedText.length > maxLength ? untrimmedText.substring(0, maxLength - 1) + '...' : untrimmedText;
+                              return text;
+                            });
+                            ko.applyBindingsToNode(element, {
+                              text: trimmedText
+                            }, viewModel);
+                            return {
+                              controlsDescendantBindings: true
+                            }
+                          }
+                        };
+
+                        _eventPageModel = new EventPageModel(events, eventTypes);
+                        ko.applyBindings(_eventPageModel);
+
                         jQuery(document).on('click', '.modal-link', function(event){
                             event.preventDefault();
                             var image = $('.modal-image');
                             var title = $('.modal-title');
                             var date = $('.modal-date');
                             var description = $('.modal-description');
+                            var time_list = $('#time-modal');
+                            var organizer_list = $('#organizer-modal');
+                            document.getElementById('event-times').style.display = 'none';
+                            document.getElementById('event-times').className = 'large-6 columns';
+                            document.getElementById('event-organizers').style.display = 'none';
 
-                            var events = _eventPageModel.events;
+                            var events = _eventPageModel.events();
                             var result;
 
                             for (var i = 0; i < events.length; i++) {
@@ -235,51 +245,112 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                               }
                             }
 
+                            var dates_data = { action: 'load_event_dates', id: this.id, location: result.Location };
+                            jQuery.post(ajaxurl, dates_data, function(response) {
+                              html = "<li>";
+                              var dates = JSON.parse(response);
+                              for (var i=0;i<dates.length;i++) {
+                                html += '<span>' + dates[i].Date + '</span>';
+                                html += '<span>' + dates[i].Time + '</span>';
+                                html += '<span>' + dates_data.location + '</span>';
+                              }
+                              html += '</li>';
+                              jQuery(time_list).html(html);
+                              if (dates.length > 0) {
+                                document.getElementById('event-times').style.display = 'block';
+                              }
+                            });
+
+                            var organizers_data = { action: 'load_event_organizers', id: this.id };
+                            jQuery.post(ajaxurl, organizers_data, function(response) {
+                              var organizers = JSON.parse(response); html = '';
+                              for (var i=0;i<organizers.length;i++) {
+                                html += '<li><span>' + organizers[i].Name + '</span></li>';
+                              }
+                              jQuery(organizer_list).html(html);
+                              if (organizers.length > 0) {
+                                document.getElementById('event-organizers').style.display = 'block';
+                              } else {
+                                document.getElementById('event-times').className = 'large-12 columns';
+                              }
+                            });
+
                             jQuery(image).attr("src", result.ImagePath);
                             jQuery(title).html(result.Name);
                             jQuery(date).html(result.Date);
                             jQuery(description).html(result.Description);
                         });
-                      });
-                    </script>
 
-                    <script>
-                    var eventsData = {
-                      events: <?php echo $json_items; ?>,
-                      eventTypes: <?php echo $json_event_types; ?>
-                    };
-
-                    ko.bindingHandlers.trimText = {
-                      init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
-                        var trimmedText = ko.computed(function () {
-                          var untrimmedText = ko.utils.unwrapObservable(valueAccessor());
-                          var minLength = 5;
-                          var maxLength = 250;
-                          var text = untrimmedText.length > maxLength ? untrimmedText.substring(0, maxLength - 1) + '...' : untrimmedText;
-                          return text;
+                        var data = { action: 'load_events', ids: '<?php echo $administration_unit_ids; ?>' };
+                        jQuery.post(ajaxurl, data, function(response) {
+                          _eventPageModel.events(ExtractModels(_eventPageModel, JSON.parse(response), EventModel));
+                          // alert(_eventPageModel.pager.events().length);
+                          document.getElementById('loading-event').style.display = "none";
+                          document.getElementById('no-event').style.display = "block";
+                          // setTimeout(function() { checkSize(); }, 3000);
                         });
-                        ko.applyBindingsToNode(element, {
-                          text: trimmedText
-                        }, viewModel);
-                        return {
-                          controlsDescendantBindings: true
-                        };
-                      }
-                    };
-                    _eventPageModel = new EventPageModel(eventsData);
-                    ko.applyBindings(_eventPageModel);
 
-                    jQuery("select#municipality_multiselect").zmultiselect({
-                      live: "#selectedTypes",
-                      filter: true,
-                      filterPlaceholder: 'Filtrera...',
-                      filterResult: true,
-                      filterResultText: "Visar",
-                      selectedText: ['Valt','av'],
-                      selectAll: true,
-                      selectAllText: ['Markera alla','Avmarkera alla']
-                    });
-                    // jQuery("#events_multi").zmultiselect('checkall');
+                        var data = { action: 'load_event_types' };
+                        jQuery.post(ajaxurl, data, function(response) {
+                          _eventPageModel.eventTypes(ExtractModels(_eventPageModel, JSON.parse(response), TypeModel));
+                          // jQuery("select#municipality_multiselect").zmultiselect({
+                          //   live: "#selectedTypes",
+                          //   filter: true,
+                          //   filterPlaceholder: 'Filtrera...',
+                          //   filterResult: true,
+                          //   filterResultText: "Visar",
+                          //   selectedText: ['Valt','av'],
+                          //   selectAll: true,
+                          //   selectAllText: ['Markera alla','Avmarkera alla']
+                          // });
+                        });
+
+                        jQuery(function() {
+                          var currentDate = new Date();
+                          currentDate.setDate(currentDate.getDate());
+
+                          jQuery('#datetimepickerstart').datetimepicker({
+                            minDate: currentDate,
+                            weeks: true,
+                            lang:'se',
+                            timepicker:false,
+                            format:'Y-m-d',
+                            formatDate:'Y-m-d',
+                            onShow:function( ct ){
+                              this.setOptions({
+                                maxDate:jQuery('#datetimepickerend').val()?jQuery('#datetimepickerend').val():false
+                              })
+                            }
+                          });
+
+                          jQuery('#datetimepickerend').datetimepicker({
+                            weeks: true,
+                            lang:'se',
+                            timepicker:false,
+                            format:'Y-m-d',
+                            formatDate:'Y-m-d',
+                            onShow:function( ct ){
+                              this.setOptions({
+                                minDate:jQuery('#datetimepickerstart').val()?jQuery('#datetimepickerstart').val():false
+                              })
+                            }
+                          });
+                        });
+                      });
+
+                      function updateEvents(checkbox) {
+                        if (checkbox.checked) {
+                          var data = { action: 'load_events', ids: '0' };
+                          jQuery.post(ajaxurl, data, function(response) {
+                            _eventPageModel.events(ExtractModels(_eventPageModel, JSON.parse(response), EventModel));
+                          });
+                        } else {
+                          var data = { action: 'load_events', ids: '<?php echo $administration_unit_ids; ?>' };
+                          jQuery.post(ajaxurl, data, function(response) {
+                            _eventPageModel.events(ExtractModels(_eventPageModel, JSON.parse(response), EventModel));
+                          });
+                        }
+                      }
                     </script>
 
             <?php if ( (is_active_sidebar('content-area') == TRUE) ) : ?>
@@ -319,40 +390,6 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
     </div><!-- /.sidebar -->
 
 </div><!-- /.article-page-layout -->
-
-<script>
-jQuery(function() {
-  var currentDate = new Date();
-  currentDate.setDate(currentDate.getDate());
-
-  jQuery('#datetimepickerstart').datetimepicker({
-    minDate: currentDate,
-    weeks: true,
-    lang:'se',
-    timepicker:false,
-    format:'Y-m-d',
-    formatDate:'Y-m-d',
-    onShow:function( ct ){
-     this.setOptions({
-      maxDate:jQuery('#datetimepickerend').val()?jQuery('#datetimepickerend').val():false
-     })
-    }
-  });
-
-  jQuery('#datetimepickerend').datetimepicker({
-    weeks: true,
-    lang:'se',
-    timepicker:false,
-    format:'Y-m-d',
-    formatDate:'Y-m-d',
-    onShow:function( ct ){
-     this.setOptions({
-      minDate:jQuery('#datetimepickerstart').val()?jQuery('#datetimepickerstart').val():false
-     })
-    }
-  });
-});
-</script>
 
 <script src="<?php echo get_stylesheet_directory_uri() ; ?>/js/app.js"></script>
 <script src="<?php echo get_stylesheet_directory_uri() ; ?>/js/dev/hbg.dev.js"></script>
