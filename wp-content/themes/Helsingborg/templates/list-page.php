@@ -65,7 +65,7 @@ for ($i = 0; $i < count($pages); $i++) {
   // Build the content and add as array item
   $content = '<h2>' . esc_attr($pages[$i]->post_title) . '</h2>
   <div class="td-content">
-    <p>' . esc_attr($pages[$i]->post_content) . '</p>
+    <p>' . apply_filters('the_content', $pages[$i]->post_content) . '</p>
     <a href="' . esc_attr(get_permalink($pages[$i]->ID)) . '" desc="link-desc" class="read-more">Läs mer</a>
   </div>
   <span class="icon"></span>';
