@@ -36,16 +36,8 @@ $Index_Large_Widget = new Index_Large_Widget();
 $Image_List         = new Image_List();
 $EventList          = new EventList();
 
-function load_widget_scripts() {
-  wp_deregister_script( 'jquery' );
-  wp_deregister_script( 'jquery-ui' );
-  wp_register_script( 'jquery', get_template_directory_uri() . '/js/jquery/dist/jquery.min.js', array(), '1.0.0', false );
-  wp_register_script( 'jquery-ui', get_template_directory_uri() . '/js/jquery/dist/jquery-ui.min.js', array(), '1.0.0', false );
-  wp_register_script( 'helsingborg-media-selector-original-js', plugin_dir_url(__FILE__) .'js/helsingborg-media-selector-original.js', array(), '1.0.0', false );
-  wp_enqueue_script('jquery');
-  wp_enqueue_script('jquery-ui');
-  wp_enqueue_script('helsingborg-media-selector-original-js');
-
-  wp_enqueue_style( 'helsingborg-widgets-css', plugin_dir_url(__FILE__) .'css/helsingborg-widgets.css');
-}
-add_action('wp_enqueue_scripts', 'load_widget_scripts');
+// Add resources used by link-list-widget
+wp_enqueue_style( 'helsingborg-widgets-css', plugin_dir_url(__FILE__) .'css/helsingborg-widgets.css');
+wp_enqueue_script( 'jquery', get_template_directory_uri() . '/js/jquery/dist/jquery.min.js');
+wp_enqueue_script( 'helsingborg-list-sort-js', plugin_dir_url(__FILE__) .'js/helsingborg-list-sort.js');
+wp_enqueue_script( 'helsingborg-media-selector-original-js', plugin_dir_url(__FILE__) .'js/helsingborg-media-selector-original.js');

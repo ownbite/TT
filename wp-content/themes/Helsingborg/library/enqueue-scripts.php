@@ -15,6 +15,7 @@ if (!function_exists('Helsingborg_scripts')) :
     // enqueue scripts
     wp_enqueue_script('modernizr');
     wp_enqueue_script('jquery');
+    wp_enqueue_script('jquery-ui');
     wp_enqueue_script('foundation');
     // wp_enqueue_script('jquery-ui-dialog');
     // wp_enqueue_script('jquery-ui-sortable');
@@ -52,7 +53,7 @@ if (!function_exists('Helsingborg_scripts')) :
     // wp_register_script( 'helsingborg-list-sort-js' , plugin_dir_url(__FILE__) .'js/helsingborg-list-sort.js', array(), '1.0.0', false);
 
     wp_enqueue_script( 'select2' );
-    wp_enqueue_script( 'helsingborg-list-sort-js');
+    // wp_enqueue_script( 'helsingborg-list-sort-js');
 
   }
   add_action( 'admin_enqueue_scripts', 'load_custom_wp_admin_style' );
