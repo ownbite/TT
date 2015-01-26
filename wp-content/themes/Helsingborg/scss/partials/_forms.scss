@@ -112,7 +112,10 @@ textarea {
     overflow: hidden;
     cursor: pointer;
     .zmshead {
+      @extend %form-text;
       color: $input-font-color;
+      padding: rem-calc(6);
+      display: block;
     }
     .deselectall,
     .zmsfilter  {
@@ -124,10 +127,17 @@ textarea {
 .sidebar .zselect {
 //  @extend %form-input-style;
 ul {
+      display: none;
+      list-style: none;
       margin-top: rem-calc(6);
-      margin-left: - rem-calc(9);
+      margin-left: 0;
+      padding-left: rem-calc(16);
+      padding-right: rem-calc(16);
       padding-bottom: rem-calc(16);
       background-color: lighten($black, 98%) !important;
+      li span {
+        display: inline !important;
+      }
   }
   input[type="checkbox"] {
       margin-right: rem-calc(16);

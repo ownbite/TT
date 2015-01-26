@@ -29,7 +29,7 @@
 /* HBG iconset */
 @font-face {
   font-family: 'hbg-se-iconset';
-  src: url(/TT/wp-content/themes/Helsingborg/assets/fonts/hbg-se-iconset.eot); }
+  src: url(/wp-content/themes/Helsingborg/assets/fonts/hbg-se-iconset.eot); }
 
 @font-face {
   font-family: 'hbg-se-iconset';
@@ -5616,7 +5616,7 @@ th.hide-for-touch {
 
 /* No SVG support fallback */
 .no-svg .logo-link {
-  background: url(/TT/wp-content/themes/Helsingborg/assets/img/images/hbg-logo.png) no-repeat center center;
+  background: url(/wp-content/themes/Helsingborg/assets/img/images/hbg-logo.png) no-repeat center center;
   max-width: 254px;
   height: 80px; }
 
@@ -5734,7 +5734,7 @@ th.hide-for-touch {
  * ----------------------------------------------------------------------------
  */
 body {
-  background: url(/TT/wp-content/themes/Helsingborg/assets/img/images/hbg-bg.png) white repeat-x; }
+  background: url(/wp-content/themes/Helsingborg/assets/img/images/hbg-bg.png) white repeat-x; }
 
 .site-bg {
   position: absolute;
@@ -5865,7 +5865,7 @@ blockquote.alignright, img.alignright {
     width: 32px;
     height: 32px;
     text-indent: -999em;
-    background: url(/TT/wp-content/themes/Helsingborg/assets/socialmedia-icons/social-icon-sprite.png) 0 0 no-repeat; }
+    background: url(/wp-content/themes/Helsingborg/assets/socialmedia-icons/social-icon-sprite.png) 0 0 no-repeat; }
   .socialmedia-list li.fbook a {
     background-position: 0 0; }
     .socialmedia-list li.fbook a:hover {
@@ -5882,7 +5882,7 @@ only screen and (     min-device-pixel-ratio: 2) and (max-device-width: 1080px),
 only screen and (        min-resolution: 192dpi) and (max-device-width: 1080px),
 only screen and (         min-resolution: 2dppx) and (max-device-width: 1080px) {
   .socialmedia-list li a {
-    background: url(/TT/wp-content/themes/Helsingborg/assets/socialmedia-icons/social-icon-sprite2x.png) 0 0 no-repeat; } }
+    background: url(/wp-content/themes/Helsingborg/assets/socialmedia-icons/social-icon-sprite2x.png) 0 0 no-repeat; } }
 
 /**
  * 4.0 Content
@@ -6017,7 +6017,7 @@ ul.news-list-large.row section.news-section ul.news-list-large.row li.news-item.
   padding-bottom: 4rem; }
 
 .event-list-loader {
-  background: url(/TT/wp-content/themes/Helsingborg/assets/img/images/ajax-loader.gif) 0 0 no-repeat;
+  background: url(/wp-content/themes/Helsingborg/assets/img/images/ajax-loader.gif) 0 0 no-repeat;
   width: 32px;
   height: 32px;
   position: absolute;
@@ -6077,7 +6077,7 @@ ul.news-list-large.row section.news-section ul.news-list-large.row li.news-item.
   border-collapse: inherit;
   border-radius: 4px; }
   .table-list .table-item td:last-child {
-    background: url(/TT/wp-content/themes/Helsingborg/assets/img/tablesorter-icons/asc.gif) 95% center no-repeat; }
+    background: url(/wp-content/themes/Helsingborg/assets/img/tablesorter-icons/asc.gif) 95% center no-repeat; }
   .table-list td, .table-list th {
     border: none;
     padding: 1rem 0.625rem; }
@@ -6113,12 +6113,12 @@ ul.news-list-large.row section.news-section ul.news-list-large.row li.news-item.
 
 /* table sorter plugin style */
 .table-list .header {
-  background: url(/TT/wp-content/themes/Helsingborg/assets/img/tablesorter-icons/bg.gif) right center no-repeat;
+  background: url(/wp-content/themes/Helsingborg/assets/img/tablesorter-icons/bg.gif) right center no-repeat;
   cursor: pointer; }
   .table-list .header.headerSortDown {
-    background: url(/TT/wp-content/themes/Helsingborg/assets/img/tablesorter-icons/asc.gif) right center no-repeat; }
+    background: url(/wp-content/themes/Helsingborg/assets/img/tablesorter-icons/asc.gif) right center no-repeat; }
   .table-list .header.headerSortUp {
-    background: url(/TT/wp-content/themes/Helsingborg/assets/img/tablesorter-icons/desc.gif) right center no-repeat; }
+    background: url(/wp-content/themes/Helsingborg/assets/img/tablesorter-icons/desc.gif) right center no-repeat; }
   .table-list .header:last-child {
     background-position: 95% center; }
 
@@ -6276,7 +6276,7 @@ ul.breadcrumbs li strong {
   background-color: white; }
 
 nav > ul > li.nav-home a {
-  background-image: url(/TT/wp-content/themes/Helsingborg/assets/img/images/fi-home.svg);
+  background-image: url(/wp-content/themes/Helsingborg/assets/img/images/fi-home.svg);
   width: 2.5rem;
   height: 2.5rem;
   text-indent: -999999px; }
@@ -6705,7 +6705,7 @@ input[type="text"], input[type="email"], input[type="password"], textarea, .ginp
   border: 1px solid #b3b3b3;
   box-shadow: 2px 2px 1px 0 rgba(0, 0, 0, 0.1); }
 
-label, .gform_wrapper input[type="file"], .ui-datepicker select, .ui-datepicker .ui-datepicker-header > a, .gform_heading, .gfield_description, .gfield_select, .chosen-drop .chosen-results li {
+label, .main-area .zselect .zmshead, .sidebar .zselect .zmshead, .gform_wrapper input[type="file"], .ui-datepicker select, .ui-datepicker .ui-datepicker-header > a, .gform_heading, .gfield_description, .gfield_select, .chosen-drop .chosen-results li {
   font-size: 0.875rem; }
 
 .validation_message, .validation_error {
@@ -6747,15 +6747,23 @@ form {
   overflow: hidden;
   cursor: pointer; }
   .main-area .zselect .zmshead, .sidebar .zselect .zmshead {
-    color: rgba(0, 0, 0, 0.75); }
+    color: rgba(0, 0, 0, 0.75);
+    padding: 0.375rem;
+    display: block; }
   .main-area .zselect .deselectall, .main-area .zselect .zmsfilter, .sidebar .zselect .deselectall, .sidebar .zselect .zmsfilter {
     margin-bottom: 1rem; }
 
 .main-area .zselect ul, .sidebar .zselect ul {
+  display: none;
+  list-style: none;
   margin-top: 0.375rem;
-  margin-left: -0.5625rem;
+  margin-left: 0;
+  padding-left: 1rem;
+  padding-right: 1rem;
   padding-bottom: 1rem;
   background-color: #fafafa !important; }
+  .main-area .zselect ul li span, .sidebar .zselect ul li span {
+    display: inline !important; }
 .main-area .zselect input[type="checkbox"], .sidebar .zselect input[type="checkbox"] {
   margin-right: 1rem; }
 
