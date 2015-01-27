@@ -23,7 +23,7 @@ $content = $post->post_content;
           <input type="text" placeholder="Vad letar du efter?" name="search" class="input-field"/>
           <input type="submit" value="Sök" class="button search">
 
-      <a href="#" class="archive-search-link">S&ouml;k i arkivet</a>
+      <a href="http://helsingborg.arkivbyran.se/" class="archive-search-link">Du kan också söka i arkivet</a>
       </div><!-- /.search-inputs -->
 
               <?php dynamic_sidebar("left-sidebar"); ?>

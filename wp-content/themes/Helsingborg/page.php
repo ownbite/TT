@@ -18,6 +18,7 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
 					<div class="search-inputs large-12 columns">
 						<input type="text" placeholder="Vad letar du efter?" name="search" class="input-field"/>
 						<input type="submit" value="Sök" class="button search">
+						<a href="http://helsingborg.arkivbyran.se/" class="archive-search-link">Du kan också söka i arkivet</a>
 					</div>
 				</div><!-- /.search-container -->
 
