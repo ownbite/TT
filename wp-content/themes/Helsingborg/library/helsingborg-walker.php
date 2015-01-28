@@ -13,6 +13,11 @@ class Helsingborg_Walker extends Walker {
       return $output;
     }
 
+    // Don't print the whole tree on search results page
+    if (is_search()) {
+      $max_depth = 1;
+    }
+
     /* Nothing to walk */
     if ( empty( $elements ) ) {
       return $output;

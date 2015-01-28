@@ -1,6 +1,5 @@
 <?php
 get_header();
-
 $query = $_GET['s'];
 ?>
 
@@ -20,9 +19,9 @@ $query = $_GET['s'];
 
 			<div class="large-8 medium-8 columns article-column">
 
-				<div id="result" style="padding-bottom: 10px;"></div>
-
 				<?php get_search_form(); ?>
+
+				<div id="result" style="padding-bottom: 10px;"></div>
 
 				<ul id="search" class="block-list page-block-list search-list large-block-grid-3 medium-block-grid-3 small-block-grid-2"></ul>
 
