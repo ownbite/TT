@@ -19,15 +19,10 @@ $content = $post->post_content;
     <div class="sidebar large-4 medium-4 columns">
       <div class="row">
 
-      <div class="search-inputs large-12 columns">
-          <input type="text" placeholder="Vad letar du efter?" name="search" class="input-field"/>
-          <input type="submit" value="Sök" class="button search">
+        <?php get_search_form(); ?>
 
-      <a href="#" class="archive-search-link">S&ouml;k i arkivet</a>
-      </div><!-- /.search-inputs -->
-
-              <?php dynamic_sidebar("left-sidebar"); ?>
-              <?php get_template_part('templates/partials/sidebar','menu'); ?>
+        <?php dynamic_sidebar("left-sidebar"); ?>
+        <?php get_template_part('templates/partials/sidebar','menu'); ?>
 
       </div><!-- /.row -->
     </div><!-- /.sidebar-left -->

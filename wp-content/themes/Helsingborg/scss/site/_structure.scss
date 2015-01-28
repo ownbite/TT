@@ -400,6 +400,30 @@ img.alignright {
 			}
 	  }
 
+		.block-list.page-block-list.search-list {
+			margin-left: 0;
+			margin-right: 0;
+			> li {
+				width: 100%;
+				padding-bottom: rem-calc(16);
+				margin-bottom: rem-calc(16);
+				border-bottom: 1px solid grey;
+
+				a img {
+					border-radius: $border-radius;
+					float: left;
+					margin-right: rem-calc(20);
+					max-width: 25%;
+				}
+				a .list-content {
+					display: block;
+				}
+			}
+			> li:last-child {
+				border: none;
+			}
+		}
+
 	  /* event-list */
 	.event-list-container {
 		padding-bottom: rem-calc(64);

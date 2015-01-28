@@ -1,35 +1,115 @@
-<?php get_header(); ?>
-<div class="row">
-	<div class="small-12 large-8 columns" role="main">
+<?php
+get_header();
 
-		<?php do_action('Helsingborg_before_content'); ?>
+$query = $_GET['s'];
+?>
 
-		<h2><?php _e('Search Results for', 'Helsingborg'); ?> "<?php echo get_search_query(); ?>"</h2>
+<div class="article-page-layout row">
+	<!-- main-page-layout -->
+	<div class="main-area large-9 columns">
 
-	<?php if ( have_posts() ) : ?>
+		<div class="main-content row">
+			<!-- SIDEBAR LEFT -->
+			<div class="sidebar sidebar-left large-4 medium-4 columns">
 
-		<?php while ( have_posts() ) : the_post(); ?>
-			<?php get_template_part( 'content', get_post_format() ); ?>
-		<?php endwhile; ?>
+				<div class="row">
+					<?php dynamic_sidebar("left-sidebar"); ?>
+					<?php get_template_part('templates/partials/sidebar','menu'); ?>
+				</div><!-- /.row -->
+			</div><!-- /.sidebar-left -->
 
-		<?php else : ?>
-			<?php get_template_part( 'content', 'none' ); ?>
+			<div class="large-8 medium-8 columns article-column">
 
-	<?php endif;?>
+				<div id="result" style="padding-bottom: 10px;"></div>
 
-	<?php do_action('Helsingborg_before_pagination'); ?>
+				<?php get_search_form(); ?>
 
-	<?php if ( function_exists('Helsingborg_pagination') ) { Helsingborg_pagination(); } else if ( is_paged() ) { ?>
+				<ul id="search" class="block-list page-block-list search-list large-block-grid-3 medium-block-grid-3 small-block-grid-2"></ul>
 
-		<nav id="post-nav">
-			<div class="post-previous"><?php next_posts_link( __( '&larr; Older posts', 'Helsingborg' ) ); ?></div>
-			<div class="post-next"><?php previous_posts_link( __( 'Newer posts &rarr;', 'Helsingborg' ) ); ?></div>
-		</nav>
-	<?php } ?>
+				<div class="Pager"><ul class="pagination"></ul></div>
 
-	<?php do_action('Helsingborg_after_content'); ?>
+			</div><!-- /.columns -->
 
-	</div>
-	<?php get_sidebar(); ?>
+		</div><!-- /.main-content -->
+
+	</div>  <!-- /.main-area -->
+
+	<div class="sidebar sidebar-right large-3 columns">
+		<div class="row">
+
+			<?php /* Add the page's widgets */ ?>
+			<?php if ( (is_active_sidebar('right-sidebar') == TRUE) ) : ?>
+				<?php dynamic_sidebar("right-sidebar"); ?>
+			<?php endif; ?>
+
+		</div><!-- /.rows -->
+	</div><!-- /.sidebar -->
+</div><!-- /.article-page-layout -->
+
+<script>
+var ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>';
+var query = '<?php echo $query; ?>';
+var initial_data = { action: 'search', keyword: query, index: '1' };
+var next_data = null;
+var prev_data = null;
+jQuery.post(ajaxurl, initial_data, function(response) {
+	updateSearch(JSON.parse(response));
+});
+
+function next() {
+	jQuery.post(ajaxurl, next_data, function(response) {
+		jQuery("html, body").animate({ scrollTop: 0 }, "slow");
+		updateSearch(JSON.parse(response));
+	});
+}
+
+function previous() {
+	jQuery.post(ajaxurl, prev_data, function(response) {
+		jQuery("html, body").animate({ scrollTop: 0 }, "slow");
+		updateSearch(JSON.parse(response));
+	});
+}
+
+function updateSearch(data) {
+		var next     = data.queries.nextPage 	   !== undefined ? data.queries.nextPage[0] 		: undefined;
+		var prev     = data.queries.previousPage !== undefined ? data.queries.previousPage[0] : undefined;
+		var request  = data.queries.request 		 !== undefined ? data.queries.request[0] 			: undefined;
+		var total = '<b>' + data.searchInformation.formattedTotalResults + '</b> träffar på <b>' + data.queries.request[0].searchTerms + '</b> inom hela webbplatsen';
+
+		jQuery('#result').html("");
+		jQuery('#search').html("");
+		jQuery('.pagination').html("");
+		jQuery('#result').append(total);
+
+		for (var i = 0; i < data.items.length; i++) {
+			var meta = data.items[i].pagemap.metatags[0];
+			var item = '<li>';
+
+			item += '<a href="' + data.items[i].link + '" desc="link-desc">';
+			item += '<h2 class="list-title">' + data.items[i].title + '</h2></a>';
+			if (meta['creationdate'] !== undefined) {
+				item += '<span class="news-date">' + meta['creationdate'].substring(2,10) + '</span>';
+			} else if (meta['last-modified'] !== undefined){
+				item += '<span class="news-date">' + meta['epi.published'].substring(5,16) + '</span>';
+			}
+			item += '<div class="list-content">' + data.items[i].htmlSnippet + '<div>';
+			item += '</li>';
+
+			jQuery('#search').append(item);
+		}
+
+		if (prev !== undefined) {
+			var prevPage = '<li class="arrow" style="float: left;"><a onclick="previous()">Föregående</a></li>';
+			prev_data = { action: 'search', keyword: query, index: prev['startIndex'].toString() };
+			jQuery('.pagination').append(prevPage);
+		}
+
+		if (next !== undefined) {
+			var nextPage = '<li class="arrow" style="float: right;"><a onclick="next()">Nästa</a></li>';
+			next_data = { action: 'search', keyword: query, index: next['startIndex'].toString() };
+			jQuery('.pagination').append(nextPage);
+		}
+}
+</script>
 
 <?php get_footer(); ?>

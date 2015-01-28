@@ -262,6 +262,30 @@ function load_pages_callback() {
   die();
 }
 
+add_action( 'wp_ajax_nopriv_search', 'search_callback');
+add_action( 'wp_ajax_search', 'search_callback');
+function search_callback() {
+  $key       = 'AIzaSyCMGfdDaSfjqv5zYoS0mTJnOT3e9MURWkU';
+  $cx        = '016534817360440217175:ndsqkc_wtzg';
+  $index     = $_POST['index'];
+  $keyword   = $_POST['keyword'];
+
+  $url = 'https://www.googleapis.com/customsearch/v1?key='.$key.'&cx='.$cx.'&q='.$keyword.'&siteSearchFilter=i&alt=json&start='.$index;
+
+  $ch = curl_init();
+  curl_setopt($ch, CURLOPT_URL, $url);
+  curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+  curl_setopt($ch, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']);
+  curl_setopt($ch, CURLOPT_REFERER, $url);
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+  curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+
+  $result = curl_exec($ch);
+  curl_close($ch);
+  echo $result;
+  die();
+};
+
 add_action( 'wp_ajax_nopriv_load_event_organizers', 'load_event_organizers_callback' );
 add_action( 'wp_ajax_load_event_organizers', 'load_event_organizers_callback' );
 function load_event_organizers_callback() {
@@ -300,11 +324,8 @@ function load_events_callback() {
 
 /* Add AJAX functions for admin. So Event may be changed by users
  Note: wp_ajax_nopriv_X is not used, since events cannot be changed by other than logged in users */
-add_action( 'wp_ajax_approve_event', 'approve_event_callback' );
-add_action( 'wp_ajax_deny_event',    'deny_event_callback' );
-add_action( 'wp_ajax_save_event',    'save_event_callback' );
-
 /* Function for approving events, returns true if success. */
+add_action( 'wp_ajax_approve_event', 'approve_event_callback' );
 function approve_event_callback() {
   global $wpdb;
   $id     = $_POST['id'];
@@ -313,6 +334,7 @@ function approve_event_callback() {
 }
 
 /* Function for denying events, returns true if success. */
+add_action( 'wp_ajax_deny_event',    'deny_event_callback' );
 function deny_event_callback() {
   global $wpdb;
   $id     = $_POST['id'];
@@ -322,6 +344,7 @@ function deny_event_callback() {
 }
 
 /* Function for saving events, returns true if success. */
+add_action( 'wp_ajax_save_event',    'save_event_callback' );
 function save_event_callback() {
 	global $wpdb;
 
