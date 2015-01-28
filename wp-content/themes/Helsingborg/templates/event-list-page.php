@@ -22,12 +22,8 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
         <div class="main-content row">
             <!-- SIDEBAR LEFT -->
             <div class="sidebar sidebar-left large-4 medium-4 columns">
-                <div class="search-container row">
-                    <div class="search-inputs large-12 columns">
-                        <input type="text" placeholder="Vad letar du efter?" name="search" class="input-field"/>
-                        <input type="submit" value="Sök" class="button search">
-                    </div>
-                </div><!-- /.search-container -->
+
+                <?php get_search_form(); ?>
 
                 <div class="row">
                   <?php dynamic_sidebar("left-sidebar"); ?>
@@ -293,16 +289,16 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                         var data = { action: 'load_event_types' };
                         jQuery.post(ajaxurl, data, function(response) {
                           _eventPageModel.eventTypes(ExtractModels(_eventPageModel, JSON.parse(response), TypeModel));
-                          // jQuery("select#municipality_multiselect").zmultiselect({
-                          //   live: "#selectedTypes",
-                          //   filter: true,
-                          //   filterPlaceholder: 'Filtrera...',
-                          //   filterResult: true,
-                          //   filterResultText: "Visar",
-                          //   selectedText: ['Valt','av'],
-                          //   selectAll: true,
-                          //   selectAllText: ['Markera alla','Avmarkera alla']
-                          // });
+                          jQuery("select#municipality_multiselect").zmultiselect({
+                            live: "#selectedTypes",
+                            filter: true,
+                            filterPlaceholder: 'Filtrera...',
+                            filterResult: true,
+                            filterResultText: "Visar",
+                            selectedText: ['Valt','av'],
+                            selectAll: true,
+                            selectAllText: ['Markera alla','Avmarkera alla']
+                          });
                         });
 
                         jQuery(function() {

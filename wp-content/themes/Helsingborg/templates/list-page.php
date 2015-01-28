@@ -97,12 +97,8 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
         <div class="main-content row">
             <!-- SIDEBAR LEFT -->
             <div class="sidebar sidebar-left large-3 medium-4 columns">
-                <div class="search-container row">
-                    <div class="search-inputs large-12 columns" role="search">
-                        <input type="text" placeholder="Vad letar du efter?" name="search" class="input-field"/>
-                        <input type="submit" value="Sök" class="button search">
-                    </div>
-                </div><!-- /.search-container -->
+
+                <?php get_search_form(); ?>
 
                 <div class="row">
                     <?php dynamic_sidebar("left-sidebar"); ?>
