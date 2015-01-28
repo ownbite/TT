@@ -41,10 +41,12 @@ if (!class_exists('SimpleLinkListWidget')) {
 
       // Retrieved all links
       for ($i = 1; $i <= $amount; $i++) {
-        $items[$i-1] = $instance['item'.$i];
-        $item_links[$i-1] = $instance['item_link'.$i];
-        $item_targets[$i-1] = isset($instance['item_target'.$i]) ? $instance['item_target'.$i] : false;
-        $item_ids[$i-1] = $instance['item_id'.$i];
+        $items[$i-1]         = $instance['item'.$i];
+        $item_links[$i-1]    = $instance['item_link'.$i];
+        $item_targets[$i-1]  = isset($instance['item_target'.$i])  ? $instance['item_target'.$i]  : false;
+        $item_warnings[$i-1] = isset($instance['item_warning'.$i]) ? $instance['item_warning'.$i] : false;
+        $item_infos[$i-1]    = isset($instance['item_info'.$i])    ? $instance['item_info'.$i]    : false;
+        $item_ids[$i-1]      = $instance['item_id'.$i];
       }
 
       $widget_class = ($show_rss == 'rss_yes') ? 'news-widget ' : 'quick-links-widget ';
@@ -79,13 +81,19 @@ if (!class_exists('SimpleLinkListWidget')) {
                   $target = '';
                 }
 
+                if ($item_warnings[$num]) {
+                  $class = ' class="alert-msg warning"';
+                } else if ($item_infos[$num]) {
+                  $class = ' class="alert-msg info"';
+                }
+
                 // Get the page
                 $page = get_post($item_id, OBJECT, 'display');
 
                 if (!empty($item_id)) {
                   $title = $page->post_title;
                   $link = get_permalink($page->ID);
-                  echo('<li><a href="' . $link . '" ' . $target . '>' . $title . '</a></li>');
+                  echo('<li' . $class . '><a href="' . $link . '" ' . $target . '>' . $title . '</a></li>');
 
                   if ($show_dates) {
                     // Parse the dates presented in the event
@@ -104,7 +112,7 @@ if (!class_exists('SimpleLinkListWidget')) {
                 } else {
                   $title = $item;
                   $link = $item_links[$num];
-                  echo('<li><a href="' . $link . '" ' . $target . '>' . $title . '</a></li>');
+                  echo('<li' . $class . '><a href="' . $link . '" ' . $target . '>' . $title . '</a></li>');
                 }
             endforeach; ?>
 
@@ -203,18 +211,20 @@ if (!class_exists('SimpleLinkListWidget')) {
 
       if($order){
         foreach ($order as $i => $item_num) {
-          $instance['item'.($i+1)] = empty($new_instance['item'.$item_num]) ? '' : strip_tags($new_instance['item'.$item_num]);
-          $instance['item_link'.($i+1)] = empty($new_instance['item_link'.$item_num]) ? '' : strip_tags($new_instance['item_link'.$item_num]);
-          $instance['item_class'.($i+1)] = empty($new_instance['item_class'.$item_num]) ? '' : strip_tags($new_instance['item_class'.$item_num]);
-          $instance['item_target'.($i+1)] = empty($new_instance['item_target'.$item_num]) ? '' : strip_tags($new_instance['item_target'.$item_num]);
-          $instance['item_id'.($i+1)] = empty($new_instance['item_id'.$item_num]) ? '' : strip_tags($new_instance['item_id'.$item_num]);
+          $instance['item'.($i+1)]         = empty($new_instance['item'.$item_num])         ? '' : strip_tags($new_instance['item'.$item_num]);
+          $instance['item_link'.($i+1)]    = empty($new_instance['item_link'.$item_num])    ? '' : strip_tags($new_instance['item_link'.$item_num]);
+          $instance['item_class'.($i+1)]   = empty($new_instance['item_class'.$item_num])   ? '' : strip_tags($new_instance['item_class'.$item_num]);
+          $instance['item_target'.($i+1)]  = empty($new_instance['item_target'.$item_num])  ? '' : strip_tags($new_instance['item_target'.$item_num]);
+          $instance['item_warning'.($i+1)] = empty($new_instance['item_warning'.$item_num]) ? '' : strip_tags($new_instance['item_warning'.$item_num]);
+          $instance['item_info'.($i+1)]    = empty($new_instance['item_info'.$item_num])    ? '' : strip_tags($new_instance['item_info'.$item_num]);
+          $instance['item_id'.($i+1)]      = empty($new_instance['item_id'.$item_num])      ? '' : strip_tags($new_instance['item_id'.$item_num]);
         }
       }
 
-      $instance['amount'] = $amount;
-      $instance['show_rss'] = strip_tags($new_instance['show_rss']);
+      $instance['amount']         = $amount;
+      $instance['show_rss']       = strip_tags($new_instance['show_rss']);
       $instance['show_placement'] = strip_tags($new_instance['show_placement']);
-      $instance['show_dates'] = empty($new_instance['show_dates']) ? '' : strip_tags($new_instance['show_dates']);
+      $instance['show_dates']     = empty($new_instance['show_dates']) ? '' : strip_tags($new_instance['show_dates']);
 
       return $instance;
     }
@@ -226,10 +236,12 @@ if (!class_exists('SimpleLinkListWidget')) {
       $amount = empty($instance['amount']) ? 1 : $instance['amount'];
 
       for ($i = 1; $i <= $amount; $i++) {
-        $items[$i] = empty($instance['item'.$i]) ? '' : $instance['item'.$i];
-        $item_links[$i] = empty($instance['item_link'.$i]) ? '' : $instance['item_link'.$i];
-        $item_targets[$i] = empty($instance['item_target'.$i]) ? '' : $instance['item_target'.$i];
-        $item_ids[$i] = empty($instance['item_id'.$i]) ? '' : $instance['item_id'.$i];
+        $items[$i]         = empty($instance['item'.$i])         ? '' : $instance['item'.$i];
+        $item_links[$i]    = empty($instance['item_link'.$i])    ? '' : $instance['item_link'.$i];
+        $item_targets[$i]  = empty($instance['item_target'.$i])  ? '' : $instance['item_target'.$i];
+        $item_warnings[$i] = empty($instance['item_warning'.$i]) ? '' : $instance['item_warning'.$i];
+        $item_infos[$i]    = empty($instance['item_info'.$i])    ? '' : $instance['item_info'.$i];
+        $item_ids[$i]      = empty($instance['item_id'.$i])      ? '' : $instance['item_id'.$i];
       }
 
       $title_link = $instance['title_link'];
@@ -259,6 +271,8 @@ if (!class_exists('SimpleLinkListWidget')) {
         $item = esc_attr($item);
         $item_link = esc_attr($item_links[$num]);
         $checked = checked($item_targets[$num], 'on', false);
+        $checked_w = checked($item_warnings[$num], 'on', false);
+        $checked_i = checked($item_infos[$num], 'on', false);
         $item_id = esc_attr($item_ids[$num]);
         $h5 = esc_attr($item);
         if (!empty($item_id)) {
@@ -289,6 +303,9 @@ if (!class_exists('SimpleLinkListWidget')) {
             </div>
 
             <input type="checkbox" name="<?php echo $this->get_field_name('item_target'.$num); ?>" id="<?php echo $this->get_field_id('item_target'.$num); ?>" <?php echo $checked; ?> /> <label for="<?php echo $this->get_field_id('item_target'.$num); ?>"><?php echo __("Öppna i nytt fönster"); ?></label>
+            <input type="checkbox" name="<?php echo $this->get_field_name('item_warning'.$num); ?>" id="<?php echo $this->get_field_id('item_warning'.$num); ?>" <?php echo $checked_w; ?> /> <label for="<?php echo $this->get_field_id('item_warning'.$num); ?>"><?php echo __("Visa som varning"); ?></label>
+            <input type="checkbox" name="<?php echo $this->get_field_name('item_info'.$num); ?>" id="<?php echo $this->get_field_id('item_info'.$num); ?>" <?php echo $checked_i; ?> /> <label for="<?php echo $this->get_field_id('item_info'.$num); ?>"><?php echo __("Visa som information"); ?></label>
+
             <a class="hbgllw-delete hide-if-no-js"><img src="<?php echo plugins_url('../images/delete.png', __FILE__ ); ?>" /> <?php echo __("Remove"); ?></a>
           </div>
         </div>
