@@ -42,8 +42,10 @@ wp-content/plugins/*
 !wp-content/plugins/convert-post-types
 !wp-content/plugins/google-analytics-dashboard-for-wp
 !wp-content/plugins/helsingborg-alarm
+!wp-content/plugins/bulk-user-management
 # !wp-content/plugins/my-single-file-plugin.php
 # !wp-content/plugins/my-directory-plugin/
+
 
 # Ignore everything in the "themes" directory, except the themes you
 # specify (see the commented-out example for a hint on how to do this.)
