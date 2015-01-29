@@ -30,6 +30,9 @@ require_once('library/theme-support.php');
 // Add Helsingborg specific functions
 require_once('library/helsingborg.php');
 
+// Add Helsingborg AJAX functions
+require_once('library/helsingborg-ajax.php');
+
 // Add custom meta-functions
 require_once('meta_boxes/meta-functions.php');
 ?>

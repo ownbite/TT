@@ -14,11 +14,19 @@ if (isset($_POST["update_settings"])) {
   $event_form_id = esc_attr($_POST["event_form_id"]);
   update_option('helsingborg_event_form_id', $event_form_id);
 
+  $big_disturbance_root = esc_attr($_POST["big_disturbance_root"]);
+  update_option('helsingborg_big_disturbance_root', $big_disturbance_root);
+
+  $big_information_root = esc_attr($_POST["big_information_root"]);
+  update_option('helsingborg_big_information_root', $big_information_root);
+
   echo('<div id="message" class="updated">Dina inställningar är sparade!</div>');
 }
 
-$color_code    = get_option('helsingborg_color_code');
-$event_form_id = get_option('helsingborg_event_form_id');
+$color_code           = get_option('helsingborg_color_code');
+$event_form_id        = get_option('helsingborg_event_form_id');
+$big_disturbance_root = get_option('helsingborg_big_disturbance_root');
+$big_information_root = get_option('helsingborg_big_information_root');
 
 ?>
 <div class="wrap">
@@ -37,6 +45,7 @@ $event_form_id = get_option('helsingborg_event_form_id');
           <input type="text" name="color_code" value="<?php echo $color_code; ?>" />
         </td>
       </tr>
+
       <tr valign="top">
         <th scope="row">
           <label for="event_form_id">
@@ -45,6 +54,44 @@ $event_form_id = get_option('helsingborg_event_form_id');
         </th>
         <td>
           <input type="number" name="event_form_id" value="<?php echo $event_form_id; ?>" />
+        </td>
+      </tr>
+
+      <tr valign="top">
+        <th scope="row">
+          <label for="big_disturbance_root">
+            Storstörningar hämtas från:
+          </label>
+        </th>
+        <td>
+            <?php wp_dropdown_pages(array(
+              'show_option_none' => 'Ingen sida vald',
+              'child_of' => 0,
+              'depth' => 1,
+              'post_status'  => 'publish,private',
+              'selected' => $big_disturbance_root,
+              'id' => 'big_disturbance_root',
+              'name' => 'big_disturbance_root'
+            )); ?>
+        </td>
+      </tr>
+
+      <tr valign="top">
+        <th scope="row">
+          <label for="big_information_root">
+            Storinformation hämtas från:
+          </label>
+        </th>
+        <td>
+          <?php wp_dropdown_pages(array(
+            'show_option_none' => 'Ingen sida vald',
+            'child_of' => 0,
+            'depth' => 1,
+            'post_status'  => 'publish,private',
+            'selected' => $big_information_root,
+            'id' => 'big_information_root',
+            'name' => 'big_information_root'
+          )); ?>
         </td>
       </tr>
     </table>
