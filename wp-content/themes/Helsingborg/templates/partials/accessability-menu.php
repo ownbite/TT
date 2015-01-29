@@ -2,6 +2,6 @@
 
   <ul class="accessability-menu">
     <li>
-      <a href="#" class="icon speaker" title="lyssna på innehållet">Lyssna på</a>
+      <a href="#" class="icon speaker" title="lyssna på innehållet">Lyssna</a>
     </li>
   </ul>
