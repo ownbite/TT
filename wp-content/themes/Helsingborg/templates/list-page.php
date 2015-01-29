@@ -78,6 +78,9 @@ for ($i = 0; $i < count($pages); $i++) {
   array_push($list_items, $item);
 }
 
+// Make sure to sort the list by first column value
+usort( $list_items, create_function('$a,$b', 'return strcmp($a["item0"], $b["item0"]);'));
+
 // JSON encode the current data for usage with knockout!
 $json_items = json_encode($list_items);
 
