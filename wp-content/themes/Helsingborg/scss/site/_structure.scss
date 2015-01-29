@@ -601,9 +601,13 @@ div.main-site-container div.row.errorpage {
 }
 ul.breadcrumbs li {
 	font-size: 0.63rem;
+	text-transform: lowercase;
 }
 ul.breadcrumbs li strong {
 	font-size: 0.63rem;
+}
+ul.breadcrumbs strong {
+	text-transform: lowercase;
 }
 
 
