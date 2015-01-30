@@ -13,6 +13,9 @@ get_header();
 
             <div class="large-12 medium-12 columns">
 
+              <div class="alert row"></div>
+              <?php get_template_part('templates/partials/header','image'); ?>
+
                 <div class="row no-image">
                 </div><!-- /.row -->
 
@@ -23,7 +26,7 @@ get_header();
                   <article class="article">
                     <header>
                       <?php get_template_part('templates/partials/accessability','menu'); ?>
-                      
+
                       <h1 class="article-title"><?php the_title(); ?></h1>
                     </header>
                     <div class="article-body">

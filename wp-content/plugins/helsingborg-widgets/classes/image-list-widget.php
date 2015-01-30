@@ -230,7 +230,7 @@ if (!class_exists('Image_List_Widget')) {
             <div class="uploader" style="display: table;margin: auto;">
               <br>
               <div class="widefat" id="<?php echo $this->get_field_id('preview'.$num); ?>">
-                <img src="<?php echo $image_url; ?>" />
+                <img src="<?php echo $image_url; ?>" style="max-width: 80%;display: table;margin:auto;"/>
               </div>
               <br>
               <input type="submit" class="button" style="display: table; margin: auto;" name="<?php echo $this->get_field_name('uploader_button'.$num); ?>" id="<?php echo $this->get_field_id('uploader_button'.$num); ?>" value="Välj bild" onclick="<?php echo $button_click; ?>" />

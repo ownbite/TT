@@ -9,8 +9,9 @@ $content = $post->post_content;
 <div class="main-page-layout row">
   <!-- main-page-layout -->
   <div class="main-area large-9 columns">
-
     <div class="alert row"></div>
+
+    <?php get_template_part('templates/partials/header','image'); ?>
 
     <div class="row">
       <?php dynamic_sidebar("slider-area"); ?>

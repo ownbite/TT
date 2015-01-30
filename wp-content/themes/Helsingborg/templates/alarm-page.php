@@ -6,6 +6,9 @@ get_header(); ?>
 <div class="row">
   <div class="small-8 large-8 columns" role="main">
 
+    <div class="alert row"></div>
+    <?php get_template_part('templates/partials/header','image'); ?>
+
   <div style="padding-top: 10px; padding-bottom: 10px">
     <div id="map_canvas" style="height: 350px; position: inherit">
     </div>

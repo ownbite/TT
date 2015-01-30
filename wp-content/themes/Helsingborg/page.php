@@ -24,6 +24,9 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
 			</div><!-- /.sidebar-left -->
 
 			<div class="large-8 medium-8 columns article-column">
+				<div class="alert row"></div>
+
+				<?php get_template_part('templates/partials/header','image'); ?>
 
 				<!-- Slider -->
 				<?php $hasSlides = (is_active_sidebar('slider-area') == TRUE) ? '' : 'no-image'; ?>
