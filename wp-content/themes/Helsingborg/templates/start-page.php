@@ -84,13 +84,4 @@ $content = $post->post_content;
   </div>
 </div><!-- /.main-site-container -->
 
-<script type="text/javascript">
-$(document).ready( function() {
-  var ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>';
-  jQuery.post(ajaxurl, { action: 'big_notification' }, function(response) {
-    jQuery('.alert').append(response);
-  });
-});
-</script>
-
 <?php get_footer(); ?>
