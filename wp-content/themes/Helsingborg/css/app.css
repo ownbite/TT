@@ -29,7 +29,7 @@
 /* HBG iconset */
 @font-face {
   font-family: 'hbg-se-iconset';
-  src: url(/wp-content/themes/Helsingborg/assets/fonts/hbg-se-iconset.eot); }
+  src: url(/TT/wp-content/themes/Helsingborg/assets/fonts/hbg-se-iconset.eot); }
 
 @font-face {
   font-family: 'hbg-se-iconset';
@@ -5616,9 +5616,16 @@ th.hide-for-touch {
 
 /* No SVG support fallback */
 .no-svg .logo-link {
-  background: url(/wp-content/themes/Helsingborg/assets/img/images/hbg-logo.png) no-repeat center center;
+  background: url(/TT/wp-content/themes/Helsingborg/assets/img/images/hbg-logo.png) no-repeat center center;
   max-width: 254px;
   height: 80px; }
+
+/* Headers set for each domain */
+.header-image {
+  padding-left: 0;
+  padding-right: 0; }
+  .header-image .img-slide {
+    border-radius: 4px; }
 
 /* MQ - header */
 @media only screen and (max-width: 40em) {
@@ -5734,7 +5741,7 @@ th.hide-for-touch {
  * ----------------------------------------------------------------------------
  */
 body {
-  background: url(/wp-content/themes/Helsingborg/assets/img/images/hbg-bg.png) white repeat-x; }
+  background: url(/TT/wp-content/themes/Helsingborg/assets/img/images/hbg-bg.png) white repeat-x; }
 
 .site-bg {
   position: absolute;
@@ -5865,7 +5872,7 @@ blockquote.alignright, img.alignright {
     width: 32px;
     height: 32px;
     text-indent: -999em;
-    background: url(/wp-content/themes/Helsingborg/assets/socialmedia-icons/social-icon-sprite.png) 0 0 no-repeat; }
+    background: url(/TT/wp-content/themes/Helsingborg/assets/socialmedia-icons/social-icon-sprite.png) 0 0 no-repeat; }
   .socialmedia-list li.fbook a {
     background-position: 0 0; }
     .socialmedia-list li.fbook a:hover {
@@ -5882,7 +5889,7 @@ only screen and (     min-device-pixel-ratio: 2) and (max-device-width: 1080px),
 only screen and (        min-resolution: 192dpi) and (max-device-width: 1080px),
 only screen and (         min-resolution: 2dppx) and (max-device-width: 1080px) {
   .socialmedia-list li a {
-    background: url(/wp-content/themes/Helsingborg/assets/socialmedia-icons/social-icon-sprite2x.png) 0 0 no-repeat; } }
+    background: url(/TT/wp-content/themes/Helsingborg/assets/socialmedia-icons/social-icon-sprite2x.png) 0 0 no-repeat; } }
 
 /**
  * 4.0 Content
@@ -6012,12 +6019,30 @@ ul.news-list-large.row section.news-section ul.news-list-large.row li.news-item.
   .block-list.page-block-list.page-list > li a .list-content {
     display: block; }
 
+.block-list.page-block-list.search-list {
+  margin-left: 0;
+  margin-right: 0; }
+  .block-list.page-block-list.search-list > li {
+    width: 100%;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid grey; }
+    .block-list.page-block-list.search-list > li a img {
+      border-radius: 4px;
+      float: left;
+      margin-right: 1.25rem;
+      max-width: 25%; }
+    .block-list.page-block-list.search-list > li a .list-content {
+      display: block; }
+  .block-list.page-block-list.search-list > li:last-child {
+    border: none; }
+
 /* event-list */
 .event-list-container {
   padding-bottom: 4rem; }
 
 .event-list-loader {
-  background: url(/wp-content/themes/Helsingborg/assets/img/images/ajax-loader.gif) 0 0 no-repeat;
+  background: url(/TT/wp-content/themes/Helsingborg/assets/img/images/ajax-loader.gif) 0 0 no-repeat;
   width: 32px;
   height: 32px;
   position: absolute;
@@ -6077,7 +6102,7 @@ ul.news-list-large.row section.news-section ul.news-list-large.row li.news-item.
   border-collapse: inherit;
   border-radius: 4px; }
   .table-list .table-item td:last-child {
-    background: url(/wp-content/themes/Helsingborg/assets/img/tablesorter-icons/asc.gif) 95% center no-repeat; }
+    background: url(/TT/wp-content/themes/Helsingborg/assets/img/tablesorter-icons/asc.gif) 95% center no-repeat; }
   .table-list td, .table-list th {
     border: none;
     padding: 1rem 0.625rem; }
@@ -6113,12 +6138,12 @@ ul.news-list-large.row section.news-section ul.news-list-large.row li.news-item.
 
 /* table sorter plugin style */
 .table-list .header {
-  background: url(/wp-content/themes/Helsingborg/assets/img/tablesorter-icons/bg.gif) right center no-repeat;
+  background: url(/TT/wp-content/themes/Helsingborg/assets/img/tablesorter-icons/bg.gif) right center no-repeat;
   cursor: pointer; }
   .table-list .header.headerSortDown {
-    background: url(/wp-content/themes/Helsingborg/assets/img/tablesorter-icons/asc.gif) right center no-repeat; }
+    background: url(/TT/wp-content/themes/Helsingborg/assets/img/tablesorter-icons/asc.gif) right center no-repeat; }
   .table-list .header.headerSortUp {
-    background: url(/wp-content/themes/Helsingborg/assets/img/tablesorter-icons/desc.gif) right center no-repeat; }
+    background: url(/TT/wp-content/themes/Helsingborg/assets/img/tablesorter-icons/desc.gif) right center no-repeat; }
   .table-list .header:last-child {
     background-position: 95% center; }
 
@@ -6150,10 +6175,14 @@ div.main-site-container div.row.errorpage {
   border: 0; }
 
 ul.breadcrumbs li {
-  font-size: 0.63rem; }
+  font-size: 0.63rem;
+  text-transform: lowercase; }
 
 ul.breadcrumbs li strong {
   font-size: 0.63rem; }
+
+ul.breadcrumbs strong {
+  text-transform: lowercase; }
 
 /**
  * Custom MQ - Structure
@@ -6276,7 +6305,7 @@ ul.breadcrumbs li strong {
   background-color: white; }
 
 nav > ul > li.nav-home a {
-  background-image: url(/wp-content/themes/Helsingborg/assets/img/images/fi-home.svg);
+  background-image: url(/TT/wp-content/themes/Helsingborg/assets/img/images/fi-home.svg);
   width: 2.5rem;
   height: 2.5rem;
   text-indent: -999999px; }
@@ -6976,9 +7005,9 @@ ul.breadcrumbs {
 .accessability-menu {
   list-style: none;
   margin-left: 0;
-  margin-bottom: 0;
+  margin-bottom: 0.5rem;
   width: auto;
-  float: right; }
+  /* float: left; */ }
   .accessability-menu li {
     display: inline-block; }
     .accessability-menu li a {
@@ -7001,6 +7030,9 @@ ul.breadcrumbs {
         float: left;
         margin-right: 0.25rem;
         margin-top: 0.125rem; }
+
+html.js.flexbox.flexboxlegacy.canvas.canvastext.webgl.no-touch.geolocation.postmessage.no-websqldatabase.indexeddb.hashchange.history.draganddrop.websockets.rgba.hsla.multiplebgs.backgroundsize.borderimage.borderradius.boxshadow.textshadow.opacity.cssanimations.csscolumns.cssgradients.no-cssreflections.csstransforms.csstransforms3d.csstransitions.fontface.generatedcontent.video.audio.localstorage.sessionstorage.webworkers.applicationcache.svg.inlinesvg.smil.svgclippaths body.customize-support div.off-canvas-wrap div.inner-wrap div.main-site-container div.main-page-layout.row div.main-area.large-9.columns div.main-content.row section.news-section.large-8.medium-8.columns ul.accessability-menu {
+  float: right; }
 
 /*
   Modal
