@@ -216,14 +216,20 @@
                         <!-- SIDEBAR LEFT -->
                         <div class="sidebar large-4 medium-4 columns">
                             <div class="row">
-
+                            <!-- OLD search
                             <div class="search-inputs large-12 columns">
                                 <input type="text" placeholder="Vad letar du efter?" name="search" class="input-field"/>
                                 <input type="submit" value="Sök" class="button search">
 
                             <a href="#" class="archive-search-link">S&ouml;k i arkivet</a>
 
-                            </div><!-- /.search-inputs -->
+                            </div>--><!-- /.search-inputs -->
+
+                              <form role="search"  class="search-inputs large-12 columns" method="get" id="searchform" action="http://localdev.helsingborg.se:9094/">
+                                      <input type="text" value="" class="input-field" name="s" id="s" placeholder="Vad letar du efter?">
+                                            <input type="submit" id="searchsubmit" value="Sök" class="button search">
+                                      <a href="http://helsingborg.arkivbyran.se/" class="archive-search-link">Du kan också söka i arkivet</a>
+                              </form>
 
                                 <!-- large-up menu-->
                                 <nav class="main-nav large-12 columns show-for-medium-up" role="navigation">
@@ -290,6 +296,39 @@
                             </div>
 
                                 <ul class="news-list-large row">
+                                    <!-- ALERT example -->
+                                    <li class="news-item large-12 columns">
+
+                                      <div class="alert-msg info">
+
+                                        <a href="#" class="alert-link" title="link-title">
+                                            Brist på parkeringplatser i city pga. servicearbete
+                                        </a>
+                                        <p>
+                                          Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.
+                                        </p>
+
+                                      </div>
+
+                                    </li>
+
+                                    <li class="news-item large-12 columns">
+
+                                      <div class="alert-msg warning">
+
+                                        <a href="#" class="alert-link" title="link-title">
+                                            Brist på parkeringplatser i city pga. servicearbete
+                                        </a>
+                                        <p>
+                                          Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.
+                                        </p>
+
+                                      </div>
+
+                                    </li>
+                                    <!-- END ALERT example-->
+
+
                                     <li class="news-item large-12 columns">
                                         <div class="row">
                                             <div class="large-4 medium-4 small-4 columns news-image">
@@ -331,11 +370,11 @@
                                             </div>
                                         </div>
                                     </li>
+                                </ul><!-- /.news-list -->
+                        </section><!-- /.news-section -->
 
-                                </ul>
 
 
-                        </section>
                 </div><!-- /.main-content -->
 
                     <div class="lower-content row">

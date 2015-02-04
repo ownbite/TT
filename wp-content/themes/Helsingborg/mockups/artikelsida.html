@@ -32,7 +32,8 @@
                 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ed8b00', endColorstr='#ffffff',GradientType=1 ); /* IE6-8 */
                 }
                 .divider .upper-divider,
-                .divider .lower-divider {
+                .divider .lower-divider,
+                .button, .button:hover {
                     background-color: rgba(237,139,0, 1);
                 }
 
@@ -337,6 +338,138 @@ Fusce euismod ante sed aliquam porta. Nam dui mauris, posuere eget lobortis vel,
                             </li>
                         </ul>
 
+                        <section class="guide-section">
+
+                            <h2 class="section-title">
+                              Att knyta en windsor knut
+                            </h2>
+
+                            <div class="divider fade">
+                                <div class="upper-divider"></div>
+                                <div class="lower-divider"></div>
+                            </div>
+
+                            <ul class="guide-list">
+                              <!-- STEP 1 -->
+                              <li class="current">
+                                  <img src="http://www.placehold.it/600x300" alt="steg 1">
+
+                                  <span class="title">Steg 1 - Anpassa längd</span>
+
+                                  <p class="description">
+                                    Stå till en början alltid framför spegeln och knyt slipsen.
+                                    Låt den breda delen vara dubbelt så lång som den smala och dra åt knuten.
+
+                                  </p>
+
+                                  <p class="notes">
+                                    Ett vanligt misstag är att man inte drar åt knuten så slipsen blir för kort.
+                                  </p>
+
+                              </li>
+                              <!-- STEP 2 -->
+                              <li>
+                                  <img src="http://www.placehold.it/600x300" alt="steg 1">
+
+                                  <span class="title">Steg 2 - Sväng runt </span>
+
+                                  <p class="description">
+                                      Lorem Ipsum
+                                  </p>
+
+                                  <p class="notes">
+                                    Ett vanligt misstag är att man inte drar åt knuten så slipsen blir för kort.
+                                  </p>
+
+                              </li>
+                              <!-- STEP 3 -->
+                              <li>
+                                  <img src="http://www.placehold.it/600x300" alt="steg 3">
+
+                                  <span class="title">Steg 3 - Knyyyyt</span>
+
+                                  <p class="description">
+                                      Lorem Ipsum
+                                  </p>
+
+                                  <p class="notes">
+                                    Ett vanligt misstag är att man inte drar åt knuten så slipsen blir för kort.
+                                  </p>
+
+                              </li>
+                              <!-- STEP 4-->
+                              <li>
+                                  <img src="http://www.placehold.it/600x300" alt="steg 4">
+
+                                  <span class="title">Steg 4 - Gå iväg !</span>
+
+                                  <p class="description">
+                                      Du ser nu ut som en gud
+                                  </p>
+
+                                  <p class="notes">
+                                    Ett vanligt misstag är att man inte drar åt knuten så slipsen blir för kort.
+                                  </p>
+
+                              </li>
+                            </ul><!-- /.guide-list -->
+
+                            <a href="#" class="button radius guide-button prev-step">Föregående</a>
+                            <a href="#" class="button radius guide-button next-step">Nästa</a>
+
+
+                            <!-- OPTIMERA och baka in i pluginet -->
+                            <script>
+                              $(document).ready(function(){
+
+                                      if($('.guide-list li.current:first-child').length) {
+                                          $('.prev-step').hide();
+                                      }
+
+                                      $('.next-step').on('click', function(e) {
+                                            e.preventDefault();
+
+                                            var currentElem = $('.guide-list li.current');
+
+                                            currentElem.next().addClass("current");
+                                            currentElem.removeClass("current");
+                                            removeNext();
+                                            removePrev();
+                                      });
+
+                                      $('.prev-step').on('click', function(e) {
+                                            e.preventDefault();
+
+                                            var currentElem = $('.guide-list li.current');
+
+                                            currentElem.prev().addClass("current");
+                                            currentElem.removeClass("current");
+                                            removePrev();
+                                            removeNext();
+
+                                      });
+
+                                      function removeNext() {
+                                        if($('.guide-list li.current:last-child').length) {
+                                            $('.next-step').hide();
+                                          } else {
+                                            $('.next-step').show();
+                                          }
+
+                                      }
+                                      function removePrev() {
+                                        if($('.guide-list li.current:first-child').length) {
+                                            $('.prev-step').hide();
+                                          } else {
+                                            $('.prev-step').show();
+                                          }
+                                      }
+
+                              });
+                            </script><!-- / script -->
+
+                        </section>
+
                         <!-- news list -->
                         <section class="news-section">
                         <ul class="news-list-large row">
@@ -360,9 +493,9 @@ Fusce euismod ante sed aliquam porta. Nam dui mauris, posuere eget lobortis vel,
                         <h2 class="section-title">Fler nyheter</h2>
 
                         <div class="divider fade">
-                                <div class="upper-divider"></div>
-                                <div class="lower-divider"></div>
-                            </div>
+                            <div class="upper-divider"></div>
+                            <div class="lower-divider"></div>
+                        </div>
 
                         <ul class="news-list-small row">
                             <li class="news-item large-12 columns">

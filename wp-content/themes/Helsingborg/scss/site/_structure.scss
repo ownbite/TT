@@ -438,6 +438,47 @@ img.alignright {
 		margin-top: -16px; /* -1 * image height / 2 */
 	}
 
+
+	/* guide list */
+
+	.guide-list {
+		margin-left: 0;
+		list-style: none;
+		.title {
+			@extend h2;
+			display: block;
+		}
+		img {
+			border-radius: $border-radius;
+			margin-bottom: rem-calc(16);
+		}
+		li {
+			display: none;
+			&.current {
+				display: block;
+			}
+		}
+	}
+
+	.guide-section {
+		overflow: hidden;
+		margin-bottom: rem-calc(32);
+	}
+
+	.guide-section .guide-button {
+			color: $white !important;
+			margin-right: $column-gutter/3;
+			&:hover {
+				text-decoration: none;
+			}
+			&.next-step {
+				float: right;
+			}
+			&.prev-step {
+				float: left;
+			}
+		}
+
 	/**
 	 * 4.2 article-page
 	 * ------------------------------------

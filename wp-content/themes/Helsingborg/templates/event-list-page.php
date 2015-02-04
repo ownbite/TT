@@ -32,7 +32,7 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
             </div><!-- /.sidebar-left -->
 
             <div class="large-8 medium-8 columns">
-              
+
                 <div class="alert row"></div>
                 <?php get_template_part('templates/partials/header','image'); ?>
 
@@ -73,6 +73,7 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                       </article>
                     <?php endwhile; // End the loop ?>
 
+                    <div class="form-container">
                     <form class="list-form">
                           <!-- ko foreach: filter.filters -->
                           <!-- ko if: (Type == 'select') -->
@@ -104,6 +105,7 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                         </div>
                         <input type="text" id="selectedTypes" style="display: none;" data-bind="textInput: selectedEventTypes"/>
                   </form><!-- /.event-list-form -->
+                  </div><!-- /.form-container -->
 
                   <div class="list-container">
 
