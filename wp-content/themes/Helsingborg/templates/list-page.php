@@ -9,14 +9,19 @@ define('LIST_ARRAY', get_template_directory() . '/meta_boxes/UI/list-array.php')
 include_once(LIST_ARRAY);
 
 // Lets see which headers the user wants to use
+$headers = [];
 $header_keys = [];
 $fields = get_fields($post->ID);
 
 // Get the list options for this page and create array with the values which we can use later on
 $meta = get_post_meta($post->ID,'_helsingborg_meta',TRUE);
-$selected_list_options_meta = $meta['list_options'];
-$selected_list_options = explode(",",$selected_list_options_meta);
-$headers = [];
+$selected_list_options_meta = array();
+
+// Check if page has any data
+if (is_array($meta)) {
+  $selected_list_options_meta = $meta['list_options'];
+  $selected_list_options = explode(",",$selected_list_options_meta);
+}
 
 // Prepare the list and headers
 foreach($selected_list_options as $option) {
@@ -82,6 +87,7 @@ for ($i = 0; $i < count($pages); $i++) {
 usort( $list_items, create_function('$a,$b', 'return strcmp($a["item0"], $b["item0"]);'));
 
 // JSON encode the current data for usage with knockout!
+// TODO -> Load all this with AJAX instead?
 $json_items = json_encode($list_items);
 
 // Get the content, see if <!--more--> is inserted
@@ -189,11 +195,11 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                               self.itemstoshow = ko.dependentObservable(function() {
                                   var search = this.query().toLowerCase();
                                   return ko.utils.arrayFilter(itemjson, function(item) {
-                                    return ((item.content.toLowerCase().indexOf(search) >= 0) ||
-                                    <?php foreach ($header_keys as $number => $key) :
-
-                                      echo '(item.item' . strval($number) . '.toLowerCase().indexOf(search) >= 0)';
-                                      if ($number != (count($header_keys) - 1)) { echo ' || '; }
+                                    return ((item.content.toLowerCase().indexOf(search) >= 0)
+                                    <?php if (count($header_keys) > 0) { echo '||'; }
+                                    foreach ($header_keys as $key => $value) :
+                                      echo '(item.item' . strval($key) . '.toLowerCase().indexOf(search) >= 0)';
+                                      if ($key != (count($header_keys) - 1)) { echo ' || '; }
                                     endforeach; ?>
                                     );
 
