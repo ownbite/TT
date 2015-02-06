@@ -80,21 +80,53 @@ function search_callback() {
 };
 
 /* Loads pages where post_title has keyword $title */
-add_action( 'wp_ajax_load_pages', 'load_pages_callback');
-function load_pages_callback() {
+add_action( 'wp_ajax_load_page_with_id', 'load_page_with_id_callback');
+function load_page_with_id_callback() {
+  global $wpdb;
+  $id        = $_POST['id'];
+
+  $sql = "SELECT ID, post_title
+          FROM $wpdb->posts
+          WHERE ID = " . $id;
+
+  $pages = $wpdb->get_results($sql);
+
+  if ($pages) {$page = $pages[0];} else {die();}
+
+  echo $page->post_title . '|' . get_permalink($page->ID);
+
+  die();
+}
+
+/* Loads pages where post_title has keyword $title */
+add_action( 'wp_ajax_load_pages_with_update', 'load_pages_with_update_callback');
+function load_pages_with_update_callback() {
   global $wpdb;
   $title     = $_POST['title'];
   $id        = $_POST['id'];
-  $name      = $_POST['name'];
+  $num       = $_POST['num'];
+  $update    = $_POST['update'];
 
-  $pages = $wpdb->get_results(
-  "SELECT ID, post_title
-  FROM $wpdb->posts
-  WHERE post_type = 'page'
-  AND post_title LIKE '%" . $title . "%'"
-  );
+  if (is_numeric($title)) {
+    $sql = "SELECT ID, post_title
+            FROM $wpdb->posts
+            WHERE ID = " . $title;
+  } else {
+    $sql = "SELECT ID, post_title
+            FROM $wpdb->posts
+            WHERE post_type = 'page'
+            AND post_title LIKE '%" . $title . "%'";
+  }
 
-  $list = '<select id="' . $id . '" name="' . $name . '">';
+  $pages = $wpdb->get_results($sql);
+
+  $onchange = '';
+  if ($update) {
+    $onchange = 'onchange="'.$update.'(\''.$id.'\', \''.$num.'\')"';
+  }
+
+  $list = '<select '.$onchange.' id=\'select_' . $id . $num . '\'">';
+  $list .= '<option value="-1">' . __(" -- Välj sida i listan -- ") . '</option>';
   foreach ($pages as $page) {
     $list .= '<option value="' . $page->ID . '">';
     $list .= $page->post_title . ' (' . $page->ID . ')';
@@ -105,6 +137,31 @@ function load_pages_callback() {
   echo $list;
   die();
 }
+
+/* Loads pages where post_title has keyword $title */
+add_action( 'wp_ajax_load_pages', 'load_pages_callback');
+function load_pages_callback() {
+  global $wpdb;
+  $title     = $_POST['title'];
+  $id        = $_POST['id'];
+  $name      = $_POST['name'];
+  $pages = $wpdb->get_results(
+  "SELECT ID, post_title
+  FROM $wpdb->posts
+  WHERE post_type = 'page'
+  AND post_title LIKE '%" . $title . "%'"
+);
+$list = '<select id="' . $id . '" name="' . $name . '">';
+foreach ($pages as $page) {
+  $list .= '<option value="' . $page->ID . '">';
+  $list .= $page->post_title . ' (' . $page->ID . ')';
+  $list .= '</option>';
+}
+$list .= '</select>';
+echo $list;
+die();
+}
+
 
 /* Load all organizers with event ID */
 add_action( 'wp_ajax_nopriv_load_event_organizers', 'load_event_organizers_callback' );

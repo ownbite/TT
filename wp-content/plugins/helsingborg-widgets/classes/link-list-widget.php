@@ -80,10 +80,11 @@ if (!class_exists('SimpleLinkListWidget')) {
                 } else {
                   $target = '';
                 }
-
-                if ($item_warnings[$num]) {
+                
+                $class = '';
+                if ($item_warnings[$num] == 'on') {
                   $class = ' class="alert-msg warning"';
-                } else if ($item_infos[$num]) {
+                } else if ($item_infos[$num] == 'on') {
                   $class = ' class="alert-msg info"';
                 }
 
@@ -141,6 +142,12 @@ if (!class_exists('SimpleLinkListWidget')) {
                   $target = '';
                 }
 
+                if ($item_warnings[$num]) {
+                  $class = ' alert-msg warning';
+                } else if ($item_infos[$num]) {
+                  $class = ' alert-msg info';
+                }
+
                 $title;
                 if (!empty($item_id)) {
                   $title = $page->post_title;
@@ -150,7 +157,7 @@ if (!class_exists('SimpleLinkListWidget')) {
                   $link = $item_links[$num];
                 }
 
-                echo('<li class="news-item large-12 columns">');
+                echo('<li class="news-item large-12 columns ' . $class . '">');
                   echo('<div class="row">');
                     echo('<div class="large-9 medium-9 small-9 columns news-content">');
                       echo('<h2 class="news-title"><a href="' . $link . '" ' . $target . '>' . $title . '</a></h2>');
@@ -249,32 +256,37 @@ if (!class_exists('SimpleLinkListWidget')) {
       $show_placement = empty($instance['show_placement']) ? 'show_in_sidebar' : $instance['show_placement'];
       $show_dates = empty($instance['show_dates']) ? '' : $instance['show_dates'];
   ?>
-      <p><label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:'); ?></label>
-      <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr($title); ?>" /></p>
-
       <div class="hbgllw-row">
-        <label><b>OBS! Vart ska denna visas?  </b></label><br>
+        <label><b><?php echo __("OBS! Vart ska denna visas?"); ?></b></label><br>
         <label for="<?php echo $this->get_field_id('show_in_content'); ?>"><input type="radio" name="<?php echo $this->get_field_name('show_placement'); ?>" value="show_in_content" id="<?php echo $this->get_field_id('show_in_content'); ?>" <?php checked($show_placement, "show_in_content"); ?> />  <?php echo __("Under innehållet"); ?></label>
         <label for="<?php echo $this->get_field_id('show_in_sidebar'); ?>"><input type="radio" name="<?php echo $this->get_field_name('show_placement'); ?>" value="show_in_sidebar" id="<?php echo $this->get_field_id('show_in_sidebar'); ?>" <?php checked($show_placement, "show_in_sidebar"); ?> /> <?php echo __("I högerkolumnen"); ?></label>
       </div>
 
       <ul class="hbgllw-instructions">
         <li><?php echo __("Titel är det som visas i widgetens header."); ?></li>
-        <li><?php echo __("Om en länk refererar till en intern sida (dvs. dropdownen) så används den."); ?></li>
-        <li><?php echo __("Om en länk vill hämta en extern länk, så måste 'Titel för objekt'."); ?></li>
-        <li><?php echo __("Öppna i nytt fönster lägger till target='_blank' för länken."); ?></li>
-        <li><?php echo __("Om 'Visa RSS' är satt till 'Ja', så syns en ikon uppe i headern."); ?></li>
-        <li><?php echo __("'Visa datum' fungerar endast på interna sidor, då skrivs datumen ut under länken."); ?></li>
+      </ul>
+
+      <p><label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Titel:'); ?></label>
+      <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr($title); ?>" /></p>
+
+      <ul class="hbgllw-instructions">
+        <li><?php echo __("Länktitel är det namn som visas för länken."); ?></li>
+        <li><?php echo __("Länk är den URL som ska användas."); ?></li>
+        <li><?php echo __("För att söka på interna sidor, skriv in det som söks (namn eller sid-id går bra) och klicka på sök."); ?></li>
+        <li><?php echo __("Om något väljs i listan, så fylls de korrekta värdena in i 'Titel' och 'Länk', dessa kan sedan ändras efter behov."); ?></li>
+        <li><?php echo __("Öppna i nytt fönster gör att länken öppnas i nytt fönster istället för i samma sida."); ?></li>
+        <li><?php echo __("Visa som varning gör att länken får gul bakgrund och en varningsikon."); ?></li>
+        <li><?php echo __("Visa som information gör att länken får blå bakgrund och en informationsikon."); ?></li>
       </ul>
       <div class="helsingborg-link-list">
       <?php foreach ($items as $num => $item) :
-        $item = esc_attr($item);
+        $item      = esc_attr($item);
         $item_link = esc_attr($item_links[$num]);
-        $checked = checked($item_targets[$num], 'on', false);
+        $checked   = checked($item_targets[$num], 'on', false);
         $checked_w = checked($item_warnings[$num], 'on', false);
         $checked_i = checked($item_infos[$num], 'on', false);
-        $item_id = esc_attr($item_ids[$num]);
-        $h5 = esc_attr($item);
+        $item_id   = esc_attr($item_ids[$num]);
+        $h5        = esc_attr($item);
         if (!empty($item_id)) {
           $h5 = get_post($item_id, OBJECT, 'display')->post_title;
         }
@@ -284,27 +296,38 @@ if (!class_exists('SimpleLinkListWidget')) {
           <h5 class="moving-handle"><span class="number"><?php echo $num; ?></span>. <span class="item-title"><?php echo $h5; ?></span><a class="hbgllw-action hide-if-no-js"></a></h5>
           <div class="hbgllw-edit-item">
 
-            <label for="<?php echo $this->get_field_id('item'.$num); ?>"><?php echo __("Titel för objekt:"); ?></label>
-            <input class="widefat" id="<?php echo $this->get_field_id('item'.$num); ?>" name="<?php echo $this->get_field_name('item'.$num); ?>" type="text" value="<?php echo $item; ?>" />
+            <label for="<?php echo $this->get_field_id('item'.$num); ?>"><b><?php echo __("Länktitel:"); ?></b></label>
 
-            <label for="<?php echo $this->get_field_id('item_link'.$num); ?>"><?php echo __("Extern länk:"); ?></label>
-            <input class="widefat" id="<?php echo $this->get_field_id('item_link'.$num); ?>" name="<?php echo $this->get_field_name('item_link'.$num); ?>" type="text" value="<?php echo $item_link; ?>" />
+            <input  class="widefat"
+                    id="<?php echo $this->get_field_id('item'.$num); ?>"
+                    name="<?php echo $this->get_field_name('item'.$num); ?>"
+                    type="text"
+                    value="<?php echo $item; ?>" />
+
+            <label for="<?php echo $this->get_field_id('item_link'.$num); ?>"><b><?php echo __("Länk:"); ?></b></label>
+
+            <input  class="widefat"
+                    id="<?php echo $this->get_field_id('item_link'.$num); ?>"
+                    name="<?php echo $this->get_field_name('item_link'.$num); ?>"
+                    type="text"
+                    value="<?php echo $item_link; ?>" />
+
+            <label for="<?php echo $this->get_field_id('item_search'.$num); ?>"><b><?php echo __("Sök efter sida: "); ?></b></label><br>
+            <input style="width: 70%;" id="<?php echo $this->get_field_id('item_search'.$num); ?>" type="text" class="input-text" />
+            <button style="width: 25%;" id="<?php echo $this->get_field_id('item_search_button'.$num); ?>" name="<?php echo $this->get_field_name('item_search'.$num); ?>" type="button" class="button-secondary" onclick="load_pages_with_update('<?php echo $this->get_field_id('item'); ?>', '<?php echo $num; ?>', 'update_list_item_cells')"><?php echo __("Sök"); ?></button>
 
             <p>
-              <label for="<?php echo $this->get_field_id('item_id'.$num); ?>"><?php echo __("Sida att söka efter: "); ?></label><br>
-              <input id="input_<?php echo $this->get_field_id('item_id'.$num); ?>" type="text" class="input-text" />
-              <button id="button_<?php echo $this->get_field_id('item_id'.$num); ?>" name="<?php echo $this->get_field_name('item_id'.$num); ?>" type="button" class="button-secondary" onclick="load_page_containing(this.id, this.name)"><?php echo __("SÖK"); ?></button>
+              <div id="<?php echo $this->get_field_id('item_select'.$num); ?>" style="display: none;">
+              </div>
             </p>
 
-            <div id="select_<?php echo $this->get_field_id('item_id'.$num); ?>" style="display: none;">
-              <select id="<?php echo $this->get_field_id('item_id'.$num); ?>" name="<?php echo $this->get_field_name('item_id'.$num); ?>">
-                <option value="<?php echo $item_id; ?>"><?php echo $h5; ?></option>
-              </select>
-            </div>
-
-            <input type="checkbox" name="<?php echo $this->get_field_name('item_target'.$num); ?>" id="<?php echo $this->get_field_id('item_target'.$num); ?>" <?php echo $checked; ?> /> <label for="<?php echo $this->get_field_id('item_target'.$num); ?>"><?php echo __("Öppna i nytt fönster"); ?></label>
-            <input type="checkbox" name="<?php echo $this->get_field_name('item_warning'.$num); ?>" id="<?php echo $this->get_field_id('item_warning'.$num); ?>" <?php echo $checked_w; ?> /> <label for="<?php echo $this->get_field_id('item_warning'.$num); ?>"><?php echo __("Visa som varning"); ?></label>
-            <input type="checkbox" name="<?php echo $this->get_field_name('item_info'.$num); ?>" id="<?php echo $this->get_field_id('item_info'.$num); ?>" <?php echo $checked_i; ?> /> <label for="<?php echo $this->get_field_id('item_info'.$num); ?>"><?php echo __("Visa som information"); ?></label>
+            <table style="width: 100%;">
+              <tr style="width: 100%;">
+                <td><input type="checkbox" name="<?php echo $this->get_field_name('item_target'.$num); ?>" id="<?php echo $this->get_field_id('item_target'.$num); ?>" <?php echo $checked; ?> /> <label for="<?php echo $this->get_field_id('item_target'.$num); ?>"><?php echo __("Öppna i nytt fönster"); ?></label></td>
+                <td><input type="checkbox" name="<?php echo $this->get_field_name('item_warning'.$num); ?>" id="<?php echo $this->get_field_id('item_warning'.$num); ?>" <?php echo $checked_w; ?> /> <label for="<?php echo $this->get_field_id('item_warning'.$num); ?>"><?php echo __("Visa som varning"); ?></label></td>
+                <td><input type="checkbox" name="<?php echo $this->get_field_name('item_info'.$num); ?>" id="<?php echo $this->get_field_id('item_info'.$num); ?>" <?php echo $checked_i; ?> /> <label for="<?php echo $this->get_field_id('item_info'.$num); ?>"><?php echo __("Visa som information"); ?></label></td>
+              </tr>
+            </table>
 
             <a class="hbgllw-delete hide-if-no-js"><img src="<?php echo plugins_url('../images/delete.png', __FILE__ ); ?>" /> <?php echo __("Remove"); ?></a>
           </div>
@@ -343,25 +366,7 @@ if (!class_exists('SimpleLinkListWidget')) {
       <?php endif; ?>
       </div>
 
-      <script>
-      function load_page_containing(from, name) {
-        var id = from.replace('button_', '');
-        document.getElementById('select_' + id).style.display = "block";
-        document.getElementById('select_' + id).innerHTML = "";
 
-        var data = {
-          action: 'load_pages',
-          id: id,
-          name: name,
-          title: document.getElementById('input_' + id).value
-        };
-
-        jQuery.post(ajaxurl, data, function(response) {
-          document.getElementById('select_' + id).innerHTML = response;
-        });
-
-      };
-      </script>
 
       <div class="hbgllw-row hide-if-no-js">
         <a class="hbgllw-add button-secondary"><img src="<?php echo plugins_url('../images/add.png', __FILE__ )?>" /> <?php echo __("Lägg till länk"); ?></a>
@@ -370,11 +375,9 @@ if (!class_exists('SimpleLinkListWidget')) {
       <input type="hidden" id="<?php echo $this->get_field_id('amount'); ?>" class="amount" name="<?php echo $this->get_field_name('amount'); ?>" value="<?php echo $amount ?>" />
       <input type="hidden" id="<?php echo $this->get_field_id('order'); ?>" class="order" name="<?php echo $this->get_field_name('order'); ?>" value="<?php echo implode(',',range(1,$amount)); ?>" />
 
-      <div class="hbgllw-row">
-        <label>Visa RSS?  </label>
-        <label for="<?php echo $this->get_field_id('rss_yes'); ?>"><input type="radio" name="<?php echo $this->get_field_name('show_rss'); ?>" value="rss_yes" id="<?php echo $this->get_field_id('rss_yes'); ?>" <?php checked($show_rss, "rss_yes"); ?> />  <?php echo __("Ja"); ?></label>
-        <label for="<?php echo $this->get_field_id('rss_no'); ?>"><input type="radio" name="<?php echo $this->get_field_name('show_rss'); ?>" value="rss_no" id="<?php echo $this->get_field_id('rss_no'); ?>" <?php checked($show_rss, "rss_no"); ?> /> <?php echo __("Nej"); ?></label>
-      </div>
+      <ul class="hbgllw-instructions">
+        <li><?php echo __("Om RSS-länk fylls i kommer en RSS-ikon visas i brevid widgetens titel och gå till denna länk."); ?></li>
+      </ul>
 
       <p><label for="<?php echo $this->get_field_id('rss_link'); ?>"><?php _e('RSS Länk:'); ?></label>
       <input class="widefat" id="<?php echo $this->get_field_id('rss_link'); ?>" name="<?php echo $this->get_field_name('rss_link'); ?>" type="text" value="<?php echo esc_attr($rss_link); ?>" /></p>

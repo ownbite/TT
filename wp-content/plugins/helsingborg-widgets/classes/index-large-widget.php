@@ -197,26 +197,6 @@ if (!class_exists('Index_Large_Widget_Box')) {
       <?php endif; ?>
       </div>
 
-      <script>
-      function load_page_containing(from, name) {
-        var id = from.replace('button_', '');
-        document.getElementById('select_' + id).style.display = "block";
-        document.getElementById('select_' + id).innerHTML = "";
-
-        var data = {
-          action: 'load_pages',
-          id: id,
-          name: name,
-          title: document.getElementById('input_' + id).value
-        };
-
-        jQuery.post(ajaxurl, data, function(response) {
-          document.getElementById('select_' + id).innerHTML = response;
-        });
-
-      };
-      </script>
-
       <div class="hbgllw-row hide-if-no-js">
         <a class="hbgllw-add button-secondary"><img src="<?php echo plugins_url('../images/add.png', __FILE__ )?>" /> <?php echo __("Lägg till indexobjekt"); ?></a>
       </div>
