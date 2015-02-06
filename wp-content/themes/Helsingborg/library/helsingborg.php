@@ -1,5 +1,12 @@
 <?php
 
+/* Add unfiltered_html for Editors */
+function add_unfiltered_html_for_editors() {
+  $role = get_role( 'editor' );
+  $role->add_cap( 'unfiltered_html' );
+}
+add_action( 'admin_init', 'add_unfiltered_html_for_editors');
+
 /* Fix to rename Default Template text to 'Artikel', since this page is default */
 function change_default_template_to_artikel( $translation, $text, $domain ) {
   if ( $text == 'Default Template' ) {
