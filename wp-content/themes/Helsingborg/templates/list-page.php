@@ -16,6 +16,7 @@ $fields = get_fields($post->ID);
 // Get the list options for this page and create array with the values which we can use later on
 $meta = get_post_meta($post->ID,'_helsingborg_meta',TRUE);
 $selected_list_options_meta = array();
+$selected_list_options = array();
 
 // Check if page has any data
 if (is_array($meta)) {
