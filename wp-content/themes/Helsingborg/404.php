@@ -7,13 +7,15 @@
 				<h1 class="entry-title"><?php _e('Sidan kan inte hittas', 'Helsingborg'); ?></h1>
 			</header>
 			<div class="small-12 large-12 columns" role="main">
+
 			<div class="entry-content">
 				<div class="search-container row">
 						<div class="search-inputs large-12 columns">
-								<form action="/TT/sok" method="GET"> <!-- OBS! SÖKVÄGEN -->
-									<input type="text" placeholder="Vad letar du efter?" name="q"/>
-									<input type="submit" value="Sök">
-								</form>
+							<form id="searchform" class="search-inputs large-12 columns" action="http://localhost/TT/" method="get" role="search">
+								<input id="s" class="input-field" type="text" placeholder="Vad letar du efter?" name="s" value=""></input>
+    							<input id="searchsubmit" class="button search" type="submit" value="Sök"></input>
+    							<a class="archive-search-link" href="http://helsingborg.arkivbyran.se/"></a>
+							</form>
 						</div>
 				</div><!-- /.search-container -->
 				<div class="error">
