@@ -95,6 +95,7 @@ $json_items = json_encode($list_items);
 $the_content = get_extended($post->post_content);
 $main = $the_content['main'];
 $content = $the_content['extended']; // If content is empty, no <!--more--> tag was used -> content is in $main
+
 ?>
 
 <script src="http://knockoutjs.com/downloads/knockout-3.0.0.debug.js" type="text/javascript"></script>
@@ -134,11 +135,9 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
 
                         <?php the_breadcrumb(); ?>
 
-                        <?php get_template_part('templates/partials/accessability','menu'); ?>
-
                         <h1 class="article-title"><?php the_title(); ?></h1>
+                        <?php get_template_part('templates/partials/accessability','menu'); ?>
                       </header>
-
                         <?php if (!empty($content)) : ?>
                           <div class="ingress">
                             <?php apply_filters('the_content', $main); ?>
