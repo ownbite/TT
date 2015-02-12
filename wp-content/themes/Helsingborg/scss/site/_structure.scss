@@ -468,6 +468,7 @@ img.alignright {
 	.guide-section .guide-button {
 			color: $white !important;
 			margin-right: $column-gutter/3;
+			box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.4);
 			&:hover {
 				text-decoration: none;
 			}
