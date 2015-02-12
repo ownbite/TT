@@ -13,6 +13,7 @@ register_nav_menus(array(
 
 if ( ! function_exists( 'Helsingborg_sidebar_menu' ) ) {
   function Helsingborg_sidebar_menu() {
+    if (has_nav_menu('sidebar-menu')){
       wp_nav_menu(array(
           'theme_location'  => 'sidebar-menu' ,
           'container'       => 'nav',
@@ -30,11 +31,13 @@ if ( ! function_exists( 'Helsingborg_sidebar_menu' ) ) {
           'depth'           => 5,
           'walker'          => new sidebar_menu_walker()
         ));
+    }
   }
 }
 
 if ( ! function_exists( 'Helsingborg_support_menu' ) ) {
   function Helsingborg_support_menu() {
+    if (has_nav_menu('support-menu')){
       wp_nav_menu(array(
           'theme_location'  => 'support-menu' ,
           'container'       => 'div',
@@ -46,11 +49,13 @@ if ( ! function_exists( 'Helsingborg_support_menu' ) ) {
           'echo'            => true,
           'walker'          => new sidebar_menu_walker()
         ));
+    }
   }
 }
 
 if ( ! function_exists( 'Helsingborg_mobile_menu' ) ) {
   function Helsingborg_mobile_menu() {
+    if (has_nav_menu('mobile-menu')){
       wp_nav_menu(array(
           'theme_location'  => 'mobile-menu' ,
           'container'       => false,
@@ -61,6 +66,7 @@ if ( ! function_exists( 'Helsingborg_mobile_menu' ) ) {
           'echo'            => true,
           'walker'          => new sidebar_menu_walker()
         ));
+    }
   }
 }
 
