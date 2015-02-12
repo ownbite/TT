@@ -3,6 +3,11 @@
 Template Name: Fullbredd
 */
 get_header();
+
+// Get the content, see if <!--more--> is inserted
+$the_content = get_extended($post->post_content);
+$main = $the_content['main'];
+$content = $the_content['extended']; // If content is empty, no <!--more--> tag was used -> content is in $main
 ?>
 
 <div class="full-width-page-layout row">
@@ -29,8 +34,17 @@ get_header();
 
                       <h1 class="article-title"><?php the_title(); ?></h1>
                     </header>
+                    <?php if (!empty($content)) : ?>
+                      <div class="ingress">
+                        <?php echo apply_filters('the_content', $main); ?>
+                      </div><!-- /.ingress -->
+                    <?php endif; ?>
                     <div class="article-body">
-                      <?php the_content(); ?>
+                      <?php if(!empty($content)){
+                        echo apply_filters('the_content', $content);
+                      } else {
+                        echo apply_filters('the_content', $main);
+                      } ?>
                     </div>
                     <footer>
                       <ul class="socialmedia-list">

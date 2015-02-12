@@ -54,7 +54,7 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                         </header>
                         <?php if (!empty($content)) : ?>
                           <div class="ingress">
-                            <?php apply_filters('the_content', $main); ?>
+                            <?php echo apply_filters('the_content', $main); ?>
                           </div><!-- /.ingress -->
                         <?php endif; ?>
                         <div class="article-body">
