@@ -60,9 +60,7 @@
 	<div class="off-canvas-wrap" data-offcanvas>
 	<div class="inner-wrap">
 
-	<aside class="left-off-canvas-menu">
-		<?php Helsingborg_mobile_menu(); ?>
-	</aside>
+	<?php get_template_part('templates/partials/mobile','menu'); ?>
 
 	<a class="exit-off-canvas"></a>
 	<nav class="mobile-nav" role="navigation">
