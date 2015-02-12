@@ -91,6 +91,8 @@
             $(position).appendTo($('.position'));
             $(item).appendTo($('.chosen'));
           }
+
+          document.getElementById('_helsingborg_meta[list_options]').value = "<?php echo $selected; ?>";
         });
 </script>
 </p>
