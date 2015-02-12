@@ -477,38 +477,46 @@ function article_func( $atts ) {
 
 		$thumb_image_url = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'medium');
 		$article_steps_meta = get_post_meta($post_id, 'meta-step', true);
-		$string ='<div>';
-		$string .='<table cellspacing="5" cellpadding="5" border="0" >';
-		$string .= '<tr><td colspan="2" valign="top"><strong>'.$post->post_title.'</strong></td></tr>';
 
-		if(isset($thumb_image_url[0])){
-			$string .='<tr><td><img src="'.$thumb_image_url[0].'" alt="'.$post->post_content.'" width="'.$thumb_image_url[1].'" height="'.$thumb_image_url[2].'"></td><td style="vertical-align:top;">'.$post->post_content.'</td> </TR>';
-		}else{
-			$string .='<tr><td colspan="2" valign="top">'.$post->post_content.'</td> </tr>';
-		}
 
+		$guide = '<section class="guide-section">';
+
+		// Att knyta en windsor knut
+		$guide .= '<h2 class="section-title">' . $post->post_title . '</h2>';
+
+		$guide .= '<div class="divider fade">';
+		$guide .= '<div class="upper-divider"></div>';
+		$guide .= '<div class="lower-divider"></div>';
+		$guide .= '</div>';
+
+		$guide .= '<ul class="guide-list">';
 
 		if(count($article_steps_meta["step"])) {
-			$string .='<tr><td colspan="2">&nbsp;</td></tr><tr><td colspan="2"><table cellspacing="5" cellpadding="5" border="0"><tr>';
 			for($i=0;$i<count($article_steps_meta["step"]);$i++){
+
+				if ($i==0) {$guide .= '<li class="current">';} else {$guide .= '<li>';}
+
 				if(isset($article_steps_meta["step_image"][$i])){
-				 $kk=wp_get_attachment_image_src( $article_steps_meta["step_image"][$i], 'thumbnail', true );
-				 $imgString='<img src="'.$kk[0].'" width="'.$kk[1].'"  height="'.$kk[2].'" >';
-				} else {
-					$imgString='';
+					$kk=wp_get_attachment_image_src( $article_steps_meta["step_image"][$i], 'full', true );
+					$guide .= '<img src="'.$kk[0].'" alt="" >';
 				}
 
-				$string .='<td width="33%" valign="top">' .$imgString.'<br><br><strong>'.$article_steps_meta["step"][$i].' </strong><br><br>'.$article_steps_meta["step_title"][$i].'<br><br><strong>'.substr($article_steps_meta["note"][$i],0,125).'</strong></td>';
-
-				if(($i+1)%3==0) {$string .='</tr><tr>';}
+				$guide .= '<span class="title">' . $article_steps_meta["step"][$i] . ' </span>';
+				$guide .= '<p class="description">' . $article_steps_meta["step_title"][$i] . '</p>';
+				$guide .= '<p class="notes">' . $article_steps_meta["note"][$i] . '</p>';
+				$guide .= '</li>';
 			}
-
-			$string .='</tr></table></td></tr></table>';
 		}
+		$guide .= '</ul>'; //<!-- /.guide-list -->
 
-		return $string .=' </div>';
+		$guide .= '<a href="#" class="button radius guide-button prev-step">' . __(Föregående) . '</a>';
+		$guide .= '<a href="#" class="button radius guide-button next-step">' . __ (Nästa) . '</a>';
+		$guide .= '</section>';
+
+		return $guide;
 	}
 }
+wp_enqueue_script( 'steps-js', plugin_dir_url(__FILE__) .'includes/js/steps.js');
 add_shortcode( 'display_article', 'article_func' );
 /*Uncomment to use the alternative guide instead of artcle without breaking legacy guides. kmb*/
 //add_shortcode( 'display_guide', 'article_func' );
