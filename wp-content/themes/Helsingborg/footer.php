@@ -20,6 +20,7 @@ $(document).ready( function() {
 });
 </script>
 <script src="<?php echo get_stylesheet_directory_uri() ; ?>/js/helsingborg/vergic.js"></script>
+<script src="<?php echo get_stylesheet_directory_uri() ; ?>/js/readspeaker/readspeaker.js"></script>
 <?php wp_footer(); ?>
 </body>
 </html>
