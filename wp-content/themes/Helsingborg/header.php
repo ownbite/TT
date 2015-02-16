@@ -51,6 +51,12 @@
 				.input-field {
 						border: 2px solid rgb(<?php echo "$r,$g,$b" ?>) !important;
 					}
+				.current-pager > a {
+					background-color: rgb(<?php echo "$r,$g,$b" ?>) !important;
+					border: 1px solid rgb(<?php echo "$r,$g,$b" ?>) !important;
+					box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.4);
+					color: #FFF !important;
+				}
 				</style>
 	<?php endif; ?>
 	<?php wp_head(); ?>

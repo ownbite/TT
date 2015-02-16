@@ -1,9 +1,27 @@
 <?php
 
+/*
+*	Include JavaScript WordPress editor functions, used for guides
+*/
+if( file_exists( get_template_directory() . '/includes/js-wp-editor.php' ) ) {
+  require_once( get_template_directory() . '/includes/js-wp-editor.php' );
+  js_wp_editor();
+}
+
+/* Remove Medium image size, only need full and thumbnail */
+function remove_medium_image_size() {
+  remove_image_size('medium');
+}
+add_action('init', 'remove_medium_image_size');
+
 /* Add unfiltered_html for Editors */
 function add_unfiltered_html_for_editors() {
   $role = get_role( 'editor' );
   $role->add_cap( 'unfiltered_html' );
+  add_action('content_filtered_save_pre', function() {
+    if(function_exists("kses_remove_filters"))
+    kses_remove_filters();
+  });
 }
 add_action( 'admin_init', 'add_unfiltered_html_for_editors');
 

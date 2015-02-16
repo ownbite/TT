@@ -17,6 +17,7 @@ include_once('classes/index-widget.php');
 include_once('classes/index-large-widget.php');
 include_once('classes/image-list-widget.php');
 include_once('classes/helsingborg-event-list-widget.php');
+include_once('classes/helsingborg-guides.php');
 include_once('helsingborg-settings.php');
 
 // Setup event handling
@@ -41,3 +42,4 @@ wp_enqueue_style( 'helsingborg-widgets-css', plugin_dir_url(__FILE__) .'css/hels
 wp_enqueue_script( 'jquery', get_template_directory_uri() . '/js/jquery/dist/jquery.min.js');
 wp_enqueue_script( 'helsingborg-list-sort-js', plugin_dir_url(__FILE__) .'js/helsingborg-list-sort.js');
 wp_enqueue_script( 'helsingborg-media-selector-original-js', plugin_dir_url(__FILE__) .'js/helsingborg-media-selector-original.js');
+wp_enqueue_script( 'steps-js', plugin_dir_url(__FILE__) . 'js/steps.js');
