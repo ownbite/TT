@@ -21,7 +21,6 @@ $list = array(
 ,'Artist'
 ,'Bassängstorlek'
 ,'Befattning'
-,'Beräknas klart'
 ,'Broschyr'
 ,'Butik'
 ,'Byggstart'
@@ -138,5 +137,6 @@ $list = array(
 ,'Ämne'
 ,'Ämne/område'
 ,'Öppettider'
+,'Beräknas klart'
 );
 ?>
