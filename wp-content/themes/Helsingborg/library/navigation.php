@@ -47,7 +47,7 @@ if ( ! function_exists( 'Helsingborg_support_menu' ) ) {
           'menu_id'         => 'support-nav',
           'depth'           => 0,
           'echo'            => true,
-          'walker'          => new sidebar_menu_walker()
+          'walker'          => new support_menu_walker()
         ));
     }
   }
