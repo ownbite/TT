@@ -14,6 +14,7 @@ wp-content/plugins/*
 !wp-content/plugins/advanced-custom-fields
 !wp-content/plugins/akismet
 !wp-content/plugins/all-in-one-seo-pack
+!wp-content/plugins/broken-link-checker
 !wp-content/plugins/bulk-user-management
 !wp-content/plugins/cms-tree-page-view
 !wp-content/plugins/convert-post-types
@@ -26,6 +27,7 @@ wp-content/plugins/*
 !wp-content/plugins/members
 !wp-content/plugins/p3-profiler
 !wp-content/plugins/post-expirator
+!wp-content/plugins/safe-redirect-manager
 !wp-content/plugins/step-by-step
 !wp-content/plugins/w3-total-cache
 !wp-content/plugins/wp-page-widget
