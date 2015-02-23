@@ -14,17 +14,6 @@ function remove_medium_image_size() {
 }
 add_action('init', 'remove_medium_image_size');
 
-/* Add unfiltered_html for Editors */
-function add_unfiltered_html_for_editors() {
-  $role = get_role( 'editor' );
-  $role->add_cap( 'unfiltered_html' );
-  add_action('content_filtered_save_pre', function() {
-    if(function_exists("kses_remove_filters"))
-    kses_remove_filters();
-  });
-}
-add_action( 'admin_init', 'add_unfiltered_html_for_editors');
-
 /* Fix to rename Default Template text to 'Artikel', since this page is default */
 function change_default_template_to_artikel( $translation, $text, $domain ) {
   if ( $text == 'Default Template' ) {

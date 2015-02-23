@@ -18,6 +18,7 @@ include_once('classes/index-large-widget.php');
 include_once('classes/image-list-widget.php');
 include_once('classes/helsingborg-event-list-widget.php');
 include_once('classes/helsingborg-guides.php');
+include_once('classes/helsingborg-unfiltered-html.php');
 include_once('helsingborg-settings.php');
 
 // Setup event handling
