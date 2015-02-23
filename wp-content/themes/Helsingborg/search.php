@@ -85,11 +85,16 @@ function updateSearch(data) {
 			var item = '<li>';
 
 			item += '<a href="' + data.items[i].link + '" desc="link-desc">';
+			if (data.items[i].fileFormat !== undefined) {
+				if (data.items[i].fileFormat == 'PDF/Adobe Acrobat') {
+					item += '<img src="/wp-content/themes/Helsingborg/assets/img/images/pdf-icon.png" alt="pdf ikon"/>';
+				}
+			}
 			item += '<h2 class="list-title">' + data.items[i].title + '</h2></a>';
 			if (meta['creationdate'] !== undefined) {
-				item += '<span class="news-date">' + meta['creationdate'].substring(2,10) + '</span>';
+				item += '<span class="news-date">' + convertDate(meta['creationdate'].substring(2,10)) + '</span>';
 			} else if (meta['last-modified'] !== undefined){
-				item += '<span class="news-date">' + meta['epi.published'].substring(5,16) + '</span>';
+				item += '<span class="news-date">' + convertDate(meta['epi.published'].substring(5,16)) + '</span>';
 			}
 			item += '<div class="list-content">' + data.items[i].htmlSnippet + '<div>';
 			item += '</li>';
@@ -108,6 +113,60 @@ function updateSearch(data) {
 			next_data = { action: 'search', keyword: query, index: next['startIndex'].toString() };
 			jQuery('.pagination').append(nextPage);
 		}
+}
+
+function convertDate(value) {
+	if (value.length == 11) {
+		value = value.replace('May', 'Maj');
+		value = value.replace('Oct', 'Okt');
+		return value;
+	} else if (value.length == 8) {
+		var year = value.substring(0,4);
+		var month = value.substring(4,6);
+		var day = value.substring(6,value.length);
+
+		switch (month) {
+			case '01':
+				month = "Jan";
+				break;
+			case '02':
+				month = "Feb";
+				break;
+			case '03':
+				month = "Mar";
+				break;
+			case '04':
+				month = "Apr";
+				break;
+			case '05':
+				month = "Maj";
+				break;
+			case '06':
+				month = "Jun";
+				break;
+			case '07':
+				month = "Jul";
+				break;
+			case '08':
+				month = "Aug";
+				break;
+			case '09':
+				month = "Sep";
+				break;
+			case '10':
+				month = "Okt";
+				break;
+			case '11':
+				month = "Nov";
+				break;
+			case '12':
+				month = "Dec";
+				break;
+		}
+		return day + ' ' + month + ' ' + year;
+	} else {
+		return '';
+	}
 }
 </script>
 
