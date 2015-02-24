@@ -30,9 +30,9 @@ function custom_post_type()
     'menu_name'          => 'Guider'
   );
   $args = array(
-    'labels'        => $labels,
-    'description'   => 'Håller våra guider och dess data',
-    'public'        => true,
+    'labels'             => $labels,
+    'description'        => 'Håller våra guider och dess data',
+    'public'             => true,
     'publicly_queryable' => true,
     'show_ui'            => true,
     'show_in_menu'       => true,
@@ -43,7 +43,7 @@ function custom_post_type()
     'hierarchical'       => false,
     'menu_position'      => 5,
     'menu_icon'          => 'dashicons-format-aside',
-    'supports'      => array( 'title', 'editor', 'thumbnail')
+    'supports'           => array( 'title', 'editor', 'thumbnail')
   );
   register_post_type( 'hbg_guide', $args );
 }
@@ -69,38 +69,38 @@ function hbg_updated_messages( $messages ) {
   return $messages;
 }
 
-//adding the meta box when the admin panel initialises
+//adding the meta box when the admin panel initializes
 add_action("admin_init", "add_article_metabox");
 function add_article_metabox(){
-  add_meta_box('manage_steps', 'Hantera steg i guiden', 'steps_meta_box', 'hbg_guide', 'normal', 'default');
+  add_meta_box('manage_steps', 'Hantera steg i guiden', 'guide_steps_meta_box', 'hbg_guide', 'normal', 'default');
 }
 
 
-function steps_meta_box($post, $args) {
-  $steps_meta = get_post_meta($post->ID, 'meta-step', true); ?>
+function guide_steps_meta_box($post, $args) {
+  $guide_steps_meta = get_post_meta($post->ID, 'meta-guide-step', true); ?>
   <div id="mainstep">
-  <?php if(isset($steps_meta['step'])) {
+  <?php if(isset($guide_steps_meta['guide_step'])) {
     $i = 1;
-    if(is_array($steps_meta['step']) ) {
-      foreach($steps_meta['step'] as $key => $value) { ?>
-      <div id='step<?php echo $i;?>' style="background: -moz-linear-gradient(center top , #F5F5F5, #FCFCFC) repeat scroll 0 0 rgba(0, 0, 0, 0);">
-        <p style="text-align:right"><a href="javascript:void(0);" onclick="return removeDiv('<?php echo 'step'.$i;?>');">- Ta bort steg</a></p>
-        <p>Steg <span style="color:red;">*</span><br> <span><input type="text" size="40" value="<?php echo  $value;?>" name="step[]" id="step"></span></p>
-        <p>Innehåll <span style="color:red;">*</span><br> <span><textarea name="step_title[]" id="step_title<?php echo $i;?>" rows="4" cols="40"><?php echo  $steps_meta['step_title'][$key];?></textarea></span></p>
-        <p>Notering<br> <span><input type="text" size="40" value="<?php echo $steps_meta['note'][$key];?>" name="note[]" id="note"></span></p>
+    if(is_array($guide_steps_meta['guide_step']) ) {
+      foreach($guide_steps_meta['guide_step'] as $key => $value) { ?>
+      <div id='guide_step<?php echo $i;?>' style="background: -moz-linear-gradient(center top , #F5F5F5, #FCFCFC) repeat scroll 0 0 rgba(0, 0, 0, 0);">
+        <p style="text-align:right"><a href="javascript:void(0);" onclick="return removeDiv('<?php echo 'guide_step'.$i;?>');">- Ta bort steg</a></p>
+        <p>Steg <span style="color:red;">*</span><br> <span><input type="text" size="40" value="<?php echo $value;?>" name="guide_step[]" id="guide_step"></span></p>
+        <p>Innehåll <span style="color:red;">*</span><br> <span><textarea name="guide_step_title[]" id="guide_step_title<?php echo $i;?>" rows="4" cols="40"><?php echo  $guide_steps_meta['guide_step_title'][$key];?></textarea></span></p>
+        <p>Notering<br> <span><input type="text" size="40" value="<?php echo $guide_steps_meta['guide_note'][$key];?>" name="guide_note[]" id="guide_note"></span></p>
         <p>
           <?php
-          if(isset($steps_meta['step_image'][$key]) && !empty($steps_meta['step_image'][$key])) {
-            $image_attributes = wp_get_attachment_image_src( $steps_meta['step_image'][$key],array(100,100) );
-            $attr = get_the_post_thumbnail($steps_meta['step_image'][$key], 'thumbnail');
+          if(isset($guide_steps_meta['guide_step_image'][$key]) && !empty($guide_steps_meta['guide_step_image'][$key])) {
+            $image_attributes = wp_get_attachment_image_src( $guide_steps_meta['guide_step_image'][$key],array(100,100) );
+            $attr = get_the_post_thumbnail($guide_steps_meta['guide_step_image'][$key], 'thumbnail');
 
             ?>
-            <img style="vertical-align: middle;" src="<?php echo $image_attributes[0]; ?>" width="<?php echo $image_attributes[1]; ?>" height="<?php echo $image_attributes[2]; ?>">&nbsp;&nbsp;<a href="javascript:void(0);" alt="Ta bort" title="Ta bort" onclick="return remove_attachement('<?php echo $steps_meta['step_image'][$key];?>',<?php echo $post->ID;?>,'<?php echo $i;?>')">Ta bort</a>
+            <img style="vertical-align: middle;" src="<?php echo $image_attributes[0]; ?>" width="<?php echo $image_attributes[1]; ?>" height="<?php echo $image_attributes[2]; ?>">&nbsp;&nbsp;<a href="javascript:void(0);" alt="Ta bort" title="Ta bort" onclick="return remove_attachement('<?php echo $guide_steps_meta['guide_step_image'][$key];?>',<?php echo $post->ID;?>,'<?php echo $i;?>')">Ta bort</a>
             <img id="loader" style="display: none;margin: 0 auto;text-align: center;" src="<?php echo plugins_url()?>/helsingborg-widgets/images/loader.gif" />
-            <p>Bild<br> <span><input type="file" size="60" value="" name="step_image[]" id="step_image"></span></p>
+            <p>Bild<br> <span><input type="file" size="60" value="" name="guide_step_image[]" id="guide_step_image"></span></p>
             <?php } else { ?>
             </p>
-            <p>Bild<br> <span><input type="file" size="60" value="" name="step_image[]" id="step_image"></span></p>
+            <p>Bild<br> <span><input type="file" size="60" value="" name="guide_step_image[]" id="guide_step_image"></span></p>
             <?php } ?>
           </div>
           <?php
@@ -108,22 +108,22 @@ function steps_meta_box($post, $args) {
       }
     }
   } else { ?>
-    <div id='step1' style="background: -moz-linear-gradient(center top , #F5F5F5, #FCFCFC) repeat scroll 0 0 rgba(0, 0, 0, 0);">
-      <p>Steg <span style="color:red;">*</span><br> <span><input type="text" size="40" value="" name="step[]" id="step"></span></p>
+    <div id='guide_step1' style="background: -moz-linear-gradient(center top , #F5F5F5, #FCFCFC) repeat scroll 0 0 rgba(0, 0, 0, 0);">
+      <p>Steg <span style="color:red;">*</span><br> <span><input type="text" size="40" value="" name="guide_step[]" id="guide_step"></span></p>
 
-      <p>Innehåll <span style="color:red;">*</span><br> <span><textarea name="step_title[]" id="step_title1" rows="4" cols="40"></textarea></span></p>
+      <p>Innehåll <span style="color:red;">*</span><br> <span><textarea name="guide_step_title[]" id="guide_step_title1" rows="4" cols="40"></textarea></span></p>
 
-      <p>Notering<br> <span><input type="text" size="40" value="" name="note[]" id="note"></span></p>
-      <p>Bild<br> <span><input type="file" size="60" value="" name="step_image[]" id="step_image"></span></p>
+      <p>Notering<br> <span><input type="text" size="40" value="" name="guide_note[]" id="guide_note"></span></p>
+      <p>Bild<br> <span><input type="file" size="60" value="" name="guide_step_image[]" id="guide_step_image"></span></p>
     </div>
   <?php } ?>
   </div>
 
   <div style="clear:both;"></div>
   <div style="padding-bottom:5px;text-align:right;color:#fff;"><a href="javascript:void(0);" onClick="addmorediv()">+ Lägg till steg</a></div>
-  <input type="hidden" name="step_count" id="step_count" value="<?php echo count($steps_meta['step']); ?>">
+  <input type="hidden" name="guide_step_count" id="guide_step_count" value="<?php echo count($guide_steps_meta['guide_step']); ?>">
 
-  <?php if(isset($steps_meta['step']) && count($steps_meta['step'])>0) { ?>
+  <?php if(isset($guide_steps_meta['guide_step']) && count($guide_steps_meta['guide_step'])>0) { ?>
   <div style="background: -moz-linear-gradient(center top , #F5F5F5, #FCFCFC) repeat scroll 0 0 rgba(0, 0, 0, 0);">
     <p>Hämta shortcode</span><br> <span>
       <textarea rows="3" cols="40" readonly>[display_hbg_guide id='<?php echo $post->ID; ?>' type='hbg_guide']</textarea>
@@ -132,29 +132,30 @@ function steps_meta_box($post, $args) {
 <?php } ?>
   <script>
     jQuery(document).ready(function() {
-      var num = <?php echo count($steps_meta['step']); ?>;
+      var num = <?php echo count($guide_steps_meta['guide_step']); ?>;
       for (i = 1; i <= num; i++) {
-        jQuery('#step_title'+i).wp_editor();
+        jQuery('#guide_step_title'+i).wp_editor();
       }
     });
 
-    function toggleEditor(id, state)
+    function toggleEditor(id,state)
     {
       if (!tinyMCE.get(id)) {
         if (state == "tmce") {
           // Text -> Visual
-          tinyMCE.EditorManager.execCommand('mceAddEditor',true, id);
+          tinyMCE.EditorManager.execCommand('mceAddEditor',true, id.id);
         } else {
           // Text -> Text
         }
       } else {
         if (state == "tmce") {
           // Visual -> Visual
-          tinyMCE.EditorManager.execCommand('mceRemoveEditor',true, id);
-          tinyMCE.EditorManager.execCommand('mceAddEditor',true, id);
+          tinyMCE.EditorManager.execCommand('mceRemoveEditor',true, id.id);
+          tinyMCE.EditorManager.execCommand('mceAddEditor',true, id.id);
         } else {
           // Visual -> Text
-          tinyMCE.EditorManager.execCommand('mceRemoveEditor',true, id);
+          tinyMCE.EditorManager.execCommand('mceRemoveEditor',true, id.id);
+          jQuery(id).css('display', 'block');
         }
       }
     }
@@ -169,7 +170,7 @@ function steps_meta_box($post, $args) {
 
       jQuery.post(ajaxurl, data, function(response) {
         jQuery("#loader"+stepId).css({'display':'inline-block'});
-        jQuery("#step_img").hide();
+        jQuery("#guide_step_img").hide();
         window.setTimeout('location.reload()', 1000);
       });
 
@@ -177,28 +178,28 @@ function steps_meta_box($post, $args) {
 
     function addmorediv()
     {
-      var cnt = jQuery('#step_count').val();
+      var cnt = jQuery('#guide_step_count').val();
       cnt = parseInt(cnt)+1;
       jQuery('#mainstep').append(
-        '<div id="step'+cnt+'" style="padding-top:10px;background: -moz-linear-gradient(center top , #F5F5F5, #FCFCFC) repeat scroll 0 0 rgba(0, 0, 0, 0);">' +
-        '<p style="text-align:right"><a href="javascript:void(0);" onclick="return removeDiv(\'step'+cnt+'\');">- Ta bort steg</a></p>' +
-        '<p>Steg<span style="color:red;">*</span><br><span><input type="text" size="40" value="" name="step[]" id="step"></span></p>' +
+        '<div id="guide_step'+cnt+'" style="padding-top:10px;background: -moz-linear-gradient(center top , #F5F5F5, #FCFCFC) repeat scroll 0 0 rgba(0, 0, 0, 0);">' +
+        '<p style="text-align:right"><a href="javascript:void(0);" onclick="return removeDiv(\'guide_step'+cnt+'\');">- Ta bort steg</a></p>' +
+        '<p>Steg<span style="color:red;">*</span><br><span><input type="text" size="40" value="" name="guide_step[]" id="guide_step"></span></p>' +
         '<p>Innehåll<span style="color:red;">*</span><br><span>' +
-        '<textarea name="step_title[]'+cnt+'" id="step_title'+cnt+'" rows="4" cols="40"></textarea></span></p>' +
-        '<p>Notering<br><span><input type="text" size="40" value="" name="note[]" id="note"></span></p>' +
-        '<p>Bild<br> <span><input type="file" size="60" value="" name="step_image[]" id="step_image"></span></p></div>');
-      jQuery('#step_count').val(cnt);
-      jQuery('#step_title'+cnt).wp_editor();
-        }
+        '<textarea name="guide_step_title[]'+cnt+'" id="guide_step_title'+cnt+'" rows="4" cols="40"></textarea></span></p>' +
+        '<p>Notering<br><span><input type="text" size="40" value="" name="guide_note[]" id="guide_note"></span></p>' +
+        '<p>Bild<br> <span><input type="file" size="60" value="" name="guide_step_image[]" id="guide_step_image"></span></p></div>');
+      jQuery('#guide_step_count').val(cnt);
+      jQuery('#guide_step_title'+cnt).wp_editor();
+    }
 
-        function removeDiv(divId)
-        {
-          jQuery('#'+divId).remove();
-          var cnt = jQuery('#step_count').val();
-          cnt = parseInt(cnt)-1;
-          if (cnt < 0) {cnt = 0;}
-          jQuery('#step_count').val(cnt);
-        }
+    function removeDiv(divId)
+    {
+      jQuery('#'+divId).remove();
+      var cnt = jQuery('#guide_step_count').val();
+      cnt = parseInt(cnt)-1;
+      if (cnt < 0) {cnt = 0;}
+      jQuery('#guide_step_count').val(cnt);
+    }
   </script>
 <?php }
 
@@ -213,24 +214,24 @@ function remove_attachement_image() {
   {
 
     wp_delete_attachment( $attachement_ID);
-    $steps_meta_data = get_post_meta($post_ID, 'meta-step', true);
+    $guide_steps_meta_data = get_post_meta($post_ID, 'meta-guide-step', true);
 
-    if(($key = array_search($attachement_ID, $steps_meta_data['step_image'])) !== false) {
-      unset($steps_meta_data['step_image'][$key]);
-      update_post_meta( $post_ID, 'meta-step',  $steps_meta_data );
+    if(($key = array_search($attachement_ID, $guide_steps_meta_data['guide_step_image'])) !== false) {
+      unset($guide_steps_meta_data['guide_step_image'][$key]);
+      update_post_meta( $post_ID, 'meta-guide-step',  $guide_steps_meta_data );
     }
     $msg = 'bilaga har tagits bort.';
   }
 }
 
-add_action( 'save_post', 'prfx_meta_save' );
-function prfx_meta_save( $post_id ) {
+add_action( 'save_post', 'guide_meta_save' );
+function guide_meta_save( $post_id ) {
   if ( !wp_is_post_revision( $post_id ))
   {
     $attached_file_array='';
-    $steps_meta = get_post_meta($post_id, 'meta-step', true);
-    if(isset($steps_meta['step_image']))
-    $attached_file_array = $steps_meta['step_image'];
+    $guide_steps_meta = get_post_meta($post_id, 'meta-guide-step', true);
+    if(isset($guide_steps_meta['guide_step_image']))
+    $attached_file_array = $guide_steps_meta['guide_step_image'];
 
     if(!is_array($attached_file_array)) { $attached_file_array = array(); }
 
@@ -240,26 +241,26 @@ function prfx_meta_save( $post_id ) {
     $upload_overrides = array( 'test_form' => FALSE );
     $uploads = wp_upload_dir();
 
-    if(!empty($_FILES['step_image']['name'])){//Kmb to fix array error
+    if(!empty($_FILES['guide_step_image']['name'])){//Kmb to fix array error
 
-      foreach($_FILES['step_image']['name'] as $key => $filenamevalue) {
+      foreach($_FILES['guide_step_image']['name'] as $key => $filenamevalue) {
 
         $attach_id = '';
-        if(isset($_FILES['step_image']['name'][$key]) && $_FILES['step_image']['error'][$key]!='4'){
+        if(isset($_FILES['guide_step_image']['name'][$key]) && $_FILES['guide_step_image']['error'][$key]!='4'){
 
-          if(isset($steps_meta['step_image'][$key]) && !empty($steps_meta['step_image'][$key])) {
-            wp_delete_attachment( $steps_meta['step_image'][$key] );
-            if (in_array($steps_meta['step_image'][$key], $attached_file_array)) {
-              unset($attached_file_array[array_search($steps_meta['step_image'][$key],$attached_file_array)]);
+          if(isset($guide_steps_meta['guide_step_image'][$key]) && !empty($guide_steps_meta['guide_step_image'][$key])) {
+            wp_delete_attachment( $guide_steps_meta['guide_step_image'][$key] );
+            if (in_array($guide_steps_meta['guide_step_image'][$key], $attached_file_array)) {
+              unset($attached_file_array[array_search($guide_steps_meta['guide_step_image'][$key],$attached_file_array)]);
             }
           }
 
           $file_array = array(
           'name' => $filenamevalue,
-          'type' => $_FILES['step_image']['type'][$key],
-          'tmp_name' => $_FILES['step_image']['tmp_name'][$key],
-          'error' => $_FILES['step_image']['error'][$key],
-          'size' => $_FILES['step_image']['size'][$key],
+          'type' => $_FILES['guide_step_image']['type'][$key],
+          'tmp_name' => $_FILES['guide_step_image']['tmp_name'][$key],
+          'error' => $_FILES['guide_step_image']['error'][$key],
+          'size' => $_FILES['guide_step_image']['size'][$key],
           );
 
           // check to see if the file name is not empty
@@ -298,21 +299,21 @@ function prfx_meta_save( $post_id ) {
       }
     }//	End if(!empty ->
 
-    $step='';
-    $step_title='';
-    $note='';
+    $guide_step='';
+    $guide_step_title='';
+    $guide_note='';
 
-    if(isset($_POST['step']))
-    $step=$_POST['step'];
-    if(isset($_POST['step_title']))
-    $step_title=$_POST['step_title'];
-    if(isset($_POST['note']))
-    $note=$_POST['note'];
+    if(isset($_POST['guide_step']))
+    $guide_step=$_POST['guide_step'];
+    if(isset($_POST['guide_step_title']))
+    $guide_step_title=$_POST['guide_step_title'];
+    if(isset($_POST['guide_note']))
+    $guide_note=$_POST['guide_note'];
 
     if(isset($_POST['publish']) || isset($_POST['save']))
     {
-      $result = array('step'=>$step, 'step_title'=>$step_title,'note'=>$note,'step_image'=>$attached_file_array);
-      update_post_meta( $post_id, 'meta-step',  $result );
+      $result = array('guide_step'=>$guide_step, 'guide_step_title'=>$guide_step_title,'guide_note'=>$guide_note,'guide_step_image'=>$attached_file_array);
+      update_post_meta( $post_id, 'meta-guide-step',  $result );
     }
   }
 }
@@ -331,7 +332,7 @@ function hbg_guide_func( $atts ) {
     $post = get_post( $post_id );
 
     $thumb_image_url = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'medium');
-    $article_steps_meta = get_post_meta($post_id, 'meta-step', true);
+    $article_steps_meta = get_post_meta($post_id, 'meta-guide-step', true);
 
     $guide = '<section class="guide-section">';
       $guide .= '<h2 class="section-title">' . $post->post_title . '</h2>';
@@ -343,18 +344,18 @@ function hbg_guide_func( $atts ) {
 
       $guide .= '<ul class="guide-list">';
 
-      if(count($article_steps_meta["step"])) {
-        for($i=0;$i<count($article_steps_meta["step"]);$i++){
+      if(count($article_steps_meta["guide_step"])) {
+        for($i=0;$i<count($article_steps_meta["guide_step"]);$i++){
           if ($i==0) {$guide .= '<li class="current">';} else {$guide .= '<li>';}
 
-          if(isset($article_steps_meta["step_image"][$i])){
-            $kk=wp_get_attachment_image_src( $article_steps_meta["step_image"][$i], 'full', true );
+          if(isset($article_steps_meta["guide_step_image"][$i])){
+            $kk=wp_get_attachment_image_src( $article_steps_meta["guide_step_image"][$i], 'full', true );
             $guide .= '<img src="'.$kk[0].'" alt="" >';
           }
 
-          $guide .= '<span class="title">' . $article_steps_meta["step"][$i] . ' </span>';
-          $guide .= '<p class="description">' . $article_steps_meta["step_title"][$i] . '</p>';
-          $guide .= '<p class="notes">' . $article_steps_meta["note"][$i] . '</p>';
+          $guide .= '<span class="title">' . $article_steps_meta["guide_step"][$i] . ' </span>';
+          $guide .= '<p class="description">' . $article_steps_meta["guide_step_title"][$i] . '</p>';
+          $guide .= '<p class="notes">' . $article_steps_meta["guide_note"][$i] . '</p>';
           $guide .= '</li>';
         }
       }
@@ -362,7 +363,7 @@ function hbg_guide_func( $atts ) {
 
       $guide .= '<ul class="pagination" role="menubar" aria-label="Pagination">';
       $guide .= '<li><a href="#" class="button radius guide-button prev-step">' . __(Föregående) . '</a></li>';
-      for($i=0;$i<count($article_steps_meta["step"]);$i++){
+      for($i=0;$i<count($article_steps_meta["guide_step"]);$i++){
         $guide .= '<li' . ($i==0?' class="current-pager"':'') . '><a href="#">' . ($i+1) . '</a></li>';
       }
       $guide .= '<li><a href="#" class="button radius guide-button next-step">' . __ (Nästa) . '</a></li>';
@@ -374,16 +375,16 @@ function hbg_guide_func( $atts ) {
 }
 
 
-define( 'FB_BASENAME', plugin_basename( __FILE__ ) );
-define( 'FB_BASEFOLDER', plugin_basename( dirname( __FILE__ ) ) );
-define( 'FB_FILENAME', str_replace( FB_BASEFOLDER.'/', '', plugin_basename(__FILE__) ) );
+define( 'GUIDE_BASENAME', plugin_basename( __FILE__ ) );
+define( 'GUIDE_BASEFOLDER', plugin_basename( dirname( __FILE__ ) ) );
+define( 'GUIDE_FILENAME', str_replace( GUIDE_BASEFOLDER.'/', '', plugin_basename(__FILE__) ) );
 
 function filter_plugin_meta($links, $file) {
 
-  if ( $file == FB_BASENAME ) {
+  if ( $file == GUIDE_BASENAME ) {
     array_unshift(
       $links,
-      sprintf( '<a href="edit.php?post_type=hbg_guide">Guider</a>', FB_FILENAME, __('Guider') )
+      sprintf( '<a href="edit.php?post_type=hbg_guide">Guider</a>', GUIDE_FILENAME, __('Guider') )
     );
   }
   return $links;
