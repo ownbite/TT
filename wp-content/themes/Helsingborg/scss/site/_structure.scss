@@ -461,6 +461,15 @@ img.alignright {
 				display: block;
 			}
 		}
+		.description {
+			ol, ul {
+				margin-bottom: rem-calc(16);
+				margin-left: rem-calc(40);
+			}
+			li {
+				display: list-item;
+			}
+		}
 	}
 
 	.guide-section {

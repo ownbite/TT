@@ -354,7 +354,7 @@ function hbg_guide_func( $atts ) {
           }
 
           $guide .= '<span class="title">' . $article_steps_meta["guide_step"][$i] . ' </span>';
-          $guide .= '<p class="description">' . $article_steps_meta["guide_step_title"][$i] . '</p>';
+          $guide .= '<div class="description">' . wpautop($article_steps_meta["guide_step_title"][$i], true) . '</div>';
           $guide .= '<p class="notes">' . $article_steps_meta["guide_note"][$i] . '</p>';
           $guide .= '</li>';
         }

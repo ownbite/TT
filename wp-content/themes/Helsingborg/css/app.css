@@ -6069,6 +6069,11 @@ ul.news-list-large.row section.news-section ul.news-list-large.row li.news-item.
     display: none; }
     .guide-list li.current {
       display: block; }
+  .guide-list .description ol, .guide-list .description ul {
+    margin-bottom: 1rem;
+    margin-left: 2.5rem; }
+  .guide-list .description li {
+    display: list-item; }
 
 .guide-section {
   overflow: hidden;
