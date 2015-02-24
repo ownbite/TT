@@ -29,7 +29,7 @@
 /* HBG iconset */
 @font-face {
   font-family: 'hbg-se-iconset';
-  src: url(/TT/wp-content/themes/Helsingborg/assets/fonts/hbg-se-iconset.eot); }
+  src: url(/wp-content/themes/Helsingborg/assets/fonts/hbg-se-iconset.eot); }
 
 @font-face {
   font-family: 'hbg-se-iconset';
@@ -5616,7 +5616,7 @@ th.hide-for-touch {
 
 /* No SVG support fallback */
 .no-svg .logo-link {
-  background: url(/TT/wp-content/themes/Helsingborg/assets/img/images/hbg-logo.png) no-repeat center center;
+  background: url(/wp-content/themes/Helsingborg/assets/img/images/hbg-logo.png) no-repeat center center;
   max-width: 254px;
   height: 80px; }
 
@@ -5741,7 +5741,7 @@ th.hide-for-touch {
  * ----------------------------------------------------------------------------
  */
 body {
-  background: url(/TT/wp-content/themes/Helsingborg/assets/img/images/hbg-bg.png) white repeat-x; }
+  background: url(/wp-content/themes/Helsingborg/assets/img/images/hbg-bg.png) white repeat-x; }
 
 .site-bg {
   position: absolute;
@@ -5872,7 +5872,7 @@ blockquote.alignright, img.alignright {
     width: 32px;
     height: 32px;
     text-indent: -999em;
-    background: url(/TT/wp-content/themes/Helsingborg/assets/socialmedia-icons/social-icon-sprite.png) 0 0 no-repeat; }
+    background: url(/wp-content/themes/Helsingborg/assets/socialmedia-icons/social-icon-sprite.png) 0 0 no-repeat; }
   .socialmedia-list li.fbook a {
     background-position: 0 0; }
     .socialmedia-list li.fbook a:hover {
@@ -5889,7 +5889,7 @@ only screen and (     min-device-pixel-ratio: 2) and (max-device-width: 1080px),
 only screen and (        min-resolution: 192dpi) and (max-device-width: 1080px),
 only screen and (         min-resolution: 2dppx) and (max-device-width: 1080px) {
   .socialmedia-list li a {
-    background: url(/TT/wp-content/themes/Helsingborg/assets/socialmedia-icons/social-icon-sprite2x.png) 0 0 no-repeat; } }
+    background: url(/wp-content/themes/Helsingborg/assets/socialmedia-icons/social-icon-sprite2x.png) 0 0 no-repeat; } }
 
 /**
  * 4.0 Content
@@ -6026,12 +6026,16 @@ ul.news-list-large.row section.news-section ul.news-list-large.row li.news-item.
     width: 100%;
     padding-bottom: 1rem;
     margin-bottom: 1rem;
-    border-bottom: 1px solid grey; }
-    .block-list.page-block-list.search-list > li a img {
+    border-bottom: 1px solid #747779; }
+    .block-list.page-block-list.search-list > li a .pdf-icon {
+      background-image: url(/wp-content/themes/Helsingborg/assets/img/images/pdf-icon.png);
       border-radius: 4px;
-      float: left;
+      background-repeat: no-repeat;
       margin-right: 1.25rem;
-      max-width: 25%; }
+      display: inline-block;
+      height: 45px;
+      width: 45px;
+      float: left; }
     .block-list.page-block-list.search-list > li a .list-content {
       display: block; }
   .block-list.page-block-list.search-list > li:last-child {
@@ -6042,7 +6046,7 @@ ul.news-list-large.row section.news-section ul.news-list-large.row li.news-item.
   padding-bottom: 4rem; }
 
 .event-list-loader {
-  background: url(/TT/wp-content/themes/Helsingborg/assets/img/images/ajax-loader.gif) 0 0 no-repeat;
+  background: url(/wp-content/themes/Helsingborg/assets/img/images/ajax-loader.gif) 0 0 no-repeat;
   width: 32px;
   height: 32px;
   position: absolute;
@@ -6131,7 +6135,7 @@ ul.news-list-large.row section.news-section ul.news-list-large.row li.news-item.
   border-collapse: inherit;
   border-radius: 4px; }
   .table-list .table-item td:last-child {
-    background: url(/TT/wp-content/themes/Helsingborg/assets/img/tablesorter-icons/asc.gif) 95% center no-repeat; }
+    background: url(/wp-content/themes/Helsingborg/assets/img/tablesorter-icons/asc.gif) 95% center no-repeat; }
   .table-list td, .table-list th {
     border: none;
     padding: 1rem 0.625rem; }
@@ -6167,12 +6171,12 @@ ul.news-list-large.row section.news-section ul.news-list-large.row li.news-item.
 
 /* table sorter plugin style */
 .table-list .header {
-  background: url(/TT/wp-content/themes/Helsingborg/assets/img/tablesorter-icons/bg.gif) right center no-repeat;
+  background: url(/wp-content/themes/Helsingborg/assets/img/tablesorter-icons/bg.gif) right center no-repeat;
   cursor: pointer; }
   .table-list .header.headerSortDown {
-    background: url(/TT/wp-content/themes/Helsingborg/assets/img/tablesorter-icons/asc.gif) right center no-repeat; }
+    background: url(/wp-content/themes/Helsingborg/assets/img/tablesorter-icons/asc.gif) right center no-repeat; }
   .table-list .header.headerSortUp {
-    background: url(/TT/wp-content/themes/Helsingborg/assets/img/tablesorter-icons/desc.gif) right center no-repeat; }
+    background: url(/wp-content/themes/Helsingborg/assets/img/tablesorter-icons/desc.gif) right center no-repeat; }
   .table-list .header:last-child {
     background-position: 95% center; }
 
@@ -6334,7 +6338,7 @@ ul.breadcrumbs strong {
   background-color: white; }
 
 nav > ul > li.nav-home a {
-  background-image: url(/TT/wp-content/themes/Helsingborg/assets/img/images/fi-home.svg);
+  background-image: url(/wp-content/themes/Helsingborg/assets/img/images/fi-home.svg);
   width: 2.5rem;
   height: 2.5rem;
   text-indent: -999999px; }
@@ -6398,6 +6402,24 @@ nav > ul > li.nav-home a {
     line-height: 5rem; }
     .support-nav-list li a:hover {
       text-decoration: underline; }
+  .support-nav-list li ul {
+    display: none;
+    position: absolute;
+    width: auto;
+    z-index: 99999;
+    list-style: none;
+    margin: -1.875rem -1.25rem -1.25rem;
+    padding: 1.25rem 1.25rem; }
+    .support-nav-list li ul a {
+      line-height: 1.25rem;
+      margin: 0; }
+  .support-nav-list li:hover > ul {
+    display: block;
+    background: #8fa5b1;
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px; }
+    .support-nav-list li:hover > ul a {
+      color: white; }
 
 /* OFF CANVAS MENU */
 .move-right .exit-off-canvas {
