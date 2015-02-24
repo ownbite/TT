@@ -87,7 +87,7 @@ function updateSearch(data) {
 			item += '<a href="' + data.items[i].link + '" desc="link-desc">';
 			if (data.items[i].fileFormat !== undefined) {
 				if (data.items[i].fileFormat == 'PDF/Adobe Acrobat') {
-					item += '<img src="/wp-content/themes/Helsingborg/assets/img/images/pdf-icon.png" alt="pdf ikon"/>';
+					item += '<span class="pdf-icon"></span>';
 				}
 			}
 			item += '<h2 class="list-title">' + data.items[i].title + '</h2></a>';

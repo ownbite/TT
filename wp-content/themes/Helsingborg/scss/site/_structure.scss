@@ -407,13 +407,16 @@ img.alignright {
 				width: 100%;
 				padding-bottom: rem-calc(16);
 				margin-bottom: rem-calc(16);
-				border-bottom: 1px solid grey;
-
-				a img {
+				border-bottom: 1px solid $gray-1;
+				a .pdf-icon {
+					background-image: url(#{$wp-root-url}/assets/img/images/pdf-icon.png);
 					border-radius: $border-radius;
-					float: left;
+					background-repeat: no-repeat;
 					margin-right: rem-calc(20);
-					max-width: 25%;
+					display: inline-block;
+					height: 45px;
+					width: 45px;
+					float: left;
 				}
 				a .list-content {
 					display: block;
