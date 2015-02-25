@@ -234,9 +234,6 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
 
 </div><!-- /.article-page-layout -->
 </div><!-- /.main-site-container -->
-<script src="<?php echo get_stylesheet_directory_uri() ; ?>/js/app.js"></script>
-<script src="<?php echo get_stylesheet_directory_uri() ; ?>/js/dev/hbg.dev.js"></script>
-<script src="<?php echo get_stylesheet_directory_uri() ; ?>/js/plugins/jquery.tablesorter.min.js"></script>
 
 <!-- END -->
 

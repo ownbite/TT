@@ -46,7 +46,7 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
 
                 <?php /* Start loop */ ?>
                     <?php while (have_posts()) : the_post(); ?>
-                      <article class="article">
+                      <article class="article" id="article">
                         <header>
                           <?php get_template_part('templates/partials/accessability','menu'); ?>
 
@@ -391,9 +391,5 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
     </div><!-- /.sidebar -->
 
 </div><!-- /.article-page-layout -->
-
-<script src="<?php echo get_stylesheet_directory_uri() ; ?>/js/app.js"></script>
-<script src="<?php echo get_stylesheet_directory_uri() ; ?>/js/dev/hbg.dev.js"></script>
-<script src="<?php echo get_stylesheet_directory_uri() ; ?>/js/plugins/jquery.tablesorter.min.js"></script>
 
 <?php get_footer(); ?>

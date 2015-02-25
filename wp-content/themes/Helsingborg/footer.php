@@ -10,7 +10,6 @@
 </div><!-- /.inner-wrap -->
 </div><!-- /.off-canvas-wrap -->
 
-<script src="<?php echo get_stylesheet_directory_uri() ; ?>/js/app.js"></script>
 <script type="text/javascript">
 $(document).ready( function() {
 	var ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>';
@@ -19,8 +18,8 @@ $(document).ready( function() {
 	});
 });
 </script>
+
 <script src="<?php echo get_stylesheet_directory_uri() ; ?>/js/helsingborg/vergic.js"></script>
-<script src="<?php echo get_stylesheet_directory_uri() ; ?>/js/readspeaker/readspeaker.js"></script>
 <?php wp_footer(); ?>
 </body>
 </html>

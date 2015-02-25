@@ -37,7 +37,7 @@ $content = $post->post_content;
       </div>
     <?php endif; ?>
 
-    <section class="news-section large-8 medium-8 columns">
+    <section class="news-section large-8 medium-8 columns" id="article">
 
       <?php get_template_part('templates/partials/accessability','menu'); ?>
 
