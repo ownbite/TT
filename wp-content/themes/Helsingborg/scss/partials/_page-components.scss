@@ -267,3 +267,15 @@ html.js.flexbox.flexboxlegacy.canvas.canvastext.webgl.no-touch.geolocation.postm
     }
   }
 }
+
+.rs-docreader {
+  padding-left: rem-calc(8); 
+  &:before {
+    @include hbg-icons($speaker);
+    font-size: rem-calc(18);
+    display: inline-block;
+    float: none;
+    margin-right: rem-calc(4);
+    margin-top: rem-calc(2);
+  }
+}

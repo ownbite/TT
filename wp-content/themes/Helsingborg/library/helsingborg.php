@@ -1,6 +1,19 @@
 <?php
 
 /*
+ * We need to insert empty spans in content.
+ * Make sure html content isnt altered with when switching between Visual and Text.
+ * This is due to our "listen" icon after documents, sent to readspeaker docreader.
+ */
+function override_mce_options($initArray) {
+  $opts = '*[*]';
+  $initArray['valid_elements'] = $opts;
+  $initArray['extended_valid_elements'] = $opts;
+  return $initArray;
+}
+add_filter('tiny_mce_before_init', 'override_mce_options');
+
+/*
 *	Include JavaScript WordPress editor functions, used for guides
 */
 if( file_exists( get_template_directory() . '/includes/js-wp-editor.php' ) ) {

@@ -7226,6 +7226,26 @@ html.js.flexbox.flexboxlegacy.canvas.canvastext.webgl.no-touch.geolocation.postm
   .mini-item-list li {
     font-size: 1rem; } }
 
+.rs-docreader {
+  padding-left: 0.5rem; }
+  .rs-docreader:before {
+    font-family: hbg-se-iconset;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    content: "\e600";
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 1.125rem;
+    display: inline-block;
+    float: none;
+    margin-right: 0.25rem;
+    margin-top: 0.125rem; }
+
 /* alert messages - style */
 /* ALERT */
 .alert-msg {
