@@ -68,6 +68,12 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
 				<?php if ( (is_active_sidebar('content-area') == TRUE) ) : ?>
 					<?php dynamic_sidebar("content-area"); ?>
 				<?php endif; ?>
+				
+			<?php if (get_the_modified_time() != get_the_time()) : ?>
+ 				<p>Publicerad: <?php the_time('j F, Y'); ?> kl <?php the_time('H:i'); ?>,    Senast ändrad: <?php the_modified_time('j F, Y'); ?> kl <?php the_modified_time('H:i'); ?></p>
+ 			<?php else: ?>
+ 				<p>Publicerad: <?php the_time('j F, Y'); ?> kl <?php the_time('H:i'); ?></p>
+ 			<?php endif; ?>
 
 			</div><!-- /.columns -->
 		</div><!-- /.main-content -->
@@ -84,7 +90,7 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
 			<?php if ( (is_active_sidebar('content-area-bottom') == TRUE) ) : ?>
 				<?php dynamic_sidebar("content-area-bottom"); ?>
 			<?php endif; ?>
-
+ 
 		</div><!-- /.lower-content -->
 	</div>  <!-- /.main-area -->
 
@@ -100,5 +106,4 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
 	</div><!-- /.sidebar -->
 </div><!-- /.article-page-layout -->
 </div><!-- /.main-site-container -->
-
 <?php get_footer(); ?>
