@@ -541,6 +541,9 @@ img.alignright {
 * 4.6 Forms
 * ------------------------------------
 */
+.gform_wrapper .gfield_checkbox li label, .gform_wrapper .gfield_radio li label {
+		display: inline !important;
+}
 
 
 	/**
