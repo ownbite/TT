@@ -125,7 +125,6 @@ add_filter('upload_mimes','add_mime_types');
 /* Include JavaScript WordPress editor functions, used for guides */
 if( file_exists( get_template_directory() . '/includes/js-wp-editor.php' ) ) {
   require_once( get_template_directory() . '/includes/js-wp-editor.php' );
-  js_wp_editor();
 }
 
 /* Remove Medium image size, only need full and thumbnail */

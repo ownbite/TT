@@ -77,6 +77,7 @@ function add_article_metabox(){
 
 
 function guide_steps_meta_box($post, $args) {
+  js_wp_editor(); // Make sure we can use the editor !
   $guide_steps_meta = get_post_meta($post->ID, 'meta-guide-step', true); ?>
   <div id="mainstep">
   <?php if(isset($guide_steps_meta['guide_step'])) {
