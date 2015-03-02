@@ -79,6 +79,63 @@ function search_callback() {
   die();
 };
 
+/* Fixes issue with url being wrong inside of widgets, replace all occerrences here */
+add_action( 'wp_ajax_fix_widget_data', 'fix_widget_data_callback');
+function fix_widget_data_callback() {
+  global $wpdb;
+  $from = $_POST['from'];
+  $to   = $_POST['to'];
+
+  if (count($from) < 1 || count($to) < 1) {
+    echo ('Värde saknas!'); die();
+  }
+
+  // Fetch list with those containing the searched value
+  $option_ids_query = "SELECT option_id FROM wp_options WHERE option_name LIKE '%widget%' AND option_value LIKE '%" . $from . "%'";
+  $option_ids = $wpdb->get_results($option_ids_query, ARRAY_A);
+
+  // Iterate through all option_ids and go through its data
+  foreach ($option_ids as $option_id) {
+
+    // Get the data
+    $option_value_query = "SELECT option_value FROM `wp_options` WHERE option_id = " . $option_id['option_id'];
+    $option_value = $wpdb->get_results($option_value_query, OBJECT)[0]->option_value;
+
+    // Separate values
+    $value_array = explode(';', $option_value);
+
+    // Go through each complete value
+    foreach($value_array as $key => $value) {
+      if (strpos($value, $from) !== false) {
+        // Get the proper values
+        preg_match('/s:(\d+):"(.*?)"/', $value, $matches);
+
+        // Update url with new parameters
+        $new_url = str_replace($from, $to, $matches[2]);
+
+        // Now update complete string
+        $value_array[$key] = update_url_and_value($value, $new_url);
+      }
+    }
+
+    // Now pack it together and save in DB
+    $option_value = implode(';', $value_array);
+    $result = $wpdb->update('wp_options',
+                            array('option_value' => $option_value),
+                            array('option_id' => $option_id['option_id']));
+  }
+
+  if ($result) { echo 'Uppdaterat!'; } else { echo 'Ingen uppdatering skedde!'; }
+
+  die();
+}
+
+/* Updates the string value and it's counter, main usage for stored widget data */
+function update_url_and_value($obj, $new_value) {
+  $updated_value = preg_replace('/s:(\d+):\\"(.*?)\\"/', 's:'. strlen($new_value) . ':"' . $new_value . '"', $obj );
+  return $updated_value;
+}
+
 /* Loads pages where post_title has keyword $title */
 add_action( 'wp_ajax_load_page_with_id', 'load_page_with_id_callback');
 function load_page_with_id_callback() {
