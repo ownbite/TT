@@ -34,7 +34,19 @@
 
 <script src="<?php echo get_stylesheet_directory_uri() ; ?>/js/dev/jquery.multiple.select.js"></script>
 <script>
+jQuery(document).ready( function() {
+  var options = $('#helsingborg_meta_box_select_options option');
+  var arr = options.map(function(_, o) { return { t: $(o).text(), v: o.value }; }).get();
+  arr.sort(function(o1, o2) { return o1.t > o2.t ? 1 : o1.t < o2.t ? -1 : 0; });
+  options.each(function(i, o) {
+    o.value = arr[i].v;
+    $(o).text(arr[i].t);
+  });
+});
+</script>
+<script>
         var $ =jQuery.noConflict();
+        var selectedValues = [<?php echo $selected; ?>];
         $(function() {
           $("#helsingborg_meta_box_select_options").multipleSelect({
               selectAll: false,
@@ -42,15 +54,14 @@
               multipleWidth: 250,
               width: '100%',
               onOpen: function() {
-                $("#helsingborg_meta_box_select_options").multipleSelect("setSelects", [<?php echo $selected; ?>]);
-                $("#helsingborg_meta_box_select_options").multipleSelect("update");
+                $("#helsingborg_meta_box_select_options").multipleSelect("setSelects", selectedValues);
               },
               onClose: function() {
                 document.getElementById('_helsingborg_meta[list_options]').value = $("#helsingborg_meta_box_select_options").multipleSelect("getSelects");
               },
               onClick: function() {
 
-                var selectedValues = $("#helsingborg_meta_box_select_options").multipleSelect("getSelects");
+                selectedValues = $("#helsingborg_meta_box_select_options").multipleSelect("getSelects");
                 var selectedTexts = $("#helsingborg_meta_box_select_options").multipleSelect("getSelects", "text");
                 $('.chosen').empty();
                 $('.position').empty();
