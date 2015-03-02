@@ -132,7 +132,7 @@ $fm = $header_image_item_force_margin == 'on' ? 'checked' : '';
 
       <tr valign="top">
         <th scope="row">
-          <label for="big_information_root">
+          <label>
             Använd egen headerbild:
           </label>
         </th>
@@ -166,6 +166,20 @@ $fm = $header_image_item_force_margin == 'on' ? 'checked' : '';
           </div>
         </td>
       </tr>
+
+      <tr valign="top">
+        <th scope="row">
+          <label>
+            Byt ut url i DB inuti widgets <br>
+            (OBS! Använd inte denna om du inte vet vad den gör!):
+          </label>
+        </th>
+        <td>
+          Ersätt: <input type="text" id="widget_fix_from" value=""/>
+          med <input type="text" id="widget_fix_to" value=""/>
+          <input type="button" class="small button" value="Do it!" onclick="startWidgetFix()" />
+        </td>
+      </tr>
     </table>
 
     <input type="hidden" name="update_settings" value="Y" />
@@ -184,5 +198,21 @@ function clearHeader() {
   document.getElementById('header_image_alt').value = '';
   document.getElementById('header_image_item_force_width').checked = false;
   document.getElementById('header_image_item_force_margin').checked = false;
+}
+function startWidgetFix() {
+  var from = document.getElementById('widget_fix_from').value;
+  var to   = document.getElementById('widget_fix_to').value;
+
+  if (confirm('Är du säker på detta? Det går inte att ångra denna DB-skrivning !')){
+    // alert('Konvertering av ' + from + ' till ' + to + ' är nu gjord.');
+
+    var dates_data = { action: 'fix_widget_data', from: document.getElementById('widget_fix_from').value, to: document.getElementById('widget_fix_to').value };
+    jQuery.post(ajaxurl, dates_data, function(response) {
+      alert(JSON.stringify(response));
+    });
+
+  } else {
+    alert('Ingen skada skedd');
+  }
 }
 </script>
