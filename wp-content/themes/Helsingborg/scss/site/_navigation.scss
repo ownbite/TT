@@ -68,10 +68,11 @@
 
 nav > ul > li.nav-home a
 {
-		background-image: url(#{$wp-root-url}/#{$wp-theme-img-url}/fi-home.svg);
+		/*background-image: url(#{$wp-root-url}/#{$wp-theme-img-url}/fi-home.svg); */
 		width: 2.5rem;
-		height: 2.5rem;
-		text-indent:-999999px;
+		/* height: 2.5rem; */
+		text-indent:-16px;
+
 }
 
 .main-page-layout .main-nav .sub-menu li:first-child a, .article-page-layout .main-nav .sub-menu li:first-child a, .list-page-layout .main-nav .sub-menu li:first-child a
