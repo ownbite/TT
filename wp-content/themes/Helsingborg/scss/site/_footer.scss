@@ -3,7 +3,8 @@
 	background-color: $footer-bg-color;
 	margin-top: rem-calc(32);
 	a {
-		color: scale-color($footer-bg-color, $lightness: 75%);
+		color: $white;
+		text-decoration: underline;
 		&:hover {
 			color: $white;
 		}
