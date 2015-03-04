@@ -32,7 +32,7 @@
 			> a {
 				color: $blue-1;
 				&:before {
-					@include hbg-icons($arrow-solid-right);
+					@include hbg-icons($arrow-solid-down);
 					margin-left: - rem-calc(9);
 					margin-right: rem-calc(5);
 				}
@@ -68,10 +68,9 @@
 
 nav > ul > li.nav-home a
 {
-		background-image: url(#{$wp-root-url}/#{$wp-theme-img-url}/fi-home.svg);
 		width: 2.5rem;
-		height: 2.5rem;
-		text-indent:-999999px;
+		text-indent:-16px;
+
 }
 
 .main-page-layout .main-nav .sub-menu li:first-child a, .article-page-layout .main-nav .sub-menu li:first-child a, .list-page-layout .main-nav .sub-menu li:first-child a

@@ -139,5 +139,6 @@ $list = array(
 ,'Öppettider'
 ,'Beräknas klart'
 ,'Ord'
+,'Antagen av'
 );
 ?>

@@ -544,6 +544,10 @@ img.alignright {
 .gform_wrapper .gfield_checkbox li label, .gform_wrapper .gfield_radio li label {
 		display: inline !important;
 }
+.gform_wrapper .gfield_checkbox li input[type="checkbox"], .gform_wrapper .gfield_radio li input[type="radio"], .gform_wrapper .gfield_checkbox li input {
+    margin-top: 4px !important;
+}
+
 
 
 	/**
