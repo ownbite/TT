@@ -4670,7 +4670,7 @@ p {
   font-weight: normal;
   font-size: 1rem;
   line-height: 1.6;
-  margin-bottom: 1.25rem;
+  margin-bottom: 0;
   text-rendering: optimizeLegibility; }
   p.lead {
     font-size: 1.21875rem;
@@ -4754,7 +4754,7 @@ code {
 ul, ol, dl {
   font-size: 1rem;
   line-height: 1.6;
-  margin-bottom: 1.25rem;
+  margin-bottom: 0;
   list-style-position: outside;
   font-family: inherit; }
 
@@ -4813,7 +4813,7 @@ abbr {
 
 /* Blockquotes */
 blockquote {
-  margin: 0 0 1.25rem;
+  margin: 0 0 0;
   padding: 0.5625rem 1.25rem 0 1.1875rem;
   border-left: 1px solid #dddddd; }
   blockquote cite {
@@ -5736,6 +5736,8 @@ th.hide-for-touch {
 	* 4.7 - Table-List + List search
 	* 4.8 - 404-page
 	* 4.9 - Breadcrumb
+	* 4.10 - Timestamp
+
  * 5.0 - Plugins
 
  * ----------------------------------------------------------------------------
@@ -5913,7 +5915,7 @@ only screen and (         min-resolution: 2dppx) and (max-device-width: 1080px) 
 
 /* Generics */
 .news-list-large.row, .news-list-small.row, .block-list, .article, .filter-search {
-  margin-bottom: 2rem; }
+  margin-bottom: 0.0625rem; }
 
 .read-more:after {
   content: "\00a0" "»"; }
@@ -5949,14 +5951,11 @@ only screen and (         min-resolution: 2dppx) and (max-device-width: 1080px) 
 
 /* NEWS Sections & list */
 .news-section {
-  margin-top: 1.125rem; }
+  margin-top: 2rem; }
 
 .news-list-large, .news-list-small {
   list-style: none;
   margin-left: 0; }
-
-.news-list-large li {
-  margin-bottom: 1rem; }
 
 .news-list-small li {
   margin-bottom: 0.375rem; }
@@ -6108,7 +6107,6 @@ ul.news-list-large.row section.news-section ul.news-list-large.row li.news-item.
   border-top-right-radius: 4px; }
 
 .article {
-  margin-bottom: 2rem;
   overflow: hidden;
   margin-top: 1rem; }
   .article img {
@@ -6264,7 +6262,7 @@ ul.breadcrumbs strong {
   h5 {
     font-size: 1rem; }
   h6 {
-    font-size: 1rem; } }
+    font-size: 0.875rem; } }
 
 @media only screen and (min-width:40.063em) and (max-width:54.375em) { }
 

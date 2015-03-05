@@ -5103,7 +5103,7 @@ p {
   font-weight: normal;
   font-size: 1rem;
   line-height: 1.6;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.25rem; 
   text-rendering: optimizeLegibility; }
   p.lead {
     font-size: 1.21875rem;
