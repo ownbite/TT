@@ -6291,6 +6291,13 @@ ul.breadcrumbs strong {
   .site-bg {
     top: 13.125rem; } }
 
+/**
+* 4.10 - Timestamp
+* -----------------------------------------------------------------------------
+*/
+.timestamp {
+  font-size: 0.63rem; }
+
 /* Helsingborg.se - navigation */
 /* desktop navigation */
 /*.main-nav .main-nav-list {

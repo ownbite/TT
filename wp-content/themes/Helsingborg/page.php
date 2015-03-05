@@ -56,19 +56,18 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
 								echo apply_filters('the_content', $main);
 							} ?>
 						</div>
-						<footer>
-							<ul class="socialmedia-list">
-								<li class="fbook"><a href="#">Facebook</a></li>
-								<li class="twitter"><a href="#">Twitter</a></li>
-							</ul>
-						</footer>
 					</article>
 				<?php endwhile; // End the loop ?>
 
 				<?php if ( (is_active_sidebar('content-area') == TRUE) ) : ?>
 					<?php dynamic_sidebar("content-area"); ?>
 				<?php endif; ?>
-			
+			<footer>
+				<ul class="socialmedia-list">
+					<li class="fbook"><a href="#">Facebook</a></li>
+					<li class="twitter"><a href="#">Twitter</a></li>
+				</ul>
+			</footer>
 
 			<div class="timestamp">	
 			<?php if (get_the_modified_time() != get_the_time()) : ?>
