@@ -68,13 +68,16 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
 				<?php if ( (is_active_sidebar('content-area') == TRUE) ) : ?>
 					<?php dynamic_sidebar("content-area"); ?>
 				<?php endif; ?>
-				
-			<?php if (get_the_modified_time() != get_the_time()) : ?>
- 				<p>Publicerad: <?php the_time('j F, Y'); ?> kl <?php the_time('H:i'); ?>,    Senast ändrad: <?php the_modified_time('j F, Y'); ?> kl <?php the_modified_time('H:i'); ?></p>
- 			<?php else: ?>
- 				<p>Publicerad: <?php the_time('j F, Y'); ?> kl <?php the_time('H:i'); ?></p>
- 			<?php endif; ?>
+			
 
+			<div class="timestamp">	
+			<?php if (get_the_modified_time() != get_the_time()) : ?>
+ 				<p class= "timestamp">Publicerad: <?php the_time('j F, Y'); ?> kl <?php the_time('H:i'); ?> </BR>   Senast ändrad: <?php the_modified_time('j F, Y'); ?> kl <?php the_modified_time('H:i'); ?></p>
+ 			<?php else: ?>
+ 				<p class= "timestamp">Publicerad: <?php the_time('j F, Y'); ?> kl <?php the_time('H:i'); ?></p>
+ 			<?php endif; ?>
+ 			</div><!-- /.timestamp -->
+			
 			</div><!-- /.columns -->
 		</div><!-- /.main-content -->
 
