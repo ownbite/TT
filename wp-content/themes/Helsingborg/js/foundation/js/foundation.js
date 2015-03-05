@@ -4033,7 +4033,7 @@
       stack_on_small: false,
       navigation_arrows: true,
       slide_number: true,
-      slide_number_text: 'of',
+      slide_number_text: 'av',
       container_class: 'orbit-container',
       stack_on_small_class: 'orbit-stack-on-small',
       next_class: 'orbit-next',
