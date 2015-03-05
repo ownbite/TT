@@ -6129,6 +6129,12 @@ ul.news-list-large.row section.news-section ul.news-list-large.row li.news-item.
 * 4.6 Forms
 * ------------------------------------
 */
+.gform_wrapper .gfield_checkbox li label, .gform_wrapper .gfield_radio li label {
+  display: inline !important; }
+
+.gform_wrapper .gfield_checkbox li input[type="checkbox"], .gform_wrapper .gfield_radio li input[type="radio"], .gform_wrapper .gfield_checkbox li input {
+  margin-top: 4px !important; }
+
 /**
 	 * 4.7 Table-List + List search
 	 * ------------------------------------
@@ -6319,7 +6325,7 @@ ul.breadcrumbs strong {
         font-variant: normal;
         text-transform: none;
         line-height: 1;
-        content: "\e607";
+        content: "\e606";
         /* Better Font Rendering =========== */
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
@@ -6343,10 +6349,8 @@ ul.breadcrumbs strong {
   background-color: white; }
 
 nav > ul > li.nav-home a {
-  background-image: url(/wp-content/themes/Helsingborg/assets/img/images/fi-home.svg);
   width: 2.5rem;
-  height: 2.5rem;
-  text-indent: -999999px; }
+  text-indent: -16px; }
 
 .main-page-layout .main-nav .sub-menu li:first-child a, .article-page-layout .main-nav .sub-menu li:first-child a, .list-page-layout .main-nav .sub-menu li:first-child a {
   background-image: none;
@@ -6643,7 +6647,8 @@ nav > ul > li.nav-home a {
   background-color: #45697d;
   margin-top: 2rem; }
   .footer a {
-    color: #ccdbe3; }
+    color: white;
+    text-decoration: underline; }
     .footer a:hover {
       color: white; }
 
