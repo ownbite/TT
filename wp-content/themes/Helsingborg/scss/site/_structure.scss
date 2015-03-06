@@ -14,6 +14,8 @@
 	* 4.7 - Table-List + List search
 	* 4.8 - 404-page
 	* 4.9 - Breadcrumb
+	* 4.10 - Timestamp
+
  * 5.0 - Plugins
 
  * ----------------------------------------------------------------------------
@@ -242,10 +244,11 @@ img.alignright {
  		}
 
 
- 	/* Generics */
+	/* Generics */
 	%comp-end-margin {
-		margin-bottom: rem-calc(32);
+		margin-bottom: rem-calc(1);
 	}
+
 
 	.read-more {
 		&:after {
@@ -288,7 +291,7 @@ img.alignright {
 
 	 /* NEWS Sections & list */
 	 .news-section {
-	 	margin-top: rem-calc(18);
+	 	margin-top: rem-calc(32);
 	 }
 
 	 .news-list-large,
@@ -301,12 +304,6 @@ img.alignright {
 	 }
 
 
-	 .news-list-large {
-	 	li {
-				margin-bottom: rem-calc(16);
-
-			}
-	  }
 	  .news-list-small {
 	  	li {
 	  		margin-bottom: rem-calc(6);
@@ -510,7 +507,6 @@ img.alignright {
 	}
 	.article {
 		@extend %comp-end-margin;
-		margin-bottom: rem-calc(32);
 		overflow: hidden;
 		margin-top: rem-calc(16);
 
@@ -734,7 +730,7 @@ ul.breadcrumbs strong {
  		font-size: rem-calc(16);
  	}
  	h6 {
- 		font-size: rem-calc(16);
+ 		font-size: rem-calc(14);
  	}
 
 }
