@@ -38,7 +38,7 @@ if (!class_exists('SimpleLinkListWidget')) {
       $show_placement = empty($instance['show_placement']) ? 'show_in_sidebar' : $instance['show_placement'];
       $show_dates = isset($instance['show_dates']) ? $instance['show_dates'] : false;
       $amount = empty($instance['amount']) ? 1 : $instance['amount'];
-
+      
       // Retrieved all links
       for ($i = 1; $i <= $amount; $i++) {
         $items[$i-1]         = $instance['item'.$i];
@@ -47,12 +47,12 @@ if (!class_exists('SimpleLinkListWidget')) {
         $item_warnings[$i-1] = isset($instance['item_warning'.$i]) ? $instance['item_warning'.$i] : false;
         $item_infos[$i-1]    = isset($instance['item_info'.$i])    ? $instance['item_info'.$i]    : false;
         $item_ids[$i-1]      = $instance['item_id'.$i];
+        $item_dates[$i-1]    = $instance['item_date'.$i];
       }
 
       $widget_class = ($show_rss == 'rss_yes') ? 'news-widget ' : 'quick-links-widget ';
       // echo substr_replace($before_widget, $widget_class, strpos('widget'), 0);
       $before_widget = str_replace('widget', $widget_class . 'widget', $before_widget);
-
 
       if ($show_placement == 'show_in_sidebar') :
         echo $before_widget; ?>
@@ -72,7 +72,8 @@ if (!class_exists('SimpleLinkListWidget')) {
 
             foreach ($items as $num => $item) :
                 $title;
-                $item_id = $item_ids[$num];
+                $item_id   = $item_ids[$num];
+                $item_date = $item_dates[$num];
 
                 // Check if link should be opened in new window
                 if ($item_targets[$num]) {
@@ -80,7 +81,7 @@ if (!class_exists('SimpleLinkListWidget')) {
                 } else {
                   $target = '';
                 }
-                
+
                 $class = '';
                 if ($item_warnings[$num] == 'on') {
                   $class = ' class="alert-msg warning"';
@@ -114,6 +115,19 @@ if (!class_exists('SimpleLinkListWidget')) {
                   $title = $item;
                   $link = $item_links[$num];
                   echo('<li' . $class . '><a href="' . $link . '" ' . $target . '>' . $title . '</a></li>');
+                  if ($show_dates && !empty($item_date)) {
+                    // Parse the dates presented in the event
+                    $datetime_start = $datetime_end = strtotime($item_date);
+                    $date = date('Y-m-d', $datetime_start);
+                    $time = date('H:i', $datetime_start);
+
+                    // Present 'Idag HH:ii' or 'YYYY-mm-dd'
+                    if ($today > $datetime_start && $today < $datetime_end) {
+                      echo('<span class="date">Idag ' . $time . '</span>');
+                    } else {
+                      echo('<span class="date">' . $date . '</span>');
+                    }
+                  }
                 }
             endforeach; ?>
 
@@ -152,9 +166,11 @@ if (!class_exists('SimpleLinkListWidget')) {
                 if (!empty($item_id)) {
                   $title = $page->post_title;
                   $link = get_permalink($page->ID);
+                  $datetime_start = strtotime($page->post_date);
                 } else {
                   $title = $item;
                   $link = $item_links[$num];
+                  $datetime_start = !empty($item_dates[$num]) ? strtotime($item_dates[$num]) : '';
                 }
 
                 echo('<li class="news-item large-12 columns ' . $class . '">');
@@ -164,8 +180,7 @@ if (!class_exists('SimpleLinkListWidget')) {
                     echo('</div>');
 
                     echo('<div class="large-3 medium-3 small-3 columns">');
-                      if ($show_dates) :
-                        $datetime_start = strtotime($page->post_date);
+                      if ($show_dates && !empty($datetime_start)) :
                         $date = date('n M Y', $datetime_start);
                         echo('<span class="news-date">' . $date . '</span>');
                       endif;
@@ -225,6 +240,7 @@ if (!class_exists('SimpleLinkListWidget')) {
           $instance['item_warning'.($i+1)] = empty($new_instance['item_warning'.$item_num]) ? '' : strip_tags($new_instance['item_warning'.$item_num]);
           $instance['item_info'.($i+1)]    = empty($new_instance['item_info'.$item_num])    ? '' : strip_tags($new_instance['item_info'.$item_num]);
           $instance['item_id'.($i+1)]      = empty($new_instance['item_id'.$item_num])      ? '' : strip_tags($new_instance['item_id'.$item_num]);
+          $instance['item_date'.($i+1)]    = empty($new_instance['item_date'.$item_num])    ? '' : strip_tags($new_instance['item_date'.$item_num]);
         }
       }
 
@@ -249,6 +265,7 @@ if (!class_exists('SimpleLinkListWidget')) {
         $item_warnings[$i] = empty($instance['item_warning'.$i]) ? '' : $instance['item_warning'.$i];
         $item_infos[$i]    = empty($instance['item_info'.$i])    ? '' : $instance['item_info'.$i];
         $item_ids[$i]      = empty($instance['item_id'.$i])      ? '' : $instance['item_id'.$i];
+        $item_dates[$i]    = empty($instance['item_date'.$i])    ? '' : $instance['item_date'.$i];;
       }
 
       $title_link = $instance['title_link'];
@@ -282,10 +299,11 @@ if (!class_exists('SimpleLinkListWidget')) {
       <?php foreach ($items as $num => $item) :
         $item      = esc_attr($item);
         $item_link = esc_attr($item_links[$num]);
-        $checked   = checked($item_targets[$num], 'on', false);
+        $checked   = checked($item_targets[$num],  'on', false);
         $checked_w = checked($item_warnings[$num], 'on', false);
-        $checked_i = checked($item_infos[$num], 'on', false);
+        $checked_i = checked($item_infos[$num],    'on', false);
         $item_id   = esc_attr($item_ids[$num]);
+        $item_date = esc_attr($item_dates[$num]);
         $h5        = esc_attr($item);
         if (!empty($item_id)) {
           $h5 = get_post($item_id, OBJECT, 'display')->post_title;
@@ -328,6 +346,8 @@ if (!class_exists('SimpleLinkListWidget')) {
                 <td><input type="checkbox" name="<?php echo $this->get_field_name('item_info'.$num); ?>" id="<?php echo $this->get_field_id('item_info'.$num); ?>" <?php echo $checked_i; ?> /> <label for="<?php echo $this->get_field_id('item_info'.$num); ?>"><?php echo __("Visa som information"); ?></label></td>
               </tr>
             </table>
+
+            <input type="hidden" name="<?php echo $this->get_field_name('item_date'.$num); ?>" id="<?php echo $this->get_field_id('item_date'.$num); ?>" value="<?php echo $item_date; ?>" />
 
             <a class="hbgllw-delete hide-if-no-js"><img src="<?php echo plugins_url('../images/delete.png', __FILE__ ); ?>" /> <?php echo __("Remove"); ?></a>
           </div>
