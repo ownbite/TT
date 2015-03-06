@@ -12,6 +12,16 @@ function override_mce_options($initArray) {
 }
 add_filter('tiny_mce_before_init', 'override_mce_options');
 
+/* Add new Cron interval used by our schedule events */
+add_filter( 'cron_schedules', 'cron_add_3min' );
+function cron_add_3min( $schedules ) {
+   $schedules['3min'] = array(
+       'interval' => 3*60,
+       'display' => __( 'Once every three minutes' )
+   );
+   return $schedules;
+}
+
 /* Add supported mime-types for upload */
 function add_mime_types($mimes) {
   $mimes = array(

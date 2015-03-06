@@ -40,6 +40,15 @@ if (isset($_POST["update_settings"])) {
   $header_image_item_force_margin_value = esc_attr($_POST['header_image_item_force_margin_value']);
   update_option('helsingborg_header_image_item_force_margin_value', $header_image_item_force_margin_value);
 
+  $cbis_api_key = esc_attr($_POST['cbis_api_key']);
+  update_option('helsingborg_cbis_api_key', $cbis_api_key);
+
+  $cbis_hbg_id = esc_attr($_POST['cbis_hbg_id']);
+  update_option('helsingborg_cbis_hbg_id', $cbis_hbg_id);
+
+  $cbis_category_id = esc_attr($_POST['cbis_category_id']);
+  update_option('helsingborg_cbis_category_id', $cbis_category_id);
+
   echo('<div id="message" class="updated">Dina inställningar är sparade!</div>');
 }
 
@@ -62,6 +71,11 @@ $header_image_item_force_margin_value = get_option('helsingborg_header_image_ite
 
 $fw = $header_image_item_force_width  == 'on' ? 'checked' : '';
 $fm = $header_image_item_force_margin == 'on' ? 'checked' : '';
+
+// Values for CBIS
+$cbis_api_key     = get_option('helsingborg_cbis_api_key');
+$cbis_hbg_id      = get_option('helsingborg_cbis_hbg_id');
+$cbis_category_id = get_option('helsingborg_cbis_category_id');
 
 ?>
 <div class="wrap">
@@ -164,6 +178,37 @@ $fm = $header_image_item_force_margin == 'on' ? 'checked' : '';
             <br>
             <input type="button" class="small button" value="Rensa" onclick="clearHeader()" />
           </div>
+        </td>
+      </tr>
+
+      <tr valign="top">
+        <th scope="row">
+          <label for="cbis_api_key">
+            API-nyckel för CBIS:
+          </label>
+        </th>
+        <td>
+          <input type="text" name="cbis_api_key" value="<?php echo $cbis_api_key; ?>" />
+        </td>
+      </tr>
+      <tr valign="top">
+        <th scope="row">
+          <label for="cbis_hbg_id">
+            CBIS id för Helsingborg:
+          </label>
+        </th>
+        <td>
+          <input type="text" name="cbis_hbg_id" value="<?php echo $cbis_hbg_id; ?>" />
+        </td>
+      </tr>
+      <tr valign="top">
+        <th scope="row">
+          <label for="cbis_category_id">
+            CBIS id för kategori:
+          </label>
+        </th>
+        <td>
+          <input type="number" name="cbis_category_id" value="<?php echo $cbis_category_id; ?>" />
         </td>
       </tr>
 
