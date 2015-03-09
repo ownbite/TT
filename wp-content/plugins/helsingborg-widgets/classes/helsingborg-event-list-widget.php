@@ -83,38 +83,104 @@ if (!class_exists('EventListWidget')) {
 
 
       <div id="eventModal" class="reveal-modal" data-reveal>
-        <img class="modalImage"/>
-        <h2 class="modalTitle"></h2>
-        <p class="modalDate"></p>
-        <p class="modalDescription"></p>
-        <a class="close-reveal-modal">&#215;</a>
+          <img class="modal-image"/>
+
+          <div class="row">
+            <div class="modal-event-info large-12 columns">
+                <h2 class="modal-title"></h2>
+                <p class="modal-description"></p>
+                <!--<p class="modal-date"></p>-->
+            </div>
+          </div>
+          <!-- IF arrangör exist -->
+          <div class="row">
+            <div class="large-6 columns" id="event-times">
+              <h2 class="section-title">Datum, tid och plats</h2>
+              <div class="divider fade">
+                <div class="upper-divider"></div>
+                <div class="lower-divider"></div>
+              </div>
+
+              <ul class="modal-list" id="time-modal"></ul>
+            </div><!-- /.modal-column -->
+            <div class="large-6 columns" id="event-organizers">
+              <h2 class="section-title">Arrangör</h2>
+              <div class="divider fade">
+                <div class="upper-divider"></div>
+                <div class="lower-divider"></div>
+              </div>
+
+              <ul class="modal-list" id="organizer-modal"></ul>
+            </div><!-- /.modal-column -->
+          </div><!-- /.row -->
+          <a class="close-reveal-modal">&#215;</a>
       </div>
 
       <script>
-        var _events = <?php echo $json_items; ?>;
+        var ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>';
+        var events = <?php echo $json_items; ?>;
       </script>
 
       <script>
         jQuery(document).ready(function() {
+
           jQuery(document).on('click', '.modalLink', function(event){
               event.preventDefault();
-              var image = $('.modalImage');
-              var title = $('.modalTitle');
-              var date = $('.modalDate');
-              var description = $('.modalDescription');
-              var result;
+              var image = $('.modal-image');
+              var title = $('.modal-title');
+              var date = $('.modal-date');
+              var description = $('.modal-description');
+              var time_list = $('#time-modal');
+              var organizer_list = $('#organizer-modal');
+              document.getElementById('event-times').style.display = 'none';
+              document.getElementById('event-times').className = 'large-6 columns';
+              document.getElementById('event-organizers').style.display = 'none';
 
-              for (var i = 0; i < _events.length; i++) {
-                if (_events[i].EventID === this.id) {
-                  result = _events[i];
+              var result;
+              for (var i = 0; i < events.length; i++) {
+                if (events[i].EventID === this.id) {
+                  result = events[i];
+                  break;
                 }
               }
+
+              var dates_data = { action: 'load_event_dates', id: this.id, location: result.Location };
+              jQuery.post(ajaxurl, dates_data, function(response) {
+                html = "<li>";
+                var dates = JSON.parse(response);
+                for (var i=0;i<dates.length;i++) {
+                  html += '<span>' + dates[i].Date + '</span>';
+                  html += '<span>' + dates[i].Time + '</span>';
+                  html += '<span>' + dates_data.location + '</span>';
+                }
+                html += '</li>';
+                jQuery(time_list).html(html);
+                if (dates.length > 0) {
+                  document.getElementById('event-times').style.display = 'block';
+                }
+              });
+
+              var organizers_data = { action: 'load_event_organizers', id: this.id };
+              jQuery.post(ajaxurl, organizers_data, function(response) {
+                var organizers = JSON.parse(response); html = '';
+                for (var i=0;i<organizers.length;i++) {
+                  html += '<li><span>' + organizers[i].Name + '</span></li>';
+                }
+                jQuery(organizer_list).html(html);
+                if (organizers.length > 0) {
+                  document.getElementById('event-organizers').style.display = 'block';
+                } else {
+                  document.getElementById('event-times').className = 'large-12 columns';
+                }
+              });
 
               jQuery(image).attr("src", result.ImagePath);
               jQuery(title).html(result.Name);
               jQuery(date).html(result.Date);
               jQuery(description).html(result.Description);
           });
+
+
         });
       </script>
 
