@@ -38,7 +38,7 @@ if (!class_exists('SimpleLinkListWidget')) {
       $show_placement = empty($instance['show_placement']) ? 'show_in_sidebar' : $instance['show_placement'];
       $show_dates = isset($instance['show_dates']) ? $instance['show_dates'] : false;
       $amount = empty($instance['amount']) ? 1 : $instance['amount'];
-      
+
       // Retrieved all links
       for ($i = 1; $i <= $amount; $i++) {
         $items[$i-1]         = $instance['item'.$i];
@@ -51,7 +51,6 @@ if (!class_exists('SimpleLinkListWidget')) {
       }
 
       $widget_class = ($show_rss == 'rss_yes') ? 'news-widget ' : 'quick-links-widget ';
-      // echo substr_replace($before_widget, $widget_class, strpos('widget'), 0);
       $before_widget = str_replace('widget', $widget_class . 'widget', $before_widget);
 
       if ($show_placement == 'show_in_sidebar') :

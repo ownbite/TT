@@ -90,42 +90,46 @@ function fix_widget_data_callback() {
     echo ('Värde saknas!'); die();
   }
 
-  // Fetch list with those containing the searched value
-  $option_ids_query = "SELECT option_id FROM wp_options WHERE option_name LIKE '%widget%' AND option_value LIKE '%" . $from . "%'";
-  $option_ids = $wpdb->get_results($option_ids_query, ARRAY_A);
+  for ($i=1;$i<=125;$i++) {
+    $wp_table = $i == 1 ? 'wp_options' : 'wp_' . $i . '_options';
 
-  // Iterate through all option_ids and go through its data
-  foreach ($option_ids as $option_id) {
+    // Fetch list with those containing the searched value
+    $option_ids_query = "SELECT option_id FROM $wp_table WHERE option_name LIKE '%widget%' AND option_value LIKE '%" . $from . "%'";
+    $option_ids = $wpdb->get_results($option_ids_query, ARRAY_A);
 
-    // Get the data
-    $option_value_query = "SELECT option_value FROM `wp_options` WHERE option_id = " . $option_id['option_id'];
-    $option_value = $wpdb->get_results($option_value_query, OBJECT)[0]->option_value;
+    // Iterate through all option_ids and go through its data
+    foreach ($option_ids as $option_id) {
 
-    // Separate values
-    $value_array = explode(';', $option_value);
+      // Get the data
+      $option_value_query = "SELECT option_value FROM $wp_table WHERE option_id = " . $option_id['option_id'];
+      $option_value = $wpdb->get_results($option_value_query, OBJECT)[0]->option_value;
 
-    // Go through each complete value
-    foreach($value_array as $key => $value) {
-      if (strpos($value, $from) !== false) {
-        // Get the proper values
-        preg_match('/s:(\d+):"(.*?)"/', $value, $matches);
+      // Separate values
+      $value_array = explode(';', $option_value);
 
-        // Update url with new parameters
-        $new_url = str_replace($from, $to, $matches[2]);
+      // Go through each complete value
+      foreach($value_array as $key => $value) {
+        if (strpos($value, $from) !== false) {
+          // Get the proper values
+          preg_match('/s:(\d+):"(.*?)"/', $value, $matches);
 
-        // Now update complete string
-        $value_array[$key] = update_url_and_value($value, $new_url);
+          // Update url with new parameters
+          $new_url = str_replace($from, $to, $matches[2]);
+
+          // Now update complete string
+          $value_array[$key] = update_url_and_value($value, $new_url);
+        }
       }
+
+      // Now pack it together and save in DB
+      $option_value = implode(';', $value_array);
+      $result = $wpdb->update($wp_table,
+                              array('option_value' => $option_value),
+                              array('option_id' => $option_id['option_id']));
     }
 
-    // Now pack it together and save in DB
-    $option_value = implode(';', $value_array);
-    $result = $wpdb->update('wp_options',
-                            array('option_value' => $option_value),
-                            array('option_id' => $option_id['option_id']));
+    if ($result) { echo 'Uppdaterade - ' . $wp_table . '<br>'; } else { echo 'Ingen uppdatering skedde för ' . $wp_table . '<br>'; }
   }
-
-  if ($result) { echo 'Uppdaterat!'; } else { echo 'Ingen uppdatering skedde!'; }
 
   die();
 }
