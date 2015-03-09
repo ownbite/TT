@@ -82,7 +82,7 @@ if (!class_exists('Image_List_Widget')) {
               echo('<img class="img-slide" src="' . $item_imageurl[$num] . '" alt="' . $item_alts[$num] . '" style="' . $force_width . $force_margin .'" />');
               if (!empty($item_links[$num])) { echo( '</a>'); }
               if (!empty($item_texts[$num])) :
-                echo('<div class="orbit-caption">');
+                echo('<div class="orbit-caption show-for-medium-up">');
                   echo $item_texts[$num];
                 echo('</div>');
               endif;
