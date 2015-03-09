@@ -10,10 +10,7 @@ add_action( 'wp', 'setup_scheduled_xcap' );
 function setup_scheduled_xcap() {
   if ( ! wp_next_scheduled( 'scheduled_xcap' ) ) {
     // Set scheduled task to occur at 22.30 each day
-    // wp_schedule_event( strtotime(date("Y-m-d", time()) . '22:30'), 'daily', 'scheduled_xcap');
-
-    // Temporary for test purpose
-    wp_schedule_event( time(), '3min', 'scheduled_xcap');
+    wp_schedule_event( strtotime(date("Y-m-d", time()) . '22:30'), 'daily', 'scheduled_xcap');
   }
 }
 
