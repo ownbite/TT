@@ -26,6 +26,32 @@
 			text-decoration: underline;
 			font-weight: bold;
 		}
+		li.current-ancestor {
+			> a {
+				&:before {
+				@include hbg-icons($arrow-solid-down);
+				color: $blue-1;
+				margin-left: - rem-calc(9);
+				margin-right: rem-calc(5);
+				}
+			}
+			&:hover {
+				text-decoration: none;
+			}
+		}
+		li.has-childs {
+			> a {
+				&:before {
+					@include hbg-icons($arrow-solid-right);
+					color: $blue-1;
+					margin-left: - rem-calc(9);
+					margin-right: rem-calc(5);
+				}
+				&:hover {
+					text-decoration: none;
+				}
+			}
+		}
 		li.current {
 			padding-top: rem-calc(6);
 			background-color: scale-color($gray-3, $lightness: 70%);

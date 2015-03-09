@@ -85,8 +85,14 @@ class Helsingborg_Walker extends Walker {
       if ( in_array( $page->ID, $_current_page->ancestors ) && $page->post_parent == get_option('page_on_front') ) {
         $css_class = 'class="current-node"';
       }
+      if ( in_array( $page->ID, $_current_page->ancestors ) ) {
+        $css_class = 'class="current-ancestor"';
+      }
       if ( $page->ID == $current_page ) {
         $css_class = 'class="current"';
+      }
+      if ( !in_array( $page->ID, $_current_page->ancestors ) && ($page->ID != $current_page) && ( count(get_pages('child_of='.$page->ID)) > 0 ) && ($page->post_parent != get_option('page_on_front')) ) {
+        $css_class = 'class="has-childs"';
       }
 
       /* If article page parent is list page, then mark the parent as current -> since childs are hidden */
