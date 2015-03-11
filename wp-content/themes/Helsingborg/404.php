@@ -1,5 +1,5 @@
 <?php get_header(); ?>
-
+ 
 <div class="row errorpage">
 
 		<article <?php post_class() ?> id="post-<?php the_ID(); ?>">
@@ -11,7 +11,7 @@
 			<div class="entry-content">
 				<div class="search-container row">
 						<div class="search-inputs large-12 columns">
-							<form id="searchform" class="search-inputs large-12 columns" action="http://localhost/TT/" method="get" role="search">
+							<form id="searchform" class="search-inputs large-12 columns" action="<?php echo home_url('/'); ?>" method="get" role="search">
 								<input id="s" class="input-field" type="text" placeholder="Vad letar du efter?" name="s" value=""></input>
     							<input id="searchsubmit" class="button search" type="submit" value="Sök"></input>
     							<a class="archive-search-link" href="http://helsingborg.arkivbyran.se/"></a>
