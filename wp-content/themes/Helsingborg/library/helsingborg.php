@@ -1,4 +1,10 @@
 <?php
+/* Update the default maximum number of redirects to 250 */
+add_filter( 'srm_max_redirects', 'dbx_srm_max_redirects' );
+function dbx_srm_max_redirects() {
+    return 250;
+}
+
 /*
  * We need to insert empty spans in content.
  * Make sure html content isnt altered with when switching between Visual and Text.
