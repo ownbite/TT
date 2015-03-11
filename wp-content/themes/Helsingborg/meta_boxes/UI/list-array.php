@@ -97,7 +97,7 @@ $list = array(
 ,'Samråd'
 ,'Scen'
 ,'Senaste granskning'
-,'Senaste inspektion'
+,'Smiley sedan'
 ,'Sign'
 ,'Sista ansökningsdag'
 ,'Skede'
@@ -141,4 +141,4 @@ $list = array(
 ,'Ord'
 ,'Antagen av'
 );
-?>
+?> 
