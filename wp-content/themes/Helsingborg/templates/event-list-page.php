@@ -152,26 +152,6 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
 
                           <ul class="modal-list" id="organizer-modal"></ul>
                         </div><!-- /.modal-column -->
-
-                        <!-- ELSE --><!--
-                        <div class="large-12 columns">
-                          <h2 class="section-title">Datum, tid och plats</h2>
-                          <div class="divider fade">
-                            <div class="upper-divider"></div>
-                            <div class="lower-divider"></div>
-                          </div>
-
-                          <ul class="modal-list">
-                            <li><span>2014-12-07</span><span>kl 20.00</span><span>Dunkers kulturhus</span></li>
-                            <li><span>2014-12-10</span><span>kl 20.00</span><span>Dunkers kulturhus</span></li>
-                            <li><span>2014-12-11</span><span>kl 20.00</span><span>Dunkers kulturhus</span></li>
-                            <li><span>2014-12-15</span><span>kl 20.00</span><span>Dunkers kulturhus</span></li>
-
-                          </ul>
-                        </div>
-                        --><!-- /.large-12 -->
-                        <!-- END ELSE -->
-
                       </div><!-- /.row -->
                       <a class="close-reveal-modal">&#215;</a>
                     </div>
@@ -285,10 +265,8 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                         var data = { action: 'load_events', ids: '<?php echo $administration_unit_ids; ?>' };
                         jQuery.post(ajaxurl, data, function(response) {
                           _eventPageModel.events(ExtractModels(_eventPageModel, JSON.parse(response), EventModel));
-                          // alert(_eventPageModel.pager.events().length);
                           document.getElementById('loading-event').style.display = "none";
                           document.getElementById('no-event').style.display = "block";
-                          // setTimeout(function() { checkSize(); }, 3000);
                         });
 
                         var data = { action: 'load_event_types' };
