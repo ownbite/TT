@@ -3,6 +3,19 @@
 /* AJAX FUNCTIONS */
 /******************/
 
+/* Manually start fetch of XCap */
+add_action( 'wp_ajax_start_manual_xcap', 'start_manual_xcap_callback');
+function start_manual_xcap_callback() {
+  xcap_event();
+}
+
+/* Manually start fetch of CBIS */
+add_action( 'wp_ajax_start_manual_cbis', 'start_manual_cbis_callback');
+function start_manual_cbis_callback() {
+  cbis_event();
+}
+
+
 /* Loads the big notifications i.e. warning/information and prints the alert messages */
 /* The IDs being fetched are set from Helsingborg settings */
 add_action( 'wp_ajax_nopriv_big_notification', 'big_notification_callback');

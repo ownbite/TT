@@ -1,4 +1,26 @@
 <?php
+// Add scheduled work for CBIS events
+require_once('scheduled_cbis.php');
+ /* Setup the scheduled task */
+add_action( 'wp', 'setup_scheduled_cbis' );
+function setup_scheduled_cbis() {
+  if ( ! wp_next_scheduled( 'scheduled_cbis' ) ) {
+    // Set scheduled task to occur at 22.30 each day
+    wp_schedule_event( strtotime(date("Y-m-d", time()) . '22:30'), 'daily', 'scheduled_cbis');
+  }
+}
+
+// Add scheduled work for XCap events
+require_once('scheduled_xcap.php');
+/* Setup the scheduled task */
+add_action( 'wp', 'setup_scheduled_xcap' );
+function setup_scheduled_xcap() {
+  if ( ! wp_next_scheduled( 'scheduled_xcap' ) ) {
+    // Set scheduled task to occur at 22.30 each day
+    wp_schedule_event( strtotime(date("Y-m-d", time()) . '22:30'), 'daily', 'scheduled_xcap');
+  }
+}
+
 /* Update the default maximum number of redirects to 250 */
 add_filter( 'srm_max_redirects', 'dbx_srm_max_redirects' );
 function dbx_srm_max_redirects() {

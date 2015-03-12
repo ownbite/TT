@@ -215,6 +215,18 @@ $cbis_category_id = get_option('helsingborg_cbis_category_id');
       <tr valign="top">
         <th scope="row">
           <label>
+            Starta manuellt arbete:
+          </label>
+        </th>
+        <td>
+          <input type="button" class="small button" value="Starta XCap" onclick="startManualXCap()" />
+          <input type="button" class="small button" value="Starta CBIS" onclick="startManualCBIS()" />
+        </td>
+      </tr>
+
+      <tr valign="top">
+        <th scope="row">
+          <label>
             Byt ut url i DB inuti widgets <br>
             (OBS! Använd inte denna om du inte vet vad den gör!):
           </label>
@@ -244,6 +256,15 @@ function clearHeader() {
   document.getElementById('header_image_item_force_width').checked = false;
   document.getElementById('header_image_item_force_margin').checked = false;
 }
+
+function startManualCBIS() {
+  jQuery.post(ajaxurl, { action: 'start_manual_cbis' }, function(response) {});
+}
+
+function startManualXCap() {
+  jQuery.post(ajaxurl, { action: 'start_manual_xcap' }, function(response) {});
+}
+
 function startWidgetFix() {
   var from = document.getElementById('widget_fix_from').value;
   var to   = document.getElementById('widget_fix_to').value;
