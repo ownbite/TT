@@ -1,4 +1,16 @@
 <?php
+/* Flush cache when page is updated */
+function cache_flush_on_page_update( $post_id ) {
+  // Remove the cached menu
+  wp_cache_delete('menu_' . $post_id);
+
+  // Remove the W3TC for this specific page
+  if(function_exists('w3tc_pgcache_flush_post')){
+      w3tc_pgcache_flush_post($post_id);
+  }
+}
+add_filter( 'save_post', 'cache_flush_on_page_update', 10, 1 );
+
 // Add scheduled work for CBIS events
 require_once('scheduled_cbis.php');
  /* Setup the scheduled task */
