@@ -96,7 +96,9 @@ class Helsingborg_Walker extends Walker {
         'post_status' => 'publish',
         'post_parent' => $page->ID,
       );
-      $has_children = !empty(get_children($args));
+
+      $children = get_children($args);
+      $has_children = !empty($children);
       if ( !in_array( $page->ID, $_current_page->ancestors ) && ($page->ID != $current_page) && $has_children && ($page->post_parent != get_option('page_on_front')) ) {
         $css_class = 'class="has-childs"';
       }
