@@ -7,6 +7,8 @@
 		<title>Helsingborg stad</title>
 		<meta name="description" content="">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="pubdate" content="<?php echo the_time('d M Y'); ?>">
+		<meta name="moddate" content="<?php echo the_modified_time('d M Y'); ?>">
 
 		<link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri() ; ?>/css/app.css">
 		<link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri() ; ?>/css/normalize.css">

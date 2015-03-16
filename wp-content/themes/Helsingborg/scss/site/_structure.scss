@@ -15,6 +15,7 @@
 	* 4.8 - 404-page
 	* 4.9 - Breadcrumb
 	* 4.10 - Timestamp
+	* 5.1 - Print
 
  * 5.0 - Plugins
 
@@ -666,6 +667,17 @@ ul.breadcrumbs li strong {
 ul.breadcrumbs strong {
 	text-transform: lowercase;
 }
+
+/**
+* 5.1 - Print
+* -----------------------------------------------------------------------------
+*/
+
+@media print {
+  .site-header.row, .sidebar.sidebar-right, .sidebar.sidebar-left, .accessability-menu, .footer, ul.breadcrumbs, .searchform, #read-speaker-player {
+			display: none !important; }
+}
+
 
 
 /**

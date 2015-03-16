@@ -1,4 +1,79 @@
 <?php
+/* Function for displaying proper IDs depending on current location,
+ * used by wp_include_pages for the menus.
+*/
+function get_included_pages($post) {
+  $includes = array();
+  $args = array(
+    'post_type' => 'page',
+    'post_status' => 'publish',
+    'post_parent' => get_option('page_on_front'),
+  );
+
+  $base_pages = get_children( $args );
+  foreach($base_pages as $page) {
+    array_push($includes, $page->ID);
+  }
+
+  $ancestors = get_post_ancestors($post);
+  array_push($ancestors, strval($post->ID));
+  foreach ($ancestors as $ancestor) {
+    $args = array(
+      'post_type' => 'page',
+      'post_status' => 'publish',
+      'post_parent' => $ancestor,
+    );
+
+    $childs = get_children( $args );
+    foreach ($childs as $child) {
+      array_push($includes, $child->ID);
+    }
+    array_push($includes, $ancestor);
+  }
+
+  return implode(',', $includes);
+}
+
+/* Flush cache when page is updated */
+function cache_flush_on_page_update( $post_id ) {
+  // Remove the cached menu
+  wp_cache_delete('menu_' . $post_id);
+
+  // Remove the W3TC for this specific page
+  if(function_exists('w3tc_pgcache_flush_post')){
+      w3tc_pgcache_flush_post($post_id);
+  }
+}
+add_filter( 'save_post', 'cache_flush_on_page_update', 10, 1 );
+
+// Add scheduled work for CBIS events
+require_once('scheduled_cbis.php');
+ /* Setup the scheduled task */
+add_action( 'wp', 'setup_scheduled_cbis' );
+function setup_scheduled_cbis() {
+  if ( ! wp_next_scheduled( 'scheduled_cbis' ) ) {
+    // Set scheduled task to occur at 22.30 each day
+    wp_schedule_event( strtotime(date("Y-m-d", time()) . '22:30'), 'daily', 'scheduled_cbis');
+  }
+}
+
+// Add scheduled work for XCap events
+require_once('scheduled_xcap.php');
+/* Setup the scheduled task */
+add_action( 'wp', 'setup_scheduled_xcap' );
+function setup_scheduled_xcap() {
+  if ( ! wp_next_scheduled( 'scheduled_xcap' ) ) {
+    // Set scheduled task to occur at 22.30 each day
+    wp_schedule_event( strtotime(date("Y-m-d", time()) . '22:30'), 'daily', 'scheduled_xcap');
+  }
+}
+
+/* Update the default maximum number of redirects to 250 */
+add_filter( 'srm_max_redirects', 'dbx_srm_max_redirects' );
+function dbx_srm_max_redirects() {
+    return 250;
+}
+
 /*
  * We need to insert empty spans in content.
  * Make sure html content isnt altered with when switching between Visual and Text.
@@ -409,7 +484,7 @@ add_filter('wp_kses_allowed_html','allow_post_tags', 1);
  * (original: page_attributes_meta_box() in wp-admin/includes/meta-boxes.php)
  */
 
-// Remove the oroginal meta box
+// Remove the original meta box
 add_action( 'admin_menu', 'helsingborg_remove_meta_box');
 function helsingborg_remove_meta_box(){
   remove_meta_box('pageparentdiv', 'page', 'side');

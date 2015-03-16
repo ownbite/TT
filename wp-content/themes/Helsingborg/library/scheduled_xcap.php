@@ -5,15 +5,6 @@
  * database as external events. This file is included from functions.php
  */
 
-/* Setup the scheduled task */
-add_action( 'wp', 'setup_scheduled_xcap' );
-function setup_scheduled_xcap() {
-  if ( ! wp_next_scheduled( 'scheduled_xcap' ) ) {
-    // Set scheduled task to occur at 22.30 each day
-    wp_schedule_event( strtotime(date("Y-m-d", time()) . '22:30'), 'daily', 'scheduled_xcap');
-  }
-}
-
 /* Function to execute as event, from setup above */
 add_action( 'scheduled_xcap', 'xcap_event' );
 function xcap_event() {
