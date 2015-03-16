@@ -4,7 +4,7 @@ $header_image_title                   = get_option('helsingborg_header_image_tit
 $header_image_imageurl                = get_option('helsingborg_header_image_imageurl');
 
 // No need to check further if no image is set
-if (($header_image_imageurl != undefined) && ($header_image_imageurl != '')) {
+if ((isset($header_image_imageurl)) && ($header_image_imageurl != '')) {
   $header_image_alt                     = get_option('helsingborg_header_image_alt');
   $header_image_item_force_width        = get_option('helsingborg_header_image_item_force_width');
   $header_image_item_force_margin       = get_option('helsingborg_header_image_item_force_margin');

@@ -7,7 +7,10 @@ $walker_page = new Helsingborg_Walker(); ?>
     <?php
       $menu = wp_cache_get('menu_' . $post->ID);
       if ( false === $menu ) {
-        $menu = wp_list_pages( array('title_li' => '', 'echo' => 0, 'walker' => $walker_page, 'child_of' => get_option('page_on_front') ));
+        $menu = wp_list_pages( array('title_li' => '',
+                                     'echo' => 0,
+                                     'walker' => $walker_page,
+                                     'include' => get_included_pages($post) ));
         wp_cache_set('menu_' . $post->ID , $menu);
       }
       echo $menu;

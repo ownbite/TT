@@ -27,7 +27,7 @@ class Helsingborg_Walker extends Walker {
     $top_level_elements = array();
     $children_elements  = array();
     $parent_field = $this->db_fields['parent'];
-    $child_of = ( isset( $args[0]['child_of'] ) ) ? (int) $args[0]['child_of'] : 0;
+    $child_of = intval(get_option('page_on_front'));
 
     /* Loop elements */
     foreach ( (array) $elements as $e ) {
@@ -91,7 +91,13 @@ class Helsingborg_Walker extends Walker {
       if ( $page->ID == $current_page ) {
         $css_class = 'class="current"';
       }
-      if ( !in_array( $page->ID, $_current_page->ancestors ) && ($page->ID != $current_page) && ( count(get_pages('child_of='.$page->ID)) > 0 ) && ($page->post_parent != get_option('page_on_front')) ) {
+      $args = array(
+        'post_type' => 'page',
+        'post_status' => 'publish',
+        'post_parent' => $page->ID,
+      );
+      $has_children = !empty(get_children($args));
+      if ( !in_array( $page->ID, $_current_page->ancestors ) && ($page->ID != $current_page) && $has_children && ($page->post_parent != get_option('page_on_front')) ) {
         $css_class = 'class="has-childs"';
       }
 

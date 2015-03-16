@@ -1,4 +1,39 @@
 <?php
+/* Function for displaying proper IDs depending on current location,
+ * used by wp_include_pages for the menus.
+*/
+function get_included_pages($post) {
+  $includes = array();
+  $args = array(
+    'post_type' => 'page',
+    'post_status' => 'publish',
+    'post_parent' => get_option('page_on_front'),
+  );
+
+  $base_pages = get_children( $args );
+  foreach($base_pages as $page) {
+    array_push($includes, $page->ID);
+  }
+
+  $ancestors = get_post_ancestors($post);
+  array_push($ancestors, strval($post->ID));
+  foreach ($ancestors as $ancestor) {
+    $args = array(
+      'post_type' => 'page',
+      'post_status' => 'publish',
+      'post_parent' => $ancestor,
+    );
+
+    $childs = get_children( $args );
+    foreach ($childs as $child) {
+      array_push($includes, $child->ID);
+    }
+    array_push($includes, $ancestor);
+  }
+
+  return implode(',', $includes);
+}
+
 /* Flush cache when page is updated */
 function cache_flush_on_page_update( $post_id ) {
   // Remove the cached menu
@@ -449,7 +484,7 @@ add_filter('wp_kses_allowed_html','allow_post_tags', 1);
  * (original: page_attributes_meta_box() in wp-admin/includes/meta-boxes.php)
  */
 
-// Remove the oroginal meta box
+// Remove the original meta box
 add_action( 'admin_menu', 'helsingborg_remove_meta_box');
 function helsingborg_remove_meta_box(){
   remove_meta_box('pageparentdiv', 'page', 'side');
