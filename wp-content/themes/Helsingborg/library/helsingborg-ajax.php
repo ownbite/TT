@@ -15,6 +15,35 @@ function start_manual_cbis_callback() {
   cbis_event();
 }
 
+/* Loads the list of event, to be presented inside a widget */
+add_action( 'wp_ajax_nopriv_update_event_calendar', 'update_event_calendar_callback');
+add_action( 'wp_ajax_update_event_calendar', 'update_event_calendar_callback');
+function update_event_calendar_callback() {
+  $amount = $_POST['amount'];
+
+  // Get the events
+  $events = HelsingborgEventModel::load_events_simple($amount);
+
+  $today = date('Y-m-d');
+  $list = '';
+  foreach( $events as $event ) :
+    $list .= '<li>';
+
+    // Present 'Idag HH:ii' och 'YYYY-mm-dd'
+    if ($today == $event->Date) {
+      $list .= '<span class="date">Idag '.$event->Time.'</span>';
+    } else {
+      $list .= '<span class="date">'.$event->Date.'</span>';
+    }
+
+    $list .= '<a href="#" class="modalLink" id="'.$event->EventID.'" data-reveal-id="eventModal">'.$event->Name.'</a>';
+    $list .= '</li>';
+  endforeach;
+
+  $result = array('events' => $events, 'list' => $list);
+  echo json_encode($result);
+  die();
+}
 
 /* Loads the big notifications i.e. warning/information and prints the alert messages */
 /* The IDs being fetched are set from Helsingborg settings */

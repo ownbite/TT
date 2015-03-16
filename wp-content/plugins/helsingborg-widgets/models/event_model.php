@@ -28,7 +28,7 @@ class HelsingborgEventModel {
                                   AND hE.EventID = hIM.EventID
                                   AND hEFE.AdministrationUnitID = hFE.AdministrationUnitID
                                   ORDER BY hETI.Date ASC
-                                  LIMIT 0,' . $amount, OBJECT);
+                                  LIMIT 30,' . $amount, OBJECT);
 
     return $events;
   }
