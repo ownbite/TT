@@ -6681,41 +6681,6 @@ nav > ul > li.nav-home a {
     -moz-osx-font-smoothing: grayscale; }
 
 /* Site components */
-/* PARTIALS - extends, placeholder styles */
-/* horisontal lists with iconlinks */
-
-
-/* ICON links / social media */
-/*
-.icon-link-list {
-	overflow: hidden;
-
-	li {
-		display: block;
-		float: left;
-		margin-right: rem-calc(8);
-
-		a.icon-link {
-
-		}
-		a.facebook-icon {
-			&:before {
-				@include hbg-icons($facebook);
-			}
-		}
-		a.twitter-icon {
-			&:before {
-				@include hbg-icons($twitter);
-			}
-		}
-		a.instagram-icon {
-			&:before {
-				@include hbg-icons($instagram);
-			}
-		}
-	}
-}
-*/
 /*
   Forms, inputs etc.
 */
