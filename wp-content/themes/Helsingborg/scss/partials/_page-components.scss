@@ -18,6 +18,7 @@ Tables
 */
 ul.breadcrumbs {
   padding-left: 0;
+  padding-top: rem-calc(16);
   li a {
     color: $blue-2;
   }
@@ -25,7 +26,6 @@ ul.breadcrumbs {
 
 /*
   Accessability-menu
-
 */
 .accessability-menu {
   list-style: none;
@@ -218,7 +218,135 @@ html.js.flexbox.flexboxlegacy.canvas.canvastext.webgl.no-touch.geolocation.postm
   }
 }
 
+/* ICON links / social media */
+
+.icon-link-list,
+.socialmedia-list {
+	overflow: hidden;
+  margin-left: 0;
+
+	li {
+		display: block;
+		float: left;
+		margin-right: rem-calc(8);
+
+    a {
+			display: block;
+			width: rem-calc(38);
+			height: rem-calc(38);
+			overflow: hidden;
+			//line-height: rem-calc(24);
+			padding-right: - rem-calc(4);
+			&:hover {
+				text-decoration: none;
+				&:before {
+					color: $white;
+				}
+			}
+			&:before {
+				font-size: rem-calc(42);
+			}
+		}
+		a.facebook-icon {
+			&:before {
+				@include hbg-icons($facebook);
+			}
+		}
+		a.twitter-icon {
+			&:before {
+				@include hbg-icons($twitter);
+			}
+		}
+		a.instagram-icon {
+			&:before {
+				@include hbg-icons($instagram);
+			}
+		}
+	}
+}
+
+/* socialmedia list - inherits from above */
+.socialmedia-list {
+    .fbook a {
+      &:before {
+        @include hbg-icons($facebook);
+      }
+    }
+    .twitter a {
+      &:before {
+        @include hbg-icons($twitter);
+      }
+    }
+    li a {
+      color: $blue-1;
+    }
+    li a:hover {
+      &:before {
+        color: scale-color($blue-1, $lightness: 10%);
+      }
+    }
+}
+
+
+	/* guide list */
+
+	.guide-list {
+		margin-left: 0;
+		margin-bottom: rem-calc(16);
+		list-style: none;
+
+		.title {
+			@extend h2;
+			display: block;
+		}
+		img {
+			border-radius: $border-radius;
+			margin-bottom: rem-calc(16);
+		}
+		li {
+			display: none;
+			&.current {
+				display: block;
+			}
+		}
+		.description {
+			ol, ul {
+				margin-bottom: rem-calc(16);
+				margin-left: rem-calc(40);
+			}
+			li {
+				display: list-item;
+			}
+		}
+	}
+
+	.guide-section {
+		overflow: hidden;
+		margin-bottom: rem-calc(32);
+	}
+
+	.guide-section .guide-button {
+  	color: $white !important;
+  	margin-right: $column-gutter/3;
+  	box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.4);
+  	&:hover {
+  		text-decoration: none;
+  	}
+  	&.next-step {
+  		float: right;
+  	}
+  	&.prev-step {
+  		float: left;
+  	}
+}
+
 /*  MQ - page components  */
+@media #{$small-only} {
+  .guide-section .guide-button {
+    padding-left: rem-calc(10);
+    padding-right: rem-calc(10);
+  }
+}
 
 /* mini-item-list */
 @media #{$small-up} {
@@ -234,10 +362,6 @@ html.js.flexbox.flexboxlegacy.canvas.canvastext.webgl.no-touch.geolocation.postm
     }
   }
 
-  .mini-item-list {
-    li {
-    }
-  }
 }
 
 @media #{$medium-up} {
@@ -269,7 +393,7 @@ html.js.flexbox.flexboxlegacy.canvas.canvastext.webgl.no-touch.geolocation.postm
 }
 
 .rs-docreader {
-  padding-left: rem-calc(8); 
+  padding-left: rem-calc(8);
   &:before {
     @include hbg-icons($speaker);
     font-size: rem-calc(18);

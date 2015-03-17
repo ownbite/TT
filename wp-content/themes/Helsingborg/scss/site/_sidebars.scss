@@ -1,7 +1,7 @@
 /* sidebar components */
 
 
-/* placeholder style + generic widget styles */
+/* generic widget styles */
 
 .widget {
 	&.large-12 {
@@ -15,6 +15,7 @@
 	background-color: $white;
 	border-radius: $border-radius;
 	@include box-shadow;
+	border: 1px solid $widget-border-color;
 
 	h2, h3, h4, h5, h6, .widget-title {
 		font-size: rem-calc(16);

@@ -3,7 +3,6 @@
 /* ALERT */
 .alert-msg {
   padding: rem-calc(16);
-  margin-bottom: rem-calc(16);
   border-style: solid;
   border-width: 1px;
   border-radius: $border-radius;
@@ -39,6 +38,11 @@
       color: $info-text-color;
     }
   }
+}
+
+//alerts in sidebar widget
+.widget .alert-msg {
+  margin-bottom: rem-calc(16);
 }
 
 //alert icon
