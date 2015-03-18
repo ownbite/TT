@@ -20,9 +20,10 @@ add_action( 'wp_ajax_nopriv_update_event_calendar', 'update_event_calendar_callb
 add_action( 'wp_ajax_update_event_calendar', 'update_event_calendar_callback');
 function update_event_calendar_callback() {
   $amount = $_POST['amount'];
+  $ids    = $_POST['ids'];
 
   // Get the events
-  $events = HelsingborgEventModel::load_events_simple($amount);
+  $events = HelsingborgEventModel::load_events_simple($amount, $ids);
 
   $today = date('Y-m-d');
   $list = '';

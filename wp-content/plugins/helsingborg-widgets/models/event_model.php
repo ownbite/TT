@@ -5,13 +5,12 @@
 
 class HelsingborgEventModel {
 
-  public static function load_events_simple($amount=5) {
+  public static function load_events_simple($amount=5, $administation_unit_ids="0") {
     global $wpdb;
 
     $events = $wpdb->get_results('SELECT DISTINCT hE.EventID,
                                                   hE.Name,
                                                   hE.Description,
-                                                  hETI.Date,
                                                   hIM.ImagePath,
                                                   hE.Location,
                                                   hETI.Date,
@@ -27,8 +26,8 @@ class HelsingborgEventModel {
                                   AND hE.EventID = hEFE.EventID
                                   AND hE.EventID = hIM.EventID
                                   AND hEFE.AdministrationUnitID = hFE.AdministrationUnitID
-                                  ORDER BY hETI.Date ASC
-                                  LIMIT 30,' . $amount, OBJECT);
+                                  AND hEFE.AdministrationUnitID IN (' . $administation_unit_ids . ')
+                                  ORDER BY hETI.Date ASC LIMIT ' . $amount, OBJECT);
 
     return $events;
   }
@@ -115,22 +114,6 @@ class HelsingborgEventModel {
 
     $events = $wpdb->get_results($query, ARRAY_A);
     if (!$events || empty($events)) { $events = array(); }
-
-    // foreach($events as $event) {
-    //   $rows = $wpdb->get_results('SELECT DISTINCT hETG.EventTypesName
-    //                               FROM happy_event_types_group hETG
-    //                               WHERE hETG.EventID = ' . $event->EventID, ARRAY_A);
-    //
-    //   $event_types = array();
-    //   foreach($rows as $row) {
-    //     foreach($row as $key => $value) {
-    //       array_push($event_types, $value);
-    //     }
-    //   }
-    //   $event_types_string = implode(',', $event_types);
-    //   $event->EventTypesName = $event_types_string;
-    // }
-
     return $events;
   }
 
@@ -266,9 +249,9 @@ class HelsingborgEventModel {
   public static function get_administration_id_from_name($name) {
     global $wpdb;
 
-    $result_id = $wpdb->get_results("SELECT AdministrationUnitID
+    $result_id = $wpdb->get_results("SELECT *
                                      FROM happy_administration_unit
-                                     WHERE Name='" . $name . "'", OBJECT);
+                                     WHERE Name = '" . $name . "'", OBJECT);
     return $result_id[0];
   }
 

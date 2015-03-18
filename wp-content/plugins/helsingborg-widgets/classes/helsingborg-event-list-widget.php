@@ -39,7 +39,7 @@ if (!class_exists('EventListWidget')) {
 
       $administration_ids = '';
       foreach(explode(',',$administration_units) as $key => $value) {
-        $id = HelsingborgEventModel::get_administration_id_from_name($value);
+        $id = HelsingborgEventModel::get_administration_id_from_name(trim($value));
         if($key>0) { $administration_ids .= ',' . $id->AdministrationUnitID; }
         else { $administration_ids .= $id->AdministrationUnitID;}
       }
@@ -103,7 +103,7 @@ if (!class_exists('EventListWidget')) {
       <script>
         var events = {};
         jQuery(document).ready(function() {
-          var data = { action: 'update_event_calendar', amount: '<?php echo $amount; ?>' };
+          var data = { action: 'update_event_calendar', amount: '<?php echo $amount; ?>', ids: '<?php echo $administration_ids; ?>' };
           jQuery.post(ajaxurl, data, function(response) {
             var obj = JSON.parse(response);
             events = obj.events;
