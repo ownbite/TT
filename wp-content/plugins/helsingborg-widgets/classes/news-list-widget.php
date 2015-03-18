@@ -61,7 +61,7 @@ if (!class_exists('News_List_Widget_Box')) {
 
                 <?php // Try to get the thumbnail for the page
                 if (has_post_thumbnail( $page->ID ) ) : ?>
-                <div class="large-4 medium-4 small-4 columns news-image">
+                <div class="large-4 medium-4 small-12 columns news-image">
                   <?php $image_id = get_post_thumbnail_id( $page->ID );
                   $image = wp_get_attachment_image_src( $image_id, 'single-post-thumbnail' );
                   $alt_text = get_post_meta($image_id, '_wp_attachment_image_alt', true); ?>
@@ -69,7 +69,7 @@ if (!class_exists('News_List_Widget_Box')) {
                 </div>
                 <?php endif; ?>
 
-                <div class="large-8 medium-8 small-8 columns news-content">
+                <div class="large-8 medium-8 small-12 columns news-content">
                   <h2 class="news-title"><?php echo $page->post_title ?></h2>
                   <span class="news-date"><?php echo $page->post_modified ?></span>
                   <?php echo wpautop($main, true); ?>
