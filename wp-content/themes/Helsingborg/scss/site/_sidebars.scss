@@ -87,6 +87,13 @@
 }
 
 .news-widget {
+		.widget-title {
+			>a {
+				&:hover {
+					text-decoration: none;
+				}
+			}
+		}
 		.icon {
 			margin-left: rem-calc(10);
 			&:after {

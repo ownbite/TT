@@ -37,12 +37,12 @@ if (!class_exists('EventListWidget')) {
       $amount               = empty($instance['amount'])               ? 5                        : $instance['amount'];
       $administration_units = empty($instance['administration_units']) ? 'helsingborgsstad'       : $instance['administration_units'];
 
-      $administration_ids = '';
-      foreach(explode(',',$administration_units) as $key => $value) {
+      $ids = array();
+      foreach(explode(',',$administration_units) as $value) {
         $id = HelsingborgEventModel::get_administration_id_from_name(trim($value));
-        if($key>0) { $administration_ids .= ',' . $id->AdministrationUnitID; }
-        else { $administration_ids .= $id->AdministrationUnitID;}
+        array_push($ids, $id->AdministrationUnitID);
       }
+      $administration_ids = implode(',',$ids);
 
       $reference = $link . "?q=" . $administration_ids;
       echo $before_widget; ?>

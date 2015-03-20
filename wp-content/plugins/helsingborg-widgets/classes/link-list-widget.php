@@ -33,8 +33,8 @@ if (!class_exists('SimpleLinkListWidget')) {
 
       // Get all the data saved
       $title = apply_filters('widget_title', empty($instance['title']) ? __('List') : $instance['title']);
-      $rss_link = empty($instance['rss_link']) ? '#' : $instance['rss_link']; // TODO: Proper default ?
-      $show_rss = empty($instance['show_rss']) ? 'rss_no' : $instance['show_rss'];
+      $rss_link = empty($instance['rss_link']) ? '' : $instance['rss_link'];
+      $show_rss = !empty($rss_link);
       $show_placement = empty($instance['show_placement']) ? 'show_in_sidebar' : $instance['show_placement'];
       $show_dates = isset($instance['show_dates']) ? $instance['show_dates'] : false;
       $amount = empty($instance['amount']) ? 1 : $instance['amount'];
@@ -56,7 +56,7 @@ if (!class_exists('SimpleLinkListWidget')) {
       if ($show_placement == 'show_in_sidebar') :
         echo $before_widget; ?>
             <h2 class="widget-title"><?php echo $title ?>
-              <?php if ($show_rss == 'rss_yes') { echo('<span class="icon"></span>'); } ?>
+              <?php if ($show_rss == 'rss_yes') { echo('<a href="'.$rss_link.'"><span class="icon"></span></a>'); } ?>
             </h2>
 
             <div class="divider">
