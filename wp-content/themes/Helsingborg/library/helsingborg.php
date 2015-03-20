@@ -15,20 +15,22 @@ function get_included_pages($post) {
     array_push($includes, $page->ID);
   }
 
-  $ancestors = get_post_ancestors($post);
-  array_push($ancestors, strval($post->ID));
-  foreach ($ancestors as $ancestor) {
-    $args = array(
-      'post_type' => 'page',
-      'post_status' => 'publish',
-      'post_parent' => $ancestor,
-    );
+  if ($post) {
+    $ancestors = get_post_ancestors($post);
+    array_push($ancestors, strval($post->ID));
+    foreach ($ancestors as $ancestor) {
+      $args = array(
+        'post_type' => 'page',
+        'post_status' => 'publish',
+        'post_parent' => $ancestor,
+      );
 
-    $childs = get_children( $args );
-    foreach ($childs as $child) {
-      array_push($includes, $child->ID);
+      $childs = get_children( $args );
+      foreach ($childs as $child) {
+        array_push($includes, $child->ID);
+      }
+      array_push($includes, $ancestor);
     }
-    array_push($includes, $ancestor);
   }
 
   return implode(',', $includes);
