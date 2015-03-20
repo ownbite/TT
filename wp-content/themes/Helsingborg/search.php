@@ -91,7 +91,9 @@ function updateSearch(data) {
 				}
 			}
 			item += '<h2 class="list-title">' + data.items[i].title + '</h2></a>';
-			if (meta['creationdate'] !== undefined) {
+			if (meta['moddate'] !== undefined ) {
+				item += '<span class="news-date">' + meta['moddate'] + '</span>';
+			} else if (meta['creationdate'] !== undefined) {
 				item += '<span class="news-date">' + convertDate(meta['creationdate'].substring(2,10)) + '</span>';
 			} else if (meta['last-modified'] !== undefined){
 				item += '<span class="news-date">' + convertDate(meta['epi.published'].substring(5,16)) + '</span>';
