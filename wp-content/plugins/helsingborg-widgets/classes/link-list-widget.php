@@ -98,8 +98,8 @@ if (!class_exists('SimpleLinkListWidget')) {
 
                   if ($show_dates) {
                     // Parse the dates presented in the event
-                    $datetime_start = strtotime($page->post_date);
-                    $datetime_end = strtotime($page->post_date);
+                    $datetime_start = strtotime($page->post_modified);
+                    $datetime_end = strtotime($page->post_modified);
                     $date = date('Y-m-d', $datetime_start);
                     $time = date('H:i', $datetime_start);
 
@@ -165,7 +165,7 @@ if (!class_exists('SimpleLinkListWidget')) {
                 if (!empty($item_id)) {
                   $title = $page->post_title;
                   $link = get_permalink($page->ID);
-                  $datetime_start = strtotime($page->post_date);
+                  $datetime_start = strtotime($page->post_modified);
                 } else {
                   $title = $item;
                   $link = $item_links[$num];
