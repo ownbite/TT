@@ -106,7 +106,7 @@ function search_callback() {
   $index     = $_POST['index'];
   $keyword   = $_POST['keyword'];
 
-  $url = 'https://www.googleapis.com/customsearch/v1?key='.$key.'&cx='.$cx.'&q='.$keyword.'&siteSearchFilter=i&alt=json&start='.$index;
+  $url = 'https://www.googleapis.com/customsearch/v1?key='.$key.'&cx='.$cx.'&q='.urlencode($keyword).'&siteSearchFilter=i&alt=json&start='.$index;
 
   $ch = curl_init();
   curl_setopt($ch, CURLOPT_URL, $url);
