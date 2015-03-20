@@ -5699,6 +5699,8 @@ th.hide-for-touch {
     background-color: #f5cddd; }
 
 
+.news-widget .widget-title > a:hover {
+  text-decoration: none; }
 .news-widget .icon {
   margin-left: 0.625rem; }
   .news-widget .icon:after {
