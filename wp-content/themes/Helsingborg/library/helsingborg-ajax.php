@@ -189,7 +189,7 @@ function load_page_with_id_callback() {
   global $wpdb;
   $id        = $_POST['id'];
 
-  $sql = "SELECT ID, post_title, post_modified
+  $sql = "SELECT ID, post_title
           FROM $wpdb->posts
           WHERE ID = " . $id;
 
@@ -197,7 +197,7 @@ function load_page_with_id_callback() {
 
   if ($pages) {$page = $pages[0];} else {die();}
 
-  echo $page->post_title . '|' . get_permalink($page->ID) . '|' . $page->post_modified;
+  echo $page->post_title . '|' . get_permalink($page->ID);
 
   die();
 }
