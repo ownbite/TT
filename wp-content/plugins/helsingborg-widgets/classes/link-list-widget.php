@@ -128,6 +128,7 @@ if (!class_exists('SimpleLinkListWidget')) {
                 // Check if link should be opened in new window
                 $target = $item_targets[$num] ? 'target="_blank"' : '';
 
+                $class = '';
                 if ($item_warnings[$num]) {
                   $class = ' alert-msg warning';
                 } else if ($item_infos[$num]) {
