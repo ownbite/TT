@@ -147,7 +147,7 @@ if (!class_exists('SimpleLinkListWidget')) {
                   $datetime = '';
                 }?>
 
-                <li class="news-item large-12 columns ' . $class . '">
+                <li class="news-item large-12 columns<?php echo $class; ?>">
                   <div class="row">
                     <div class="large-9 medium-9 small-9 columns news-content">
                       <h2 class="news-title"><a href="<?php echo $link; ?>" <?php echo $target; ?>><?php echo $title; ?></a></h2>
