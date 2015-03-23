@@ -19,12 +19,6 @@ input[type="button"] {
     color: $black-text;
     @include single-transition(background-color);
   }
-
-  &.button {
-    &:hover {
-
-    }
-  }
 }
 
 
@@ -32,8 +26,8 @@ input[type="button"] {
 
 /* Search in List */
 .filter-search {
-  @extend %comp-end-margin;
   @extend %form-style;
+  margin-bottom: rem-calc(32);
   overflow: hidden;
 
   input[type="text"],

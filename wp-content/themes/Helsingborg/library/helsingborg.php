@@ -15,20 +15,22 @@ function get_included_pages($post) {
     array_push($includes, $page->ID);
   }
 
-  $ancestors = get_post_ancestors($post);
-  array_push($ancestors, strval($post->ID));
-  foreach ($ancestors as $ancestor) {
-    $args = array(
-      'post_type' => 'page',
-      'post_status' => 'publish',
-      'post_parent' => $ancestor,
-    );
+  if ($post) {
+    $ancestors = get_post_ancestors($post);
+    array_push($ancestors, strval($post->ID));
+    foreach ($ancestors as $ancestor) {
+      $args = array(
+        'post_type' => 'page',
+        'post_status' => 'publish',
+        'post_parent' => $ancestor,
+      );
 
-    $childs = get_children( $args );
-    foreach ($childs as $child) {
-      array_push($includes, $child->ID);
+      $childs = get_children( $args );
+      foreach ($childs as $child) {
+        array_push($includes, $child->ID);
+      }
+      array_push($includes, $ancestor);
     }
-    array_push($includes, $ancestor);
   }
 
   return implode(',', $includes);
@@ -42,6 +44,15 @@ function cache_flush_on_page_update( $post_id ) {
   // Remove the W3TC for this specific page
   if(function_exists('w3tc_pgcache_flush_post')){
       w3tc_pgcache_flush_post($post_id);
+
+      // If page parent is list page, then flush that cache as well
+      $parent = wp_get_post_parent_id($post_id);
+      if ($parent) {
+        $template_file = get_post_meta($parent,'_wp_page_template',TRUE);
+        if ($template_file == 'templates/list-page.php') {
+          w3tc_pgcache_flush_post($parent);
+        }
+      }
   }
 }
 add_filter( 'save_post', 'cache_flush_on_page_update', 10, 1 );

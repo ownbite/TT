@@ -33,8 +33,8 @@ if (!class_exists('SimpleLinkListWidget')) {
 
       // Get all the data saved
       $title = apply_filters('widget_title', empty($instance['title']) ? __('List') : $instance['title']);
-      $rss_link = empty($instance['rss_link']) ? '#' : $instance['rss_link']; // TODO: Proper default ?
-      $show_rss = empty($instance['show_rss']) ? 'rss_no' : $instance['show_rss'];
+      $rss_link = empty($instance['rss_link']) ? '' : $instance['rss_link'];
+      $show_rss = !empty($rss_link);
       $show_placement = empty($instance['show_placement']) ? 'show_in_sidebar' : $instance['show_placement'];
       $show_dates = isset($instance['show_dates']) ? $instance['show_dates'] : false;
       $amount = empty($instance['amount']) ? 1 : $instance['amount'];
@@ -56,7 +56,7 @@ if (!class_exists('SimpleLinkListWidget')) {
       if ($show_placement == 'show_in_sidebar') :
         echo $before_widget; ?>
             <h2 class="widget-title"><?php echo $title ?>
-              <?php if ($show_rss == 'rss_yes') { echo('<span class="icon"></span>'); } ?>
+              <?php if ($show_rss == 'rss_yes') { echo('<a href="'.$rss_link.'"><span class="icon"></span></a>'); } ?>
             </h2>
 
             <div class="divider">
@@ -67,19 +67,14 @@ if (!class_exists('SimpleLinkListWidget')) {
             <ul class="quick-links-list">
 
             <?php
-            $today = strtotime(date('Y-m-d'));
-
+            $today = date('Y-m-d');
             foreach ($items as $num => $item) :
                 $title;
-                $item_id   = $item_ids[$num];
-                $item_date = $item_dates[$num];
+                $item_id   = $item_ids[$num];   // Use the ID
+                $item_date = $item_dates[$num]; // Backward compability
 
                 // Check if link should be opened in new window
-                if ($item_targets[$num]) {
-                  $target = 'target="_blank"';
-                } else {
-                  $target = '';
-                }
+                $target = $item_targets[$num] ? 'target="_blank"' : '';
 
                 $class = '';
                 if ($item_warnings[$num] == 'on') {
@@ -90,42 +85,26 @@ if (!class_exists('SimpleLinkListWidget')) {
 
                 // Get the page
                 $page = get_post($item_id, OBJECT, 'display');
+                $title = $item;
+                $link = $item_links[$num];
+                echo('<li' . $class . '><a href="' . $link . '" ' . $target . '>' . $title . '</a></li>');
 
-                if (!empty($item_id)) {
-                  $title = $page->post_title;
-                  $link = get_permalink($page->ID);
-                  echo('<li' . $class . '><a href="' . $link . '" ' . $target . '>' . $title . '</a></li>');
-
-                  if ($show_dates) {
-                    // Parse the dates presented in the event
-                    $datetime_start = strtotime($page->post_date);
-                    $datetime_end = strtotime($page->post_date);
-                    $date = date('Y-m-d', $datetime_start);
-                    $time = date('H:i', $datetime_start);
-
-                    // Present 'Idag HH:ii' or 'YYYY-mm-dd'
-                    if ($today > $datetime_start && $today < $datetime_end) {
-                      echo('<span class="date">Idag ' . $time . '</span>');
-                    } else {
-                      echo('<span class="date">' . $date . '</span>');
-                    }
+                if ($show_dates) {
+                  // Backward compability
+                  if (!empty($item_id)) {
+                    $datetime = strtotime($page->post_modified);
+                  } else if (!empty($item_date)) {
+                    $datetime = strtotime($item_date);
                   }
-                } else {
-                  $title = $item;
-                  $link = $item_links[$num];
-                  echo('<li' . $class . '><a href="' . $link . '" ' . $target . '>' . $title . '</a></li>');
-                  if ($show_dates && !empty($item_date)) {
-                    // Parse the dates presented in the event
-                    $datetime_start = $datetime_end = strtotime($item_date);
-                    $date = date('Y-m-d', $datetime_start);
-                    $time = date('H:i', $datetime_start);
 
-                    // Present 'Idag HH:ii' or 'YYYY-mm-dd'
-                    if ($today > $datetime_start && $today < $datetime_end) {
-                      echo('<span class="date">Idag ' . $time . '</span>');
-                    } else {
-                      echo('<span class="date">' . $date . '</span>');
-                    }
+                  $date = date_i18n('Y-m-d', $datetime);
+                  $time = date('H:i',   $datetime);
+
+                  // Present 'Idag HH:ii' or 'YYYY-mm-dd'
+                  if ($today == $date) {
+                    echo('<span class="date">Idag ' . $time . '</span>');
+                  } else {
+                    echo('<span class="date">' . $date . '</span>');
                   }
                 }
             endforeach; ?>
@@ -142,51 +121,47 @@ if (!class_exists('SimpleLinkListWidget')) {
             <div class="lower-divider"></div>
           </div>
           <ul class="news-list-small row"> <?php
-            $today = strtotime(date('Y-m-d'));
-
             foreach ($items as $num => $item) :
                 $item_id = $item_ids[$num];
                 $page = get_post($item_id, OBJECT, 'display');
 
                 // Check if link should be opened in new window
-                if ($item_targets[$num]) {
-                  $target = 'target="_blank"';
-                } else {
-                  $target = '';
-                }
+                $target = $item_targets[$num] ? 'target="_blank"' : '';
 
+                $class = '';
                 if ($item_warnings[$num]) {
                   $class = ' alert-msg warning';
                 } else if ($item_infos[$num]) {
                   $class = ' alert-msg info';
                 }
 
-                $title;
+                $title = $item;
+                $link = $item_links[$num];
+
+                // Backward compability
                 if (!empty($item_id)) {
-                  $title = $page->post_title;
-                  $link = get_permalink($page->ID);
-                  $datetime_start = strtotime($page->post_date);
+                  $datetime = strtotime($page->post_modified);
+                } else if (!empty($item_dates[$num])){
+                  $datetime = strtotime($item_dates[$num]);
                 } else {
-                  $title = $item;
-                  $link = $item_links[$num];
-                  $datetime_start = !empty($item_dates[$num]) ? strtotime($item_dates[$num]) : '';
-                }
+                  $datetime = '';
+                }?>
 
-                echo('<li class="news-item large-12 columns ' . $class . '">');
-                  echo('<div class="row">');
-                    echo('<div class="large-9 medium-9 small-9 columns news-content">');
-                      echo('<h2 class="news-title"><a href="' . $link . '" ' . $target . '>' . $title . '</a></h2>');
-                    echo('</div>');
+                <li class="news-item large-12 columns<?php echo $class; ?>">
+                  <div class="row">
+                    <div class="large-9 medium-9 small-9 columns news-content">
+                      <h2 class="news-title"><a href="<?php echo $link; ?>" <?php echo $target; ?>><?php echo $title; ?></a></h2>
+                    </div>
 
-                    echo('<div class="large-3 medium-3 small-3 columns">');
-                      if ($show_dates && !empty($datetime_start)) :
-                        $date = date('n M Y', $datetime_start);
-                        echo('<span class="news-date">' . $date . '</span>');
-                      endif;
-                    echo('</div>');
-                  echo('</div><!-- !row -->');
-                echo('</li>');
-            endforeach; ?>
+                    <div class="large-3 medium-3 small-3 columns">
+                      <?php if ($show_dates && !empty($datetime)) :
+                        $date = date_i18n('d M Y', $datetime ); ?>
+                        <span class="news-date"><?php echo $date; ?></span>
+                      <?php endif; ?>
+                    </div>
+                  </div><!-- !row -->
+                </li>
+            <?php endforeach; ?>
           </ul>
         </section>
 
@@ -303,14 +278,11 @@ if (!class_exists('SimpleLinkListWidget')) {
         $checked_i = checked($item_infos[$num],    'on', false);
         $item_id   = esc_attr($item_ids[$num]);
         $item_date = esc_attr($item_dates[$num]);
-        $h5        = esc_attr($item);
-        if (!empty($item_id)) {
-          $h5 = get_post($item_id, OBJECT, 'display')->post_title;
-        }
+        $name      = esc_attr($item);
       ?>
 
         <div id="<?php echo $this->get_field_id($num); ?>" class="list-item">
-          <h5 class="moving-handle"><span class="number"><?php echo $num; ?></span>. <span class="item-title"><?php echo $h5; ?></span><a class="hbgllw-action hide-if-no-js"></a></h5>
+          <h5 class="moving-handle"><span class="number"><?php echo $num; ?></span>. <span class="item-title"><?php echo $name; ?></span><a class="hbgllw-action hide-if-no-js"></a></h5>
           <div class="hbgllw-edit-item">
 
             <label for="<?php echo $this->get_field_id('item'.$num); ?>"><b><?php echo __("Länktitel:"); ?></b></label>
@@ -346,7 +318,7 @@ if (!class_exists('SimpleLinkListWidget')) {
               </tr>
             </table>
 
-            <input type="hidden" name="<?php echo $this->get_field_name('item_date'.$num); ?>" id="<?php echo $this->get_field_id('item_date'.$num); ?>" value="<?php echo $item_date; ?>" />
+            <input type="hidden" name="<?php echo $this->get_field_name('item_id'.$num); ?>" id="<?php echo $this->get_field_id('item_id'.$num); ?>" value="<?php echo $item_id; ?>" />
 
             <a class="hbgllw-delete hide-if-no-js"><img src="<?php echo plugins_url('../images/delete.png', __FILE__ ); ?>" /> <?php echo __("Remove"); ?></a>
           </div>

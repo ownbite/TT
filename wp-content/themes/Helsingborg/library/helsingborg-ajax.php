@@ -20,9 +20,10 @@ add_action( 'wp_ajax_nopriv_update_event_calendar', 'update_event_calendar_callb
 add_action( 'wp_ajax_update_event_calendar', 'update_event_calendar_callback');
 function update_event_calendar_callback() {
   $amount = $_POST['amount'];
+  $ids    = $_POST['ids'];
 
   // Get the events
-  $events = HelsingborgEventModel::load_events_simple($amount);
+  $events = HelsingborgEventModel::load_events_simple($amount, $ids);
 
   $today = date('Y-m-d');
   $list = '';
@@ -105,7 +106,7 @@ function search_callback() {
   $index     = $_POST['index'];
   $keyword   = $_POST['keyword'];
 
-  $url = 'https://www.googleapis.com/customsearch/v1?key='.$key.'&cx='.$cx.'&q='.$keyword.'&siteSearchFilter=i&alt=json&start='.$index;
+  $url = 'https://www.googleapis.com/customsearch/v1?key='.$key.'&cx='.$cx.'&q='.urlencode($keyword).'&siteSearchFilter=i&alt=json&start='.$index;
 
   $ch = curl_init();
   curl_setopt($ch, CURLOPT_URL, $url);
@@ -188,7 +189,7 @@ function load_page_with_id_callback() {
   global $wpdb;
   $id        = $_POST['id'];
 
-  $sql = "SELECT ID, post_title, post_modified
+  $sql = "SELECT ID, post_title
           FROM $wpdb->posts
           WHERE ID = " . $id;
 
@@ -196,7 +197,7 @@ function load_page_with_id_callback() {
 
   if ($pages) {$page = $pages[0];} else {die();}
 
-  echo $page->post_title . '|' . get_permalink($page->ID) . '|' . $page->post_modified;
+  echo $page->post_title . '|' . get_permalink($page->ID);
 
   die();
 }
