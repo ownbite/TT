@@ -22,7 +22,10 @@
 				background-color: $main-nav-hover-color;
 			}
 		}
-		li.current-node > a {
+		.sub-menu li:not(.has-childs) a {
+			padding-left: rem-calc(40);
+		}
+		li.current-node:not(.current-ancestor) > a {
 			text-decoration: underline;
 			font-weight: bold;
 		}
@@ -52,7 +55,18 @@
 				}
 			}
 		}
-		li.current {
+		li.current:not(.has-childs) {
+			//padding-top: rem-calc(6);
+			background-color: scale-color($gray-3, $lightness: 70%);
+			> a {
+				color: $blue-1;
+
+				&:hover {
+					text-decoration: none;
+				}
+			}
+		}
+		li.current.has-childs {
 			padding-top: rem-calc(6);
 			background-color: scale-color($gray-3, $lightness: 70%);
 			> a {
