@@ -51,6 +51,16 @@ if ( ! function_exists( 'Helsingborg_support_menu' ) ) {
         ));
     }
   }
+
+  // Adds the "translate" menu item to the support menu
+  function Helsingborg_support_menu_add_translate($items) {
+    $items .=   '<li>
+                    <a href="#" class="google-translate-toggle">Translate</a>
+                    <div id="google-translate-element"></div>
+                </li>';
+    return $items;
+  }
+  add_filter( 'wp_nav_menu_items', 'Helsingborg_support_menu_add_translate' );
 }
 
 if ( ! function_exists( 'Helsingborg_mobile_menu' ) ) {

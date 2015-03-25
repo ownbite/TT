@@ -151,10 +151,17 @@ nav > ul > li.nav-home a
 	position: relative;
 }
 
+#support-nav {
+	overflow: visible !important;
+}
+
 .support-nav-list {
 	float: right;
 	margin-bottom: 0;
-	li a {
+	li {
+		position: relative;
+	}
+	li > a {
 		color: $white;
 		font-size: rem-calc(14);
 		line-height: rem-calc(80);
@@ -183,6 +190,46 @@ nav > ul > li.nav-home a
 		a {
 			color: #fff;
 		}
+	}
+}
+
+#google-translate-element {
+	display: none;
+	position: absolute;
+	top: 62px;
+	right: -10px;
+	z-index: 999;
+	background: #667983;
+	padding: 10px 14px;
+	border-radius: $border-radius;
+	color: #fff;
+	line-height: 1;
+	height: auto;
+
+	&:before {
+		position: absolute;
+		top: -5px;
+		right: 20px;
+		content: '';
+		display: block;
+		width: 0;
+		height: 0;
+		border-left: 5px solid transparent;
+		border-right: 5px solid transparent;
+		border-bottom: 5px solid #667983;
+	}
+
+	.goog-te-gadget,
+	.goog-logo-link,
+	.goog-logo-link:link,
+	.goog-logo-link:visited,
+	.goog-logo-link:hover,
+	.goog-logo-link:active {
+		color: #fff;
+	}
+
+	.goog-te-combo {
+		color: #666;
 	}
 }
 

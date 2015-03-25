@@ -6388,14 +6388,19 @@ nav > ul > li.nav-home a {
   padding-bottom: 0.625rem;
   position: relative; }
 
+#support-nav {
+  overflow: visible !important; }
+
 .support-nav-list {
   float: right;
   margin-bottom: 0; }
-  .support-nav-list li a {
+  .support-nav-list li {
+    position: relative; }
+  .support-nav-list li > a {
     color: #FFFFFF;
     font-size: 0.875rem;
     line-height: 5rem; }
-    .support-nav-list li a:hover {
+    .support-nav-list li > a:hover {
       text-decoration: underline; }
   .support-nav-list li ul {
     display: none;
@@ -6415,6 +6420,34 @@ nav > ul > li.nav-home a {
     border-bottom-left-radius: 4px; }
     .support-nav-list li:hover > ul a {
       color: #fff; }
+
+#google-translate-element {
+  display: none;
+  position: absolute;
+  top: 62px;
+  right: -10px;
+  z-index: 999;
+  background: #667983;
+  padding: 10px 14px;
+  border-radius: 4px;
+  color: #fff;
+  line-height: 1;
+  height: auto; }
+  #google-translate-element:before {
+    position: absolute;
+    top: -5px;
+    right: 20px;
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid #667983; }
+  #google-translate-element .goog-te-gadget, #google-translate-element .goog-logo-link, #google-translate-element .goog-logo-link:link, #google-translate-element .goog-logo-link:visited, #google-translate-element .goog-logo-link:hover, #google-translate-element .goog-logo-link:active {
+    color: #fff; }
+  #google-translate-element .goog-te-combo {
+    color: #666; }
 
 /* OFF CANVAS MENU */
 .move-right .exit-off-canvas {

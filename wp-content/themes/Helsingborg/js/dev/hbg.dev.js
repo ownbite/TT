@@ -62,4 +62,17 @@ jQuery(document).ready(function(){
         window.open(url, 'Share', windowFeatures);
         return false;
     });
+
+    $('.google-translate-toggle').on('click', function (e) {
+        e.preventDefault();
+        $('#google-translate-element').fadeToggle(200);
+    });
+
+    $(document).on('click', function (e) {
+        var translate_container = $('#google-translate-element');
+        var translate_toggle = $('.google-translate-toggle');
+        if (!translate_container.is(e.target) && translate_container.has(e.target).length === 0 && !translate_toggle.is(e.target) && translate_toggle.has(e.target).length === 0) {
+            translate_container.fadeOut(200);
+        }
+    });
 });
