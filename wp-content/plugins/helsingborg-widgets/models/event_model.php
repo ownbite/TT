@@ -73,6 +73,29 @@ class HelsingborgEventModel {
     return $events;
   }
 
+public static function load_events_with_name($name) {
+  global $wpdb;
+  
+
+  $query = 'SELECT DISTINCT he.EventID,
+                            he.Name,
+                            MIN(het.Date) AS Date
+            FROM happy_event he,
+                 happy_event_times het,
+                 happy_event_administration_unit hefe
+            WHERE het.Date >= CURDATE()
+            AND he.Approved = 1
+            AND he.EventID = het.EventID
+            AND hefe.EventID= he.EventID
+            AND he.Name LIKE "%' . $name . '%"
+            Group by he.EventID, he.Name
+            ORDER BY Date, he.EventID';
+
+  $events = $wpdb->get_results($query, ARRAY_A);
+  if (!$events || empty($events)) { $events = array(); }
+  return $events;
+}
+
   public static function get_administration_units_by_id($happy_user_id) {
     global $wpdb;
     $administration_units = array();
