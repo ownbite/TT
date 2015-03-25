@@ -246,24 +246,51 @@ function load_pages_with_update_callback() {
 add_action( 'wp_ajax_load_pages', 'load_pages_callback');
 function load_pages_callback() {
   global $wpdb;
+
   $title     = $_POST['title'];
   $id        = $_POST['id'];
   $name      = $_POST['name'];
+
   $pages = $wpdb->get_results(
-  "SELECT ID, post_title
-  FROM $wpdb->posts
-  WHERE post_type = 'page'
-  AND post_title LIKE '%" . $title . "%'"
-);
-$list = '<select id="' . $id . '" name="' . $name . '">';
-foreach ($pages as $page) {
-  $list .= '<option value="' . $page->ID . '">';
-  $list .= $page->post_title . ' (' . $page->ID . ')';
-  $list .= '</option>';
+    "SELECT ID, post_title
+    FROM $wpdb->posts
+    WHERE post_type = 'page'
+    AND post_title LIKE '%" . $title . "%'");
+
+  $list = '<select id="' . $id . '" name="' . $name . '">';
+  foreach ($pages as $page) {
+    $list .= '<option value="' . $page->ID . '">';
+    $list .= $page->post_title . ' (' . $page->ID . ')';
+    $list .= '</option>';
+  }
+  $list .= '</select>';
+
+  echo $list;
+  die();
 }
-$list .= '</select>';
-echo $list;
-die();
+
+/* Loads pages where post_title has keyword $title */
+add_action( 'wp_ajax_load_pages_rss', 'load_pages_rss_callback');
+function load_pages_rss_callback() {
+  global $wpdb;
+  $title     = $_POST['title'];
+
+  $pages = $wpdb->get_results("SELECT ID, post_title
+                               FROM $wpdb->posts
+                               WHERE post_type = 'page'
+                               AND post_title LIKE '%" . $title . "%'");
+
+  $list = '<select onchange="updateValues();" id="rss_select" name="rss_select">';
+  $list .= '<option value="-1">' . __(" -- Välj sida i listan -- ") . '</option>';
+  foreach ($pages as $page) {
+    $list .= '<option value="' . $page->ID . '">';
+    $list .= $page->post_title . ' (' . $page->ID . ')';
+    $list .= '</option>';
+  }
+  $list .= '</select>';
+
+  echo $list;
+  die();
 }
 
 

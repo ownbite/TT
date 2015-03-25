@@ -6,19 +6,15 @@ Template Name: RSS
 $numposts = 5;
 $lastpost = $numposts - 1;
 $meta = get_post_meta($post->ID,'_helsingborg_meta',TRUE);
-$selected_node = $meta['rss_select'];
-$get_all_children = !empty($meta['rss_check']) ? -1 : $selected_node;
+$selected_node = $meta['rss_select_id'];
 
 $args = array(
-	'sort_order' => 'DESC',
-	'sort_column' => 'post_modified',
-	'child_of' => $selected_node,
-	'parent' => $get_all_children,
 	'post_type' => 'page',
-	'post_status' => 'publish'
+	'post_status' => 'publish',
+	'post_parent' => $selected_node,
 );
 
-$pages = get_pages($args);
+$pages = get_children( $args );
 $numberOfPages = count($pages);
 $lastpost = $numberOfPages - 1;
 
