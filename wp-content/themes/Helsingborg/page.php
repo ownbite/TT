@@ -64,19 +64,19 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
 				<?php endif; ?>
 			<footer>
 				<ul class="socialmedia-list">
-					<li class="fbook"><a href="#">Facebook</a></li>
-					<li class="twitter"><a href="#">Twitter</a></li>
+					<li class="fbook"><a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode(get_the_permalink()); ?>">Facebook</a></li>
+					<li class="twitter"><a href="http://twitter.com/share?text=<?php echo strip_tags(get_the_excerpt()); ?>&amp;url=<?php echo urlencode(wp_get_shortlink()); ?>">Twitter</a></li>
 				</ul>
 			</footer>
 
-			<div class="timestamp">	
+			<div class="timestamp">
 			<?php if (get_the_modified_time() != get_the_time()) : ?>
  				<p class= "timestamp">Publicerad: <?php the_time('j F, Y'); ?> kl <?php the_time('H:i'); ?> </BR>   Senast ändrad: <?php the_modified_time('j F, Y'); ?> kl <?php the_modified_time('H:i'); ?></p>
  			<?php else: ?>
  				<p class= "timestamp">Publicerad: <?php the_time('j F, Y'); ?> kl <?php the_time('H:i'); ?></p>
  			<?php endif; ?>
  			</div><!-- /.timestamp -->
-			
+
 			</div><!-- /.columns -->
 		</div><!-- /.main-content -->
 
@@ -92,7 +92,7 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
 			<?php if ( (is_active_sidebar('content-area-bottom') == TRUE) ) : ?>
 				<?php dynamic_sidebar("content-area-bottom"); ?>
 			<?php endif; ?>
- 
+
 		</div><!-- /.lower-content -->
 	</div>  <!-- /.main-area -->
 

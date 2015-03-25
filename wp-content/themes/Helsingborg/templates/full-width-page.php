@@ -48,8 +48,8 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                     </div>
                     <footer>
                       <ul class="socialmedia-list">
-                          <li class="fbook"><a href="#">Facebook</a></li>
-                          <li class="twitter"><a href="#">Twitter</a></li>
+                          <li class="fbook"><a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode(get_the_permalink()); ?>">Facebook</a></li>
+                          <li class="twitter"><a href="http://twitter.com/share?text=<?php echo strip_tags(get_the_excerpt()); ?>&amp;url=<?php echo urlencode(wp_get_shortlink()); ?>">Twitter</a></li>
                       </ul>
                     </footer>
                   </article>

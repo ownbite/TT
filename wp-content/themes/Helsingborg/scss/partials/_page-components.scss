@@ -36,11 +36,12 @@ ul.breadcrumbs {
   /* float: left; */
   li {
     display: inline-block;
+    margin-right: 20px;
 
-    a {
+    > a {
       font-size: rem-calc(14);
       display: block;
-      &:before {
+      &#listen:before {
         @include hbg-icons($speaker);
         font-size: rem-calc(18);
         display: block;
@@ -55,6 +56,11 @@ html.js.flexbox.flexboxlegacy.canvas.canvastext.webgl.no-touch.geolocation.postm
   float: right;
 }
 
+.goog-te-menu-value {
+    &:hover {
+        text-decoration: none !important;
+    }
+}
 
 /*
   Modal
