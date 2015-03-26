@@ -1146,6 +1146,10 @@ function pw_ajax_save_widget() {
 		call_user_func_array($form['callback'], $form['params']);
 	// print 'Updated ajax save widget.';
 
+	/**
+	 * HELSINGBORG HACK
+	 * This hook is custom added by Helsingborg.
+	 */
 	$arguments = array(
 		'post_id' => $post_id
 	);
