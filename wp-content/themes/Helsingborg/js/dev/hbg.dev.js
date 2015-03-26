@@ -63,16 +63,24 @@ jQuery(document).ready(function(){
         return false;
     });
 
+    // Toggle the Google Translate "box"
     $('.google-translate-toggle').on('click', function (e) {
         e.preventDefault();
         $('#google-translate-element').fadeToggle(200);
     });
 
+    // Hides the Google Translate "box" on "click outside"
     $(document).on('click', function (e) {
         var translate_container = $('#google-translate-element');
         var translate_toggle = $('.google-translate-toggle');
         if (!translate_container.is(e.target) && translate_container.has(e.target).length === 0 && !translate_toggle.is(e.target) && translate_toggle.has(e.target).length === 0) {
             translate_container.fadeOut(200);
         }
+    });
+
+    // Search button loading indicator
+    $('#searchsubmit').on('click', function (e) {
+        $(this).html('<div class="loader"></div>');
+        return true;
     });
 });

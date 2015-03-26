@@ -4,7 +4,8 @@
 /* generic styles */
 input[type="submit"],
 input[type="reset"],
-input[type="button"] {
+input[type="button"],
+button[type="submit"] {
   padding: rem-calc(8) rem-calc(16);
   margin-bottom: 0;
   border-radius: $border-radius;
