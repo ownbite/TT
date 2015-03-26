@@ -23,7 +23,11 @@ $query = $_GET['s'];
 
 				<div id="result" style="padding-bottom: 10px;"></div>
 
-				<ul id="search" class="block-list page-block-list search-list large-block-grid-3 medium-block-grid-3 small-block-grid-2"></ul>
+				<ul id="search" class="block-list page-block-list search-list large-block-grid-3 medium-block-grid-3 small-block-grid-2">
+					<li>
+						<div id="loading-event" class="event-list-loader" style="margin-top: 40px;"></div>
+					</li>
+				</ul>
 
 				<div class="Pager"><ul class="pagination"></ul></div>
 
