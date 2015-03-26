@@ -96,8 +96,12 @@
 		<div class="site-bg"></div>
 			<div class="site-header row">
 					<div class="site-logo large-4 medium-4 columns">
-							<a href="<?php echo get_site_url(); ?>" class="logo-link">
-									<img src="<?php echo get_stylesheet_directory_uri() ; ?>/assets/img/images/hbg-logo.svg" alt="helsingborg stad" class="logo" />
+							<?php
+								// Get the baseurl of this site to set the logo href
+								$logo_link = parse_url(get_site_url(), PHP_URL_SCHEME) . '://' . parse_url(get_site_url(), PHP_URL_HOST);
+							?>
+							<a href="<?php echo $logo_link; ?>" class="logo-link">
+								<img src="<?php echo get_stylesheet_directory_uri() ; ?>/assets/img/images/hbg-logo.svg" alt="helsingborg stad" class="logo" />
 							</a>
 					</div><!-- /.site-logo -->
 
