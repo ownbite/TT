@@ -191,6 +191,8 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                               var minLength = 5;
                               var maxLength = 250;
                               var text = untrimmedText.length > maxLength ? untrimmedText.substring(0, maxLength - 1) + '...' : untrimmedText;
+                              var text = text.replace(/&nbsp;/gi, ' ');
+                              var text = text.trim();
                               return text;
                             });
                             ko.applyBindingsToNode(element, {
