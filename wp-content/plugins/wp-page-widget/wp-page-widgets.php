@@ -1151,7 +1151,9 @@ function pw_ajax_save_widget() {
 	 * This hook is custom added by Helsingborg.
 	 */
 	$arguments = array(
-		'post_id' => $post_id
+		'post_id' => $post_id,
+		'widget_id' => $widget_id,
+		'sidebar_id' => $sidebar_id
 	);
 	do_action('hbg_page_widget_save', $arguments);
 
