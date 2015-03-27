@@ -51,8 +51,8 @@ if (!function_exists("hbg_purge_page")) {
         $post_id = $args['post_id'];
         if (function_exists('w3tc_pgcache_flush_post')){
             w3tc_pgcache_flush_post($post_id);
-            // print '<!-- Post with id ' . $post_id . ' purged -->';
+            //print '<!-- Post with id ' . $post_id . ' purged -->';
         }
     }
-    add_filter('hbg_page_widget_save', 'hbg_purge_page', $arguments);
+    add_filter('hbg_page_widget_save', 'hbg_purge_page');
 }
