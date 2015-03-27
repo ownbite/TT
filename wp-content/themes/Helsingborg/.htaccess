@@ -1,0 +1,4 @@
+# Cache control for svg and svgz
+<FilesMatch "\.(svg|svgz)$">
+    Header set Cache-Control "max-age=604800, public"
+</FilesMatch>
