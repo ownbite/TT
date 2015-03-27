@@ -85,8 +85,10 @@
 			</div>
 			<div class="mobile-search">
 					<div class="mobile-search-input-container">
-							<input type="text" class="mobile-search-input" placeholder="Din S&ouml;kning"/>
+						<form role="search" method="get" id="searchform" action="<?php echo home_url('/'); ?>">
+							<input type="text" class="mobile-search-input" name="s" placeholder="Din S&ouml;kning"/>
 							<input type="submit" class="mobile-search-btn" value="s&ouml;k" />
+						</form>
 					</div>
 			</div>
 	</nav><!-- mobile top nav -->
