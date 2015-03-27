@@ -84,15 +84,12 @@ class Helsingborg_Walker extends Walker {
       $arr_css_classes = array();
 
       if ( in_array( $page->ID, $_current_page->ancestors ) && $page->post_parent == get_option('page_on_front') ) {
-        $css_class = 'class="current-node"';
         $arr_css_classes[] = 'current-node';
       }
       if ( in_array( $page->ID, $_current_page->ancestors ) ) {
-        $css_class = 'class="current-ancestor"';
         $arr_css_classes[] = 'current-ancestor';
       }
       if ( $page->ID == $current_page ) {
-        $css_class = 'class="current"';
         $arr_css_classes[] = 'current';
       }
       $args = array(
@@ -104,13 +101,11 @@ class Helsingborg_Walker extends Walker {
       $children = get_children($args);
       $has_children = !empty($children);
       if ( !in_array( $page->ID, $_current_page->ancestors ) && $has_children && ($page->post_parent != get_option('page_on_front')) ) {
-        $css_class = 'class="has-childs"';
         $arr_css_classes[] = 'has-childs';
       }
 
       /* If article page parent is list page, then mark the parent as current -> since childs are hidden */
       if ( in_array( $page->ID, $_current_page->ancestors) && get_post_meta($page->ID,'_wp_page_template',TRUE) == 'templates/list-page.php') {
-        $css_class = 'class="current"';
         $arr_css_classes[] = 'current';
       }
 
@@ -137,7 +132,12 @@ class Helsingborg_Walker extends Walker {
       }
     }
 
-    $css_class = 'class="' . implode(' ', $arr_css_classes) . '"';
+    if (count($arr_css_classes) > 0)
+    {
+        $css_class = 'class="' . implode(' ', $arr_css_classes) . '"';
+    } else {
+        $css_class = '';
+    }
 
     /* Now let's build the item */
     $output .= $indent . sprintf(
