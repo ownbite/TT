@@ -168,6 +168,7 @@ function add_mime_types($mimes) {
     'rar'                          => 'application/rar',
     '7z'                           => 'application/x-7z-compressed',
     'exe'                          => 'application/x-msdownload',
+    'swf'                          => 'application/x-shockwave-flash',
 
     // MS Office formats
     'doc'                          => 'application/msword',
