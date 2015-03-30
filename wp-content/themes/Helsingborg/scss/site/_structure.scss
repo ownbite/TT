@@ -452,6 +452,9 @@ img.alignright {
 		p {
 			margin-bottom: rem-calc(16);
 		}
+		ul + p {
+			margin-top: rem-calc(16);
+		}
 	}
 
 /**
