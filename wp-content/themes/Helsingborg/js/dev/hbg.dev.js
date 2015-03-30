@@ -5,31 +5,14 @@ jQuery(document).foundation({
 
 
 jQuery(document).ready(function(){
-    $('.support-nav').prepend('<a href="#" class="show-support-nav"><span class="arrow-icon"></span>Hjälpmeny</a>');
-    $('.support-nav-mobile').prepend('<a href="#" class="show-support-nav show-support-nav-mobile"><span class="arrow-icon"></span>Hjälpmeny</a>');
-
-    $('.show-support-nav:not(.show-support-nav-mobile)').bind('click', function(){
+    $('.show-support-nav').bind('click', function(){
         $('.support-nav-list').toggle();
         $(this).toggleClass('active');
     });
 
-    $('.show-support-nav-mobile').bind('click', function () {
-        $('#support-nav-mobile').toggle();
-        $(this).toggleClass('active');
-    })
-
     $('.show-mobile-nav').bind('click', function(){
         $(this).toggleClass('active');
     });
-
-    $(window).on('resize', function () {
-        var $offcanvas = $('.off-canvas-wrap');
-        var $mobilemenubutton = $('.show-mobile-nav');
-        if ($(window).width() > 640 && $offcanvas.hasClass('move-right')) {
-            $offcanvas.removeClass('move-right');
-            $mobilemenubutton.removeClass('active');
-        }
-    })
 
     $('.exit-off-canvas').bind('click', function(){
         if($('.show-mobile-nav').hasClass('active')) {

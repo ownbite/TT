@@ -36,27 +36,19 @@ if ( ! function_exists( 'Helsingborg_sidebar_menu' ) ) {
 }
 
 if ( ! function_exists( 'Helsingborg_support_menu' ) ) {
-  function Helsingborg_support_menu($mobile_menu = false) {
+  function Helsingborg_support_menu() {
     if (has_nav_menu('support-menu')){
-      $args = array(
-        'theme_location'  => 'support-menu' ,
-        'container'       => 'div',
-        'container_id'    => '',
-        'depth'           => 0,
-        'echo'            => true,
-        'walker'          => new support_menu_walker()
-      );
-
-      if ($mobile_menu) {
-        $args['container_class'] =  'support-nav-mobile';
-        $args['menu_id'] = 'support-nav-mobile';
-        $args['menu_class'] = 'support-nav-mobile-list';
-      } else {
-        $args['container_class'] =  'support-nav large-8 medium-8 columns';
-        $args['menu_id'] = 'support-nav';
-        $args['menu_class'] = 'support-nav-list inline-list';
-      }
-      wp_nav_menu($args);
+      wp_nav_menu(array(
+          'theme_location'  => 'support-menu' ,
+          'container'       => 'div',
+          'container_class' => 'support-nav large-8 medium-8 columns',
+          'container_id'    => '',
+          'menu_class'      => 'support-nav-list inline-list',
+          'menu_id'         => 'support-nav',
+          'depth'           => 0,
+          'echo'            => true,
+          'walker'          => new support_menu_walker()
+        ));
     }
   }
 
@@ -93,66 +85,66 @@ if ( ! function_exists( 'Helsingborg_mobile_menu' ) ) {
  * http://codex.wordpress.org/Function_Reference/wp_nav_menu
  */
 if ( ! function_exists( 'Helsingborg_top_bar_l' ) ) {
-  function Helsingborg_top_bar_l() {
-      wp_nav_menu(array(
-          'container' => false,                           // remove nav container
-          'container_class' => '',                        // class of container
-          'menu' => '',                                   // menu name
-          'menu_class' => 'top-bar-menu left',            // adding custom nav class
-          'theme_location' => 'top-bar-l',                // where it's located in the theme
-          'before' => '',                                 // before each link <a>
-          'after' => '',                                  // after each link </a>
-          'link_before' => '',                            // before each link text
-          'link_after' => '',                             // after each link text
-          'depth' => 5,                                   // limit the depth of the nav
-          'fallback_cb' => false,                         // fallback function (see below)
-          'walker' => new top_bar_walker()
-      ));
-  }
+	function Helsingborg_top_bar_l() {
+	    wp_nav_menu(array(
+	        'container' => false,                           // remove nav container
+	        'container_class' => '',                        // class of container
+	        'menu' => '',                                   // menu name
+	        'menu_class' => 'top-bar-menu left',            // adding custom nav class
+	        'theme_location' => 'top-bar-l',                // where it's located in the theme
+	        'before' => '',                                 // before each link <a>
+	        'after' => '',                                  // after each link </a>
+	        'link_before' => '',                            // before each link text
+	        'link_after' => '',                             // after each link text
+	        'depth' => 5,                                   // limit the depth of the nav
+	        'fallback_cb' => false,                         // fallback function (see below)
+	        'walker' => new top_bar_walker()
+	    ));
+	}
 }
 
 /**
  * Right top bar
  */
 if ( ! function_exists( 'Helsingborg_top_bar_r' ) ) {
-  function Helsingborg_top_bar_r() {
-      wp_nav_menu(array(
-          'container' => false,                           // remove nav container
-          'container_class' => '',                        // class of container
-          'menu' => '',                                   // menu name
-          'menu_class' => 'top-bar-menu right',           // adding custom nav class
-          'theme_location' => 'top-bar-r',                // where it's located in the theme
-          'before' => '',                                 // before each link <a>
-          'after' => '',                                  // after each link </a>
-          'link_before' => '',                            // before each link text
-          'link_after' => '',                             // after each link text
-          'depth' => 5,                                   // limit the depth of the nav
-          'fallback_cb' => false,                         // fallback function (see below)
-          'walker' => new top_bar_walker()
-      ));
-  }
+	function Helsingborg_top_bar_r() {
+	    wp_nav_menu(array(
+	        'container' => false,                           // remove nav container
+	        'container_class' => '',                        // class of container
+	        'menu' => '',                                   // menu name
+	        'menu_class' => 'top-bar-menu right',           // adding custom nav class
+	        'theme_location' => 'top-bar-r',                // where it's located in the theme
+	        'before' => '',                                 // before each link <a>
+	        'after' => '',                                  // after each link </a>
+	        'link_before' => '',                            // before each link text
+	        'link_after' => '',                             // after each link text
+	        'depth' => 5,                                   // limit the depth of the nav
+	        'fallback_cb' => false,                         // fallback function (see below)
+	        'walker' => new top_bar_walker()
+	    ));
+	}
 }
 
 /**
  * Mobile off-canvas
  */
 if ( ! function_exists( 'Helsingborg_mobile_off_canvas' ) ) {
-  function Helsingborg_mobile_off_canvas() {
-      wp_nav_menu(array(
-          'container' => false,                           // remove nav container
-          'container_class' => '',                        // class of container
-          'menu' => '',                                   // menu name
-          'menu_class' => 'off-canvas-list',              // adding custom nav class
-          'theme_location' => 'mobile-off-canvas',        // where it's located in the theme
-          'before' => '',                                 // before each link <a>
-          'after' => '',                                  // after each link </a>
-          'link_before' => '',                            // before each link text
-          'link_after' => '',                             // after each link text
-          'depth' => 5,                                   // limit the depth of the nav
-          'fallback_cb' => false,                         // fallback function (see below)
-          'walker' => new top_bar_walker()
-      ));
-  }
+	function Helsingborg_mobile_off_canvas() {
+	    wp_nav_menu(array(
+	        'container' => false,                           // remove nav container
+	        'container_class' => '',                        // class of container
+	        'menu' => '',                                   // menu name
+	        'menu_class' => 'off-canvas-list',              // adding custom nav class
+	        'theme_location' => 'mobile-off-canvas',        // where it's located in the theme
+	        'before' => '',                                 // before each link <a>
+	        'after' => '',                                  // after each link </a>
+	        'link_before' => '',                            // before each link text
+	        'link_after' => '',                             // after each link text
+	        'depth' => 5,                                   // limit the depth of the nav
+	        'fallback_cb' => false,                         // fallback function (see below)
+	        'walker' => new top_bar_walker()
+	    ));
+	}
 }
 
 /**
@@ -163,13 +155,13 @@ if ( ! function_exists( 'Helsingborg_mobile_off_canvas' ) ) {
  * 4) Save Menu. Your menu item will now appear as a button in your top-menu
 */
 if ( ! function_exists( 'add_menuclass') ) {
-  function add_menuclass($ulclass) {
-      $find = array('/<a rel="button"/', '/<a title=".*?" rel="button"/');
-      $replace = array('<a rel="button" class="button"', '<a rel="button" class="button"');
+	function add_menuclass($ulclass) {
+	    $find = array('/<a rel="button"/', '/<a title=".*?" rel="button"/');
+	    $replace = array('<a rel="button" class="button"', '<a rel="button" class="button"');
 
-      return preg_replace($find, $replace, $ulclass, 1);
-  }
-  add_filter('wp_nav_menu','add_menuclass');
+	    return preg_replace($find, $replace, $ulclass, 1);
+	}
+	add_filter('wp_nav_menu','add_menuclass');
 }
 
 ?>

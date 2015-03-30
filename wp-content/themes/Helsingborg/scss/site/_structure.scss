@@ -452,12 +452,6 @@ img.alignright {
 		p {
 			margin-bottom: rem-calc(16);
 		}
-		ul + p {
-			margin-top: rem-calc(16);
-		}
-		ol + p {
-			margin-top: rem-calc(16);
-		}
 	}
 
 /**
@@ -582,20 +576,16 @@ div.main-site-container div.row.errorpage {
 .breadcrumbs {
 	background-color: #fff;
 	border:0;
-
-	* {
-		text-transform: none;
-	}
 }
 ul.breadcrumbs li {
 	font-size: 0.63rem;
-	//text-transform: lowercase;
+	text-transform: lowercase;
 }
 ul.breadcrumbs li strong {
 	font-size: 0.63rem;
 }
 ul.breadcrumbs strong {
-	//text-transform: lowercase;
+	text-transform: lowercase;
 }
 
 /**

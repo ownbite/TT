@@ -2,9 +2,6 @@
 require_once(get_template_directory() . '/library/helsingborg-walker.php');
 $walker_page = new Helsingborg_Walker(); ?>
 <aside class="left-off-canvas-menu">
-  <div class="mobile-menu-top-bar">
-    <?php Helsingborg_support_menu(true); ?>
-  </div>
   <ul class="mobile-nav-list" role="navigation">
     <li class="nav-home"><a href="<?php echo get_site_url();?>">Hem</a></li>
     <?php
