@@ -7025,6 +7025,7 @@ input[type="submit"], input[type="reset"], input[type="button"], button[type="su
 /* specific styles */
 /* Search in List */
 .filter-search {
+  margin-top: 2rem;
   margin-bottom: 2rem;
   overflow: hidden; }
   .filter-search input[type="text"], .filter-search input[type="submit"] {
