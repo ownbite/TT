@@ -57,6 +57,17 @@ function cache_flush_on_page_update( $post_id ) {
 }
 add_filter( 'save_post', 'cache_flush_on_page_update', 10, 1 );
 
+// Add scheduled work for alarms
+require_once('scheduled_alarms.php');
+ /* Setup the scheduled task */
+add_action( 'wp', 'setup_scheduled_alarms' );
+function setup_scheduled_alarms() {
+  if ( ! wp_next_scheduled( 'scheduled_alarms' ) ) {
+    // Set scheduled task to occur each 3rd minute
+    wp_schedule_event(time(), '3min', 'scheduled_alarms');
+  }
+}
+
 // Add scheduled work for CBIS events
 require_once('scheduled_cbis.php');
  /* Setup the scheduled task */
