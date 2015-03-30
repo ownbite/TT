@@ -20,7 +20,7 @@ echo $this->get_image_html($instance, false);
 
 if ( !empty( $description ) ) {
     echo '<div class="'.$this->widget_options['classname'].'-description">';
-    echo wpautop($description);
+    echo wpautop(stripslashes($description));
     echo "</div>";
 }
 
