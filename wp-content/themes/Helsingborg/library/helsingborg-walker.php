@@ -100,7 +100,9 @@ class Helsingborg_Walker extends Walker {
 
       $children = get_children($args);
       $has_children = !empty($children);
-      if ( !in_array( $page->ID, $_current_page->ancestors ) && $has_children && ($page->post_parent != get_option('page_on_front')) ) {
+
+      // Check if page got childrens or not, if it does, add has-child class
+      if ( !in_array( $page->ID, $_current_page->ancestors ) && $has_children && ($page->post_parent != get_option('page_on_front')) && get_post_meta($page->ID,'_wp_page_template',TRUE) != 'templates/list-page.php' ) {
         $arr_css_classes[] = 'has-childs';
       }
 
