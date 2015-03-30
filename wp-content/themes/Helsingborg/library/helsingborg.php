@@ -96,6 +96,15 @@ function dbx_srm_max_redirects() {
     return 250;
 }
 
+/**
+ * Increase number of pages in Google Analytics plugin
+ */
+
+add_filter('gadwp_sites_limit', 'gadwp_increase_sites_limit');
+function gadwp_increase_sites_limit() {
+    return 150;
+}
+
 /*
  * We need to insert empty spans in content.
  * Make sure html content isnt altered with when switching between Visual and Text.
