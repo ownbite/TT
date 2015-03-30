@@ -6060,6 +6060,8 @@ ul.news-list-large.row section.news-section ul.news-list-large.row li.news-item.
   margin-bottom: 1rem; }
 .article-body ul + p {
   margin-top: 1rem; }
+.article-body ol + p {
+  margin-top: 1rem; }
 
 /**
 * 4.6 Forms
