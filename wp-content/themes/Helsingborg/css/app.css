@@ -6151,16 +6151,14 @@ div.main-site-container div.row.errorpage {
 .breadcrumbs {
   background-color: #fff;
   border: 0; }
+  .breadcrumbs * {
+    text-transform: none; }
 
 ul.breadcrumbs li {
-  font-size: 0.63rem;
-  text-transform: lowercase; }
+  font-size: 0.63rem; }
 
 ul.breadcrumbs li strong {
   font-size: 0.63rem; }
-
-ul.breadcrumbs strong {
-  text-transform: lowercase; }
 
 /**
 * 5.1 - Print
