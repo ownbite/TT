@@ -3,6 +3,12 @@
 /* AJAX FUNCTIONS */
 /******************/
 
+/* Manually start fetch of alarms */
+add_action( 'wp_ajax_start_manual_alarms', 'start_manual_alarms_callback');
+function start_manual_alarms_callback() {
+  alarms_event();
+}
+
 /* Manually start fetch of XCap */
 add_action( 'wp_ajax_start_manual_xcap', 'start_manual_xcap_callback');
 function start_manual_xcap_callback() {

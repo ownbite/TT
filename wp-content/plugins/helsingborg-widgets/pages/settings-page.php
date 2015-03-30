@@ -219,8 +219,9 @@ $cbis_category_id = get_option('helsingborg_cbis_category_id');
           </label>
         </th>
         <td>
-          <input type="button" class="small button" value="Starta XCap" onclick="startManualXCap()" />
-          <input type="button" class="small button" value="Starta CBIS" onclick="startManualCBIS()" />
+          <input type="button" class="small button" value="Starta XCap"  onclick="startManualXCap()" />
+          <input type="button" class="small button" value="Starta CBIS"  onclick="startManualCBIS()" />
+          <input type="button" class="small button" value="Starta Alarm" onclick="startManualAlarms()" />
         </td>
       </tr>
 
@@ -258,11 +259,15 @@ function clearHeader() {
 }
 
 function startManualCBIS() {
-  jQuery.post(ajaxurl, { action: 'start_manual_cbis' }, function(response) {});
+  jQuery.post(ajaxurl, { action: 'start_manual_cbis' }, function(response) { alert('CBIS är nu uppdaterat.'); });
 }
 
 function startManualXCap() {
-  jQuery.post(ajaxurl, { action: 'start_manual_xcap' }, function(response) {});
+  jQuery.post(ajaxurl, { action: 'start_manual_xcap' }, function(response) { alert('XCap är nu uppdaterat.'); });
+}
+
+function startManualAlarms() {
+  jQuery.post(ajaxurl, { action: 'start_manual_alarms' }, function(response) { alert('Alarm är nu uppdaterat.'); });
 }
 
 function startWidgetFix() {
