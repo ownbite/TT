@@ -5638,6 +5638,8 @@ th.hide-for-touch {
 /* generic widget styles */
 .widget.large-12 {
   margin-bottom: 2rem; }
+.widget a .widget_sp_image-description {
+  color: #000000; }
 
 .widget-content {
   padding: 0.625rem;
