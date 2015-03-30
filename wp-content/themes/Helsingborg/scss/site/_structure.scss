@@ -244,6 +244,32 @@ img.alignright {
 	 	margin-left: 0;
 		li {
 			margin-bottom: rem-calc(32);
+
+			a {
+				display: block;
+				color: $black;
+
+				h2,
+				.read-more {
+					color: $blue-2;
+				}
+
+				.read-more {
+					display: block;
+					margin-top: 5px;
+				}
+
+				&:hover {
+					text-decoration: none;
+					color: $black;
+
+					h2,
+					.read-more {
+						text-decoration: underline;
+						color: $blue-1;
+					}
+				}
+			}
 		}
 	 }
 
@@ -307,14 +333,14 @@ img.alignright {
   					content: $nbsp $text-arrow;
   				}
   			}
-				a .list-date {
-					font-size: rem-calc(12);
-					display: block;
-					color: $gray-1;
-				}
-				a img {
-					margin-bottom: rem-calc(8);
-				}
+			a .list-date {
+				font-size: rem-calc(12);
+				display: block;
+				color: $gray-1;
+			}
+			a img {
+				margin-bottom: rem-calc(8);
+			}
   		}
 	  }
 

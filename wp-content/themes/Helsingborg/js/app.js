@@ -417,7 +417,7 @@ var b={start_page_x:a.touches[0].pageX,start_page_y:a.touches[0].pageY,start_tim
       stack_on_small: false,
       navigation_arrows: true,
       slide_number: true,
-      slide_number_text: 'av',
+      slide_number_text: 'of',
       container_class: 'orbit-container',
       stack_on_small_class: 'orbit-stack-on-small',
       next_class: 'orbit-next',
