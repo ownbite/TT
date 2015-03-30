@@ -11,21 +11,12 @@ if ( !defined('ABSPATH') )
 echo $before_widget;
 
 if ( !empty( $title ) ) { echo $before_title . $title . $after_title; }
-
-if (isset($instance['link']) && !empty($instance['link'])) {
-    echo '<a href="' . $instance['link'] . '">';
-}
-
-echo $this->get_image_html($instance, false);
+echo $this->get_image_html($instance, true);
 
 if ( !empty( $description ) ) {
     echo '<div class="'.$this->widget_options['classname'].'-description">';
     echo wpautop(stripslashes($description));
     echo "</div>";
-}
-
-if (isset($instance['link']) && !empty($instance['link'])) {
-    echo '</a>';
 }
 
 echo $after_widget;
