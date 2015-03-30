@@ -49,6 +49,15 @@ if (isset($_POST["update_settings"])) {
   $cbis_category_id = esc_attr($_POST['cbis_category_id']);
   update_option('helsingborg_cbis_category_id', $cbis_category_id);
 
+  $alarm_user_name = esc_attr($_POST['alarm_user_name']);
+  update_option('helsingborg_alarm_user_name', $alarm_user_name);
+
+  $alarm_password = esc_attr($_POST['alarm_password']);
+  update_option('helsingborg_alarm_password', $alarm_password);
+
+  $alarm_location = esc_attr($_POST['alarm_location']);
+  update_option('helsingborg_alarm_location', $alarm_location);
+
   echo('<div id="message" class="updated">Dina inställningar är sparade!</div>');
 }
 
@@ -76,6 +85,11 @@ $fm = $header_image_item_force_margin == 'on' ? 'checked' : '';
 $cbis_api_key     = get_option('helsingborg_cbis_api_key');
 $cbis_hbg_id      = get_option('helsingborg_cbis_hbg_id');
 $cbis_category_id = get_option('helsingborg_cbis_category_id');
+
+// Values for alarm
+$alarm_user_name = get_option('helsingborg_alarm_user_name');
+$alarm_password  = get_option('helsingborg_alarm_password');
+$alarm_location  = get_option('helsingborg_alarm_location');
 
 ?>
 <div class="wrap">
@@ -209,6 +223,37 @@ $cbis_category_id = get_option('helsingborg_cbis_category_id');
         </th>
         <td>
           <input type="number" name="cbis_category_id" value="<?php echo $cbis_category_id; ?>" />
+        </td>
+      </tr>
+
+      <tr valign="top">
+        <th scope="row">
+          <label for="alarm_user_name">
+            Användarnamn för alarm:
+          </label>
+        </th>
+        <td>
+          <input type="text" name="alarm_user_name" value="<?php echo $alarm_user_name; ?>" />
+        </td>
+      </tr>
+      <tr valign="top">
+        <th scope="row">
+          <label for="alarm_password">
+            Lösenord för alarm:
+          </label>
+        </th>
+        <td>
+          <input type="text" name="alarm_password" value="<?php echo $alarm_password; ?>" />
+        </td>
+      </tr>
+      <tr valign="top">
+        <th scope="row">
+          <label for="alarm_location">
+            IP-nummer för ftp till alarmtjänst:
+          </label>
+        </th>
+        <td>
+          <input type="text" name="alarm_location" value="<?php echo $alarm_location; ?>" />
         </td>
       </tr>
 
