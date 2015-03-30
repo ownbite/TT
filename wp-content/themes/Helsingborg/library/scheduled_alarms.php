@@ -9,9 +9,9 @@
 add_action( 'scheduled_alarms', 'alarms_event' );
 function alarms_event() {
   // Retrieve values
-  $ftpUserName  = "Telium";
-  $ftpPassword  = "BraVA)aRb9!9Crake(";
-  $ftpLocation  = "87.251.206.99";
+  $ftpUserName  = get_option('helsingborg_alarm_user_name');
+  $ftpPassword  = get_option('helsingborg_alarm_password');
+  $ftpLocation  = get_option('helsingborg_alarm_location');
   $ftpDirectory = "/alarm/in/";
   $downloadTo   = "alarm/in/";
 
@@ -88,7 +88,7 @@ function update_alarms_in_database($downloadTo) {
         strpos(strtolower($HtText),'suicid') !== false ||
         strpos(strtolower($HtText),'järnväg') !== false )
     {
-      break; // Skip this alarm !
+      continue; // Skip this alarm !
     } else {
       // Check ID is present in the data, otherwise create it
       if (!empty($ALARM->IDNumber)) {
