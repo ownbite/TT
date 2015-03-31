@@ -5719,6 +5719,10 @@ th.hide-for-touch {
     font-size: 1.5rem;
     margin-bottom: -0.625rem;
     vertical-align: bottom; }
+.news-widget a.rss-link {
+  text-decoration: none; }
+  .news-widget a.rss-link:hover {
+    text-decoration: none; }
 .news-widget ul li .date {
   display: block; }
 

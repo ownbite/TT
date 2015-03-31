@@ -114,8 +114,10 @@ if (!class_exists('SimpleLinkListWidget')) {
 
       else : ?>
 
-        <section class="news-section">
-          <h2 class="section-title"><?php echo $title; ?></h2>
+        <section class="news-section news-widget">
+          <h2 class="section-title"><?php echo $title; ?>
+            <?php if ($show_rss == 'rss_yes') { echo('<a href="'.$rss_link.'" class="rss-link"><span class="icon"></span></a>'); } ?>
+          </h2>
           <div class="divider fade">
             <div class="upper-divider"></div>
             <div class="lower-divider"></div>
