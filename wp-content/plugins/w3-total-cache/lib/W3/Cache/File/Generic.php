@@ -60,7 +60,7 @@ class W3_Cache_File_Generic extends W3_Cache_File {
         $fp = @fopen($path, 'w');
         if (!$fp)
             return false;
-        
+
         if ($this->_locking)
             @flock($fp, LOCK_EX);
 
@@ -72,7 +72,7 @@ class W3_Cache_File_Generic extends W3_Cache_File {
 
         // some hostings create files with restrictive permissions
         // not allowing apache to read it later
-        @chmod($path, 0644); 
+        @chmod($path, 0644);
 
         $old_entry_path = $path . '.old';
         @unlink($old_entry_path);
@@ -160,7 +160,7 @@ class W3_Cache_File_Generic extends W3_Cache_File {
         return array(
             '404' => false,
             'headers' => array(),
-            'time' => null,
+            'time' => @filemtime($path),
             'content' => $var
         );
     }
