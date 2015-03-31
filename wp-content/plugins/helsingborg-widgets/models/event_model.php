@@ -75,7 +75,7 @@ class HelsingborgEventModel {
 
 public static function load_events_with_name($name) {
   global $wpdb;
-  
+
 
   $query = 'SELECT DISTINCT he.EventID,
                             he.Name,
@@ -152,7 +152,6 @@ public static function load_events_with_name($name) {
                     happy_event hE
                WHERE hE.EventID = hETI.EventID
                AND hE.EventID = ' . $event_id;
-               echo $events;
 
     return $wpdb->get_results($events, OBJECT)[0];
   }
