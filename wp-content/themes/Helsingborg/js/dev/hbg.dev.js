@@ -6,7 +6,7 @@ jQuery(document).foundation({
 
 jQuery(document).ready(function(){
     $('.support-nav').prepend('<a href="#" class="show-support-nav"><span class="arrow-icon"></span>Hjälpmeny</a>');
-    $('.support-nav-mobile').prepend('<a href="#" class="show-support-nav show-support-nav-mobile"><span class="arrow-icon"></span>Hjälpmeny</a>');
+    $('.mobile-nav-list').append('<li><a href="#" class="show-support-nav show-support-nav-mobile">Toppmeny</a></li>');
 
     $('.show-support-nav:not(.show-support-nav-mobile)').bind('click', function(){
         $('.support-nav-list').toggle();

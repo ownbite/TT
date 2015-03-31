@@ -2,11 +2,8 @@
 require_once(get_template_directory() . '/library/helsingborg-walker.php');
 $walker_page = new Helsingborg_Walker(); ?>
 <aside class="left-off-canvas-menu">
-  <div class="mobile-menu-top-bar">
-    <?php Helsingborg_support_menu(true); ?>
-  </div>
   <ul class="mobile-nav-list" role="navigation">
-    <li class="nav-home"><a href="<?php echo get_site_url();?>">Hem</a></li>
+    <li class="nav-home"><a href="<?php echo get_site_url();?>">Startsida</a></li>
     <?php
       $id = is_404() ? get_option('page_on_front') : $post->ID;
       $menu = wp_cache_get('menu_' . $id);
@@ -20,4 +17,7 @@ $walker_page = new Helsingborg_Walker(); ?>
       echo $menu;
       ?>
   </ul>
+  <div class="mobile-menu-top-bar">
+    <?php Helsingborg_support_menu(true); ?>
+  </div>
 </aside>

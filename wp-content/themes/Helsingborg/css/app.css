@@ -6363,7 +6363,7 @@ nav > ul > li.nav-home a {
   height: auto; }
 
 /* support-nav */
-.show-support-nav {
+.show-support-nav:not(.show-support-nav-mobile) {
   display: none;
   float: right;
   margin-bottom: 0;
@@ -6372,7 +6372,7 @@ nav > ul > li.nav-home a {
   line-height: 2.5rem;
   padding: 0 0.625rem;
   position: relative; }
-  .show-support-nav:before {
+  .show-support-nav:not(.show-support-nav-mobile):before {
     font-family: hbg-se-iconset;
     speak: none;
     font-style: normal;
@@ -6385,12 +6385,12 @@ nav > ul > li.nav-home a {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-size: 0.75rem; }
-  .show-support-nav:hover {
+  .show-support-nav:not(.show-support-nav-mobile):hover {
     text-decoration: underline;
     color: #FFFFFF; }
-  .show-support-nav:focus {
+  .show-support-nav:not(.show-support-nav-mobile):focus {
     color: #FFFFFF; }
-  .show-support-nav.active:before {
+  .show-support-nav:not(.show-support-nav-mobile).active:before {
     font-family: hbg-se-iconset;
     speak: none;
     font-style: normal;
@@ -6453,14 +6453,15 @@ nav > ul > li.nav-home a {
   list-style: none;
   margin-left: 0 !important; }
   .support-nav-mobile-list li {
-    border-top: 1px solid #45697d; }
+    border-bottom: 1px solid #507a91; }
     .support-nav-mobile-list li a {
       display: block;
       color: #FFFFFF;
       padding: 0.625rem 0.8125rem;
-      font-size: 0.9375rem; }
+      font-size: 0.9375rem;
+      padding-left: 30px; }
       .support-nav-mobile-list li a:hover {
-        background: #2a404c; }
+        background-color: #507a91; }
 
 #google-translate-element {
   display: none;
@@ -6557,7 +6558,7 @@ nav > ul > li.nav-home a {
     display: block;
     border-bottom: 1px solid #507a91; }
     .mobile-nav-list li:last-child {
-      margin-bottom: 1.875rem;
+      margin-bottom: 0;
       border-bottom: none; }
     .mobile-nav-list li:first-child {
       border-top: 1px solid #507a91; }
@@ -6604,7 +6605,7 @@ nav > ul > li.nav-home a {
     padding-left: 3.75rem; }
 
 .mobile-menu-top-bar {
-  background: #334d5c; }
+  border-top: 1px solid #507a91; }
 
 /* Mobile search */
 .mobile-search {
