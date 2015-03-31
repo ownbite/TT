@@ -7,6 +7,10 @@
 	&.large-12 {
 		margin-bottom: rem-calc(32);
 	}
+
+	a .widget_sp_image-description {
+		color: $black;
+	}
 }
 
 .widget-content {
