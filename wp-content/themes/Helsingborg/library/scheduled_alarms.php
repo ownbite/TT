@@ -54,7 +54,7 @@ function download_alarms_from_ftp($ftpLocation, $ftpUserName, $ftpPassword, $ftp
 
   // Login to the specific connection
   $login_result = ftp_login($conn_id, $ftpUserName, $ftpPassword);
-
+  ftp_pasv($conn_id, true);
   // Make sure login was successful
   if ($login_result) {
     // Retrieve complete list of files from location
