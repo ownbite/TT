@@ -267,6 +267,7 @@ $alarm_location  = get_option('helsingborg_alarm_location');
           <input type="button" class="small button" value="Starta XCap"  onclick="startManualXCap()" />
           <input type="button" class="small button" value="Starta CBIS"  onclick="startManualCBIS()" />
           <input type="button" class="small button" value="Starta Alarm" onclick="startManualAlarms()" />
+          <img src="<?php echo plugins_url(); ?>/helsingborg-widgets/images/loader.gif" id="spinner" style="display: none;">
         </td>
       </tr>
 
@@ -304,15 +305,27 @@ function clearHeader() {
 }
 
 function startManualCBIS() {
-  jQuery.post(ajaxurl, { action: 'start_manual_cbis' }, function(response) { alert('CBIS är nu uppdaterat.'); });
+  document.getElementById('spinner').style.display = "inline-block";
+  jQuery.post(ajaxurl, { action: 'start_manual_cbis' }, function(response) {
+    document.getElementById('spinner').style.display = "none";
+    alert('CBIS är nu uppdaterat.');
+  });
 }
 
 function startManualXCap() {
-  jQuery.post(ajaxurl, { action: 'start_manual_xcap' }, function(response) { alert('XCap är nu uppdaterat.'); });
+  document.getElementById('spinner').style.display = "inline-block";
+  jQuery.post(ajaxurl, { action: 'start_manual_xcap' }, function(response) {
+    document.getElementById('spinner').style.display = "none";
+    alert('XCap är nu uppdaterat.');
+  });
 }
 
 function startManualAlarms() {
-  jQuery.post(ajaxurl, { action: 'start_manual_alarms' }, function(response) { alert('Alarm är nu uppdaterat.'); });
+  document.getElementById('spinner').style.display = "inline-block";
+  jQuery.post(ajaxurl, { action: 'start_manual_alarms' }, function(response) {
+    document.getElementById('spinner').style.display = "none";
+    alert('Alarm är nu uppdaterat.');
+  });
 }
 
 function startWidgetFix() {
