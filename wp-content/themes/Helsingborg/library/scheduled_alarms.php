@@ -55,14 +55,20 @@ function download_alarms_from_ftp($ftpLocation, $ftpUserName, $ftpPassword, $ftp
   // Login to the specific connection
   $login_result = ftp_login($conn_id, $ftpUserName, $ftpPassword);
 
-  // Retrieve complete list of files from location
-  $list = ftp_nlist($conn_id, $ftpDirectory);
+  // Make sure login was successful
+  if ($login_result) {
+    // Retrieve complete list of files from location
+    $list = ftp_nlist($conn_id, $ftpDirectory);
 
-  // Parse through all the files and download each to the local location
-  foreach($list as $item) {
-    $local_file  = $downloadTo . $item;
-    $server_file = $ftpDirectory . $item;
-    ftp_get($conn_id, "$local_file", "$server_file", FTP_ASCII);
+    // Make sure data is recieved
+    if ($list && is_array($list)) {
+      // Parse through all the files and download each to the local location
+      foreach($list as $item) {
+        $local_file  = $downloadTo . $item;
+        $server_file = $ftpDirectory . $item;
+        ftp_get($conn_id, "$local_file", "$server_file", FTP_ASCII);
+      }
+    }
   }
 
   // Close the connection
