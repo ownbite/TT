@@ -43,7 +43,7 @@ $end_date   = $number_of_dates > 1 ? $times[$number_of_dates - 1] : null;
 <h2>Hantering av evenemang</h2>
 
 <br>
-<input type="submit" class="button" onclick="location.href='http://localhost/wp-admin/admin.php?page=helsingborg-eventhandling'" value="Tillbaks till listan">
+<input type="submit" class="button" onclick="location.href='<?php echo site_url(); ?>/wp-admin/admin.php?page=helsingborg-eventhandling'" value="Tillbaks till listan">
 <br>
 
 <form><fieldset>
@@ -161,7 +161,7 @@ $end_date   = $number_of_dates > 1 ? $times[$number_of_dates - 1] : null;
 
 <ul class="button-group round even-3">
   <li><input type="submit" class="button success" onclick="approveEvent()" value="Godkänn"></li>
-  <li><input type="submit" class="button button"  onclick="saveEvent()"    value="Spara"></li>
+  <li><input type="submit" class="button button"  onclick="saveEvent()" value="Spara"></li>
   <li><input type="submit" class="button alert"   onclick="denyEvent()" value="Neka"></li>
 </ul>
 
@@ -171,9 +171,12 @@ function approveEvent(){
     action: 'approve_event',
     id: <?php echo $event_id; ?>
   };
-  jQuery.post(ajaxurl, data, function(response) {
-    alert(response);
-  });
+
+  if (confirm('Är du säker på du vill godkänna detta event?')){
+    jQuery.post(ajaxurl, data, function(response) {
+      window.location.replace("<?php echo site_url(); ?>/wp-admin/admin.php?page=helsingborg-eventhandling");
+    });
+  }
 }
 
 function denyEvent(){
@@ -181,9 +184,12 @@ function denyEvent(){
     action: 'deny_event',
     id: <?php echo $event_id; ?>
   };
-  jQuery.post(ajaxurl, data, function(response) {
-    alert(response);
-  });
+
+  if (confirm('Är du säker på du vill neka detta event?')){
+    jQuery.post(ajaxurl, data, function(response) {
+      window.location.replace("<?php echo site_url(); ?>/wp-admin/admin.php?page=helsingborg-eventhandling");
+    });
+  }
 }
 
 function saveEvent(){
@@ -204,9 +210,9 @@ function saveEvent(){
     author: jQuery("#e_autor").val(),
   };
 
-  jQuery.post(ajaxurl, data, function(response) {
-    alert(response);
-  });
+  if (confirm('Är du säker på du vill spara de nya värdena?')){
+    jQuery.post(ajaxurl, data, function(response) {});
+  }
 }
 
 function getCheckedDays() {
