@@ -5,8 +5,12 @@ jQuery(document).foundation({
 
 
 jQuery(document).ready(function(){
-    $('.support-nav').prepend('<a href="#" class="show-support-nav"><span class="arrow-icon"></span>Hjälpmeny</a>');
-    $('.mobile-nav-list').append('<li><a href="#" class="show-support-nav show-support-nav-mobile">Toppmeny</a></li>');
+    setTimeout(function () {
+        $(window).trigger('resize');
+    }, 1000);
+
+    $('.support-nav').prepend('<a href="#" class="show-support-nav"><span class="arrow-icon"></span>Toppmeny</a>');
+    $('.mobile-nav-list').append('<li><a href="#" class="show-support-nav-mobile">Toppmeny</a></li>');
 
     $('.show-support-nav:not(.show-support-nav-mobile)').bind('click', function(){
         $('.support-nav-list').toggle();
@@ -29,7 +33,13 @@ jQuery(document).ready(function(){
             $offcanvas.removeClass('move-right');
             $mobilemenubutton.removeClass('active');
         }
-    })
+
+        if ($(window).width() <= 640 && !$('.support-nav-mobile #google-translate-element').length) {
+            $('#google-translate-element').detach().appendTo('.support-nav-mobile');
+        } else if ($(window).width() > 640 && $('.support-nav-mobile #google-translate-element').length) {
+            $('#google-translate-element').detach().insertAfter('.google-translate-toggle');
+        }
+    });
 
     $('.exit-off-canvas').bind('click', function(){
         if($('.show-mobile-nav').hasClass('active')) {

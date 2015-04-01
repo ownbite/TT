@@ -123,7 +123,7 @@ nav > ul > li.nav-home a
 }
 
 /* support-nav */
-.show-support-nav:not(.show-support-nav-mobile) {
+.show-support-nav {
 	display: none;
 	float: right;
 	margin-bottom: 0;
@@ -321,6 +321,7 @@ nav > ul > li.nav-home a
 .mobile-nav-list {
 	margin-left: 0;
 	margin-bottom: 0;
+
 	li {
 		display: block;
 		border-bottom: 1px solid $mobile-nav-border-color;
@@ -419,9 +420,27 @@ nav > ul > li.nav-home a
 	display: none;
 }
 
+.support-nav-mobile #google-translate-element {
+	display: block !important;
+	position: static;
+	top: 0;
+	left: 0;
+	right: 0;
+	background: transparent;
+
+	a {
+		display: inline;
+		padding: 0;
+
+		&:hover {
+			background: transparent;
+		}
+	}
+}
+
 @media #{$small-only} {
 	.show-support-nav {
-		display: block;
+		display: block !important;
 		float: none;
 	}
 }

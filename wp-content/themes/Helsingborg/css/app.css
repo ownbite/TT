@@ -6367,7 +6367,7 @@ nav > ul > li.nav-home a {
   height: auto; }
 
 /* support-nav */
-.show-support-nav:not(.show-support-nav-mobile) {
+.show-support-nav {
   display: none;
   float: right;
   margin-bottom: 0;
@@ -6376,7 +6376,7 @@ nav > ul > li.nav-home a {
   line-height: 2.5rem;
   padding: 0 0.625rem;
   position: relative; }
-  .show-support-nav:not(.show-support-nav-mobile):before {
+  .show-support-nav:before {
     font-family: hbg-se-iconset;
     speak: none;
     font-style: normal;
@@ -6389,12 +6389,12 @@ nav > ul > li.nav-home a {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-size: 0.75rem; }
-  .show-support-nav:not(.show-support-nav-mobile):hover {
+  .show-support-nav:hover {
     text-decoration: underline;
     color: #FFFFFF; }
-  .show-support-nav:not(.show-support-nav-mobile):focus {
+  .show-support-nav:focus {
     color: #FFFFFF; }
-  .show-support-nav:not(.show-support-nav-mobile).active:before {
+  .show-support-nav.active:before {
     font-family: hbg-se-iconset;
     speak: none;
     font-style: normal;
@@ -6636,9 +6636,22 @@ nav > ul > li.nav-home a {
 #support-nav-mobile {
   display: none; }
 
+.support-nav-mobile #google-translate-element {
+  display: block !important;
+  position: static;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: transparent; }
+  .support-nav-mobile #google-translate-element a {
+    display: inline;
+    padding: 0; }
+    .support-nav-mobile #google-translate-element a:hover {
+      background: transparent; }
+
 @media only screen and (max-width: 40em) {
   .show-support-nav {
-    display: block;
+    display: block !important;
     float: none; } }
 
 @media only screen and (min-width:40.063em) and (max-width:54.375em) {

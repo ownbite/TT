@@ -52,6 +52,7 @@ if ( ! function_exists( 'Helsingborg_support_menu' ) ) {
         $args['menu_id'] = 'support-nav-mobile';
         $args['menu_class'] = 'support-nav-mobile-list';
       } else {
+        add_filter( 'wp_nav_menu_items', 'Helsingborg_support_menu_add_translate' );
         $args['container_class'] =  'support-nav large-8 medium-8 columns';
         $args['menu_id'] = 'support-nav';
         $args['menu_class'] = 'support-nav-list inline-list';
@@ -68,7 +69,6 @@ if ( ! function_exists( 'Helsingborg_support_menu' ) ) {
                 </li>';
     return $items;
   }
-  add_filter( 'wp_nav_menu_items', 'Helsingborg_support_menu_add_translate' );
 }
 
 if ( ! function_exists( 'Helsingborg_mobile_menu' ) ) {
