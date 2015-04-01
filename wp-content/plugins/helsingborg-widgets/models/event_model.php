@@ -87,7 +87,7 @@ public static function load_events_with_name($name) {
             AND he.Approved = 1
             AND he.EventID = het.EventID
             AND hefe.EventID= he.EventID
-            AND he.Name LIKE "%' . $name . '%"
+            AND LOWER(he.Name) LIKE "%' . strtolower($name) . '%"
             Group by he.EventID, he.Name
             ORDER BY Date, he.EventID';
 
@@ -398,7 +398,7 @@ public static function load_events_with_name($name) {
     // Add time for event
     if ($times) {
       // Delete current set of times for this event
-      $wpdb->delete('happy_event_administration_unit', array('EventID' => $event['EventID']));
+      $wpdb->delete('happy_event_times', array('EventID' => $event['EventID']));
       // Add the new times
       foreach($times as $time) {
           $wpdb->insert('happy_event_times', array('Date'    => $time['Date'],

@@ -387,13 +387,15 @@ function save_event_callback() {
   $author      = $_POST['author'];
 
   // Create event
-  $event        = 	array ( 'EventID'         => $id,
-  'Name'            => $name,
-  'Description'     => $description,
-  'Approved'        => $approved,
-  'OrganizerID'     => $organizer,
-  'Location'        => $location,
-  'ExternalEventID' => $external_id );
+  $event = array (
+    'EventID'         => $id,
+    'Name'            => $name,
+    'Description'     => $description,
+    'Approved'        => $approved,
+    'OrganizerID'     => $organizer,
+    'Location'        => $location,
+    'ExternalEventID' => $external_id,
+  );
 
   // Event types
   $event_types_x  = explode(',', $types);
@@ -418,23 +420,27 @@ function save_event_callback() {
   // Create time/times
   $event_times = array();
   if (!$end_date) { // Single occurence
-    $event_time = array('Date'  => $single_date,
-    'Time'  => $time,
-    'Price' => 0);
+    $event_time = array(
+      'Date'  => $start_date,
+      'Time'  => $time,
+      'Price' => 0
+    );
     array_push($event_times, $event_time);
   } else { // Must be start and end then
     $dates_array = create_date_range_array($start_date, $end_date);
     $filtered_days = filter_date_array_by_days($dates_array, $days_array);
 
     foreach($filtered_days as $date) {
-      $event_time = array('Date'  => $date,
-      'Time'  => $time,
-      'Price' => 0);
+      $event_time = array(
+        'Date'  => $date,
+        'Time'  => $time,
+        'Price' => 0
+      );
       array_push($event_times, $event_time);
     }
   }
 
-  HelsingborgEventModel::update_event($event, $event_types, $administration_units, $image, $times);
+  HelsingborgEventModel::update_event($event, $event_types, $administration_units, $image, $event_times);
 
   die();
 }

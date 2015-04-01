@@ -37,7 +37,7 @@ $end_date   = $number_of_dates > 1 ? $times[$number_of_dates - 1] : null;
 <script src="<?php echo get_stylesheet_directory_uri() ; ?>/js/jquery/dist/jquery-ui.min.js"></script>
 <script src="<?php echo get_stylesheet_directory_uri() ; ?>/js/foundation-multiselect/zmultiselect/zurb5-multiselect.js"></script>
 <link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri() ; ?>/bower_components/foundation-multiselect/zmultiselect/zurb5-multiselect.css">
-<link rel="stylesheet" href="<?php echo plugin_dir_url(); ?>/helsingborg-widgets/css/helsingborg-admin.css">
+<link rel="stylesheet" href="<?php echo plugins_url(); ?>/helsingborg-widgets/css/helsingborg-admin.css">
 
 <div class="wrap"><div id="icon-options-general" class="icon32"><br></div>
 <h2>Hantering av evenemang</h2>
@@ -97,7 +97,7 @@ $end_date   = $number_of_dates > 1 ? $times[$number_of_dates - 1] : null;
           $selected = '';
           foreach($selected_units as $unit){
             if ($administration_unit->Name == $unit->Name) {
-              $selected = 'data-selected';
+              $selected = 'data-selected selected';
               break;
             }
           }
@@ -153,8 +153,8 @@ $end_date   = $number_of_dates > 1 ? $times[$number_of_dates - 1] : null;
 </fieldset></form>
 </div>
 
-<input type="text" id="e_selected_units" style="display: none;"/>
-<input type="text" id="e_selected_types" style="display: none;"/>
+<input type="text" id="e_selected_units" name="units" style="display: none;"/>
+<input type="text" id="e_selected_types" name="types" style="display: none;"/>
 
 <br>
 <br>
