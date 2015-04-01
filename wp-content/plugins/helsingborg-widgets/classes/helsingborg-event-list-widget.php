@@ -135,8 +135,15 @@ if (!class_exists('EventListWidget')) {
                 html = "<li>";
                 var dates = JSON.parse(response);
                 for (var i=0;i<dates.length;i++) {
-                  html += '<span>' + dates[i].Date + '</span>';
-                  html += '<span>' + dates[i].Time + '</span>';
+
+                  // Takes the event date and time and creates a utc date object from it then output it in local time zone format
+                  var dateParts = dates[i].Date.split('-');
+                  var timeParts = dates[i].Time.split(':');
+                  var utcTime = Date.UTC(dateParts[0], parseInt(dateParts[1], 10)-1, parseInt(dateParts[2], 10), timeParts[0], timeParts[1]); // UTC date (miliseconds)
+                  var dateEvent = new Date(utcTime); // Create date object from the utcTime
+
+                  html += '<span>' + dateEvent.toLocaleDateString("sv-se") + '</span>';
+                  html += '<span>' + ('0' + dateEvent.getHours()).slice(-2) + ':' + ('0' + dateEvent.getMinutes()).slice(-2) + '</span>';
                   html += '<span>' + dates_data.location + '</span>';
                 }
                 html += '</li>';

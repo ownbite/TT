@@ -38,9 +38,15 @@ function update_event_calendar_callback() {
 
     // Present 'Idag HH:ii' och 'YYYY-mm-dd'
     if ($today == $event->Date) {
-      $list .= '<span class="date">Idag '.$event->Time.'</span>';
+
+      // Take the event date and time and make it into an UTC date object then set it to Stockholm timezone
+      $utcDate = new DateTime(date('Y-m-d H:i', strtotime($event->Date . ' ' . $event->Time)));
+      $timeZone = new DateTimeZone('Europe/Stockholm');
+      $utcDate->setTimezone($timeZone);
+
+      $list .= '<span class="date">Idag ' . $utcDate->format('H:i') . '</span>';
     } else {
-      $list .= '<span class="date">'.$event->Date.'</span>';
+      $list .= '<span class="date">' . $event->Date . '</span>';
     }
 
     $list .= '<a href="#" class="modalLink" id="'.$event->EventID.'" data-reveal-id="eventModal">'.$event->Name.'</a>';
