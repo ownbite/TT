@@ -389,8 +389,8 @@ public static function load_events_with_name($name) {
 
     // Add Image
     if ($image) {
-      $wpdb->update('happy_images', array('ImageID'   => $image['Id'],
-                                          'ImagePath' => $image['Path'],
+      $wpdb->update('happy_images', array('ImageID'   => date('Y-m-d H:i:s'),
+                                          'ImagePath' => $image['ImagePath'],
                                           'Author'    => $image['Author']),
                                     array('EventID'   => $event['EventID']));
     }

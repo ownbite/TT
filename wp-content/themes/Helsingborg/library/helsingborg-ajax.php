@@ -416,8 +416,10 @@ function save_event_callback() {
   }
 
   // Image
-  if ($imageUrl)
-  $image = array( 'ImagePath' => $imageUrl, 'Author' => $author);
+  $image = null;
+  if ($imageUrl) {
+    $image = array( 'ImagePath' => $imageUrl, 'Author' => $author);
+  }
 
   // Create time/times
   $event_times = array();

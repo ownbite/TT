@@ -145,8 +145,15 @@ $end_date   = $number_of_dates > 1 ? $times[$number_of_dates - 1] : null;
     <th width="25%">Upphovsrätt/Copyright</th>
   </tr>
   <tr>
-    <td><img id="e_image" src="<?php echo $image->ImagePath; ?>"><?php if(!$image){echo 'Ingen bild vald';} ?></td>
-    <td><input id="e_autor" type="Text" value="<?php echo $image->Author; ?>"></input></td>
+    <td>
+      <?php if (!$image) : ?>
+        Ingen bild vald<br>
+      <?php else : ?>
+        <img id="e_image" src="<?php echo $image->ImagePath; ?>"><br>
+      <?php endif; ?>
+      <input type="text" name="imageUrl" value="<?php echo $image->ImagePath; ?>">
+    </td>
+    <td><input id="e_autor" type="Text" value="<?php echo $image->Author; ?>" name="author"></td>
   </tr>
 </table>
 
@@ -206,12 +213,15 @@ function saveEvent(){
     types: jQuery("#e_selected_types").val(),
     organizer: jQuery("#e_organizer").val(),
     location: jQuery("#e_location").val(),
-    imageUrl: jQuery("#e_image").val(),
+    imageUrl: jQuery("[name=imageUrl]").val(),
     author: jQuery("#e_autor").val(),
   };
 
   if (confirm('Är du säker på du vill spara de nya värdena?')){
-    jQuery.post(ajaxurl, data, function(response) {});
+    jQuery.post(ajaxurl, data, function(response) {
+      alert("Ändringarna sparades");
+      location.reload();
+    });
   }
 }
 
