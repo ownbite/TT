@@ -71,13 +71,13 @@ $end_date   = $number_of_dates > 1 ? $times[$number_of_dates - 1] : null;
 <br>
 <table width="100%">
   <tr>
-    <td><input type="checkbox" id="e_cb1" <?php if(in_array('1', $checked_days)){echo 'checked';} ?> value="1">Måndag</input></td>
-    <td><input type="checkbox" id="e_cb2" <?php if(in_array('2', $checked_days)){echo 'checked';} ?> value="2">Tisdag</input></td>
-    <td><input type="checkbox" id="e_cb3" <?php if(in_array('3', $checked_days)){echo 'checked';} ?> value="3">Onsdag</input></td>
-    <td><input type="checkbox" id="e_cb4" <?php if(in_array('4', $checked_days)){echo 'checked';} ?> value="4">Torsdag</input></td>
-    <td><input type="checkbox" id="e_cb5" <?php if(in_array('5', $checked_days)){echo 'checked';} ?> value="5">Fredag</input></td>
-    <td><input type="checkbox" id="e_cb6" <?php if(in_array('6', $checked_days)){echo 'checked';} ?> value="6">Lördag</input></td>
-    <td><input type="checkbox" id="e_cb7" <?php if(in_array('7', $checked_days)){echo 'checked';} ?> value="7">Söndag</input></td>
+    <td><input type="checkbox" id="e_cb1" <?php if(in_array('1', $checked_days)){echo 'checked';} ?> value="1" name="days[]">Måndag</input></td>
+    <td><input type="checkbox" id="e_cb2" <?php if(in_array('2', $checked_days)){echo 'checked';} ?> value="2" name="days[]">Tisdag</input></td>
+    <td><input type="checkbox" id="e_cb3" <?php if(in_array('3', $checked_days)){echo 'checked';} ?> value="3" name="days[]">Onsdag</input></td>
+    <td><input type="checkbox" id="e_cb4" <?php if(in_array('4', $checked_days)){echo 'checked';} ?> value="4" name="days[]">Torsdag</input></td>
+    <td><input type="checkbox" id="e_cb5" <?php if(in_array('5', $checked_days)){echo 'checked';} ?> value="5" name="days[]">Fredag</input></td>
+    <td><input type="checkbox" id="e_cb6" <?php if(in_array('6', $checked_days)){echo 'checked';} ?> value="6" name="days[]">Lördag</input></td>
+    <td><input type="checkbox" id="e_cb7" <?php if(in_array('7', $checked_days)){echo 'checked';} ?> value="7" name="days[]">Söndag</input></td>
   </tr>
 </table>
 

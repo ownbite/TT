@@ -385,6 +385,8 @@ function save_event_callback() {
   $location    = $_POST['location'];
   $imageUrl    = $_POST['imageUrl'];
   $author      = $_POST['author'];
+  $days_array  = $_POST['days'];
+  $days_array  = explode(',', $days_array);
 
   // Create event
   $event = array (
@@ -437,6 +439,7 @@ function save_event_callback() {
         'Price' => 0
       );
       array_push($event_times, $event_time);
+      echo $date;
     }
   }
 
