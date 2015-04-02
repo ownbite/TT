@@ -88,6 +88,10 @@ function cbis_event() {
         $date = DateTime::CreateFromFormat('Y-m-d\TH:i:s', $occasion->StartDate);
         $time = DateTime::CreateFromFormat('Y-m-d\TH:i:s', $occasion->StartTime);
 
+        $timeZone = new DateTimeZone('Europe/Stockholm');
+        $date->setTimezone($timeZone);
+        $time->setTimezone($timeZone);
+
         // Now save it to the DB
         $wpdb->insert('happy_external_event',
                        array(
