@@ -180,7 +180,7 @@ function approveEvent() {
     id: <?php echo $event_id; ?>
   };
 
-    if (saveEvent()) {
+    if (saveEvent(false)) {
       jQuery.post(ajaxurl, data, function(response) {
         window.location.replace("<?php echo site_url(); ?>/wp-admin/admin.php?page=helsingborg-eventhandling");
       });
@@ -200,7 +200,9 @@ function denyEvent(){
   }
 }
 
-function saveEvent() {
+function saveEvent(redirect) {
+  if (redirect === undefined) redirect = true;
+
   var data = {
     action: 'save_event',
     id: <?php echo $event_id; ?>,
@@ -220,7 +222,7 @@ function saveEvent() {
 
   if (confirm('Är du säker på du vill spara?')){
     jQuery.post(ajaxurl, data, function(response) {
-      location.reload();
+      if (redirect) window.location.replace("<?php echo site_url(); ?>/wp-admin/admin.php?page=helsingborg-eventhandling");;
     });
     return true;
   } else {
