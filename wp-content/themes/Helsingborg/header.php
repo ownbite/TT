@@ -10,7 +10,6 @@
 		<meta name="pubdate" content="<?php echo the_time('d M Y'); ?>">
 		<meta name="moddate" content="<?php echo the_modified_time('d M Y'); ?>">
 		<meta name="google-translate-customization" content="10edc883cb199c91-cbfc59690263b16d-gf15574b8983c6459-12"></meta>
-		<meta name="google-translate-customization" content="11ac8c2213523883-acfa2a8241e360d7-ge9044d252c225ed9-10"></meta>
 
 		<link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri() ; ?>/css/app.css">
 		<link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri() ; ?>/css/normalize.css">
