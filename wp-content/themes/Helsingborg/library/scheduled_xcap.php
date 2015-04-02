@@ -27,7 +27,6 @@ function xcap_event() {
     $name        = $event->summary;
     $description = $event->description;
     $categories  = $event->categories;
-    $time        = substr($event->dtstart, 9, 2);
     $address     = $event->{'x-xcap-address'};
     $imageid     = $event->{'x-xcap-imageid'};
 
@@ -35,8 +34,17 @@ function xcap_event() {
     if (strpos($categories,'kultur')) { $type = 'Kultur'; }
     if (strpos($time, '24')) { $time = '00'; }
 
-    $time  = $time . ':' . substr($event->dtstart, 11, 2);
-    $start = substr($event->dtstart, 0, 4) . '-' . substr($event->dtstart, 4, 2) . '-' . substr($event->dtstart, 6, 2);
+    // Format the date string corretly
+    $dateParts = explode("T", $event->dtstart);
+    $dateString = substr($dateParts[0], 0, 4) . '-' . substr($dateParts[0], 4, 2) . '-' . substr($dateParts[0], 6, 2);
+    $timeString = substr($dateParts[1], 0, 4);
+    $timeString = substr($timeString, 0, 2) . ':' . substr($timeString, 2, 2);
+    $dateString = $dateString . ' ' . $timeString;
+
+    // Create UTC date object
+    $date = new DateTime(date('Y-m-d H:i', strtotime($dateString)));
+    $timeZone = new DateTimeZone('Europe/Stockholm');
+    $date->setTimezone($timeZone); // Set timezone to stockholm
 
     // Insert event to our DB as external event
     $wpdb->insert('happy_external_event',
@@ -46,8 +54,8 @@ function xcap_event() {
                      'Status' => $status,
                      'Description' => $description,
                      'EventType' => $type,
-                     'Date' => $start,
-                     'Time' => $time,
+                     'Date' => $date->format('Y-m-d'),
+                     'Time' => $date->format('H:i'),
                      'Location' => $address,
                      'ImageID' => $imageid
                    ),
