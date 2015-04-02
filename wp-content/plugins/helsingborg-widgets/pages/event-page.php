@@ -173,17 +173,18 @@ $end_date   = $number_of_dates > 1 ? $times[$number_of_dates - 1] : null;
 </ul>
 
 <script>
-function approveEvent(){
+function approveEvent() {
+
   var data = {
     action: 'approve_event',
     id: <?php echo $event_id; ?>
   };
 
-  if (confirm('Är du säker på du vill godkänna detta event?')){
-    jQuery.post(ajaxurl, data, function(response) {
-      window.location.replace("<?php echo site_url(); ?>/wp-admin/admin.php?page=helsingborg-eventhandling");
-    });
-  }
+    if (saveEvent()) {
+      jQuery.post(ajaxurl, data, function(response) {
+        window.location.replace("<?php echo site_url(); ?>/wp-admin/admin.php?page=helsingborg-eventhandling");
+      });
+    }
 }
 
 function denyEvent(){
@@ -199,7 +200,7 @@ function denyEvent(){
   }
 }
 
-function saveEvent(){
+function saveEvent() {
   var data = {
     action: 'save_event',
     id: <?php echo $event_id; ?>,
@@ -217,11 +218,13 @@ function saveEvent(){
     author: jQuery("#e_autor").val(),
   };
 
-  if (confirm('Är du säker på du vill spara de nya värdena?')){
+  if (confirm('Är du säker på du vill spara?')){
     jQuery.post(ajaxurl, data, function(response) {
-      alert("Ändringarna sparades");
       location.reload();
     });
+    return true;
+  } else {
+    return false;
   }
 }
 
