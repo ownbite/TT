@@ -175,14 +175,40 @@ $end_date   = $number_of_dates > 1 ? $times[$number_of_dates - 1] : null;
 <script>
 function approveEvent() {
 
-  var data = {
-    action: 'approve_event',
-    id: <?php echo $event_id; ?>
-  };
+    var approveDone = false;
+    var saveDone = false;
 
-    if (saveEvent(false)) {
-      jQuery.post(ajaxurl, data, function(response) {
-        window.location.replace("<?php echo site_url(); ?>/wp-admin/admin.php?page=helsingborg-eventhandling");
+    // Save
+    var dataSave = {
+      action: 'save_event',
+      id: <?php echo $event_id; ?>,
+      name: jQuery("#e_name").val(),
+      description: jQuery("#e_description").val(),
+      startDate: jQuery("#e_start_date").val(),
+      endDate: jQuery("#e_end_date").val(),
+      time: jQuery("#e_time").val(),
+      days: getCheckedDays(),
+      units: jQuery("#e_selected_units").val(),
+      types: jQuery("#e_selected_types").val(),
+      organizer: jQuery("#e_organizer").val(),
+      location: jQuery("#e_location").val(),
+      imageUrl: jQuery("[name=imageUrl]").val(),
+      author: jQuery("#e_autor").val(),
+    };
+
+    if (confirm('Är du säker på du vill godkänna?')){
+      jQuery.post(ajaxurl, dataSave, function(response) {
+        saveDone = true;
+
+        // Approve
+        var data = {
+          action: 'approve_event',
+          id: <?php echo $event_id; ?>
+        };
+
+        jQuery.post(ajaxurl, data, function(response) {
+          window.location.replace("<?php echo site_url(); ?>/wp-admin/admin.php?page=helsingborg-eventhandling");
+        });
       });
     }
 }
@@ -200,9 +226,7 @@ function denyEvent(){
   }
 }
 
-function saveEvent(redirect) {
-  if (redirect === undefined) redirect = true;
-
+function saveEvent() {
   var data = {
     action: 'save_event',
     id: <?php echo $event_id; ?>,
@@ -224,9 +248,6 @@ function saveEvent(redirect) {
     jQuery.post(ajaxurl, data, function(response) {
       if (redirect) window.location.replace("<?php echo site_url(); ?>/wp-admin/admin.php?page=helsingborg-eventhandling");;
     });
-    return true;
-  } else {
-    return false;
   }
 }
 
