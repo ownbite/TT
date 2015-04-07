@@ -55,6 +55,22 @@
 				}
 			}
 		}
+		.sub-menu li.has-childs {
+			> a {
+				&:before {
+					@include hbg-icons($arrow-solid-right);
+					color: $blue-1;
+					margin-left: - rem-calc(19);
+					margin-right: rem-calc(5);
+				}
+				&:hover {
+					text-decoration: none;
+				}
+			}
+		}
+		.sub-menu {
+			padding-left: 10px;
+		}
 		li.current:not(.has-childs) {
 			//padding-top: rem-calc(6);
 			background-color: scale-color($gray-3, $lightness: 70%);
@@ -73,7 +89,7 @@
 				color: $blue-1;
 				&:before {
 					@include hbg-icons($arrow-solid-down);
-					margin-left: - rem-calc(9);
+					margin-left: - rem-calc(19);
 					margin-right: rem-calc(5);
 				}
 				&:hover {
