@@ -10,7 +10,6 @@ jQuery(document).ready(function(){
     }, 1000);
 
     $('.support-nav').prepend('<a href="#" class="show-support-nav"><span class="arrow-icon"></span>Toppmeny</a>');
-    $('.mobile-nav-list').append('<li><a href="#" class="show-support-nav-mobile">Toppmeny</a></li>');
 
     $('.show-support-nav:not(.show-support-nav-mobile)').bind('click', function(){
         $('.support-nav-list').toggle();
