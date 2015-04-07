@@ -6028,6 +6028,9 @@ ul.news-list-large.row section.news-section ul.news-list-large.row li.news-item.
   margin-top: -16px;
   /* -1 * image height / 2 */ }
 
+figure {
+  margin: 1em 0; }
+
 /**
 	 * 4.2 article-page
 	 * ------------------------------------
