@@ -6178,8 +6178,14 @@ ul.breadcrumbs li strong {
 * -----------------------------------------------------------------------------
 */
 @media print {
-  .site-header.row, .sidebar.sidebar-right, .sidebar.sidebar-left, .accessability-menu, .footer, ul.breadcrumbs, .searchform, #read-speaker-player {
-    display: none !important; } }
+  .site-header.row, .sidebar.sidebar-right, .sidebar.sidebar-left, .accessability-menu, .footer, ul.breadcrumbs, .searchform, .filter-search, .socialmedia-list, #read-speaker-player {
+    display: none !important; }
+  .table-list thead, .table-list .table-item {
+    display: none; }
+  .table-list .table-content td {
+    word-break: break-word;
+    display: table-cell;
+    box-shadow: none; } }
 
 /**
  * Custom MQ - Structure

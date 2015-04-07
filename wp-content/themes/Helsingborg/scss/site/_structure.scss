@@ -608,8 +608,31 @@ ul.breadcrumbs strong {
 */
 
 @media print {
-  .site-header.row, .sidebar.sidebar-right, .sidebar.sidebar-left, .accessability-menu, .footer, ul.breadcrumbs, .searchform, #read-speaker-player {
-			display: none !important; }
+	.site-header.row,
+	.sidebar.sidebar-right,
+	.sidebar.sidebar-left,
+	.accessability-menu,
+	.footer,
+	ul.breadcrumbs,
+	.searchform,
+	.filter-search,
+	.socialmedia-list,
+	#read-speaker-player {
+		display: none !important;
+	}
+
+	.table-list {
+		thead,
+		.table-item {
+	 		display: none;
+	 	}
+
+	 	.table-content td {
+			word-break: break-word;
+	 		display: table-cell;
+	 		box-shadow: none;
+	 	}
+	}
 }
 
 
