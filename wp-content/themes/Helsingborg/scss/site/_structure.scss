@@ -642,6 +642,7 @@ ul.breadcrumbs strong {
 			margin-bottom: rem-calc(16);
 		}
  	}
+ 	/*
  	.table-list {
 	 	thead, .table-item {
 	 			display: none;
@@ -652,6 +653,8 @@ ul.breadcrumbs strong {
 	 		box-shadow: none;
 	 	}
  	}
+ 	*/
+	
 
  	.filter-search {
  		input[type="text"] {
@@ -688,8 +691,21 @@ ul.breadcrumbs strong {
  	}
 
 }
-@media #{$custom-medium-only} {
+@media #{$small-medium-only} {
+	.table-list {
+		.table-item, thead {
+			td,
+			th {
+				display: none;
+			}
 
+			td:first-child,
+			th:nth-child(2) {
+				display: block;
+				background: url("/wp-content/themes/Helsingborg/assets/img/tablesorter-icons/asc.gif") no-repeat scroll 95% center rgba(0, 0, 0, 0);
+			}
+		}
+	}
 }
 
 @media #{$medium-up} {
