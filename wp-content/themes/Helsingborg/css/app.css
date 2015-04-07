@@ -6284,13 +6284,29 @@ ul.breadcrumbs li strong {
   list-style: none;
   margin-bottom: 2rem; }
   .main-nav .main-nav-list li a {
+    display: block;
+    position: relative;
     font-size: 1.125rem;
     color: #222;
-    display: block;
-    padding-left: 1.125rem;
+    padding-left: 0.8125rem;
     padding-right: 0.625rem; }
-  .main-nav .main-nav-list .sub-menu li:not(.has-childs) a {
-    padding-left: 2.5rem; }
+  .main-nav .main-nav-list li.has-childs > a:before {
+    font-family: hbg-se-iconset;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    content: "\e607";
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: #45697d;
+    margin-right: 0.3125rem;
+    margin-left: -1.1875rem; }
+  .main-nav .main-nav-list li.has-childs > a:hover {
+    text-decoration: none; }
   .main-nav .main-nav-list li.current-node:not(.current-ancestor) > a {
     text-decoration: underline;
     font-weight: bold; }
@@ -6307,83 +6323,38 @@ ul.breadcrumbs li strong {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     color: #45697d;
-    margin-left: -0.5625rem;
     margin-right: 0.3125rem; }
-  .main-nav .main-nav-list li.current-ancestor:hover {
+  .main-nav .main-nav-list li.current-ancestor > a:hover {
     text-decoration: none; }
-  .main-nav .main-nav-list li.has-childs > a:before {
-    font-family: hbg-se-iconset;
-    speak: none;
-    font-style: normal;
-    font-weight: normal;
-    font-variant: normal;
-    text-transform: none;
-    line-height: 1;
-    content: "\e607";
-    /* Better Font Rendering =========== */
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    color: #45697d;
-    margin-left: -0.5625rem;
-    margin-right: 0.3125rem; }
-  .main-nav .main-nav-list li.has-childs > a:hover {
-    text-decoration: none; }
-  .main-nav .main-nav-list .sub-menu li.has-childs > a:before {
-    font-family: hbg-se-iconset;
-    speak: none;
-    font-style: normal;
-    font-weight: normal;
-    font-variant: normal;
-    text-transform: none;
-    line-height: 1;
-    content: "\e607";
-    /* Better Font Rendering =========== */
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    color: #45697d;
-    margin-left: -1.1875rem;
-    margin-right: 0.3125rem; }
-  .main-nav .main-nav-list .sub-menu li.has-childs > a:hover {
-    text-decoration: none; }
+  .main-nav .main-nav-list li.current {
+    background-color: #f3f3f2;
+    padding: 0.3125rem 0; }
+    .main-nav .main-nav-list li.current > a {
+      color: #45697d; }
+      .main-nav .main-nav-list li.current > a:hover {
+        text-decoration: none; }
+    .main-nav .main-nav-list li.current.has-childs > a:before {
+      font-family: hbg-se-iconset;
+      speak: none;
+      font-style: normal;
+      font-weight: normal;
+      font-variant: normal;
+      text-transform: none;
+      line-height: 1;
+      content: "\e606";
+      /* Better Font Rendering =========== */
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      margin-right: 0.3125rem; }
+    .main-nav .main-nav-list li.current.has-childs > a:hover {
+      text-decoration: none; }
   .main-nav .main-nav-list .sub-menu {
-    padding-left: 10px; }
-  .main-nav .main-nav-list li.current:not(.has-childs) {
-    background-color: #f3f3f2; }
-    .main-nav .main-nav-list li.current:not(.has-childs) > a {
-      color: #45697d; }
-      .main-nav .main-nav-list li.current:not(.has-childs) > a:hover {
-        text-decoration: none; }
-  .main-nav .main-nav-list li.current.has-childs {
-    padding-top: 0.375rem;
-    background-color: #f3f3f2; }
-    .main-nav .main-nav-list li.current.has-childs > a {
-      color: #45697d; }
-      .main-nav .main-nav-list li.current.has-childs > a:before {
-        font-family: hbg-se-iconset;
-        speak: none;
-        font-style: normal;
-        font-weight: normal;
-        font-variant: normal;
-        text-transform: none;
-        line-height: 1;
-        content: "\e606";
-        /* Better Font Rendering =========== */
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        margin-left: -1.1875rem;
-        margin-right: 0.3125rem; }
-      .main-nav .main-nav-list li.current.has-childs > a:hover {
-        text-decoration: none; }
-  .main-nav .main-nav-list ul {
-    padding-bottom: 1rem; }
-  .main-nav .main-nav-list ul li a {
-    font-size: 0.875rem; }
-  .main-nav .main-nav-list ul li a {
-    padding-left: 1.875rem; }
-  .main-nav .main-nav-list ul ul li a {
-    padding-left: 2.5rem; }
-  .main-nav .main-nav-list ul ul ul li a {
-    padding-left: 3.125rem; }
+    margin-left: 1.25rem; }
+    .main-nav .main-nav-list .sub-menu a {
+      font-size: 0.875rem;
+      padding-left: 1.875rem; }
+.main-nav ul {
+  margin-bottom: 0.625rem; }
 
 /* home-link */
 .main-page-layout .main-nav .main-nav-list li:first-child {
@@ -6391,7 +6362,7 @@ ul.breadcrumbs li strong {
 
 nav > ul > li.nav-home a {
   width: 2.5rem;
-  text-indent: -16px; }
+  text-indent: -12px; }
 
 .main-page-layout .main-nav .sub-menu li:first-child a, .article-page-layout .main-nav .sub-menu li:first-child a, .list-page-layout .main-nav .sub-menu li:first-child a {
   background-image: none;
