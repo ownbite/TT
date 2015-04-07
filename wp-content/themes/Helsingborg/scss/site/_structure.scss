@@ -702,6 +702,9 @@ ul.breadcrumbs strong {
 			td:first-child,
 			th:nth-child(2) {
 				display: block;
+			}
+
+			td:first-child {
 				background: url("/wp-content/themes/Helsingborg/assets/img/tablesorter-icons/asc.gif") no-repeat scroll 95% center rgba(0, 0, 0, 0);
 			}
 		}

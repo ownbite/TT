@@ -6239,7 +6239,8 @@ ul.breadcrumbs li strong {
   .table-list .table-item td, .table-list .table-item th, .table-list thead td, .table-list thead th {
     display: none; }
   .table-list .table-item td:first-child, .table-list .table-item th:nth-child(2), .table-list thead td:first-child, .table-list thead th:nth-child(2) {
-    display: block;
+    display: block; }
+  .table-list .table-item td:first-child, .table-list thead td:first-child {
     background: url("/wp-content/themes/Helsingborg/assets/img/tablesorter-icons/asc.gif") no-repeat scroll 95% center transparent; } }
 
 @media only screen and (min-width:40.063em) {
