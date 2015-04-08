@@ -113,7 +113,7 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                     <div class="Pager" id="event-pager-top"></div>
                     <div class="event-list-loader" id="loading-event" style="margin-top:10px;position:relative;"></div>
                     <div class="NoEvents" id="no-event"></div>
-                    <ul data-bind="template: {name:'eventTemplate',foreach: pager.currentPageEvents}" class="block-list page-block-list page-list large-block-grid-3 medium-block-grid-3 small-block-grid-2"></ul>
+                    <ul data-bind="template: {name:'eventTemplate',foreach: pager.currentPageEvents}" class="alarm-list block-list page-block-list page-list large-block-grid-3 medium-block-grid-3 small-block-grid-2"></ul>
                     <div class="Pager" id="event-pager-bottom"></div>
 
                     <!-- MODAL TEMPLATE -->
@@ -160,8 +160,10 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                       <li class="alarm radius">
                         <a class="modal-link" href="#" data-bind="attr: {id: IDnr}" data-reveal-id="eventModal" desc="link-desc">
                           <h2 data-bind="text: HtText" class="list-title"></h2>
-                          <span data-bind="text: SentTime" class="list-date"></span>
-                          <div data-bind="trimText: Comment" class="list-content"></div>
+                          <span data-bind="text: SentTime + ' - ' + Place" class="list-date"></span>
+                          <!-- ko if: Comment.length > 0 -->
+                          <div data-bind="visible: Comment.length > 5, text: Comment" class="list-content">Inget meddelande</div>
+                          <!-- /ko -->
                         </a>
                       </li>
                     </script>
@@ -273,7 +275,6 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                           currentDate.setDate(currentDate.getDate());
 
                           jQuery('#datetimepickerstart').datetimepicker({
-                            minDate: currentDate,
                             weeks: true,
                             lang:'se',
                             timepicker:false,

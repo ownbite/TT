@@ -54,7 +54,7 @@ function AlarmPageModel(alarms) {
     Name: "Plats",
     Value: ko.observable(""),
     EventValue: function(alarm) {
-      return (alarm.Location != null) ? alarm.Location : "";
+      return (alarm.Place != null) ? alarm.Place : "";
     }
   }, {
     Type: "calendar",
@@ -62,7 +62,7 @@ function AlarmPageModel(alarms) {
     CalendarID: "datetimepickerstart",
     Value: ko.observable(""),
     EventValue: function(alarm) {
-      return (alarm.StartTime != null) ? alarm.StartTime : "";
+      return (alarm.SentTime != null) ? alarm.SentTime : "";
     }
   }, {
     Type: "calendar",
@@ -70,7 +70,7 @@ function AlarmPageModel(alarms) {
     CalendarID: "datetimepickerend",
     Value: ko.observable(""),
     EventValue: function(alarm) {
-      return (alarm.StartTime != null) ? alarm.StartTime : "";
+      return (alarm.SentTime != null) ? alarm.SentTime : "";
     }
   }];
 
@@ -213,13 +213,13 @@ function FilterModel(filters, events) {
               eventValue = eventValue.toUpperCase();
 
               if (filter.Type == "calendar") {
-                var eventDate = new Date(filterValue);
+                var alarmDate = new Date(filterValue);
                 var selectedDate = new Date(eventValue);
 
                 if (filter.Name.indexOf("Start") > -1) {
-                  return eventDate > selectedDate;
+                  return alarmDate >= selectedDate;
                 } else {
-                  return eventDate < selectedDate;
+                  return alarmDate <= selectedDate;
                 }
               } else {
                 return eventValue.indexOf(filterValue) == -1;

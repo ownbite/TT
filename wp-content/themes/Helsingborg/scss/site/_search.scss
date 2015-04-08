@@ -55,3 +55,37 @@
     }
   }
 }
+
+/**
+ * ALARM SEARCH
+ */
+
+.alarm-list {
+  li {
+    margin-bottom: 10px !important;
+
+    &:first-child {
+      margin-top: 10px;
+    }
+  }
+}
+
+.alarm a {
+  border: 1px solid #ddd;
+  border-radius: $border-radius;
+  display: block;
+  padding: 15px;
+
+  &:hover {
+    background: #f9f9f9;
+  }
+
+  h2 {
+    margin-bottom: 0
+  }
+
+  .list-content {
+    font-size: 11pt;
+    margin-top: 10px;
+  }
+}
