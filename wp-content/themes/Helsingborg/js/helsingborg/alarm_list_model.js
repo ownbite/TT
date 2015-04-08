@@ -62,7 +62,7 @@ function AlarmPageModel(alarms) {
     CalendarID: "datetimepickerstart",
     Value: ko.observable(""),
     EventValue: function(alarm) {
-      return (alarm.SentTime != null) ? alarm.SentTime : "";
+      return (alarm.SentTime != null) ? alarm.SentTime.substr(0,10) : "";
     }
   }, {
     Type: "calendar",
@@ -70,7 +70,7 @@ function AlarmPageModel(alarms) {
     CalendarID: "datetimepickerend",
     Value: ko.observable(""),
     EventValue: function(alarm) {
-      return (alarm.SentTime != null) ? alarm.SentTime : "";
+      return (alarm.SentTime != null) ? alarm.SentTime.substr(0,10) : "";
     }
   }];
 
@@ -217,9 +217,9 @@ function FilterModel(filters, events) {
                 var selectedDate = new Date(eventValue);
 
                 if (filter.Name.indexOf("Start") > -1) {
-                  return alarmDate >= selectedDate;
+                  return alarmDate > selectedDate;
                 } else {
-                  return alarmDate <= selectedDate;
+                  return alarmDate < selectedDate;
                 }
               } else {
                 return eventValue.indexOf(filterValue) == -1;
