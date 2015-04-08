@@ -6778,6 +6778,15 @@ nav > ul > li.nav-home a {
     font-size: 11pt;
     margin-top: 10px; }
 
+.modal-alarm .modal-title {
+  margin: 0;
+  text-align: left; }
+.modal-alarm .modal-date {
+  text-align: left;
+  margin-bottom: 15px; }
+.modal-alarm .modal-description p + p {
+  margin-top: 15px; }
+
 /*  Footer */
 .footer {
   background-color: #45697d;

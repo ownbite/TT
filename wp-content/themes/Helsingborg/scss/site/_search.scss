@@ -89,3 +89,23 @@
     margin-top: 10px;
   }
 }
+
+.modal-alarm {
+
+  .modal-title {
+    margin: 0;
+    text-align: left;
+  }
+
+  .modal-date {
+    text-align: left;
+    margin-bottom: 15px;
+  }
+
+  .modal-description {
+    p + p {
+      margin-top: 15px;
+    }
+  }
+
+}

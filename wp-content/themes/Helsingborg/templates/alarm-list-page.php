@@ -117,37 +117,15 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                     <div class="Pager" id="event-pager-bottom"></div>
 
                     <!-- MODAL TEMPLATE -->
-                    <div id="eventModal" class="reveal-modal modal" data-reveal>
-                      <img class="modal-image"/>
-
+                    <div id="alarmModal" class="reveal-modal modal modal-alarm" data-reveal>
                       <div class="row">
                         <div class="modal-event-info large-12 columns">
                             <h2 class="modal-title"></h2>
-                            <p class="modal-description"></p>
-                            <!--<p class="modal-date"></p>-->
+                            <p class="modal-date"></p>
+                            <div class="modal-description"></div>
                         </div>
                       </div>
-                      <!-- IF arrangör exist -->
-                      <div class="row">
-                        <div class="large-6 columns" id="event-times">
-                          <h2 class="section-title">Datum, tid och plats</h2>
-                          <div class="divider fade">
-                            <div class="upper-divider"></div>
-                            <div class="lower-divider"></div>
-                          </div>
 
-                          <ul class="modal-list" id="time-modal"></ul>
-                        </div><!-- /.modal-column -->
-                        <div class="large-6 columns" id="event-organizers">
-                          <h2 class="section-title">Arrangör</h2>
-                          <div class="divider fade">
-                            <div class="upper-divider"></div>
-                            <div class="lower-divider"></div>
-                          </div>
-
-                          <ul class="modal-list" id="organizer-modal"></ul>
-                        </div><!-- /.modal-column -->
-                      </div><!-- /.row -->
                       <a class="close-reveal-modal">&#215;</a>
                     </div>
                     <!-- END MODAL -->
@@ -158,7 +136,7 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
 
                     <script type="text/html" id="eventTemplate">
                       <li class="alarm radius">
-                        <a class="modal-link" href="#" data-bind="attr: {id: IDnr}" data-reveal-id="eventModal" desc="link-desc">
+                        <a class="modal-link" href="#" data-bind="attr: {id: IDnr}" data-reveal-id="alarmModal" desc="link-desc">
                           <h2 data-bind="text: HtText" class="list-title"></h2>
                           <span data-bind="text: SentTime + ' - ' + Place" class="list-date"></span>
                           <!-- ko if: Comment.length > 0 -->
@@ -204,61 +182,36 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                         _alarmPageModel = new AlarmPageModel(events);
                         ko.applyBindings(_alarmPageModel);
 
-                        jQuery(document).on('click', '.modal-link', function(event){
+                        $(document).on('click', '.modal-link', function(event){
                             event.preventDefault();
-                            var image = $('.modal-image');
+
                             var title = $('.modal-title');
                             var date = $('.modal-date');
                             var description = $('.modal-description');
-                            var time_list = $('#time-modal');
-                            var organizer_list = $('#organizer-modal');
-                            document.getElementById('event-times').style.display = 'none';
-                            document.getElementById('event-times').className = 'large-6 columns';
-                            document.getElementById('event-organizers').style.display = 'none';
 
-                            var events = _alarmPageModel.alarms();
+                            description.empty();
+
+                            var alarms = _alarmPageModel.alarms();
                             var result;
 
-                            for (var i = 0; i < events.length; i++) {
-                              if (events[i].EventID === this.id) {
-                                result = events[i];
+                            for (var i = 0; i < alarms.length; i++) {
+                              if (alarms[i].IDnr === this.id) {
+                                result = alarms[i];
                               }
                             }
 
-                            var dates_data = { action: 'load_alarm_dates', id: this.id, location: result.Location };
-                            jQuery.post(ajaxurl, dates_data, function(response) {
-                              html = "<li>";
-                              var dates = JSON.parse(response);
-                              for (var i=0;i<dates.length;i++) {
-                                html += '<span>' + dates[i].Date + '</span>';
-                                html += '<span>' + dates[i].Time + '</span>';
-                                html += '<span>' + dates_data.location + '</span>';
-                              }
-                              html += '</li>';
-                              jQuery(time_list).html(html);
-                              if (dates.length > 0) {
-                                document.getElementById('event-times').style.display = 'block';
-                              }
-                            });
+                            title.html(result.HtText);
+                            date.html(result.SentTime + ' - ' + result.Place);
 
-                            var organizers_data = { action: 'load_event_organizers', id: this.id };
-                            jQuery.post(ajaxurl, organizers_data, function(response) {
-                              var organizers = JSON.parse(response); html = '';
-                              for (var i=0;i<organizers.length;i++) {
-                                html += '<li><span>' + organizers[i].Name + '</span></li>';
-                              }
-                              jQuery(organizer_list).html(html);
-                              if (organizers.length > 0) {
-                                document.getElementById('event-organizers').style.display = 'block';
-                              } else {
-                                document.getElementById('event-times').className = 'large-12 columns';
-                              }
-                            });
+                            if (result.Comment.length > 5) {
+                              description.append('<p><strong>Kommentar</strong><br>' + result.Comment + '</p>');
+                            }
 
-                            jQuery(image).attr("src", result.ImagePath);
-                            jQuery(title).html(result.Name);
-                            jQuery(date).html(result.Date);
-                            jQuery(description).html(result.Description);
+                            if (result.MoreInfo.length > 0) {
+                              description.append('<p><strong>Mer information</strong><br>' + result.MoreInfo + '</p>');
+                            }
+
+                            description.append('<p><strong>Address</strong><br>' + result.Address + '</p>')
                         });
 
                         var data = { action: 'load_alarms' };
