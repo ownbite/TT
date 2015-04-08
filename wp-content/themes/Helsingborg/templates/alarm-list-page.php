@@ -99,6 +99,7 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                                 </div>
                           <!-- /ko -->
                         <!-- /ko -->
+                        <div class="clearfix"></div>
                   </form><!-- /.event-list-form -->
                   </div><!-- /.form-container -->
 
@@ -110,20 +111,60 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                         <div class="lower-divider"></div>
                       </div>
 
-                    <div class="Pager" id="event-pager-top"></div>
+                    <div class="Pager" id="alarm-pager-top"></div>
                     <div class="event-list-loader" id="loading-event" style="margin-top:10px;position:relative;"></div>
                     <div class="NoEvents" id="no-event"></div>
-                    <ul data-bind="template: {name:'eventTemplate',foreach: pager.currentPageEvents}" class="alarm-list block-list page-block-list page-list large-block-grid-3 medium-block-grid-3 small-block-grid-2"></ul>
+                    <ul data-bind="template: {name:'eventTemplate',foreach: pager.currentPageEvents}" class="block-list page-block-list page-list large-block-grid-3 medium-block-grid-3 small-block-grid-2"></ul>
                     <div class="Pager" id="event-pager-bottom"></div>
 
                     <!-- MODAL TEMPLATE -->
                     <div id="alarmModal" class="reveal-modal modal modal-alarm" data-reveal>
+                      <h2 class="section-title">Alarm</h2>
+
+                      <div class="divider fade">
+                        <div class="upper-divider"></div>
+                        <div class="lower-divider"></div>
+                      </div>
+
+                      <h1 class="main-title">Brand i byggnad Flerfamiljshus Lägenhet</h1>
+
                       <div class="row">
-                        <div class="modal-event-info large-12 columns">
-                            <h2 class="modal-title"></h2>
-                            <p class="modal-date"></p>
-                            <div class="modal-description"></div>
-                        </div>
+                          <div class="small-12">
+                              <ul class="modal-item-list">
+                                <li>
+                                    <span class="item-label modalDateHeader">Tidpunkt:</span>
+                                    <span class="item-value modalDate">2014-12-01 18:52:53</span>
+                                </li>
+                                <li>
+                                    <span class="item-label modalEventHeader">Händelse:</span>
+                                    <span class="item-value modalEvent">Brand i byggnad Flerfamiljshus Lägenhet</span>
+                                </li>
+                                <li>
+                                    <span class="item-label modalStationHeader">Station:</span>
+                                    <span class="item-value modalStation">M220Contal;</span>
+                                </li>
+                                <li>
+                                    <span class="item-label modalIDHeader">Ärendeid:</span>
+                                    <span class="item-value modalID">141201C0025</span>
+                                </li>
+                                <li>
+                                    <span class="item-label modalStateHeader">Larmnivå:</span>
+                                    <span class="item-value modalState">Larm, Nivå 1</span>
+                                </li>
+                                <li>
+                                    <span class="item-label modalAddressHeader">Adress:</span>
+                                    <span class="item-value modalAddress">Kopparmöllegatan 26, 2</span>
+                                </li>
+                                <li>
+                                    <span class="item-label modalLocationHeader">Plats:</span>
+                                    <span class="item-value modalLocation">Helsingborg</span>
+                                </li>
+                                <li>
+                                    <span class="item-label modalAreaHeader">Insatsområde:</span>
+                                    <span class="item-value modalArea">M21M</span>
+                                </li>
+                              </ul>
+                          </div>
                       </div>
 
                       <a class="close-reveal-modal">&#215;</a>
@@ -135,14 +176,24 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                     </script>
 
                     <script type="text/html" id="eventTemplate">
-                      <li class="alarm radius">
-                        <a class="modal-link" href="#" data-bind="attr: {id: IDnr}" data-reveal-id="alarmModal" desc="link-desc">
-                          <h2 data-bind="text: HtText" class="list-title"></h2>
-                          <span data-bind="text: SentTime + ' - ' + Place" class="list-date"></span>
-                          <!-- ko if: Comment.length > 0 -->
-                          <div data-bind="visible: Comment.length > 5, text: Comment" class="list-content">Inget meddelande</div>
-                          <!-- /ko -->
-                        </a>
+                      <li>
+                        <ul class="mini-item-list">
+                            <li>
+                                <span class="item-label">Datum och tid</span><span class="item-value" data-bind="text: SentTime">2014-12-11 08:15</span>
+                            </li>
+                            <li>
+                              <span class="item-label">H&auml;ndelse</span><a class="item-value modal-link" title="link-title" data-bind="attr: {id: IDnr}, text: HtText" data-reveal-id="alarmModal" desc="link-desc">Trafikolycka - singel Personbil Övrigt</a>
+                            </li>
+                            <li>
+                              <span class="item-label">Adress</span><span class="item-value" title="link-title" data-bind="text: Address">Djurhagsvägen</span>
+                            </li>
+                            <li>
+                              <span class="item-label">Station</span><span class="item-value" title="link-title" data-bind="text: Station">Bårslöv</span>
+                            </li>
+                            <li>
+                              <span class="item-label">Kommun</span><span class="item-value" title="link-title" data-bind="text: Place">M85T</span>
+                            </li>
+                        </ul>
                       </li>
                     </script>
 
@@ -154,7 +205,7 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                         var eventTypes = {};
 
                         document.getElementById('loading-event').style.display = "block";
-                        document.getElementById('event-pager-top').style.display = "none";
+                        document.getElementById('alarm-pager-top').style.display = "none";
                         document.getElementById('event-pager-bottom').style.display = "none";
 
                         document.getElementById('no-event').style.display = "none";
@@ -185,12 +236,6 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                         $(document).on('click', '.modal-link', function(event){
                             event.preventDefault();
 
-                            var title = $('.modal-title');
-                            var date = $('.modal-date');
-                            var description = $('.modal-description');
-
-                            description.empty();
-
                             var alarms = _alarmPageModel.alarms();
                             var result;
 
@@ -200,25 +245,21 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                               }
                             }
 
-                            title.html(result.HtText);
-                            date.html(result.SentTime + ' - ' + result.Place);
-
-                            if (result.Comment.length > 5) {
-                              description.append('<p><strong>Kommentar</strong><br>' + result.Comment + '</p>');
-                            }
-
-                            if (result.MoreInfo.length > 0) {
-                              description.append('<p><strong>Mer information</strong><br>' + result.MoreInfo + '</p>');
-                            }
-
-                            description.append('<p><strong>Address</strong><br>' + result.Address + '</p>')
+                            $('.modalDate').text(result.SentTime);
+                            $('.modalEvent, .main-title').text(result.HtText);
+                            $('.modalStation').text(result.Station);
+                            $('.modalID').text(result.IDnr);
+                            $('.modalState').text(result.PresGrp);
+                            $('.modalAddress').text(result.Address);
+                            $('.modalLocation').text(result.Place);
+                            $('.modalArea').text(result.Zone);
                         });
 
                         var data = { action: 'load_alarms' };
                         jQuery.post(ajaxurl, data, function(response) {
                           _alarmPageModel.alarms(ExtractModels(_alarmPageModel, JSON.parse(response), AlarmModel));
                           document.getElementById('loading-event').style.display = "none";
-                          document.getElementById('event-pager-top').style.display = "block";
+                          document.getElementById('alarm-pager-top').style.display = "block";
                           document.getElementById('event-pager-bottom').style.display = "block";
                           document.getElementById('no-event').style.display = "block";
                         });
