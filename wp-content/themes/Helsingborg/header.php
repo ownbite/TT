@@ -7,6 +7,9 @@
 		<title>Helsingborg stad</title>
 		<meta name="description" content="">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="pubdate" content="<?php echo the_time('d M Y'); ?>">
+		<meta name="moddate" content="<?php echo the_modified_time('d M Y'); ?>">
+		<meta name="google-translate-customization" content="10edc883cb199c91-cbfc59690263b16d-gf15574b8983c6459-12"></meta>
 
 		<link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri() ; ?>/css/app.css">
 		<link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri() ; ?>/css/normalize.css">
@@ -27,37 +30,37 @@
 			<style>
 				.divider.fade .upper-divider,
 				.divider.fade .lower-divider {
-							background: rgb(<?php echo "$r,$g,$b" ?>); /* Old browsers */
-							/* IE9 SVG, needs conditional override of 'filter' to 'none' */
-							background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMCUiPgogICAgPHN0b3Agb2Zmc2V0PSI2MCUiIHN0b3AtY29sb3I9IiNlZDhiMDAiIHN0b3Atb3BhY2l0eT0iMSIvPgogICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjZmZmZmZmIiBzdG9wLW9wYWNpdHk9IjEiLz4KICA8L2xpbmVhckdyYWRpZW50PgogIDxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9InVybCgjZ3JhZC11Y2dnLWdlbmVyYXRlZCkiIC8+Cjwvc3ZnPg==);
-							background: -moz-linear-gradient(left,  rgba(<?php echo "$r,$g,$b" ?>,1) 60%, rgba(255,255,255,1) 100%); /* FF3.6+ */
-							background: -webkit-gradient(linear, left top, right top, color-stop(60%,rgba(<?php echo "$r,$g,$b" ?>,1)), color-stop(100%,rgba(255,255,255,1))); /* Chrome,Safari4+ */
-							background: -webkit-linear-gradient(left,  rgba(<?php echo "$r,$g,$b" ?>,1) 60%,rgba(255,255,255,1) 100%); /* Chrome10+,Safari5.1+ */
-							background: -o-linear-gradient(left,  rgba(<?php echo "$r,$g,$b" ?>,1) 60%,rgba(255,255,255,1) 100%); /* Opera 11.10+ */
-							background: -ms-linear-gradient(left,  rgba(<?php echo "$r,$g,$b" ?>,1) 60%,rgba(255,255,255,1) 100%); /* IE10+ */
-							background: linear-gradient(to right,  rgba(<?php echo "$r,$g,$b" ?>,1) 60%,rgba(255,255,255,1) 100%); /* W3C */
-							filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='<?php echo $colorcode ?>', endColorstr='#ffffff',GradientType=1 ); /* IE6-8 */
-							}
+					background: rgb(<?php echo "$r,$g,$b" ?>); /* Old browsers */
+					/* IE9 SVG, needs conditional override of 'filter' to 'none' */
+					background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMCUiPgogICAgPHN0b3Agb2Zmc2V0PSI2MCUiIHN0b3AtY29sb3I9IiNlZDhiMDAiIHN0b3Atb3BhY2l0eT0iMSIvPgogICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjZmZmZmZmIiBzdG9wLW9wYWNpdHk9IjEiLz4KICA8L2xpbmVhckdyYWRpZW50PgogIDxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9InVybCgjZ3JhZC11Y2dnLWdlbmVyYXRlZCkiIC8+Cjwvc3ZnPg==);
+					background: -moz-linear-gradient(left,  rgba(<?php echo "$r,$g,$b" ?>,1) 60%, rgba(255,255,255,1) 100%); /* FF3.6+ */
+					background: -webkit-gradient(linear, left top, right top, color-stop(60%,rgba(<?php echo "$r,$g,$b" ?>,1)), color-stop(100%,rgba(255,255,255,1))); /* Chrome,Safari4+ */
+					background: -webkit-linear-gradient(left,  rgba(<?php echo "$r,$g,$b" ?>,1) 60%,rgba(255,255,255,1) 100%); /* Chrome10+,Safari5.1+ */
+					background: -o-linear-gradient(left,  rgba(<?php echo "$r,$g,$b" ?>,1) 60%,rgba(255,255,255,1) 100%); /* Opera 11.10+ */
+					background: -ms-linear-gradient(left,  rgba(<?php echo "$r,$g,$b" ?>,1) 60%,rgba(255,255,255,1) 100%); /* IE10+ */
+					background: linear-gradient(to right,  rgba(<?php echo "$r,$g,$b" ?>,1) 60%,rgba(255,255,255,1) 100%); /* W3C */
+					filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='<?php echo $colorcode ?>', endColorstr='#ffffff',GradientType=1 ); /* IE6-8 */
+				}
 				.divider .upper-divider,
-        .divider .lower-divider {
-              background-color: rgb(<?php echo "$r,$g,$b" ?>);
-          		}
+		        .divider .lower-divider {
+		              background-color: rgb(<?php echo "$r,$g,$b" ?>);
+		        }
 
 				.button {
-							background-color: rgb(<?php echo "$r,$g,$b" ?>) !important;
-							border: 1px solid rgb(<?php echo "$r,$g,$b" ?>) !important;
-							color: #FFF !important;
-							}
+					background-color: rgb(<?php echo "$r,$g,$b" ?>) !important;
+					border: 1px solid rgb(<?php echo "$r,$g,$b" ?>) !important;
+					color: #FFF !important;
+				}
 				.input-field {
-						border: 2px solid rgb(<?php echo "$r,$g,$b" ?>) !important;
-					}
+					border: 2px solid rgb(<?php echo "$r,$g,$b" ?>) !important;
+				}
 				.current-pager > a {
 					background-color: rgb(<?php echo "$r,$g,$b" ?>) !important;
 					border: 1px solid rgb(<?php echo "$r,$g,$b" ?>) !important;
 					box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.4);
 					color: #FFF !important;
 				}
-				</style>
+			</style>
 	<?php endif; ?>
 	<?php wp_head(); ?>
 
@@ -76,8 +79,10 @@
 			</div>
 			<div class="mobile-search">
 					<div class="mobile-search-input-container">
-							<input type="text" class="mobile-search-input" placeholder="Din S&ouml;kning"/>
+						<form role="search" method="get" id="searchform" action="<?php echo home_url('/'); ?>">
+							<input type="text" class="mobile-search-input" name="s" placeholder="Din S&ouml;kning"/>
 							<input type="submit" class="mobile-search-btn" value="s&ouml;k" />
+						</form>
 					</div>
 			</div>
 	</nav><!-- mobile top nav -->
@@ -87,8 +92,12 @@
 		<div class="site-bg"></div>
 			<div class="site-header row">
 					<div class="site-logo large-4 medium-4 columns">
-							<a href="<?php echo get_site_url(); ?>" class="logo-link">
-									<img src="<?php echo get_stylesheet_directory_uri() ; ?>/assets/img/images/hbg-logo.svg" alt="helsingborg stad" class="logo" />
+							<?php
+								// Get the baseurl of this site to set the logo href
+								$logo_link = parse_url(get_site_url(), PHP_URL_SCHEME) . '://' . parse_url(get_site_url(), PHP_URL_HOST);
+							?>
+							<a href="<?php echo $logo_link; ?>" class="logo-link">
+								<img src="<?php echo get_stylesheet_directory_uri() ; ?>/assets/img/images/hbg-logo.svg" alt="helsingborg stad" class="logo" />
 							</a>
 					</div><!-- /.site-logo -->
 

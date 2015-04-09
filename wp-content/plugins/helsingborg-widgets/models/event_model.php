@@ -5,13 +5,12 @@
 
 class HelsingborgEventModel {
 
-  public static function load_events_simple($amount=5) {
+  public static function load_events_simple($amount=5, $administation_unit_ids="0") {
     global $wpdb;
 
     $events = $wpdb->get_results('SELECT DISTINCT hE.EventID,
                                                   hE.Name,
                                                   hE.Description,
-                                                  hETI.Date,
                                                   hIM.ImagePath,
                                                   hE.Location,
                                                   hETI.Date,
@@ -27,8 +26,8 @@ class HelsingborgEventModel {
                                   AND hE.EventID = hEFE.EventID
                                   AND hE.EventID = hIM.EventID
                                   AND hEFE.AdministrationUnitID = hFE.AdministrationUnitID
-                                  ORDER BY hETI.Date ASC
-                                  LIMIT 0,' . $amount, OBJECT);
+                                  AND hEFE.AdministrationUnitID IN (' . $administation_unit_ids . ')
+                                  ORDER BY hETI.Date, hETI.Time ASC LIMIT ' . $amount, OBJECT);
 
     return $events;
   }
@@ -74,6 +73,29 @@ class HelsingborgEventModel {
     return $events;
   }
 
+public static function load_events_with_name($name) {
+  global $wpdb;
+
+
+  $query = 'SELECT DISTINCT he.EventID,
+                            he.Name,
+                            MIN(het.Date) AS Date
+            FROM happy_event he,
+                 happy_event_times het,
+                 happy_event_administration_unit hefe
+            WHERE het.Date >= CURDATE()
+            AND he.Approved = 1
+            AND he.EventID = het.EventID
+            AND hefe.EventID= he.EventID
+            AND LOWER(he.Name) LIKE "%' . strtolower($name) . '%"
+            Group by he.EventID, he.Name
+            ORDER BY Date, he.EventID';
+
+  $events = $wpdb->get_results($query, ARRAY_A);
+  if (!$events || empty($events)) { $events = array(); }
+  return $events;
+}
+
   public static function get_administration_units_by_id($happy_user_id) {
     global $wpdb;
     $administration_units = array();
@@ -115,22 +137,6 @@ class HelsingborgEventModel {
 
     $events = $wpdb->get_results($query, ARRAY_A);
     if (!$events || empty($events)) { $events = array(); }
-
-    // foreach($events as $event) {
-    //   $rows = $wpdb->get_results('SELECT DISTINCT hETG.EventTypesName
-    //                               FROM happy_event_types_group hETG
-    //                               WHERE hETG.EventID = ' . $event->EventID, ARRAY_A);
-    //
-    //   $event_types = array();
-    //   foreach($rows as $row) {
-    //     foreach($row as $key => $value) {
-    //       array_push($event_types, $value);
-    //     }
-    //   }
-    //   $event_types_string = implode(',', $event_types);
-    //   $event->EventTypesName = $event_types_string;
-    // }
-
     return $events;
   }
 
@@ -146,7 +152,6 @@ class HelsingborgEventModel {
                     happy_event hE
                WHERE hE.EventID = hETI.EventID
                AND hE.EventID = ' . $event_id;
-               echo $events;
 
     return $wpdb->get_results($events, OBJECT)[0];
   }
@@ -266,9 +271,9 @@ class HelsingborgEventModel {
   public static function get_administration_id_from_name($name) {
     global $wpdb;
 
-    $result_id = $wpdb->get_results("SELECT AdministrationUnitID
+    $result_id = $wpdb->get_results("SELECT *
                                      FROM happy_administration_unit
-                                     WHERE Name='" . $name . "'", OBJECT);
+                                     WHERE Name = '" . $name . "'", OBJECT);
     return $result_id[0];
   }
 
@@ -384,8 +389,8 @@ class HelsingborgEventModel {
 
     // Add Image
     if ($image) {
-      $wpdb->update('happy_images', array('ImageID'   => $image['Id'],
-                                          'ImagePath' => $image['Path'],
+      $wpdb->update('happy_images', array('ImageID'   => date('Y-m-d H:i:s'),
+                                          'ImagePath' => $image['ImagePath'],
                                           'Author'    => $image['Author']),
                                     array('EventID'   => $event['EventID']));
     }
@@ -393,7 +398,7 @@ class HelsingborgEventModel {
     // Add time for event
     if ($times) {
       // Delete current set of times for this event
-      $wpdb->delete('happy_event_administration_unit', array('EventID' => $event['EventID']));
+      $wpdb->delete('happy_event_times', array('EventID' => $event['EventID']));
       // Add the new times
       foreach($times as $time) {
           $wpdb->insert('happy_event_times', array('Date'    => $time['Date'],

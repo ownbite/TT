@@ -27,7 +27,7 @@ class Helsingborg_Walker extends Walker {
     $top_level_elements = array();
     $children_elements  = array();
     $parent_field = $this->db_fields['parent'];
-    $child_of = ( isset( $args[0]['child_of'] ) ) ? (int) $args[0]['child_of'] : 0;
+    $child_of = intval(get_option('page_on_front'));
 
     /* Loop elements */
     foreach ( (array) $elements as $e ) {
@@ -81,23 +81,34 @@ class Helsingborg_Walker extends Walker {
     if ( ! empty( $current_page ) ) {
       $_current_page = get_post( $current_page );
       $css_class = '';
+      $arr_css_classes = array();
 
       if ( in_array( $page->ID, $_current_page->ancestors ) && $page->post_parent == get_option('page_on_front') ) {
-        $css_class = 'class="current-node"';
+        $arr_css_classes[] = 'current-node';
       }
       if ( in_array( $page->ID, $_current_page->ancestors ) ) {
-        $css_class = 'class="current-ancestor"';
+        $arr_css_classes[] = 'current-ancestor';
       }
       if ( $page->ID == $current_page ) {
-        $css_class = 'class="current"';
+        $arr_css_classes[] = 'current';
       }
-      if ( !in_array( $page->ID, $_current_page->ancestors ) && ($page->ID != $current_page) && ( count(get_pages('child_of='.$page->ID)) > 0 ) && ($page->post_parent != get_option('page_on_front')) ) {
-        $css_class = 'class="has-childs"';
+      $args = array(
+        'post_type' => 'page',
+        'post_status' => 'publish',
+        'post_parent' => $page->ID,
+      );
+
+      $children = get_children($args);
+      $has_children = !empty($children);
+
+      // Check if page got childrens or not, if it does, add has-child class
+      if ( !in_array( $page->ID, $_current_page->ancestors ) && $has_children && ($page->post_parent != get_option('page_on_front')) && get_post_meta($page->ID,'_wp_page_template',TRUE) != 'templates/list-page.php' ) {
+        $arr_css_classes[] = 'has-childs';
       }
 
       /* If article page parent is list page, then mark the parent as current -> since childs are hidden */
       if ( in_array( $page->ID, $_current_page->ancestors) && get_post_meta($page->ID,'_wp_page_template',TRUE) == 'templates/list-page.php') {
-        $css_class = 'class="current"';
+        $arr_css_classes[] = 'current';
       }
 
 
@@ -118,8 +129,16 @@ class Helsingborg_Walker extends Walker {
         $selector = $last_element > 1 ? $_current_page_ansectors[$last_element-2] : 0;
         if ($selector && $page->ID == $selector) {
           $css_class = 'class="current"';
+          $arr_css_classes[] = 'current';
         }
       }
+    }
+
+    if (count($arr_css_classes) > 0)
+    {
+        $css_class = 'class="' . implode(' ', $arr_css_classes) . '"';
+    } else {
+        $css_class = '';
     }
 
     /* Now let's build the item */

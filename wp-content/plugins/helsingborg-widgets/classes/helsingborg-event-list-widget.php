@@ -37,20 +37,14 @@ if (!class_exists('EventListWidget')) {
       $amount               = empty($instance['amount'])               ? 5                        : $instance['amount'];
       $administration_units = empty($instance['administration_units']) ? 'helsingborgsstad'       : $instance['administration_units'];
 
-      // Get the events
-      $events = HelsingborgEventModel::load_events_simple($amount);
-
-      $administration_ids = '';
-      foreach(explode(',',$administration_units) as $key => $value) {
-        $id = HelsingborgEventModel::get_administration_id_from_name($value);
-        if($key>0) { $administration_ids .= ',' . $id->AdministrationUnitID; }
-        else { $administration_ids .= $id->AdministrationUnitID;}
+      $ids = array();
+      foreach(explode(',',$administration_units) as $value) {
+        $id = HelsingborgEventModel::get_administration_id_from_name(trim($value));
+        array_push($ids, $id->AdministrationUnitID);
       }
-
-      $json_items = json_encode($events); // Used by modal view
+      $administration_ids = implode(',',$ids);
 
       $reference = $link . "?q=" . $administration_ids;
-
       echo $before_widget; ?>
 
       <h2 class="widget-title"><?php echo $title; ?></h2>
@@ -60,23 +54,9 @@ if (!class_exists('EventListWidget')) {
           <div class="lower-divider"></div>
       </div>
 
-      <ul class="calendar-list">
-
-      <?php
-      $today = date('Y-m-d');
-      foreach( $events as $event ) : ?>
-        <li>
-          <?php // Present 'Idag HH:ii' och 'YYYY-mm-dd'
-          if ($today == $event->Date) { ?>
-            <span class="date">Idag <?php echo $event->Time; ?></span>
-          <?php } else { ?>
-            <span class="date"><?php echo $event->Date; ?></span>
-          <?php } ?>
-
-          <a href="#" class="modalLink" id="<?php echo $event->EventID ?>" data-reveal-id="eventModal"><?php echo $event->Name ?></a>
-        </li>
-      <?php endforeach; ?>
-
+      <ul class="calendar-list" style="min-height: 30px;">
+        <?php // To be filled from AJAX, triggered when page is loaded ?>
+        <div class="event-list-loader" id="loading-event" style="margin-top: -5px;"></div>
       </ul><!-- .calendar-list -->
 
       <a href="<?php echo $reference; ?>" class="read-more"><?php echo $link_text; ?></a>
@@ -116,13 +96,19 @@ if (!class_exists('EventListWidget')) {
           <a class="close-reveal-modal">&#215;</a>
       </div>
 
-      <script>
+      <script type="text/javascript">
         var ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>';
-        var events = <?php echo $json_items; ?>;
       </script>
 
       <script>
+        var events = {};
         jQuery(document).ready(function() {
+          var data = { action: 'update_event_calendar', amount: '<?php echo $amount; ?>', ids: '<?php echo $administration_ids; ?>' };
+          jQuery.post(ajaxurl, data, function(response) {
+            var obj = JSON.parse(response);
+            events = obj.events;
+            jQuery('.calendar-list').html(obj.list);
+          });
 
           jQuery(document).on('click', '.modalLink', function(event){
               event.preventDefault();
@@ -149,12 +135,13 @@ if (!class_exists('EventListWidget')) {
                 html = "<li>";
                 var dates = JSON.parse(response);
                 for (var i=0;i<dates.length;i++) {
+
                   html += '<span>' + dates[i].Date + '</span>';
                   html += '<span>' + dates[i].Time + '</span>';
                   html += '<span>' + dates_data.location + '</span>';
                 }
                 html += '</li>';
-                jQuery(time_list).html(html);
+                jQuery('#time-modal').html(html);
                 if (dates.length > 0) {
                   document.getElementById('event-times').style.display = 'block';
                 }
@@ -166,7 +153,7 @@ if (!class_exists('EventListWidget')) {
                 for (var i=0;i<organizers.length;i++) {
                   html += '<li><span>' + organizers[i].Name + '</span></li>';
                 }
-                jQuery(organizer_list).html(html);
+                jQuery('#organizer-modal').html(html);
                 if (organizers.length > 0) {
                   document.getElementById('event-organizers').style.display = 'block';
                 } else {
@@ -179,8 +166,6 @@ if (!class_exists('EventListWidget')) {
               jQuery(date).html(result.Date);
               jQuery(description).html(result.Description);
           });
-
-
         });
       </script>
 

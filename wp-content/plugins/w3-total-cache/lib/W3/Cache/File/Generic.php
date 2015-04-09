@@ -160,7 +160,8 @@ class W3_Cache_File_Generic extends W3_Cache_File {
         return array(
             '404' => false,
             'headers' => array(),
-            'time' => null,
+            //'time' => null, // BEFORE
+			'time' => @filemtime($path), // AFTER 		
             'content' => $var
         );
     }

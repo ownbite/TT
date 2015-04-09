@@ -1145,6 +1145,18 @@ function pw_ajax_save_widget() {
 	if ($form = $wp_registered_widget_controls[$widget_id])
 		call_user_func_array($form['callback'], $form['params']);
 	// print 'Updated ajax save widget.';
+
+	/**
+	 * HELSINGBORG HACK
+	 * This hook is custom added by Helsingborg.
+	 */
+	$arguments = array(
+		'post_id' => $post_id,
+		'widget_id' => $widget_id,
+		'sidebar_id' => $sidebar_id
+	);
+	do_action('hbg_page_widget_save', $arguments);
+
 	die();
 }
 

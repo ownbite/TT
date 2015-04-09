@@ -1,11 +1,15 @@
 /* sidebar components */
 
 
-/* placeholder style + generic widget styles */
+/* generic widget styles */
 
 .widget {
 	&.large-12 {
 		margin-bottom: rem-calc(32);
+	}
+
+	a .widget_sp_image-description {
+		color: $black;
 	}
 }
 
@@ -15,6 +19,7 @@
 	background-color: $white;
 	border-radius: $border-radius;
 	@include box-shadow;
+	border: 1px solid $widget-border-color;
 
 	h2, h3, h4, h5, h6, .widget-title {
 		font-size: rem-calc(16);
@@ -86,6 +91,13 @@
 }
 
 .news-widget {
+		.widget-title {
+			>a {
+				&:hover {
+					text-decoration: none;
+				}
+			}
+		}
 		.icon {
 			margin-left: rem-calc(10);
 			&:after {
@@ -94,6 +106,12 @@
 				font-size: rem-calc(24);
 				margin-bottom: - rem-calc(10);
 				vertical-align: bottom;
+			}
+		}
+		a.rss-link {
+			text-decoration: none;
+			&:hover {
+				text-decoration: none;
 			}
 		}
 		.widget-content {

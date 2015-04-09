@@ -3,6 +3,55 @@
 /* AJAX FUNCTIONS */
 /******************/
 
+/* Manually start fetch of alarms */
+add_action( 'wp_ajax_start_manual_alarms', 'start_manual_alarms_callback');
+function start_manual_alarms_callback() {
+  alarms_event();
+}
+
+/* Manually start fetch of XCap */
+add_action( 'wp_ajax_start_manual_xcap', 'start_manual_xcap_callback');
+function start_manual_xcap_callback() {
+  xcap_event();
+}
+
+/* Manually start fetch of CBIS */
+add_action( 'wp_ajax_start_manual_cbis', 'start_manual_cbis_callback');
+function start_manual_cbis_callback() {
+  cbis_event();
+}
+
+/* Loads the list of event, to be presented inside a widget */
+add_action( 'wp_ajax_nopriv_update_event_calendar', 'update_event_calendar_callback');
+add_action( 'wp_ajax_update_event_calendar', 'update_event_calendar_callback');
+function update_event_calendar_callback() {
+  $amount = $_POST['amount'];
+  $ids    = $_POST['ids'];
+
+  // Get the events
+  $events = HelsingborgEventModel::load_events_simple($amount, $ids);
+
+  $today = date('Y-m-d');
+  $list = '';
+  foreach( $events as $event ) :
+    $list .= '<li>';
+
+    // Present 'Idag HH:ii' och 'YYYY-mm-dd'
+    if ($today == $event->Date) {
+      $list .= '<span class="date">Idag ' . $event->Time . '</span>';
+    } else {
+      $list .= '<span class="date">' . $event->Date . '</span>';
+    }
+
+    $list .= '<a href="#" class="modalLink" id="'.$event->EventID.'" data-reveal-id="eventModal">'.$event->Name.'</a>';
+    $list .= '</li>';
+  endforeach;
+
+  $result = array('events' => $events, 'list' => $list);
+  echo json_encode($result);
+  die();
+}
+
 /* Loads the big notifications i.e. warning/information and prints the alert messages */
 /* The IDs being fetched are set from Helsingborg settings */
 add_action( 'wp_ajax_nopriv_big_notification', 'big_notification_callback');
@@ -63,7 +112,7 @@ function search_callback() {
   $index     = $_POST['index'];
   $keyword   = $_POST['keyword'];
 
-  $url = 'https://www.googleapis.com/customsearch/v1?key='.$key.'&cx='.$cx.'&q='.$keyword.'&siteSearchFilter=i&alt=json&start='.$index;
+  $url = 'https://www.googleapis.com/customsearch/v1?key='.$key.'&cx='.$cx.'&q='.urlencode($keyword).'&siteSearchFilter=i&alt=json&start='.$index;
 
   $ch = curl_init();
   curl_setopt($ch, CURLOPT_URL, $url);
@@ -146,7 +195,7 @@ function load_page_with_id_callback() {
   global $wpdb;
   $id        = $_POST['id'];
 
-  $sql = "SELECT ID, post_title, post_modified
+  $sql = "SELECT ID, post_title
           FROM $wpdb->posts
           WHERE ID = " . $id;
 
@@ -154,7 +203,7 @@ function load_page_with_id_callback() {
 
   if ($pages) {$page = $pages[0];} else {die();}
 
-  echo $page->post_title . '|' . get_permalink($page->ID) . '|' . $page->post_modified;
+  echo $page->post_title . '|' . get_permalink($page->ID);
 
   die();
 }
@@ -203,24 +252,51 @@ function load_pages_with_update_callback() {
 add_action( 'wp_ajax_load_pages', 'load_pages_callback');
 function load_pages_callback() {
   global $wpdb;
+
   $title     = $_POST['title'];
   $id        = $_POST['id'];
   $name      = $_POST['name'];
+
   $pages = $wpdb->get_results(
-  "SELECT ID, post_title
-  FROM $wpdb->posts
-  WHERE post_type = 'page'
-  AND post_title LIKE '%" . $title . "%'"
-);
-$list = '<select id="' . $id . '" name="' . $name . '">';
-foreach ($pages as $page) {
-  $list .= '<option value="' . $page->ID . '">';
-  $list .= $page->post_title . ' (' . $page->ID . ')';
-  $list .= '</option>';
+    "SELECT ID, post_title
+    FROM $wpdb->posts
+    WHERE post_type = 'page'
+    AND post_title LIKE '%" . $title . "%'");
+
+  $list = '<select id="' . $id . '" name="' . $name . '">';
+  foreach ($pages as $page) {
+    $list .= '<option value="' . $page->ID . '">';
+    $list .= $page->post_title . ' (' . $page->ID . ')';
+    $list .= '</option>';
+  }
+  $list .= '</select>';
+
+  echo $list;
+  die();
 }
-$list .= '</select>';
-echo $list;
-die();
+
+/* Loads pages where post_title has keyword $title */
+add_action( 'wp_ajax_load_pages_rss', 'load_pages_rss_callback');
+function load_pages_rss_callback() {
+  global $wpdb;
+  $title     = $_POST['title'];
+
+  $pages = $wpdb->get_results("SELECT ID, post_title
+                               FROM $wpdb->posts
+                               WHERE post_type = 'page'
+                               AND post_title LIKE '%" . $title . "%'");
+
+  $list = '<select onchange="updateValues();" id="rss_select" name="rss_select">';
+  $list .= '<option value="-1">' . __(" -- Välj sida i listan -- ") . '</option>';
+  foreach ($pages as $page) {
+    $list .= '<option value="' . $page->ID . '">';
+    $list .= $page->post_title . ' (' . $page->ID . ')';
+    $list .= '</option>';
+  }
+  $list .= '</select>';
+
+  echo $list;
+  die();
 }
 
 
@@ -303,15 +379,19 @@ function save_event_callback() {
   $location    = $_POST['location'];
   $imageUrl    = $_POST['imageUrl'];
   $author      = $_POST['author'];
+  $days_array  = $_POST['days'];
+  $days_array  = explode(',', $days_array);
 
   // Create event
-  $event        = 	array ( 'EventID'         => $id,
-  'Name'            => $name,
-  'Description'     => $description,
-  'Approved'        => $approved,
-  'OrganizerID'     => $organizer,
-  'Location'        => $location,
-  'ExternalEventID' => $external_id );
+  $event = array (
+    'EventID'         => $id,
+    'Name'            => $name,
+    'Description'     => $description,
+    'Approved'        => $approved,
+    'OrganizerID'     => $organizer,
+    'Location'        => $location,
+    'ExternalEventID' => $external_id,
+  );
 
   // Event types
   $event_types_x  = explode(',', $types);
@@ -330,29 +410,36 @@ function save_event_callback() {
   }
 
   // Image
-  if ($imageUrl)
-  $image = array( 'ImagePath' => $imageUrl, 'Author' => $author);
+  $image = null;
+  if ($imageUrl) {
+    $image = array( 'ImagePath' => $imageUrl, 'Author' => $author);
+  }
 
   // Create time/times
   $event_times = array();
   if (!$end_date) { // Single occurence
-    $event_time = array('Date'  => $single_date,
-    'Time'  => $time,
-    'Price' => 0);
+    $event_time = array(
+      'Date'  => $start_date,
+      'Time'  => $time,
+      'Price' => 0
+    );
     array_push($event_times, $event_time);
   } else { // Must be start and end then
     $dates_array = create_date_range_array($start_date, $end_date);
     $filtered_days = filter_date_array_by_days($dates_array, $days_array);
 
     foreach($filtered_days as $date) {
-      $event_time = array('Date'  => $date,
-      'Time'  => $time,
-      'Price' => 0);
+      $event_time = array(
+        'Date'  => $date,
+        'Time'  => $time,
+        'Price' => 0
+      );
       array_push($event_times, $event_time);
+      echo $date;
     }
   }
 
-  HelsingborgEventModel::update_event($event, $event_types, $administration_units, $image, $times);
+  HelsingborgEventModel::update_event($event, $event_types, $administration_units, $image, $event_times);
 
   die();
 }

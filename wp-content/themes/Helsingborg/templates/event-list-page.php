@@ -66,8 +66,8 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                         </div>
                         <footer>
                           <ul class="socialmedia-list">
-                              <li class="fbook"><a href="#">Facebook</a></li>
-                              <li class="twitter"><a href="#">Twitter</a></li>
+                              <li class="fbook"><a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode(get_the_permalink()); ?>">Facebook</a></li>
+                              <li class="twitter"><a href="http://twitter.com/share?text=<?php echo strip_tags(get_the_excerpt()); ?>&amp;url=<?php echo urlencode(wp_get_shortlink()); ?>">Twitter</a></li>
                           </ul>
                         </footer>
                       </article>
@@ -116,7 +116,7 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                       </div>
 
                     <div class="Pager" id="event-pager-top"></div>
-                    <div class="event-list-loader" id="loading-event"></div>
+                    <div class="event-list-loader" id="loading-event" style="margin-top:10px;position:relative;"></div>
                     <div class="NoEvents" id="no-event"></div>
                     <ul data-bind="template: {name:'eventTemplate',foreach: pager.currentPageEvents}" class="block-list page-block-list page-list large-block-grid-3 medium-block-grid-3 small-block-grid-2"></ul>
                     <div class="Pager" id="event-pager-bottom"></div>
@@ -182,6 +182,9 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                         var eventTypes = {};
 
                         document.getElementById('loading-event').style.display = "block";
+                        document.getElementById('event-pager-top').style.display = "none";
+                        document.getElementById('event-pager-bottom').style.display = "none";
+
                         document.getElementById('no-event').style.display = "none";
 
                         ko.bindingHandlers.trimText = {
@@ -191,6 +194,8 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                               var minLength = 5;
                               var maxLength = 250;
                               var text = untrimmedText.length > maxLength ? untrimmedText.substring(0, maxLength - 1) + '...' : untrimmedText;
+                              var text = text.replace(/&nbsp;/gi, ' ');
+                              var text = text.trim();
                               return text;
                             });
                             ko.applyBindingsToNode(element, {
@@ -266,6 +271,8 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                         jQuery.post(ajaxurl, data, function(response) {
                           _eventPageModel.events(ExtractModels(_eventPageModel, JSON.parse(response), EventModel));
                           document.getElementById('loading-event').style.display = "none";
+                          document.getElementById('event-pager-top').style.display = "block";
+                          document.getElementById('event-pager-bottom').style.display = "block";
                           document.getElementById('no-event').style.display = "block";
                         });
 

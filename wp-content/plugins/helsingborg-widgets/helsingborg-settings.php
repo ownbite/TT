@@ -8,11 +8,18 @@ function helsingborg_panel(){
                 'helsingborg_panel_func');      // Function
 
   add_submenu_page( 'helsingborg',                           // Parent slug
-                    'Hantera evenemang',                     // Page title
-                    'Hantera evenemang',                     // Menu title
+                    'Nya evenemang',                         // Page title
+                    'Nya evenemang',                         // Menu title
                     'read_private_pages',                    // Capability
                     'helsingborg-eventhandling',             // Slug
                     'helsingborg_panel_func_eventhandling'); // Function
+
+  add_submenu_page( 'helsingborg',                           // Parent slug
+                    'Sök evenemang',                 // Page title
+                    'Sök evenemang',                 // Menu title
+                    'read_private_pages',                    // Capability
+                    'helsingborg-eventsearch',               // Slug
+                    'helsingborg_panel_func_eventsearch'); // Function
 
   add_submenu_page( 'helsingborg',
                     'Inställningar',
@@ -38,6 +45,10 @@ function helsingborg_panel_func(){
 function helsingborg_panel_func_eventhandling(){
   include('classes/helsingborg-event-list-table.php');
   include('includes/panel_eventhandling.php');
+}
+function helsingborg_panel_func_eventsearch(){
+  include('classes/helsingborg-event-search-table.php');
+  include('includes/panel_eventsearch.php');
 }
 function helsingborg_panel_func_settings(){
   include('pages/settings-page.php');

@@ -5,15 +5,6 @@
  * database as external events. This file is included from functions.php
  */
 
- /* Setup the scheduled task */
-add_action( 'wp', 'setup_scheduled_cbis' );
-function setup_scheduled_cbis() {
-  if ( ! wp_next_scheduled( 'scheduled_cbis' ) ) {
-    // Set scheduled task to occur at 22.30 each day
-    wp_schedule_event( strtotime(date("Y-m-d", time()) . '22:30'), 'daily', 'scheduled_cbis');
-  }
-}
-
 /* Function to execute as event, from setup above */
 add_action( 'scheduled_cbis', 'cbis_event' );
 function cbis_event() {

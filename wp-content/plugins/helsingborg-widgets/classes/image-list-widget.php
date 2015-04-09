@@ -98,7 +98,7 @@ if (!class_exists('Image_List_Widget')) {
           echo('<ul class="block-list news-block large-block-grid-'.$grid_size.' medium-block-grid-'.$grid_size.' small-block-grid-2">');
           foreach ($items as $num => $item) :
             echo('<li>');
-              echo('<a href="' . $items_links[$num] . '"><img src="' . $item_imageurl[$num] . '" alt="' . $item_alts[$num] . '" /></a>');
+              echo('<a href="' . $item_links[$num] . '"><img src="' . $item_imageurl[$num] . '" alt="' . $item_alts[$num] . '" /></a>');
             echo('</li>');
           endforeach;
           echo('</ul>');

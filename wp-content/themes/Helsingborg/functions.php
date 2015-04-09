@@ -33,12 +33,6 @@ require_once('library/helsingborg.php');
 // Add Helsingborg AJAX functions
 require_once('library/helsingborg-ajax.php');
 
-// Add scheduled work for CBIS events
-require_once('library/scheduled_cbis.php');
-
-// Add scheduled work for XCap events
-require_once('library/scheduled_xcap.php');
-
 // Add custom meta-functions
 require_once('meta_boxes/meta-functions.php');
 ?>

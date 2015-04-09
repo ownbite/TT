@@ -84,27 +84,60 @@ if (!class_exists('AlarmListWidget')) {
 
       <a href="<?php echo $link; ?>" class="read-more">Till arkivet</a>
 
+      <div class="reveal-modal-bg"></div>
       <div id="eventModal" class="reveal-modal" data-reveal>
-        <h2 class="modalTitle">Alarm</h2>
-        <b><p class="modalDateHeader">Tidpunkt:</p></b>
-        <p class="modalDate"></p>
-        <b><p class="modalEventHeader">Händelse:</p></b>
-        <p class="modalEvent"></p>
-        <b><p class="modalStationHeader">Station:</p></b>
-        <p class="modalStation"></p>
-        <b><p class="modalIDHeader">Ärendeid:</p></b>
-        <p class="modalID"></p>
-        <b><p class="modalStateHeader">Larmnivå:</p></b>
-        <p class="modalState"></p>
-        <b><p class="modalAddressHeader">Adress:</p></b>
-        <p class="modalAddress"></p>
-        <b><p class="modalLocationHeader">Plats:</p></b>
-        <p class="modalLocation"></p>
-        <b><p class="modalAreaHeader">Insatsområde:</p></b>
-        <p class="modalArea"></p>
-        <b><p class="modalMunicipalityHeader">Kommuner:</p></b>
-        <p class="modalMunicipality"></p>
-        <a class="close-reveal-modal">&#215;</a>
+        <h2 class="section-title">Alarm</h2>
+
+        <div class="divider fade">
+          <div class="upper-divider"></div>
+          <div class="lower-divider"></div>
+        </div>
+
+        <h1 class="main-title"></h1>
+
+        <div class="row">
+            <div class="small-12">
+                <ul class="modal-item-list">
+                  <li>
+                      <span class="item-label modalDateHeader">Tidpunkt:</span>
+                      <span class="item-value modalDate"></span>
+                  </li>
+                  <li>
+                      <span class="item-label modalEventHeader">Händelse:</span>
+                      <span class="item-value modalEvent"></span>
+                  </li>
+                  <li>
+                      <span class="item-label modalStationHeader">Station:</span>
+                      <span class="item-value modalStation"></span>
+                  </li>
+                  <li>
+                      <span class="item-label modalIDHeader">Ärendeid:</span>
+                      <span class="item-value modalID"></span>
+                  </li>
+                  <li>
+                      <span class="item-label modalStateHeader">Larmnivå:</span>
+                      <span class="item-value modalState"></span>
+                  </li>
+                  <li>
+                      <span class="item-label modalAddressHeader">Adress:</span>
+                      <span class="item-value modalAddress"></span>
+                  </li>
+                  <li>
+                      <span class="item-label modalLocationHeader">Plats:</span>
+                      <span class="item-value modalLocation"></span>
+                  </li>
+                  <li>
+                      <span class="item-label modalAreaHeader">Insatsområde:</span>
+                      <span class="item-value modalArea"></span>
+                  </li>
+                  <li>
+                      <span class="item-label modalMunicipalityHeader">Kommuner:</span>
+                      <span class="item-value modalMunicipality"></span>
+                  </li>
+                </ul>
+            </div>
+        </div>
+        <a class="close-reveal-modal">×</a>
       </div>
 
       <script>

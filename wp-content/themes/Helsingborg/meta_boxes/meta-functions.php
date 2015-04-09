@@ -130,25 +130,16 @@ function helsingborg_meta_ListPage() {
 function helsingborg_meta_RSS()
 {
     global $post;
-
-    // using an underscore, prevents the meta variable
-    // from showing up in the custom fields section
     $meta = get_post_meta($post->ID,'_helsingborg_meta',TRUE);
 
-    // Get all pages available
-    $args = array(
-      'sort_order' => 'ASC',
-      'sort_column' => 'post_title',
-      'post_type' => 'page',
-      'child_of' => 0,
-	    'parent' => -1,
-      'post_status' => 'publish'
-    );
-
-    $pages = get_pages($args);
-
     // Set previous selection
-    $selected = $meta['rss_select'];
+    if (is_array($meta)){
+      $selected_id   = $meta['rss_select_id'];
+      $selected_name = $meta['rss_select_name'];
+    } else {
+      $selected_id   = '';
+      $selected_name = '-- Ingen sida vald --';
+    }
 
     // Fetch the HTML
     include(helsingborg_THEME_FOLDER . '/UI/meta-ui-rss.php');

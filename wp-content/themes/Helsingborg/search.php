@@ -23,7 +23,11 @@ $query = $_GET['s'];
 
 				<div id="result" style="padding-bottom: 10px;"></div>
 
-				<ul id="search" class="block-list page-block-list search-list large-block-grid-3 medium-block-grid-3 small-block-grid-2"></ul>
+				<ul id="search" class="block-list page-block-list search-list large-block-grid-3 medium-block-grid-3 small-block-grid-2">
+					<li>
+						<div id="loading-event" class="event-list-loader" style="margin-top: 40px;"></div>
+					</li>
+				</ul>
 
 				<div class="Pager"><ul class="pagination"></ul></div>
 
@@ -91,7 +95,9 @@ function updateSearch(data) {
 				}
 			}
 			item += '<h2 class="list-title">' + data.items[i].title + '</h2></a>';
-			if (meta['creationdate'] !== undefined) {
+			if (meta['moddate'] !== undefined ) {
+				item += '<span class="news-date">' + convertDate(meta['moddate']) + '</span>';
+			} else if (meta['creationdate'] !== undefined) {
 				item += '<span class="news-date">' + convertDate(meta['creationdate'].substring(2,10)) + '</span>';
 			} else if (meta['last-modified'] !== undefined){
 				item += '<span class="news-date">' + convertDate(meta['epi.published'].substring(5,16)) + '</span>';
@@ -116,7 +122,13 @@ function updateSearch(data) {
 }
 
 function convertDate(value) {
-	if (value.length == 11) {
+	if (value.length > 20) {
+		var year = value.substring(2,6);
+		var month = value.substring(6,8);
+		var day = value.substring(8,10);
+		month = convertDateToMonth(month);
+		return day + ' ' + month + ' ' + year;
+	} else if (value.length == 11) {
 		value = value.replace('May', 'Maj');
 		value = value.replace('Oct', 'Okt');
 		return value;
@@ -124,48 +136,39 @@ function convertDate(value) {
 		var year = value.substring(0,4);
 		var month = value.substring(4,6);
 		var day = value.substring(6,value.length);
-
-		switch (month) {
-			case '01':
-				month = "Jan";
-				break;
-			case '02':
-				month = "Feb";
-				break;
-			case '03':
-				month = "Mar";
-				break;
-			case '04':
-				month = "Apr";
-				break;
-			case '05':
-				month = "Maj";
-				break;
-			case '06':
-				month = "Jun";
-				break;
-			case '07':
-				month = "Jul";
-				break;
-			case '08':
-				month = "Aug";
-				break;
-			case '09':
-				month = "Sep";
-				break;
-			case '10':
-				month = "Okt";
-				break;
-			case '11':
-				month = "Nov";
-				break;
-			case '12':
-				month = "Dec";
-				break;
-		}
+		month = convertDateToMonth(month);
 		return day + ' ' + month + ' ' + year;
 	} else {
 		return '';
+	}
+}
+
+function convertDateToMonth(month) {
+	switch (month) {
+		case '01':
+			return "Jan";
+		case '02':
+			return "Feb";
+		case '03':
+			return "Mar";
+		case '04':
+			return "Apr";
+		case '05':
+			return "Maj";
+		case '06':
+			return "Jun";
+		case '07':
+			return "Jul";
+		case '08':
+			return "Aug";
+		case '09':
+			return "Sep";
+		case '10':
+			return "Okt";
+		case '11':
+			return "Nov";
+		case '12':
+			return "Dec";
 	}
 }
 </script>

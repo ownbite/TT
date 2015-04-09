@@ -17,13 +17,15 @@ $author      = $_POST['author'];
 
 
 // Create event
-$event        = 	array ( 'EventID'         => $id,
-                          'Name'            => $name,
-                          'Description'     => $description,
-                          'Approved'        => $approved,
-                          'OrganizerID'     => $organizer,
-                          'Location'        => $location,
-                          'ExternalEventID' => $external_id );
+$event = array (
+  'EventID'         => $id,
+  'Name'            => $name,
+  'Description'     => $description,
+  'Approved'        => $approved,
+  'OrganizerID'     => $organizer,
+  'Location'        => $location,
+  'ExternalEventID' => $external_id
+);
 
 // Event types
 $event_types  = explode(',', $types);
