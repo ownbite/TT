@@ -167,7 +167,12 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                     <script type="text/html" id="eventTemplate">
                       <li>
                         <a class="modal-link" href="#" data-bind="attr: {id: EventID}" data-reveal-id="eventModal" desc="link-desc">
+                          <!-- ko if: ImagePath -->
                           <img data-bind="attr: {src: ImagePath}" alt="alt-text"/>
+                          <!-- /ko -->
+                          <!-- ko if: ImagePath == null -->
+                          <img  alt="alt-text" src="<?php echo get_stylesheet_directory_uri() ; ?>/assets/img/images/event-default.jpg"/>
+                          <!-- /ko -->
                           <p data-bind="text: Location" style="display: none;"></p>
                           <p data-bind="text: EventTypesName" style="display: none;"></p>
                           <h2 data-bind="text: Name" class="list-title"></h2>
