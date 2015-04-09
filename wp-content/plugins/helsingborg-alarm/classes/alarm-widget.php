@@ -74,7 +74,7 @@ if (!class_exists('AlarmListWidget')) {
       for($i=0;$i<$show; $i++) : ?>
         <li>
           <span class="date"><?php echo $alarms[$i]->SentTime; ?></span>
-          <a href="#" class="modalLink" id="<?php echo $alarms[$i]->ID ?>" data-reveal-id="eventModal"><?php echo $alarms[$i]->HtText ?></a>
+          <a href="#" class="modalLinkAlarm" id="<?php echo $alarms[$i]->ID ?>" data-reveal-id="alarmModal"><?php echo $alarms[$i]->HtText ?></a>
         </li>
       <?php endfor; ?>
 
@@ -85,7 +85,7 @@ if (!class_exists('AlarmListWidget')) {
       <a href="<?php echo $link; ?>" class="read-more">Till arkivet</a>
 
       <div class="reveal-modal-bg"></div>
-      <div id="eventModal" class="reveal-modal" data-reveal>
+      <div id="alarmModal" class="reveal-modal" data-reveal>
         <h2 class="section-title">Alarm</h2>
 
         <div class="divider fade">

@@ -12,7 +12,7 @@ jQuery(document).ready(function() {
 			selectAllText: ['Markera alla', 'Avmarkera alla']
 		});
 
-		jQuery(document).on('click', '.modalLink', function(event) {
+		jQuery(document).on('click', '.modalLinkAlarm', function(event) {
 			event.preventDefault();
 
 			var _title = jQuery('.main-title');
@@ -79,7 +79,7 @@ jQuery(document).ready(function() {
 		jQuery.each(items, function(i, item) {
 			var alarm = '<li>';
 			alarm += '<span class="date">' + item.SentTime + '</span>';
-			alarm += '<a href="#" class="modalLink" id="' + item.ID +
+			alarm += '<a href="#" class="modalLinkAlarm" id="' + item.ID +
 				'" data-reveal-id="eventModal">' + item.HtText + '</a>';
 			alarm += '</li>';
 			jQuery(alarm).appendTo(jQuery('.alarm-list'));
