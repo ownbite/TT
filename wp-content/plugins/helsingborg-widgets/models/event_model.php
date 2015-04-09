@@ -20,6 +20,7 @@ class HelsingborgEventModel {
                                             e.Description,
                                             e.Location,
                                             et.Date,
+                                            et.Time,
                                             i.ImagePath
                                         FROM happy_event e
                                             INNER JOIN happy_event_times et ON e.EventID = et.EventID
@@ -50,6 +51,7 @@ class HelsingborgEventModel {
                                     		e.Description,
                                     		e.Location,
                                     		et.Date,
+                                            et.Time,
                                     		i.ImagePath
                                 		FROM happy_event e
                                     		INNER JOIN happy_event_times et ON e.EventID = et.EventID
