@@ -167,14 +167,16 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                           <thead>
                             <tr>
                               <th></th>
-                              <?php foreach ($headers as $header) :
-                                echo('<th>' . $header . '</th>');
+                              <?php $int = 0; foreach ($headers as $header) :
+                                $int++;
+                                echo('<th class="header" data-bind="click: sort">' . $header . '</th>');
                               endforeach; ?>
                             </tr>
                           </thead>
                             <!-- Todo: Generate table body -->
-                          <tbody data-bind="foreach: { data: itemstoshow }">
-                              <tr class="table-item" data-bind="css: { odd: $index() % 2 }">
+                          <!-- ko foreach: { data: itemstoshow } -->
+                          <tbody>
+                              <tr class="table-item">
                                 <?php foreach ($header_keys as $key => $value) :
                                   echo('<td data-bind="text: item' . strval($key) . '"></td>');
                                 endforeach; ?>
@@ -183,33 +185,81 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                                   <td colspan="<?php echo count($headers); ?>" data-bind="html: content"></td>
                               </tr>
                           </tbody>
+                          <!-- /ko -->
                         </table>
 
                       </div>
                       <footer>
                         <script type="text/javascript" language="javascript">
-                          function ListViewModel() {
-                              var self = this;
-                              var itemjson = <?php echo $json_items; ?>;
+                            function ListViewModel() {
 
-                              self.query = ko.observable('');
+                                var self = this;
+                                var itemjson = <?php echo $json_items; ?>;
 
-                              self.itemstoshow = ko.dependentObservable(function() {
-                                  var search = this.query().toLowerCase();
-                                  return ko.utils.arrayFilter(itemjson, function(item) {
-                                    return ((item.content.toLowerCase().indexOf(search) >= 0)
-                                    <?php if (count($header_keys) > 0) { echo '||'; }
-                                    foreach ($header_keys as $key => $value) :
-                                      echo '(item.item' . strval($key) . '.toLowerCase().indexOf(search) >= 0)';
-                                      if ($key != (count($header_keys) - 1)) { echo ' || '; }
-                                    endforeach; ?>
-                                    );
+                                self.query = ko.observable('');
 
-                                  });
-                              }, self);
+                                self.itemstoshow = ko.dependentObservable(function() {
+                                    var search = this.query().toLowerCase();
+                                    return ko.utils.arrayFilter(itemjson, function(item) {
+                                        return ((item.content.toLowerCase().indexOf(search) >= 0)
+                                            <?php
+                                                if (count($header_keys) > 0) {
+                                                    echo '||';
+                                                }
 
-                          }
-                          ko.applyBindings(new ListViewModel());
+                                                foreach ($header_keys as $key => $value) {
+                                                    echo '(item.item' . strval($key) . '.toLowerCase().indexOf(search) >= 0)';
+
+                                                    if ($key != (count($header_keys) - 1)) {
+                                                        echo ' || ';
+                                                    }
+                                                }
+                                            ?>
+                                        );
+
+                                    });
+                                }, self);
+
+                                self.sort = function (item, event) {
+                                    var el = $(event.target);
+                                    var thead = el.parents('table').find('thead');
+
+                                    if (el.hasClass('sorting-desc')) {
+                                        // Sort asc
+                                        self.resetSort(thead);
+                                        el.addClass('sorting-asc headerSortDown');
+                                        self.sortList('asc', el);
+                                    } else {
+                                        // Sort desc
+                                        self.resetSort(thead);
+                                        el.addClass('sorting-desc headerSortUp');
+                                        self.sortList('desc', el);
+                                    }
+                                }
+
+                                self.sortList = function(order, el) {
+                                    var thead = el.parents('table').find('thead');
+                                    var columnNum = el.index();
+                                    var rows = el.parents('table').find('tbody');
+
+                                    rows.sort(function (a, b) {
+                                        var td1 = $(a).find('.table-item td:nth-child(' + columnNum + ')').text();
+                                        var td2 = $(b).find('.table-item    td:nth-child(' + columnNum + ')').text();
+
+                                        if (order.toLowerCase() == 'asc') {
+                                            return ((td1 < td2) ? -1 : ((td1 > td2) ? 1 : 0));
+                                        } else if (order.toLowerCase() == 'desc') {
+                                            return ((td1 > td2) ? -1 : ((td1 < td2) ? 1 : 0));
+                                        }
+                                    }).insertAfter(thead);
+                                }
+
+                                self.resetSort = function(thead) {
+                                    thead.find('th').removeClass('sorting-asc sorting-desc headerSortDown headerSortUp');
+                                }
+
+                            }
+                            ko.applyBindings(new ListViewModel());
                         </script>
                       </footer>
                     </article>
@@ -220,7 +270,6 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
         <div class="lower-content row">
             <div class="sidebar large-4 columns">
                 <div class="row">
-                 
                 </div><!-- /.row -->
             </div><!-- /.sidebar -->
 

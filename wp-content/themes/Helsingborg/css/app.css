@@ -6097,6 +6097,8 @@ figure {
   .table-list td, .table-list th {
     border: none;
     padding: 1rem 0.625rem; }
+  .table-list thead th {
+    border-bottom: 1px solid #ddd; }
   .table-list thead th, .table-list .table-item.odd {
     background-color: #f3f3f2; }
   .table-list .table-item:hover {
@@ -6108,6 +6110,8 @@ figure {
     color: #333333; }
   .table-list .table-item td:last-child {
     padding-right: 1.5rem; }
+  .table-list tbody:nth-child(odd) .table-item {
+    background-color: #f3f3f2; }
 
 .table-content h2, .table-content .guide-list .title, .guide-list .table-content .title {
   font-size: 1.125rem;
@@ -6129,12 +6133,13 @@ figure {
 
 /* table sorter plugin style */
 .table-list .header {
-  background: url(/wp-content/themes/Helsingborg/assets/img/tablesorter-icons/bg.gif) right center no-repeat;
-  cursor: pointer; }
+  background: url(/wp-content/themes/Helsingborg/assets/img/tablesorter-icons/bg.gif) 95% center no-repeat;
+  cursor: pointer;
+  padding-right: 25px; }
   .table-list .header.headerSortDown {
-    background: url(/wp-content/themes/Helsingborg/assets/img/tablesorter-icons/asc.gif) right center no-repeat; }
+    background: url(/wp-content/themes/Helsingborg/assets/img/tablesorter-icons/asc.gif) 95% center no-repeat; }
   .table-list .header.headerSortUp {
-    background: url(/wp-content/themes/Helsingborg/assets/img/tablesorter-icons/desc.gif) right center no-repeat; }
+    background: url(/wp-content/themes/Helsingborg/assets/img/tablesorter-icons/desc.gif) 95% center no-repeat; }
   .table-list .header:last-child {
     background-position: 95% center; }
 

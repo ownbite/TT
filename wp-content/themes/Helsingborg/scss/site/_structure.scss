@@ -497,6 +497,9 @@ img.alignright {
 	 		border: none;
 	 		padding: rem-calc(16) rem-calc(10);
 	 	}
+	 	thead th {
+	 		border-bottom: 1px solid #ddd;
+	 	}
 	 	thead th,
 	 	.table-item.odd {
 			background-color: scale-color($gray-3, $lightness: 70%);
@@ -515,6 +518,9 @@ img.alignright {
 	 		td:last-child {
 	 			padding-right: rem-calc(24);
 	 		}
+	 	}
+	 	tbody:nth-child(odd) .table-item {
+	 		background-color: scale-color($gray-3, $lightness: 70%);
 	 	}
 	 }
 
@@ -550,13 +556,15 @@ img.alignright {
 
 	 /* table sorter plugin style */
 	 .table-list .header {
-	 	background: url(#{$wp-root-url}/assets/img/tablesorter-icons/bg.gif) right center no-repeat;
+	 	background: url(#{$wp-root-url}/assets/img/tablesorter-icons/bg.gif) 95% center no-repeat;
 	 	cursor: pointer;
+	 	padding-right: 25px;
+
 	 	&.headerSortDown {
-	 		background: url(#{$wp-root-url}/assets/img/tablesorter-icons/asc.gif) right center no-repeat;
+	 		background: url(#{$wp-root-url}/assets/img/tablesorter-icons/asc.gif) 95% center no-repeat;
 	 	}
 	 	&.headerSortUp {
-	 		background: url(#{$wp-root-url}/assets/img/tablesorter-icons/desc.gif) right center no-repeat;
+	 		background: url(#{$wp-root-url}/assets/img/tablesorter-icons/desc.gif) 95% center no-repeat;
 	 	}
 	 	&:last-child {
 	 		background-position: 95% center;
