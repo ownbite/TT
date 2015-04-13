@@ -6792,7 +6792,7 @@ nav > ul > li.nav-home a {
 .modal-alarm .modal-description p + p {
   margin-top: 15px; }
 
-#alarm-pager-top {
+#alarm-pager-top, #event-pager-top {
   margin-bottom: 15px; }
 
 /*  Footer */
