@@ -6110,7 +6110,7 @@ figure {
     color: #333333; }
   .table-list .table-item td:last-child {
     padding-right: 1.5rem; }
-  .table-list tbody:nth-child(odd) .table-item {
+  .table-list tbody:nth-child(odd) .table-item:not(.active) {
     background-color: #f3f3f2; }
 
 .table-content h2, .table-content .guide-list .title, .guide-list .table-content .title {

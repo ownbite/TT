@@ -87,7 +87,6 @@ for ($i = 0; $i < count($pages); $i++) {
 usort( $list_items, create_function('$a,$b', 'return strcmp($a["item0"], $b["item0"]);'));
 
 // JSON encode the current data for usage with knockout!
-// TODO -> Load all this with AJAX instead?
 $json_items = json_encode($list_items);
 
 // Get the content, see if <!--more--> is inserted
@@ -196,11 +195,22 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                                 var self = this;
                                 var itemjson = <?php echo $json_items; ?>;
 
+                                /**
+                                 * Observables
+                                 */
+                                self.itemjson = ko.observable(itemjson);
                                 self.query = ko.observable('');
+                                self.sortBy = ko.observable('');
 
-                                self.itemstoshow = ko.dependentObservable(function() {
-                                    var search = this.query().toLowerCase();
-                                    return ko.utils.arrayFilter(itemjson, function(item) {
+                                /**
+                                 * Items to show
+                                 */
+                                self.itemstoshow = ko.computed(function () {
+                                    // Search filter items
+                                    var sort = self.sortBy();
+                                    var search = self.query().toLowerCase();
+
+                                    var items = ko.utils.arrayFilter(self.itemjson(), function(item) {
                                         return ((item.content.toLowerCase().indexOf(search) >= 0)
                                             <?php
                                                 if (count($header_keys) > 0) {
@@ -216,15 +226,19 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                                                 }
                                             ?>
                                         );
-
                                     });
+
+                                    return items;
                                 }, self);
 
+                                /**
+                                 * Triggering the sorting by click on column headers
+                                 */
                                 self.sort = function (item, event) {
                                     var el = $(event.target);
                                     var thead = el.parents('table').find('thead');
 
-                                    if (el.hasClass('sorting-desc')) {
+                                    if (el.hasClass('sorting-desc') || (!el.hasClass('sorting-desc') && !el.hasClass('sorting-asc'))) {
                                         // Sort asc
                                         self.resetSort(thead);
                                         el.addClass('sorting-asc headerSortDown');
@@ -237,28 +251,57 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                                     }
                                 }
 
+                                /**
+                                 * Do the actual sorting
+                                 */
                                 self.sortList = function(order, el) {
-                                    var thead = el.parents('table').find('thead');
-                                    var columnNum = el.index();
-                                    var rows = el.parents('table').find('tbody');
+                                    var columnNum = (el.index() - 1);
 
-                                    rows.sort(function (a, b) {
-                                        var td1 = $(a).find('.table-item td:nth-child(' + columnNum + ')').text();
-                                        var td2 = $(b).find('.table-item    td:nth-child(' + columnNum + ')').text();
+                                    if (order.toLowerCase() == 'asc') {
+                                        // Sort asc
+                                        self.itemjson().sort(function (a, b) {
+                                            var a = a['item' + columnNum].toLowerCase();
+                                            var b = b['item' + columnNum].toLowerCase();
 
-                                        if (order.toLowerCase() == 'asc') {
-                                            return ((td1 < td2) ? -1 : ((td1 > td2) ? 1 : 0));
-                                        } else if (order.toLowerCase() == 'desc') {
-                                            return ((td1 > td2) ? -1 : ((td1 < td2) ? 1 : 0));
-                                        }
-                                    }).insertAfter(thead);
+                                            if (a < b) {
+                                                return -1;
+                                            }
+                                            else if (a > b) {
+                                                return 1;
+                                            }
+                                            else {
+                                                return 0;
+                                            }
+                                        });
+                                    } else if (order.toLowerCase() == 'desc') {
+                                        // Sort desc
+                                        self.itemjson().sort(function (a, b) {
+                                            var a = a['item' + columnNum].toLowerCase();
+                                            var b = b['item' + columnNum].toLowerCase();
+
+                                            if (a > b) {
+                                                return -1;
+                                            }
+                                            else if (a < b) {
+                                                return 1;
+                                            }
+                                            else {
+                                                return 0;
+                                            }
+                                        });
+                                    }
+
+                                    self.sortBy(columnNum + order);
                                 }
 
+                                /**
+                                 * Reset the sorting classes on the table header
+                                 */
                                 self.resetSort = function(thead) {
                                     thead.find('th').removeClass('sorting-asc sorting-desc headerSortDown headerSortUp');
                                 }
-
                             }
+
                             ko.applyBindings(new ListViewModel());
                         </script>
                       </footer>

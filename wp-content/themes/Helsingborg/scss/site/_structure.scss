@@ -519,7 +519,7 @@ img.alignright {
 	 			padding-right: rem-calc(24);
 	 		}
 	 	}
-	 	tbody:nth-child(odd) .table-item {
+	 	tbody:nth-child(odd) .table-item:not(.active) {
 	 		background-color: scale-color($gray-3, $lightness: 70%);
 	 	}
 	 }
