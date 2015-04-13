@@ -147,7 +147,7 @@ if (!class_exists('Image_List_Widget')) {
         foreach ($order as $i => $item_num) {
           $instance['item'.($i+1)]                     = empty($new_instance['item'.$item_num])                    ? '' : strip_tags($new_instance['item'.$item_num]);
           $instance['item_link'.($i+1)]                = empty($new_instance['item_link'.$item_num])               ? '' : strip_tags($new_instance['item_link'.$item_num]);
-          $instance['item_target'.($i+1)]              = empty($new_instance['item_target'.$item_num])           ? '' : strip_tags($new_instance['item_target'.$item_num]);
+          $instance['item_target'.($i+1)]              = empty($new_instance['item_target'.$item_num])             ? '' : strip_tags($new_instance['item_target'.$item_num]);
           $instance['item_class'.($i+1)]               = empty($new_instance['item_class'.$item_num])              ? '' : strip_tags($new_instance['item_class'.$item_num]);
           $instance['item_id'.($i+1)]                  = empty($new_instance['item_id'.$item_num])                 ? '' : strip_tags($new_instance['item_id'.$item_num]);
           $instance['attachment_id'.($i+1)]            = empty($new_instance['attachment_id'.$item_num])           ? '' : strip_tags($new_instance['attachment_id'.$item_num]);
@@ -251,9 +251,9 @@ if (!class_exists('Image_List_Widget')) {
               <li><?php echo __("<b>Bildinställningar</b>"); ?></li>
             </ul>
 
-            <input type="checkbox" name="<?php echo $this->get_field_name('item_force_width'.$num); ?>" id="<?php echo $this->get_field_id('item_force_width'.$num); ?>" <?php echo $force_width; ?> /> <label for="<?php echo $this->get_field_id('item_force_width'.$num); ?>"><?php echo __("Tvinga bilden att anpassa i bredd (endast bildspel)"); ?></label>
+            <input type="checkbox" name="<?php echo $this->get_field_name('item_force_width'.$num); ?>" id="<?php echo $this->get_field_id('item_force_width'.$num); ?>" value="on" data-clear="false" <?php echo $force_width; ?> /> <label for="<?php echo $this->get_field_id('item_force_width'.$num); ?>"><?php echo __("Tvinga bilden att anpassa i bredd (endast bildspel)"); ?></label>
             <br>
-            <input type="checkbox" name="<?php echo $this->get_field_name('item_force_margin'.$num); ?>" id="<?php echo $this->get_field_id('item_force_margin'.$num); ?>" <?php echo $force_margin; ?> /> <label for="<?php echo $this->get_field_id('item_force_margin'.$num); ?>"><?php echo __("Tvinga förskjutning i Y-led med "); ?></label>
+            <input type="checkbox" data-clear="false" value="on" name="<?php echo $this->get_field_name('item_force_margin'.$num); ?>" id="<?php echo $this->get_field_id('item_force_margin'.$num); ?>" <?php echo $force_margin; ?> /> <label for="<?php echo $this->get_field_id('item_force_margin'.$num); ?>"><?php echo __("Tvinga förskjutning i Y-led med "); ?></label>
             <input maxlength="4" size="4" id="<?php echo $this->get_field_id('item_force_margin_value'.$num); ?>" name="<?php echo $this->get_field_name('item_force_margin_value'.$num); ?>" type="text" value="<?php echo $force_margin_value; ?>" /> <label for="<?php echo $this->get_field_id('item_force_margin_value'.$num); ?>"><?php echo __(" pixlar. (endast bildspel)"); ?></label>
             <br>
             <input type="checkbox" name="<?php echo $this->get_field_name('item_target'.$num); ?>" id="<?php echo $this->get_field_id('item_target'.$num); ?>" <?php echo $checked; ?> /> <label for="<?php echo $this->get_field_id('item_target'.$num); ?>"><?php echo __("Öppna i nytt fönster"); ?></label>

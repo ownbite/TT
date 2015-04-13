@@ -99,11 +99,27 @@ function helsingborgSetupHandlers($) {
       if ($(':checked', this)) {
         $(this).removeAttr('checked');
       }
-      if (value === undefined) {
-        $(this).val('');
-      } else {
-        $(this).val('Välj bild');
+
+      if (!$(this).is(':checkbox') && !$(this).is(':radio')) {
+        if (value === undefined) {
+          $(this).val('');
+        } else {
+          $(this).val('Välj bild');
+        }
       }
+    });
+
+    $('textarea', item).each(function () {
+      var id_val = $(this).attr('id');
+      var name_val = $(this).attr('name');
+
+      $(this).attr('id', increment_last_num(id_val));
+
+      if (name_val !== undefined) {
+        $(this).attr('name', increment_last_num(name_val));
+      }
+
+      $(this).val('');
     });
 
     $('select', item).each(function() {
