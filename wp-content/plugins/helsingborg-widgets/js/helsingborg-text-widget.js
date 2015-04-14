@@ -1,8 +1,14 @@
 jQuery('.widget-control-save').on('click', function () {
-    console.log("HACK HACK");
     var saveId = jQuery(this).attr('id');
     var id = saveId.replace( /-savewidget/, '' );
     var randNum = jQuery('#' + id + '-rand').val();
-    var textTab = id + '-hbgtexteditor_' + randNum + '-html';
-    jQuery('#' + textTab).trigger('click');
+    var textareaId = id + '-hbgtexteditor_' + randNum;
+
+    tinyMCE.triggerSave();
+
+    setTimeout(function () {
+        location.reload();
+    }, 2000);
 });
+
+// widget-hbgtextwidget-5-hbgtexteditor_176

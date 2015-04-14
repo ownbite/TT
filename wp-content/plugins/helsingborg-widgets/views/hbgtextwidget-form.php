@@ -23,4 +23,4 @@
     wp_editor($instance['content'], $editorId, $wysiwygSettings);
 ?>
 </div>
-<input type="text" id="<?php echo $this->get_field_id('rand'); ?>" name="<?php echo $this->get_field_name('rand'); ?>" value="<?php echo $rand; ?>">
+<input type="hidden" id="<?php echo $this->get_field_id('rand'); ?>" name="<?php echo $this->get_field_name('rand'); ?>" value="<?php echo $rand; ?>">
