@@ -160,9 +160,17 @@ function update_list_item_cells(id, num) {
   }, function(response) {
     if (response != '') {
       var values = response.split('|');
-      document.getElementById(id + num).value = values[0];
-      document.getElementById(id + '_link' + num).value = values[1];
-      document.getElementById(id + '_id' + num).value = selected;
+      if (document.getElementById(id + num) !== null) {
+        document.getElementById(id + num).value = values[0];
+      }
+
+      if (document.getElementById(id + '_link' + num) !== null) {
+        document.getElementById(id + '_link' + num).value = values[1];
+      }
+
+      if (document.getElementById(id + '_id' + num) !== null) {
+        document.getElementById(id + '_id' + num).value = selected;
+      }
     }
   });
 };

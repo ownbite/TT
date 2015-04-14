@@ -244,6 +244,15 @@ if (!class_exists('Image_List_Widget')) {
             <label for="<?php echo $this->get_field_id('item_link'.$num); ?>"><?php echo __("Länk:"); ?></label>
             <input class="widefat" id="<?php echo $this->get_field_id('item_link'.$num); ?>" name="<?php echo $this->get_field_name('item_link'.$num); ?>" type="text" value="<?php echo $item_link; ?>" />
 
+            <label for="<?php echo $this->get_field_id('item_search'.$num); ?>"><b><?php echo __("Sök efter sida: "); ?></b></label><br>
+            <input style="width: 70%;" id="<?php echo $this->get_field_id('item_search'.$num); ?>" type="text" class="input-text" />
+            <button style="width: 25%;" id="<?php echo $this->get_field_id('item_search_button'.$num); ?>" name="<?php echo $this->get_field_name('item_search'.$num); ?>" type="button" class="button-secondary" onclick="load_pages_with_update('<?php echo $this->get_field_id('item'); ?>', '<?php echo $num; ?>', 'update_list_item_cells')"><?php echo __("Sök"); ?></button>
+
+            <p>
+              <div id="<?php echo $this->get_field_id('item_select'.$num); ?>" style="display: none;">
+              </div>
+            </p>
+
             <label for="<?php echo $this->get_field_id('item_text'.$num); ?>"><?php echo __("Bildspelstext:"); ?></label>
             <textarea rows="4" cols="30" id="<?php echo $this->get_field_id('item_text'.$num); ?>" name="<?php echo $this->get_field_name('item_text'.$num); ?>" type="text" style="width:100%;"><?php echo $item_text; ?></textarea>
 
