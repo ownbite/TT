@@ -7216,9 +7216,6 @@ html.js.flexbox.flexboxlegacy.canvas.canvastext.webgl.no-touch.geolocation.postm
   margin-bottom: 2rem;
   margin-top: 0; }
 
-.modal-description {
-  margin-bottom: 2rem; }
-
 .modal-list {
   list-style: none;
   margin-left: 0; }
@@ -7227,6 +7224,9 @@ html.js.flexbox.flexboxlegacy.canvas.canvastext.webgl.no-touch.geolocation.postm
     color: #747779; }
   .modal-list span {
     margin-right: 2rem; }
+
+#eventModal .row + .row {
+  margin-top: 20px; }
 
 .reveal-modal .close-reveal-modal, dialog .close-reveal-modal {
   padding: 0.46875rem 0.65625rem 0.8125rem;

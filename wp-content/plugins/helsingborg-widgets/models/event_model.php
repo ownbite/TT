@@ -18,6 +18,7 @@ class HelsingborgEventModel {
                                             e.EventID,
                                             e.Name,
                                             e.Description,
+                                            e.Link,
                                             e.Location,
                                             et.Date,
                                             et.Time,
@@ -49,6 +50,7 @@ class HelsingborgEventModel {
                                     		e.EventID,
                                     		e.Name,
                                     		e.Description,
+                                            e.Link,
                                     		e.Location,
                                     		et.Date,
                                             et.Time,
@@ -231,6 +233,7 @@ class HelsingborgEventModel {
 		$events = 'SELECT
                         hE.Name,
                         hE.Description,
+                        hE.Link,
                         hETI.Date,
                         hETI.Time,
                         hE.Location
@@ -453,12 +456,13 @@ class HelsingborgEventModel {
 
 		// Insert Event
 		$wpdb->insert('happy_event', array(
-			'Name' => $event['Name'],
-			'Description' => $event['Description'],
-			'Approved' => $event['Approved'],
-			'OrganizerID' => $event['Organizer_id'],
-			'Location' => $event['Location'],
-			'ExternalEventID' => $event['External_id'])
+            'Name'            => $event['Name'],
+            'Description'     => $event['Description'],
+            'Link'            => $event['Link'],
+            'Approved'        => $event['Approved'],
+            'OrganizerID'     => $event['Organizer_id'],
+            'Location'        => $event['Location'],
+            'ExternalEventID' => $event['External_id'])
 		);
 
 		// Get the AUTO_INCREMENTED value and set to our event.
@@ -468,8 +472,8 @@ class HelsingborgEventModel {
 		if ($event_types) {
 			foreach ($event_types as $event_type) {
 				$wpdb->insert('happy_event_types_group', array(
-					'EventTypesName' => $event_type,
-					'EventID' => $event['EventID'])
+                    'EventTypesName' => $event_type,
+                    'EventID'        => $event['EventID'])
 				);
 			}
 		}
@@ -478,8 +482,8 @@ class HelsingborgEventModel {
 		if ($administration_units) {
 			foreach ($administration_units as $administration_unit) {
 				$wpdb->insert('happy_event_administration_unit', array(
-					'AdministrationUnitID' => $administration_unit,
-					'EventID' => $event['EventID'])
+                    'AdministrationUnitID' => $administration_unit,
+                    'EventID'              => $event['EventID'])
 				);
 			}
 		}
@@ -487,9 +491,9 @@ class HelsingborgEventModel {
 		// Add Image
 		if ($image) {
 			$wpdb->insert('happy_images', array(
-				'EventID' => $event['EventID'],
-				'ImagePath' => $image['ImagePath'],
-				'Author' => $image['Author'])
+                'EventID'   => $event['EventID'],
+                'ImagePath' => $image['ImagePath'],
+                'Author'    => $image['Author'])
 			);
 		}
 
@@ -497,10 +501,10 @@ class HelsingborgEventModel {
 		if ($times) {
 			foreach ($times as $time) {
 				$wpdb->insert('happy_event_times', array(
-					'Date' => $time['Date'],
-					'Time' => $time['Time'],
-					'Price' => $time['Price'],
-					'EventID' => $event['EventID'])
+                    'Date'    => $time['Date'],
+                    'Time'    => $time['Time'],
+                    'Price'   => $time['Price'],
+                    'EventID' => $event['EventID'])
 				);
 			}
 		}
@@ -520,8 +524,8 @@ class HelsingborgEventModel {
 		}
 
 		$result = $wpdb->update('happy_event', // Table
-			array('Approved' => 1), // Update row
-			array('EventID' => $event_id) // Where
+            array('Approved' => 1), // Update row
+            array('EventID'  => $event_id) // Where
 		);
 
 		return $result;
@@ -541,18 +545,19 @@ class HelsingborgEventModel {
 		}
 
 		$result_update = $wpdb->update('happy_event', // Table
-			array('Approved' => 0), // Update row
-			array('EventID' => $event_id)); // Where
+            array('Approved' => 0), // Update row
+            array('EventID'  => $event_id)
+        ); // Where
 
 		// Delete current set of times for this event
 		$wpdb->delete('happy_event_administration_unit', array('EventID' => $event_id));
 
 		// Add the new time with
 		$result_insert = $wpdb->insert('happy_event_times', array(
-			'Date' => '1968-10-24',
-			'Time' => '00:00',
-			'Price' => 0,
-			'EventID' => $event_id)
+            'Date'    => '1968-10-24',
+            'Time'    => '00:00',
+            'Price'   => 0,
+            'EventID' => $event_id)
 		);
 
 		return ($result_update && $result_insert);
@@ -575,14 +580,15 @@ class HelsingborgEventModel {
 		}
 
 		$wpdb->update("happy_event", array(
-			'Name' => $event['Name'],
-			'Description' => $event['Description'],
-			'Approved' => $event['Approved'],
-			'OrganizerID' => $event['Organizer_id'],
-			'Location' => $event['Location'],
-			'ExternalEventID' => $event['External_id'],
+            'Name'            => $event['Name'],
+            'Description'     => $event['Description'],
+            'Link'            => $event['Link'],
+            'Approved'        => $event['Approved'],
+            'OrganizerID'     => $event['Organizer_id'],
+            'Location'        => $event['Location'],
+            'ExternalEventID' => $event['External_id'],
 		), array(
-			'EventID' => $event['EventID'],
+            'EventID' => $event['EventID'],
 		)
 		);
 
@@ -594,8 +600,8 @@ class HelsingborgEventModel {
 			// Now add the new ones
 			foreach ($event_types as $event_type) {
 				$wpdb->insert('happy_event_types_group', array(
-					'EventTypesName' => $event_type['Name'],
-					'EventID' => $event['EventID'])
+                    'EventTypesName' => $event_type['Name'],
+                    'EventID'        => $event['EventID'])
 				);
 			}
 		}
@@ -608,8 +614,8 @@ class HelsingborgEventModel {
 			// Add the new ones
 			foreach ($administration_units as $administration_unit) {
 				$wpdb->insert('happy_event_administration_unit', array(
-					'AdministrationUnitID' => $administration_unit['ID'],
-					'EventID' => $event['EventID'])
+                    'AdministrationUnitID' => $administration_unit['ID'],
+                    'EventID'              => $event['EventID'])
 				);
 			}
 		}
@@ -617,9 +623,9 @@ class HelsingborgEventModel {
 		// Add Image
 		if ($image) {
 			$wpdb->update('happy_images', array(
-				'ImageID' => date('Y-m-d H:i:s'),
-				'ImagePath' => $image['ImagePath'],
-				'Author' => $image['Author'],
+                'ImageID'   => date('Y-m-d H:i:s'),
+                'ImagePath' => $image['ImagePath'],
+                'Author'    => $image['Author'],
 			), array('EventID' => $event['EventID'])
 			);
 		}
@@ -632,10 +638,10 @@ class HelsingborgEventModel {
 			// Add the new times
 			foreach ($times as $time) {
 				$wpdb->insert('happy_event_times', array(
-					'Date' => $time['Date'],
-					'Time' => $time['Time'],
-					'Price' => $time['Price'],
-					'EventID' => $event['EventID'],
+                    'Date'    => $time['Date'],
+                    'Time'    => $time['Time'],
+                    'Price'   => $time['Price'],
+                    'EventID' => $event['EventID'],
 				));
 			}
 		}

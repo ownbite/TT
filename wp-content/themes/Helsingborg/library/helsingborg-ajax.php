@@ -369,6 +369,7 @@ function save_event_callback() {
   $type        = $_POST['type'];
   $name        = $_POST['name'];
   $description = $_POST['description'];
+  $link        = $_POST['link'];
   $days        = $_POST['days'];
   $start_date  = $_POST['startDate'];
   $end_date    = $_POST['endDate'];
@@ -387,6 +388,7 @@ function save_event_callback() {
     'EventID'         => $id,
     'Name'            => $name,
     'Description'     => $description,
+    'Link'            => $link,
     'Approved'        => $approved,
     'OrganizerID'     => $organizer,
     'Location'        => $location,

@@ -69,6 +69,7 @@ if (!class_exists('EventListWidget')) {
             <div class="modal-event-info large-12 columns">
                 <h2 class="modal-title"></h2>
                 <p class="modal-description"></p>
+                <p class="modal-link"></p>
                 <!--<p class="modal-date"></p>-->
             </div>
           </div>
@@ -114,6 +115,7 @@ if (!class_exists('EventListWidget')) {
               event.preventDefault();
               var image = $('.modal-image');
               var title = $('.modal-title');
+              var link = $('.modal-link');
               var date = $('.modal-date');
               var description = $('.modal-description');
               var time_list = $('#time-modal');
@@ -163,6 +165,11 @@ if (!class_exists('EventListWidget')) {
 
               jQuery(image).attr("src", result.ImagePath);
               jQuery(title).html(result.Name);
+              if (result.Link) {
+                jQuery(link).html('<a href="' + result.Link + '" target="blank">' + result.Link + '</a>').show();
+              } else {
+                jQuery(link).hide();
+              }
               jQuery(date).html(result.Date);
               jQuery(description).html(result.Description);
           });

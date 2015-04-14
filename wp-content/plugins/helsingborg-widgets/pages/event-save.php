@@ -4,6 +4,7 @@ $id          = $_POST['id'];
 $type        = $_POST['type'];
 $name        = $_POST['name'];
 $description = $_POST['description'];
+$link        = $_POST['link'];
 $single_date = $_POST['singleDate'];
 $start_date  = $_POST['startDate'];
 $end_date    = $_POST['endDate'];
