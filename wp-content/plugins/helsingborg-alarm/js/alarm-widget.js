@@ -27,13 +27,11 @@ jQuery(document).ready(function() {
 			var _municipality = jQuery('.modalMunicipality');
 			var result;
 
-			for (var i = 0; i < _alarms.GetAlarmsForCitiesResult.length; i++) {
-				if (_alarms.GetAlarmsForCitiesResult[i].ID === this.id) {
-					result = _alarms.GetAlarmsForCitiesResult[i];
+			for (var i = 0; i < _alarms.length; i++) {
+				if (_alarms[i].ID === this.id) {
+					result = _alarms[i];
 				}
 			}
-
-			console.log(result);
 
 			jQuery(_title).html(result.HtText);
 			jQuery(_date).html(result.SentTime);
@@ -59,8 +57,6 @@ jQuery(document).ready(function() {
 				'Helsingborg', true);
 		}
 
-		console.log(selectedValues.join(';'));
-
 		jQuery.ajax({
 			type: 'GET',
 			url: ajaxalarm.url,
@@ -71,7 +67,7 @@ jQuery(document).ready(function() {
 			success: function(result) {
 				if (result) {
 					var data = jQuery.parseJSON(result);
-					_alarms = data;
+					_alarms = data.GetAlarmsForCitiesResult;
 					updateList(data.GetAlarmsForCitiesResult);
 				}
 			}
