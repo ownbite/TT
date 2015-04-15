@@ -33,6 +33,8 @@ jQuery(document).ready(function() {
 				}
 			}
 
+			console.log(result);
+
 			jQuery(_title).html(result.HtText);
 			jQuery(_date).html(result.SentTime);
 			jQuery(_event).html(result.HtText);
@@ -82,7 +84,7 @@ jQuery(document).ready(function() {
 			var alarm = '<li>';
 			alarm += '<span class="date">' + item.SentTime + '</span>';
 			alarm += '<a href="#" class="modalLinkAlarm" id="' + item.ID +
-				'" data-reveal-id="eventModal">' + item.HtText + '</a>';
+				'" data-reveal-id="alarmModal">' + item.HtText + '</a>';
 			alarm += '</li>';
 			jQuery(alarm).appendTo(jQuery('.alarm-list'));
 			return i < (_amount - 1);
