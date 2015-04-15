@@ -566,6 +566,9 @@ class HelsingborgEventModel {
 				);
 			}
 		}
+
+        // Send notification to appriving users
+        self::notify_by_email(implode(',', $administration_units));
 	}
 
 	/**
@@ -704,5 +707,45 @@ class HelsingborgEventModel {
 			}
 		}
 	}
+
+    /**
+     * Get users with access to specific AdministartionUnitIDs
+     * @param  integer $administartionUnitId The specified administartionUnitIDs
+     * @return object                        The users with access
+     */
+    public static function get_users_by_administration_unit_ids($administartionUnitIds) {
+        global $wpdb;
+
+        $users = $wpdb->get_results('
+            SELECT DISTINCT
+                u.Name,
+                u.Email
+            FROM
+                happy_user_administration_unit au
+            INNER JOIN happy_user u ON au.UserID = u.UserID
+            WHERE
+                au.AdministrationUnitID IN(' . $administartionUnitIds . ')
+        ', OBJECT);
+
+        return $users;
+    }
+
+    /**
+     * Sends an email notification to users with approve right that there's a new event to review
+     * @param  integer $administartionUnit Events AdministrationUnitID
+     * @return void                        Sends email notifications to approving users
+     */
+    public function notify_by_email($administartionUnitIds) {
+        // Get users
+        $users = self::get_users_by_administration_unit_ids($administartionUnitIds);
+
+        // Loop users and send emails
+        foreach ($users as $user) {
+            if (strlen($user->Email) > 0 && $user->Email != "NULL") {
+                wp_mail("kristoffer.svanmark@lexiconitkonsult.se", "Nytt evenemang att granska", "Ett nytt evenemang väntar på granskning i Helsingborg.se:s evenemangskalender.");
+                //echo "Email sent to: " . $user->Email . "<br>";
+            }
+        }
+    }
 }
 ?>
