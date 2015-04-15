@@ -57,6 +57,8 @@ jQuery(document).ready(function() {
 				'Helsingborg', true);
 		}
 
+		console.log(selectedValues.join(';'));
+
 		jQuery.ajax({
 			type: 'GET',
 			url: ajaxalarm.url,

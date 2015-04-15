@@ -42,7 +42,7 @@ if (!class_exists('AlarmListWidget')) {
       $amount    = empty($instance['amount'])    ? 10                  : $instance['amount'];
 
       // Get the default values
-      $json = file_get_contents('http://alarmservice.helsingborg.se/AlarmServices.svc/GetLatestAlarms');
+      $json = file_get_contents('http://alarmservice.helsingborg.se/AlarmServices.svc/GetAlarmsForCities/Bjuv;Helsingborg;Höganäs;Klippan;Landskrona;Åstorp;Ängelholm;Örkelljunga');
       $alarms = json_decode($json)->GetAlarmsForCitiesResult;
 
       // Print surrounding
@@ -54,14 +54,14 @@ if (!class_exists('AlarmListWidget')) {
 
       <div>
         <select id="municipality_multiselect">
-          <option value="Bjuv">Bjuv</option>
+          <option value="Bjuv" data-selected>Bjuv</option>
           <option value="Helsingborg" data-selected>Helsingborg</option>
-          <option value="Höganäs">Höganäs</option>
-          <option value="Klippan">Klippan</option>
-          <option value="Landskrona">Landskrona</option>
-          <option value="Åstorp">Åstorp</option>
-          <option value="Ängelholm">Ängelholm</option>
-          <option value="Örkelljunga">Örkelljunga</option>
+          <option value="Höganäs" data-selected>Höganäs</option>
+          <option value="Klippan" data-selected>Klippan</option>
+          <option value="Landskrona" data-selected>Landskrona</option>
+          <option value="Åstorp" data-selected>Åstorp</option>
+          <option value="Ängelholm" data-selected>Ängelholm</option>
+          <option value="Örkelljunga" data-selected>Örkelljunga</option>
         </select>
       </div>
 
