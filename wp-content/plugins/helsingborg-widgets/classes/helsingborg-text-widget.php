@@ -44,7 +44,6 @@ if (!class_exists('HbgTextWidget')) {
          * Enqueue js
          */
         public function addJs() {
-            global $pagenow;
             wp_enqueue_script('helsingborg-text-widget', plugins_url('helsingborg-widgets/js/helsingborg-text-widget.js'), array('jquery'), false, true);
         }
 
