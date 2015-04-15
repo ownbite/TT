@@ -111,10 +111,11 @@ class HelsingborgEventModel {
 
 	/**
 	 * Loads events by name
-	 * @param  string $name Name of the event to load
+	 * @param  string  $name        Name of the event to load
+     * @param  boolean $internal    Load internal events only (true) or load all events (false)
 	 * @return Array       Array of the selected data
 	 */
-	public static function load_events_with_name($name) {
+	public static function load_events_with_name($name, $onlyInternal = false) {
 		global $wpdb;
 
 		$query = 'SELECT DISTINCT
@@ -130,9 +131,12 @@ class HelsingborgEventModel {
                         AND he.Approved = 1
                         AND he.EventID = het.EventID
                         AND hefe.EventID= he.EventID
-                        AND LOWER(he.Name) LIKE "%' . strtolower($name) . '%"
-                    Group by he.EventID, he.Name
-                    ORDER BY Date, he.EventID';
+                        AND LOWER(he.Name) LIKE "%' . strtolower($name) . '%"'
+                    ;
+
+        if ($onlyInternal === true) $query .= ' AND he.ExternalEventId = ""';
+
+        $query .= ' Group by he.EventID, he.Name ORDER BY Date, he.EventID';
 
 		$events = $wpdb->get_results($query, ARRAY_A);
 

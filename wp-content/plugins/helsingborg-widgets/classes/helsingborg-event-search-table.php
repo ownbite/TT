@@ -71,7 +71,7 @@ class Helsingborg_Event_Search_Table extends WP_List_Table {
 
         $searchTerm = $_REQUEST['searchterm'];
         if ($searchTerm){
-          $data = HelsingborgEventModel::load_events_with_name($searchTerm);
+          $data = HelsingborgEventModel::load_events_with_name($searchTerm, true);
         } else {
           $data = array();
         }
