@@ -3,14 +3,14 @@
  */
 jQuery(document).ready(function ($) {
     // Read the hash from url
-    console.log(location.hash.length);
-    if (location.hash.length) {
+
+    if (location.hash.length && location.hash.indexOf('hbgtextwidget') !== -1) {
         var hash = location.hash.replace('#', '').split('|');
         var sidebar = hash[1];
         var widget = hash[0];
 
         // Open and scroll to the widget (found in the hash)
-        if (sidebar.length && widget.length) {
+        if ($('#' + sidebar).length && $('[id*=_' + widget + ']').length) {
             $('#' + sidebar).parents('.widgets-holder-wrap').addClass('open').removeClass('closed');
             $('[id*=_' + widget + '] .widget-inside').show();
             var scrollTo = $('[id*=_' + widget + ']').offset().top;
@@ -18,6 +18,8 @@ jQuery(document).ready(function ($) {
                 scrollTop: scrollTo
             }, 1000);
         }
+
+        location.hash = '';
     }
 });
 
@@ -38,10 +40,17 @@ jQuery(document).on('click', '.widget-control-save', function () {
 /**
  * Redirect/reload page after widget ajax update complete
  */
+var doRedirect = false;
+var removeClicked = false;
+
+jQuery(document).on('click', '.widget-control-remove', function (e) {
+    removeClicked = true;
+});
+
 jQuery(document).ajaxSuccess(function (e, xhr, settings) {
     var widgetBaseId = 'hbgtextwidget';
 
-    if(settings.data && settings.data.search('action=pw-save-widget') != -1 && settings.data.search('id_base=' + widgetBaseId) != -1) {
+    if (settings.data && settings.data.search('action=pw-save-widget') != -1 && settings.data.search('id_base=' + widgetBaseId) != -1) {
         var setArr = decodeURIComponent(settings.data).split('&');
         var parameters = new Array();
 
@@ -50,7 +59,15 @@ jQuery(document).ajaxSuccess(function (e, xhr, settings) {
             parameters[keyval[0]] = keyval[1];
         };
 
-        window.location.href = window.location.href.substr(0, window.location.href.indexOf('#')) + '#' + parameters['widget-id'] + '|' + parameters['sidebar'];
+        doRedirect = window.location.href.substr(0, window.location.href.indexOf('#')) + '#' + parameters['widget-id'] + '|' + parameters['sidebar'];
+        if (!removeClicked) {
+            location.href = doRedirect;
+            location.reload();
+        }
+    }
+
+    if (settings.data && settings.data.search('action=pw-widgets-order') != -1 && doRedirect !== false) {
+        location.href = doRedirect;
         location.reload();
     }
 });

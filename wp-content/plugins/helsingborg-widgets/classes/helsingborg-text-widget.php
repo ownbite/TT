@@ -20,7 +20,7 @@ if (!class_exists('HbgTextWidget')) {
             add_action('widgets_init', array($this, 'registerWidget'));
 
             // Enqueue js
-            add_action('widgets_init', array($this, 'addJs'));
+            add_action('admin_menu', array($this, 'addJs'));
 
             // Widget arguments
             parent::__construct(
