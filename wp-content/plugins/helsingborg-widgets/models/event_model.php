@@ -87,7 +87,7 @@ class HelsingborgEventModel {
 		AND hEFE.AdministrationUnitID = hFE.AdministrationUnitID
 		AND hEFE.AdministrationUnitID IN (' . $administation_unit_ids . ')
 		ORDER BY hETI.Date', OBJECT);
-		 */
+		*/
 
 		// Loop events to get their event types then add to events object
 		foreach ($events as $event) {
@@ -113,11 +113,13 @@ class HelsingborgEventModel {
 	 * Loads events by name
 	 * @param  string  $name        Name of the event to load
      * @param  boolean $internal    Load internal events only (true) or load all events (false)
+     * @param  int     $userId      User ID to check access
 	 * @return Array       Array of the selected data
 	 */
-	public static function load_events_with_name($name, $onlyInternal = false) {
+	public static function load_events_with_name($name, $onlyInternal = false, $userId = null) {
 		global $wpdb;
 
+        // Base query
 		$query = 'SELECT DISTINCT
                         he.EventID,
                         he.Name,
@@ -131,13 +133,30 @@ class HelsingborgEventModel {
                         AND he.Approved = 1
                         AND he.EventID = het.EventID
                         AND hefe.EventID= he.EventID
-                        AND LOWER(he.Name) LIKE "%' . strtolower($name) . '%"'
-                    ;
+                        AND LOWER(he.Name) LIKE "%' . strtolower($name) . '%"
+                    ';
 
+        // If show only internal
         if ($onlyInternal === true) $query .= ' AND he.ExternalEventId = ""';
 
+        // If user id only get the allowed administartion unit events
+        if ($userId !== null)
+        {
+            // Get allowed admin units
+            $administration_units = self::get_administration_units_by_id($userId);
+            if ($administration_units == 'all') {
+                $and_units = '';
+            } else {
+                $and_units = ' AND hefe.AdministrationUnitID IN (' . $administration_units . ')';
+            }
+
+            $query .= $and_units;
+        }
+
+        // Group and order
         $query .= ' Group by he.EventID, he.Name ORDER BY Date, he.EventID';
 
+        // Get query result
 		$events = $wpdb->get_results($query, ARRAY_A);
 
 		if (!$events || empty($events)) {
@@ -155,14 +174,49 @@ class HelsingborgEventModel {
 	public static function get_administration_units_by_id($happy_user_id) {
 		global $wpdb;
 
-		$administration_units = array();
-		$units = $wpdb->get_results('SELECT DISTINCT AdministrationUnitID FROM happy_user_administration_unit WHERE UserID IN(' . $happy_user_id . ') ORDER BY AdministrationUnitID', ARRAY_A);
+        // Get user role
+        $role = $wpdb->get_results('
+            SELECT DISTINCT
+                Role
+            FROM
+                happy_user
+            WHERE
+                UserID = ' . $happy_user_id . '
+        ', OBJECT);
 
-		foreach ($units as $unit) {
-			$administration_units[] = $unit['AdministrationUnitID'];
-		}
+        $role = $role[0]->Role;
 
-		$administration_units = implode(',', $administration_units);
+        // If Administartor, access all
+        if ($role == 'Administrator') {
+            $administration_units = 'all';
+            echo '<!-- Du har access till: alla -->';
+        }
+        // If not administrator, access selected
+        else {
+    		$administration_units = array();
+    		$units = $wpdb->get_results('SELECT DISTINCT
+                                                u.AdministrationUnitID,
+                                                a.Name
+                                            FROM happy_user_administration_unit u
+                                            INNER JOIN happy_administration_unit a ON u.AdministrationUnitID = a.AdministrationUnitID
+                                            WHERE u.UserID = ' . $happy_user_id . '
+                                            ORDER BY
+                                                u.AdministrationUnitID ASC
+                                        ', ARRAY_A);
+
+            echo '<!--
+                    Du har access till:' . "\n";
+
+    		foreach ($units as $unit) {
+    			$administration_units[] = $unit['AdministrationUnitID'];
+                echo $unit['AdministrationUnitID'] . '. ' . $unit['Name'] . "\n";
+    		}
+
+            echo '-->';
+
+    		$administration_units = implode(',', $administration_units);
+        }
+
 		return $administration_units;
 	}
 
@@ -193,7 +247,7 @@ class HelsingborgEventModel {
 		// Get administration units by happy_user_id
 		$administration_units = self::get_administration_units_by_id($happy_user_id);
 
-		if (strpos($administration_units, '0') !== false) {
+		if ($administration_units == 'all') {
 			$and_units = '';
 		} else {
 			$and_units = 'AND hefe.AdministrationUnitID IN (' . $administration_units . ')';
