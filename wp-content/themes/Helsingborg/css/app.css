@@ -5773,8 +5773,8 @@ body {
  * ----------------------------------------------------------------------------
  */
 figure {
-  margin: 0;
-  padding: 0; }
+  margin: 0 0 1.25rem 0 !important;
+  padding: 0 !important; }
 
 figcaption {
   margin-bottom: 1.25rem;

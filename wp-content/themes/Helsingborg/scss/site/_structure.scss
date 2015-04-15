@@ -54,8 +54,8 @@ body {
 
 // Reset margin and padding on figure element
 figure {
-	margin: 0;
-	padding: 0;
+	margin: 0 0 rem-calc(20) 0 !important;
+	padding: 0 !important;
 }
 
 // Add some basic styling for figcaption element
