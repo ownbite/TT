@@ -3,13 +3,14 @@
  */
 jQuery(document).ready(function ($) {
     // Read the hash from url
+    console.log(location.hash.length);
     if (location.hash.length) {
         var hash = location.hash.replace('#', '').split('|');
         var sidebar = hash[1];
         var widget = hash[0];
 
         // Open and scroll to the widget (found in the hash)
-        if (sidebar.length && wideget.length) {
+        if (sidebar.length && widget.length) {
             $('#' + sidebar).parents('.widgets-holder-wrap').addClass('open').removeClass('closed');
             $('[id*=_' + widget + '] .widget-inside').show();
             var scrollTo = $('[id*=_' + widget + ']').offset().top;
