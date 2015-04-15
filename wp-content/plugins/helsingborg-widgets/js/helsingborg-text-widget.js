@@ -3,17 +3,21 @@
  */
 jQuery(document).ready(function ($) {
     // Read the hash from url
-    var hash = location.hash.replace('#', '').split('|');
-    var sidebar = hash[1];
-    var widget = hash[0];
+    if (location.hash.length) {
+        var hash = location.hash.replace('#', '').split('|');
+        var sidebar = hash[1];
+        var widget = hash[0];
 
-    // Open and scroll to the widget (found in the hash)
-    $('#' + sidebar).parents('.widgets-holder-wrap').addClass('open').removeClass('closed');
-    $('[id*=_' + widget + '] .widget-inside').show();
-    var scrollTo = $('[id*=_' + widget + ']').offset().top;
-    $('html, body').animate({
-        scrollTop: scrollTo
-    }, 1000);
+        // Open and scroll to the widget (found in the hash)
+        if (sidebar.length && wideget.length) {
+            $('#' + sidebar).parents('.widgets-holder-wrap').addClass('open').removeClass('closed');
+            $('[id*=_' + widget + '] .widget-inside').show();
+            var scrollTo = $('[id*=_' + widget + ']').offset().top;
+            $('html, body').animate({
+                scrollTop: scrollTo
+            }, 1000);
+        }
+    }
 });
 
 /**

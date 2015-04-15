@@ -42,7 +42,7 @@ if (!class_exists('AlarmListWidget')) {
       $amount    = empty($instance['amount'])    ? 10                  : $instance['amount'];
 
       // Get the default values
-      $json = file_get_contents('http://alarmservice.helsingborg.se/AlarmServices.svc/GetAlarmsForCities/Helsingborg');
+      $json = file_get_contents('http://alarmservice.helsingborg.se/AlarmServices.svc/GetLatestAlarms');
       $alarms = json_decode($json)->GetAlarmsForCitiesResult;
 
       // Print surrounding
