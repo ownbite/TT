@@ -5726,6 +5726,29 @@ th.hide-for-touch {
 .news-widget ul li .date {
   display: block; }
 
+.alarm-widget .icon {
+  margin-left: 0.625rem; }
+  .alarm-widget .icon:after {
+    font-family: hbg-se-iconset;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    content: "\e611";
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: #ed8b00;
+    font-size: 1.5rem;
+    margin-bottom: -0.625rem;
+    vertical-align: bottom; }
+.alarm-widget a.rss-link {
+  text-decoration: none; }
+  .alarm-widget a.rss-link:hover {
+    text-decoration: none; }
+
 /**
  * Table of Contents for Helsingborg:
  *

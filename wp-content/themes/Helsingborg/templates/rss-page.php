@@ -3,6 +3,8 @@
 Template Name: RSS
 */
 
+    include(dirname(dirname(__FILE__)) . '/library/rss.php');
+
     /**
      * Get the posts metadata
      * @var Array
@@ -22,25 +24,6 @@ Template Name: RSS
     $pages = get_children($args);
     $numberOfPages = count($pages);
     $lastPage = $numberOfPages - 1;
-
-    /**
-     * Formats timestamp to RSS format
-     * @param  String $timestamp Unformatted timestamp
-     * @return String            Formatted timestamp
-     */
-    function helsingborg_rss_date($timestamp = null) {
-        $timestamp = ($timestamp == null) ? time() : strtotime($timestamp);
-        return date(DATE_RSS, $timestamp);
-    }
-
-    function helsingborg_rss_text_limit($string, $length, $replacer = '...') {
-        $string = strip_tags($string);
-        if(strlen($string) > $length) {
-            return (preg_match('/^(.*)\W.*$/', substr($string, 0, $length+1), $matches) ? $matches[1] : substr($string, 0, $length)) . $replacer;
-        } else {
-            return $string;
-        }
-    }
 
     header('Content-Type: application/rss+xml; charset=utf-8;');
 ?>
