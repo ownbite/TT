@@ -247,7 +247,10 @@ img.alignright {
 
 			a {
 				display: block;
-				color: $black;
+
+				p {
+					color: $black;
+				}
 
 				h2,
 				.read-more {

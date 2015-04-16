@@ -5916,8 +5916,9 @@ blockquote.alignright, img.alignright {
   .news-list-large li, .news-list-small li {
     margin-bottom: 2rem; }
     .news-list-large li a, .news-list-small li a {
-      display: block;
-      color: #000000; }
+      display: block; }
+      .news-list-large li a p, .news-list-small li a p {
+        color: #000000; }
       .news-list-large li a h2, .news-list-large li a .guide-list .title, .guide-list .news-list-large li a .title, .news-list-large li a .read-more, .news-list-small li a h2, .news-list-small li a .guide-list .title, .guide-list .news-list-small li a .title, .news-list-small li a .read-more {
         color: #009cde; }
       .news-list-large li a .read-more, .news-list-small li a .read-more {
