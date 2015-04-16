@@ -163,7 +163,7 @@ if (!class_exists('AlarmListWidget')) {
       $instance['link']      = strip_tags($new_instance['link']);
       $amount                = $new_instance['amount'];
       $instance['amount']    = $amount;
-      $instance['show_rss']  = $new_instance['show_rss'];
+      $instance['rss_link']  = $new_instance['rss_link'];
       return $instance;
     }
 
@@ -172,7 +172,7 @@ if (!class_exists('AlarmListWidget')) {
       $title     = strip_tags($instance['title']);
       $link      = strip_tags($instance['link']);
       $amount    = empty($instance['amount']) ? 10 : $instance['amount'];
-      $show_rss = empty($instance['show_rss']) ? '' : $instance['show_rss'];
+      $rss_link = $instance['rss_link'];
   ?>
       <p><label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Titel:'); ?></label>
       <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr($title); ?>" /></p>
