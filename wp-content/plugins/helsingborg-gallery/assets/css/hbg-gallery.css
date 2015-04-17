@@ -1,0 +1,71 @@
+.youtube-link-list {
+    padding: 0;
+    margin: 0;
+}
+
+.youtube-link-list li {
+    position: relative;
+    padding: 10px 10px 10px 26px;
+    margin: 0;
+    list-style: decimal inside;
+}
+
+.youtube-link-list li:not(.ui-state-highlight)::before {
+    content: '';
+    display: block;
+    width: 6px;
+    height: 14px;
+    position: absolute;
+    left: 12px;
+    top: 17px;
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAOCAIAAACD/fpyAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyhpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMDE0IDc5LjE1Njc5NywgMjAxNC8wOC8yMC0wOTo1MzowMiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTQgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6QjU0REUzRUZEQ0YwMTFFNDlEMjY5Q0FFN0U2NTA1MTciIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6QjU0REUzRjBEQ0YwMTFFNDlEMjY5Q0FFN0U2NTA1MTciPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpCNTRERTNFRERDRjAxMUU0OUQyNjlDQUU3RTY1MDUxNyIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpCNTRERTNFRURDRjAxMUU0OUQyNjlDQUU3RTY1MDUxNyIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pkf4Bs0AAAA4SURBVHjaYunp6WFgYCguLgaSvb29QJKJAQMw/v//H00IiypmXl7e48ePW1lZQcwCsoeQWQABBgCdeiMsM5XxjwAAAABJRU5ErkJggg==);
+    cursor: move;
+}
+
+.youtube-link-list li:nth-child(odd) {
+    background: #f9f9f9;
+}
+
+.youtube-link-list li input {
+    margin-left: 10px;
+    display: inline-block;
+    width: 80%;
+}
+
+#youtube-urls .inside {
+    margin: 0;
+    padding: 0;
+}
+
+#youtube-urls .actions {
+    padding: 10px 10px 10px 35px;
+    border-top: 1px solid #E5E5E5;
+}
+
+#youtube-urls .btn-add-row .dashicons {
+    font-size: 15px !important;
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: -2px;
+    margin-left: 0;
+    width: 15px;
+    height: 15px;
+}
+
+#youtube-urls .btn-remove-row {
+    color: #D54E21;
+    text-decoration: none;
+    position: relative;
+    top: 4px;
+    left: 10px;
+}
+
+#youtube-urls .btn-remove-row:hover {
+    color: #9d3917;
+}
+
+#youtube-urls .ui-state-highlight {
+    background: #d9f5fc;
+    list-style: none;
+    height: 30px;
+}
