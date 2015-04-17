@@ -104,6 +104,7 @@ if (!class_exists('HelsingborgGalleryCustomPost')) {
          */
         public function registerMetaBoxes() {
             add_meta_box('youtube-urls', 'Youtube länkar', array($this, 'youtubeMetaBox'), 'hbgGalleries', 'normal', 'high');
+            add_meta_box('shortcode', 'Shortcode', array($this, 'shortcodeMetaBox'), 'hbgGalleries', 'side', 'core');
         }
 
         /**
@@ -118,9 +119,9 @@ if (!class_exists('HelsingborgGalleryCustomPost')) {
         }
 
         /**
-         * Saves the metabox
-         * @param  [type] $post [description]
-         * @return [type]       [description]
+         * Saves the youtube metabox
+         * @param  integer $post The post id
+         * @return void          Saves the metadata
          */
         public function youtubeMetaBoxSave($post) {
 
@@ -147,6 +148,10 @@ if (!class_exists('HelsingborgGalleryCustomPost')) {
                     update_post_meta($post, 'gallery-items', '');
                 }
             }
+        }
+
+        public function shortcodeMetaBox($post, $args) {
+            echo "Här visar man shortcoden som man kan kopiera/klistra in i innehåll på annan sida för att visa galleriet.";
         }
     }
 
