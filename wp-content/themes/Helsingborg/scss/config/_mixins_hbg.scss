@@ -117,9 +117,3 @@
   background: -moz-linear-gradient(top,  $from, $to);
   filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$from}', endColorstr='#{$to}');
 }
-
-@mixin transform($str) {
-    transform: $str;
-    -moz-transform: $str;
-    -webkit-transform: $str;
-}

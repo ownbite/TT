@@ -65,10 +65,10 @@ jQuery(document).ready(function ($) {
                     // Render the item details to html elements
                     var item = response.items[0].snippet;
 
-                    console.log(item.thumbnails.high);
+                    console.log(item.thumbnails);
 
                     $container.find('.item-thumbnail').attr('src', item.thumbnails.medium.url);
-                    $container.find('.item-image-url').val(item.thumbnails.high.url);
+                    $container.find('.item-image-url').val(item.thumbnails.standard.url);
                     $container.find('.item-title').val(item.title);
                     $container.find('.item-description').val(item.description);
 

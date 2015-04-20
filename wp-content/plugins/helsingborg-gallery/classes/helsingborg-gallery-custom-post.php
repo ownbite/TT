@@ -30,7 +30,7 @@ if (!class_exists('HelsingborgGalleryCustomPost')) {
             /**
              * Run enqueue assets
              */
-            add_action('admin_enqueue_scripts', array($this, 'enqueueAdminAssets'), 10, 1);
+            add_action('admin_enqueue_scripts', array($this, 'enqueueAssets'), 10, 1);
 
             /**
              * Add shortcode for displaying galleries
@@ -93,13 +93,13 @@ if (!class_exists('HelsingborgGalleryCustomPost')) {
          * Enqueue required assets
          * @return void
          */
-        public function enqueueAdminAssets($hook) {
+        public function enqueueAssets($hook) {
             global $post_type;
 
             if ($post_type == 'hbggalleries' && ($hook == 'post-new.php' || $hook == 'post.php')) {
                 wp_enqueue_script('jquery-ui-sortable');
                 wp_enqueue_script('hbg-gallery-js', $this->_assetsPath . 'js/hbg-gallery.js');
-                wp_enqueue_script('hbg-gallery-media-selector-js', $this->_assetsPath . 'js/hbg-gallery-media-selector.js');
+                wp_enqueue_script('hbg-gallery-media-selector.js', $this->_assetsPath . 'js/hbg-gallery-media-selector.js');
                 wp_enqueue_style('hbg-gallery-css', $this->_assetsPath . 'css/hbg-gallery.css' );
             }
         }
@@ -160,12 +160,19 @@ if (!class_exists('HelsingborgGalleryCustomPost')) {
          * @return void        Renders/displays the gallery
          */
         public function renderGalleryFromShortcode($attr) {
-            wp_enqueue_script('hbg-gallery-front-js', $this->_assetsPath . 'js/hbg-gallery-front.js');
-
+            /**
+             * Get the given postid (gallery post id) from the short code
+             */
             $galleryId = $attr[0];
+
+            /**
+             * Get the gallery items
+             */
             $galleryItems = get_post_meta($galleryId, 'gallery-items')[0];
 
-
+            /**
+             * Require the gallery template
+             */
             require($this->_viewsPath . 'gallery-template.php');
         }
     }
