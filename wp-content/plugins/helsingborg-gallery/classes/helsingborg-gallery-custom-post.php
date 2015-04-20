@@ -30,7 +30,7 @@ if (!class_exists('HelsingborgGalleryCustomPost')) {
             /**
              * Run enqueue assets
              */
-            add_action('admin_enqueue_scripts', array($this, 'enqueueAssets'), 10, 1);
+            add_action('admin_enqueue_scripts', array($this, 'enqueueAssets'));
         }
 
         /**
@@ -46,7 +46,7 @@ if (!class_exists('HelsingborgGalleryCustomPost')) {
             $labels = array(
                 'name'               => _x('Gallerier', 'post type name'),
                 'singular_name'      => _x('Galleri', 'post type singular name'),
-                'menu_name'          => __('Mediagallerier'),
+                'menu_name'          => __('Video galleri'),
                 'add_new'            => __('Skapa nytt'),
                 'add_new_item'       => __('Skapa galleri'),
                 'edit_item'          => __('Redigera galleri'),
@@ -81,20 +81,19 @@ if (!class_exists('HelsingborgGalleryCustomPost')) {
             /**
              * Action to handle custom meta box save
              */
-            add_action('save_post', array($this, 'galleryItemsMetaBoxSave'));
+            add_action('save_post', array($this, 'youtubeMetaBoxSave'));
         }
 
         /**
          * Enqueue required assets
          * @return void
          */
-        public function enqueueAssets($hook) {
+        public function enqueueAssets() {
             global $post_type;
 
-            if ($post_type == 'hbggalleries' && ($hook == 'post-new.php' || $hook == 'post.php')) {
+            if ($post_type == 'hbggalleries') {
                 wp_enqueue_script('jquery-ui-sortable');
                 wp_enqueue_script('hbg-gallery-js', $this->_assetsPath . 'js/hbg-gallery.js');
-                wp_enqueue_script('hbg-gallery-media-selector.js', $this->_assetsPath . 'js/hbg-gallery-media-selector.js');
                 wp_enqueue_style('hbg-gallery-css', $this->_assetsPath . 'css/hbg-gallery.css' );
             }
         }
@@ -104,7 +103,7 @@ if (!class_exists('HelsingborgGalleryCustomPost')) {
          * @return void
          */
         public function registerMetaBoxes() {
-            add_meta_box('youtube-urls', 'Youtube länkar', array($this, 'galleryItemsMetaBox'), 'hbgGalleries', 'normal', 'high');
+            add_meta_box('youtube-urls', 'Youtube länkar', array($this, 'youtubeMetaBox'), 'hbgGalleries', 'normal', 'high');
             add_meta_box('shortcode', 'Shortcode', array($this, 'shortcodeMetaBox'), 'hbgGalleries', 'side', 'core');
         }
 
@@ -114,10 +113,9 @@ if (!class_exists('HelsingborgGalleryCustomPost')) {
          * @param  array $args   Callback arguments
          * @return void
          */
-        public function galleryItemsMetaBox($post, $args) {
+        public function youtubeMetaBox($post, $args) {
             $galleryItems = get_post_meta($post->ID, 'gallery-items')[0];
-            //exit(var_dump($galleryItems));
-            require($this->_viewsPath . 'metabox-gallery-items.php');
+            require($this->_viewsPath . 'metabox-youtube.php');
         }
 
         /**
@@ -125,14 +123,27 @@ if (!class_exists('HelsingborgGalleryCustomPost')) {
          * @param  integer $post The post id
          * @return void          Saves the metadata
          */
-        public function galleryItemsMetaBoxSave($post) {
+        public function youtubeMetaBoxSave($post) {
 
-            /**
-             * Update post meta if bgGallery is set
-             */
+            // Youtube link regex
+            $rx = '~
+                ^(?:https?://)?              # Optional protocol
+                 (?:www\.)?                  # Optional subdomain
+                 (?:youtube\.com|youtu\.be)  # Mandatory domain name
+                 /watch\?v=([^&]+)           # URI with video id as capture group 1
+                 ~x';
+
+            // If youtube-link exists
             if (isset($_POST['hbg-gallery'])) {
-                if (isset($_POST['gallery-items']) && is_array($_POST['gallery-items'])) {
-                    update_post_meta($post, 'gallery-items', $_POST['gallery-items']);
+                if (isset($_POST['youtube-link']) && is_array($_POST['youtube-link'])) {
+
+                    // Remove invalid keys
+                    foreach ($_POST['youtube-link'] as $key => $value) {
+                        if (preg_match($rx, $value['url'], $matches) == 0) unset($_POST['youtube-link'][$key]);
+                    }
+
+                    // Update the post meta
+                    update_post_meta($post, 'gallery-items', $_POST['youtube-link']);
                 } else {
                     update_post_meta($post, 'gallery-items', '');
                 }
