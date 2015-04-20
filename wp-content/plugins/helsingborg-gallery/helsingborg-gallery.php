@@ -1,8 +1,8 @@
 <?php
 /*
- * Plugin Name: Galleri
+ * Plugin Name: Helsingborg Galleri
  * Plugin URI: -
- * Description: Skapar en widget för att visa alarm samt möjlighet att lägga till karta.
+ * Description: Mediagalleri custom post type
  * Version: 1.0
  * Author: Kristoffer Svanmark
  * Author URI: -

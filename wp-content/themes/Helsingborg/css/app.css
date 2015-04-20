@@ -7718,10 +7718,8 @@ html.js.flexbox.flexboxlegacy.canvas.canvastext.webgl.no-touch.geolocation.postm
       height: 80px;
       left: 12px;
       top: 12px; }
-    .hbg-gallery-container .hbg-gallery-item.active .hbg-gallery-item-youtube-embed {
-      width: 150%;
-      height: 140%;
-      z-index: 10; }
+    .hbg-gallery-container .hbg-gallery-item.active {
+      width: 150%; }
 
 /* Assets */
 /* 

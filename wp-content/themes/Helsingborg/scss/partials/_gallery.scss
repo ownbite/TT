@@ -94,11 +94,7 @@
         }
 
         &.active {
-            .hbg-gallery-item-youtube-embed {
-                width: 150%;
-                height: 140%;
-                z-index: 10;
-            }
+            width: 150%;
         }
     }
 }
