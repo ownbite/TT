@@ -24,7 +24,6 @@ wp-content/plugins/*
 !wp-content/plugins/gravityforms
 !wp-content/plugins/helsingborg-alarm
 !wp-content/plugins/helsingborg-widgets
-!wp-content/plugins/helsingborg-gallery
 !wp-content/plugins/image-widget
 !wp-content/plugins/members
 !wp-content/plugins/p3-profiler
