@@ -31,11 +31,6 @@ if (!class_exists('HelsingborgGalleryCustomPost')) {
              * Run enqueue assets
              */
             add_action('admin_enqueue_scripts', array($this, 'enqueueAssets'), 10, 1);
-
-            /**
-             * Add shortcode for displaying galleries
-             */
-            add_shortcode('hbg-gallery', array($this, 'renderGalleryFromShortcode'));
         }
 
         /**
@@ -144,36 +139,8 @@ if (!class_exists('HelsingborgGalleryCustomPost')) {
             }
         }
 
-        /**
-         * Displays the shortcode to render the gallery in a post or page
-         * @param  integer $post The post
-         * @param  array   $args Arguments
-         * @return void          Displays the shortcode
-         */
         public function shortcodeMetaBox($post, $args) {
-            echo "[hbg-gallery $post->ID]";
-        }
-
-        /**
-         * Renders a gallery from the short code
-         * @param  array $attr Given attributes
-         * @return void        Renders/displays the gallery
-         */
-        public function renderGalleryFromShortcode($attr) {
-            /**
-             * Get the given postid (gallery post id) from the short code
-             */
-            $galleryId = $attr[0];
-
-            /**
-             * Get the gallery items
-             */
-            $galleryItems = get_post_meta($galleryId, 'gallery-items')[0];
-
-            /**
-             * Require the gallery template
-             */
-            require($this->_viewsPath . 'gallery-template.php');
+            echo "Här visar man shortcoden som man kan kopiera/klistra in i innehåll på annan sida för att visa galleriet.";
         }
     }
 
