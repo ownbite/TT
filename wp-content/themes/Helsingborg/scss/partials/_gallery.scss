@@ -10,7 +10,6 @@
         display: block;
         width: 100%;
         position: relative;
-        transition: .2s all;
 
         .hbg-gallery-item-image-container {
             position: relative;
@@ -54,13 +53,10 @@
         .hbg-gallery-item-title {
             position: absolute;
             z-index: 2;
-            bottom: 12px;
+            bottom: 10px;
             left: 15px;
             right: 15px;
             color: #fff;
-            font-weight: bold;
-            text-shadow: 0 5px 10px #000;
-            line-height: 120%;
         }
 
         .hbg-gallery-item-description {
@@ -74,7 +70,6 @@
             z-index: 4;
             width: 100%;
             height: 100%;
-            transition: .2s all;
 
             iframe {
                 width: 100%;
@@ -90,14 +85,6 @@
                 height: $icon-size;
                 left: 12px;
                 top: 12px;
-            }
-        }
-
-        &.active {
-            .hbg-gallery-item-youtube-embed {
-                width: 150%;
-                height: 140%;
-                z-index: 10;
             }
         }
     }
