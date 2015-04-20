@@ -67,8 +67,8 @@ jQuery(document).ready(function ($) {
 
                     console.log(item.thumbnails.high);
 
-                    $container.find('.item-thumbnail').attr('src', item.thumbnails.medium.url);
-                    $container.find('.item-image-url').val(item.thumbnails.high.url);
+                    $container.find('.item-thumbnail').attr('src', 'http://img.youtube.com/vi/' + ytId + '/maxresdefault.jpg');
+                    $container.find('.item-image-url').val('http://img.youtube.com/vi/' + ytId + '/maxresdefault.jpg');
                     $container.find('.item-title').val(item.title);
                     $container.find('.item-description').val(item.description);
 
