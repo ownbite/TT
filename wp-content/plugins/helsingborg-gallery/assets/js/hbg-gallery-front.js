@@ -3,6 +3,8 @@ jQuery(document).ready(function ($) {
     $('.hbg-gallery-container .hbg-gallery-item').on('click', function (e) {
         e.preventDefault();
 
+        $('.hbg-gallery-item').removeClass('active');
+
         // Check if youtube
         if ($(this).data('youtube').length > 0) {
             var youtube_url = $(this).data('youtube');
@@ -19,6 +21,8 @@ jQuery(document).ready(function ($) {
                 ');
             }
         }
+
+        $(this).addClass('active');
     })
 
 });
