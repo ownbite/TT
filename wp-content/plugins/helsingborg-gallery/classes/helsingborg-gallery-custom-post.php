@@ -163,12 +163,10 @@ if (!class_exists('HelsingborgGalleryCustomPost')) {
             wp_enqueue_script('hbg-gallery-front-js', $this->_assetsPath . 'js/hbg-gallery-front.js');
 
             $galleryId = $attr[0];
-            if (is_string(get_post_status($galleryId))) {
-                $galleryItems = get_post_meta($galleryId, 'gallery-items')[0];
-                require($this->_viewsPath . 'gallery-template.php');
-            } else {
-                echo "Det finns inget galleri med det angivna ID-numret!";
-            }
+            $galleryItems = get_post_meta($galleryId, 'gallery-items')[0];
+
+
+            require($this->_viewsPath . 'gallery-template.php');
         }
     }
 
