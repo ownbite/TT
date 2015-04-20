@@ -11,7 +11,6 @@
  */
 
 define('HELSINGBORG_GALLERY_BASE', plugin_dir_path(__FILE__));
-define('HELSINGBORG_GALLERY_URL', plugin_dir_url(__FILE__));
 
 /**
  * Import required plugin files

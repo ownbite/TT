@@ -5,7 +5,6 @@ if (!class_exists('HelsingborgGalleryCustomPost')) {
     class HelsingborgGalleryCustomPost {
 
         protected $_viewsPath;
-        protected $_assetsPath;
 
         /**
          * Construct function
@@ -18,19 +17,9 @@ if (!class_exists('HelsingborgGalleryCustomPost')) {
             $this->_viewsPath = HELSINGBORG_GALLERY_BASE . 'views/';
 
             /**
-             * Set the assetsPath
-             */
-            $this->_assetsPath = HELSINGBORG_GALLERY_URL . 'assets/';
-
-            /**
              * Runs the registerGalleryPostType() on init hook
              */
             add_action('init', array($this, 'registerGalleryPostType'));
-
-            /**
-             * Run enqueue assets
-             */
-            add_action('admin_enqueue_scripts', array($this, 'enqueueAssets'));
         }
 
         /**
@@ -77,25 +66,7 @@ if (!class_exists('HelsingborgGalleryCustomPost')) {
              * Register post type
              */
             register_post_type('hbgGalleries', $args);
-
-            /**
-             * Action to handle custom meta box save
-             */
             add_action('save_post', array($this, 'youtubeMetaBoxSave'));
-        }
-
-        /**
-         * Enqueue required assets
-         * @return void
-         */
-        public function enqueueAssets() {
-            global $post_type;
-
-            if ($post_type == 'hbggalleries') {
-                wp_enqueue_script('jquery-ui-sortable');
-                wp_enqueue_script('hbg-gallery-js', $this->_assetsPath . 'js/hbg-gallery.js');
-                wp_enqueue_style('hbg-gallery-css', $this->_assetsPath . 'css/hbg-gallery.css' );
-            }
         }
 
         /**
@@ -118,6 +89,7 @@ if (!class_exists('HelsingborgGalleryCustomPost')) {
         }
 
         public function youtubeMetaBoxSave($post) {
+            //exit(var_dump($_POST));
 
             // Youtube link regex
             $rx = '~
