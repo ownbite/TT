@@ -7,7 +7,7 @@
     position: relative;
     padding: 10px 10px 10px 26px;
     margin: 0;
-    border-bottom: 1px solid #E5E5E5;
+    list-style: decimal inside;
 }
 
 .youtube-link-list li:not(.ui-state-highlight)::before {
@@ -26,13 +26,20 @@
     background: #f9f9f9;
 }
 
+.youtube-link-list li input {
+    margin-left: 10px;
+    display: inline-block;
+    width: 80%;
+}
+
 #youtube-urls .inside {
     margin: 0;
     padding: 0;
 }
 
 #youtube-urls .actions {
-    padding: 10px 10px 10px 25px;
+    padding: 10px 10px 10px 35px;
+    border-top: 1px solid #E5E5E5;
 }
 
 #youtube-urls .btn-add-row .dashicons {
@@ -45,43 +52,20 @@
     height: 15px;
 }
 
+#youtube-urls .btn-remove-row {
+    color: #D54E21;
+    text-decoration: none;
+    position: relative;
+    top: 4px;
+    left: 10px;
+}
+
+#youtube-urls .btn-remove-row:hover {
+    color: #9d3917;
+}
+
 #youtube-urls .ui-state-highlight {
     background: #d9f5fc;
     list-style: none;
     height: 30px;
-}
-
-#youtube-urls .submitdelete {
-    color: #a00;
-}
-
-#youtube-urls .submitdelete:hover {
-    color: #ff0000;
-}
-
-#youtube-urls .youtube-link-list li .row-actions {
-    visibility: visible;
-}
-
-#youtube-urls .item-thumbnail {
-    float: left;
-    width: 320px;
-}
-
-#youtube-urls .item-info {
-    margin-left: 330px;
-}
-
-#youtube-urls .item-info p {
-    margin-top: 0;
-    margin-bottom: 1em;
-}
-
-#youtube-urls .item-description {
-    height: 90px;
-}
-
-#youtube-urls .item-details {
-    display: none;
-    margin-top: 10px;
 }

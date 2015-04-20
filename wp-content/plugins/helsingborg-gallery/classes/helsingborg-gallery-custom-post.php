@@ -113,15 +113,10 @@ if (!class_exists('HelsingborgGalleryCustomPost')) {
          * @return void
          */
         public function youtubeMetaBox($post, $args) {
-            $galleryItems = get_post_meta($post->ID, 'gallery-items')[0];
+            $youtubeLinks = json_decode(get_post_meta($post->ID, 'youtube-links')[0]);
             require($this->_viewsPath . 'metabox-youtube.php');
         }
 
-        /**
-         * Saves the metabox
-         * @param  [type] $post [description]
-         * @return [type]       [description]
-         */
         public function youtubeMetaBoxSave($post) {
 
             // Youtube link regex
@@ -138,13 +133,13 @@ if (!class_exists('HelsingborgGalleryCustomPost')) {
 
                     // Remove invalid keys
                     foreach ($_POST['youtube-link'] as $key => $value) {
-                        if (preg_match($rx, $value['url'], $matches) == 0) unset($_POST['youtube-link'][$key]);
+                        if (preg_match($rx, $value, $matches) == 0) unset($_POST['youtube-link'][$key]);
                     }
 
                     // Update the post meta
-                    update_post_meta($post, 'gallery-items', $_POST['youtube-link']);
+                    update_post_meta($post, 'youtube-links', json_encode($_POST['youtube-link']));
                 } else {
-                    update_post_meta($post, 'gallery-items', '');
+                    update_post_meta($post, 'youtube-links', '');
                 }
             }
         }
