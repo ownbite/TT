@@ -72,10 +72,12 @@ function helsingborg_meta_ArticlePage() {
       $parent_meta = get_post_meta($post_parent,'_helsingborg_meta',TRUE);
 
       // Check if parent want some data
-      if (!empty($parent_meta['list_options'])) {
+      if (!empty($parent_meta['list_options'])) {?>
 
-        // Take all keys from parent
-        $parent_keys = explode( ',', $parent_meta['list_options']);
+       
+      	<label for="helsingborg_meta_get_post_meta">Anges siffror var noga med att inleda med nolla vid ental!</label>
+        <?php // Take all keys from parent
+      	$parent_keys = explode( ',', $parent_meta['list_options']);
 
         // Go through all items in list-array
         foreach ($list as $key => $value) :
