@@ -68,41 +68,51 @@
 
 	</head>
 	<body>
-	<div class="off-canvas-wrap" data-offcanvas>
-	<div class="inner-wrap">
+		<script>
+		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-	<?php get_template_part('templates/partials/mobile','menu'); ?>
+		  ga('create', 'UA-16678811-1', 'auto');
+		  ga('send', 'pageview');
+		</script>
 
-	<a class="exit-off-canvas"></a>
-	<nav class="mobile-nav" role="navigation">
-			<div class="mobile-navigation clearfix" role="navigation">
-					<a href="#" class="show-mobile-nav left-off-canvas-toggle">Meny</a>
-					<a href="#" class="show-mobile-search">Sök</a>
-			</div>
-			<div class="mobile-search">
-					<div class="mobile-search-input-container">
-						<form role="search" method="get" id="searchform" action="<?php echo home_url('/'); ?>">
-							<input type="text" class="mobile-search-input" name="s" placeholder="Din S&ouml;kning"/>
-							<input type="submit" class="mobile-search-btn" value="s&ouml;k" />
-						</form>
-					</div>
-			</div>
-	</nav><!-- mobile top nav -->
+		<div class="off-canvas-wrap" data-offcanvas>
+		<div class="inner-wrap">
 
-	<!-- HEADER START -->
-	<div class="main-site-container">
-		<div class="site-bg"></div>
-			<div class="site-header row">
-					<div class="site-logo large-4 medium-4 columns">
-							<?php
-								// Get the baseurl of this site to set the logo href
-								$logo_link = parse_url(get_site_url(), PHP_URL_SCHEME) . '://' . parse_url(get_site_url(), PHP_URL_HOST);
-							?>
-							<a href="<?php echo $logo_link; ?>" class="logo-link">
-								<img src="<?php echo get_stylesheet_directory_uri() ; ?>/assets/img/images/hbg-logo.svg" alt="helsingborg stad" class="logo" />
-							</a>
-					</div><!-- /.site-logo -->
+		<?php get_template_part('templates/partials/mobile','menu'); ?>
 
-					<?php Helsingborg_support_menu(); ?>
+		<a class="exit-off-canvas"></a>
+		<nav class="mobile-nav" role="navigation">
+				<div class="mobile-navigation clearfix" role="navigation">
+						<a href="#" class="show-mobile-nav left-off-canvas-toggle">Meny</a>
+						<a href="#" class="show-mobile-search">Sök</a>
+				</div>
+				<div class="mobile-search">
+						<div class="mobile-search-input-container">
+							<form role="search" method="get" id="searchform" action="<?php echo home_url('/'); ?>">
+								<input type="text" class="mobile-search-input" name="s" placeholder="Din S&ouml;kning"/>
+								<input type="submit" class="mobile-search-btn" value="s&ouml;k" />
+							</form>
+						</div>
+				</div>
+		</nav><!-- mobile top nav -->
 
-			</div><!-- /.site-header -->
+		<!-- HEADER START -->
+		<div class="main-site-container">
+			<div class="site-bg"></div>
+				<div class="site-header row">
+						<div class="site-logo large-4 medium-4 columns">
+								<?php
+									// Get the baseurl of this site to set the logo href
+									$logo_link = parse_url(get_site_url(), PHP_URL_SCHEME) . '://' . parse_url(get_site_url(), PHP_URL_HOST);
+								?>
+								<a href="<?php echo $logo_link; ?>" class="logo-link">
+									<img src="<?php echo get_stylesheet_directory_uri() ; ?>/assets/img/images/hbg-logo.svg" alt="helsingborg stad" class="logo" />
+								</a>
+						</div><!-- /.site-logo -->
+
+						<?php Helsingborg_support_menu(); ?>
+
+				</div><!-- /.site-header -->
