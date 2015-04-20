@@ -7648,13 +7648,14 @@ html.js.flexbox.flexboxlegacy.canvas.canvastext.webgl.no-touch.geolocation.postm
   background: #000; }
 
 .hbg-gallery-container {
-  margin: 20px 0; }
+  margin: 20px 0;
+  position: relative; }
   .hbg-gallery-container .columns {
     margin: 0;
     padding: 0; }
   .hbg-gallery-container .hbg-gallery-item {
     display: block;
-    width: 100%;
+    width: 25%;
     position: relative;
     transition: .2s all; }
     .hbg-gallery-container .hbg-gallery-item .hbg-gallery-item-image-container {
@@ -7719,7 +7720,7 @@ html.js.flexbox.flexboxlegacy.canvas.canvastext.webgl.no-touch.geolocation.postm
       left: 12px;
       top: 12px; }
     .hbg-gallery-container .hbg-gallery-item.active {
-      width: 150%; }
+      width: 50%; }
 
 /* Assets */
 /* 

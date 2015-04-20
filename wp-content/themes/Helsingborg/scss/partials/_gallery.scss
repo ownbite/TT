@@ -1,5 +1,6 @@
 .hbg-gallery-container {
     margin: 20px 0;
+    position: relative;
 
     .columns {
         margin: 0;
@@ -8,7 +9,7 @@
 
     .hbg-gallery-item {
         display: block;
-        width: 100%;
+        width: 25%;
         position: relative;
         transition: .2s all;
 
@@ -94,7 +95,7 @@
         }
 
         &.active {
-            width: 150%;
+            width: 50%;
         }
     }
 }
