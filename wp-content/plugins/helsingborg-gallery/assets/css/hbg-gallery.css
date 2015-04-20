@@ -1,16 +1,16 @@
-.youtube-link-list {
+.gallery-items-list {
     padding: 0;
     margin: 0;
 }
 
-.youtube-link-list li {
+.gallery-items-list li {
     position: relative;
     padding: 10px 10px 10px 26px;
     margin: 0;
     border-bottom: 1px solid #E5E5E5;
 }
 
-.youtube-link-list li:not(.ui-state-highlight)::before {
+.gallery-items-list li:not(.ui-state-highlight)::before {
     content: '';
     display: block;
     width: 6px;
@@ -22,7 +22,7 @@
     cursor: move;
 }
 
-.youtube-link-list li:nth-child(odd) {
+.gallery-items-list li:nth-child(odd) {
     background: #f9f9f9;
 }
 
@@ -59,7 +59,7 @@
     color: #ff0000;
 }
 
-#youtube-urls .youtube-link-list li .row-actions {
+#youtube-urls .gallery-items-list li .row-actions {
     visibility: visible;
 }
 

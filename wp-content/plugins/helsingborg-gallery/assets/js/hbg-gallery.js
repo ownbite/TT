@@ -2,7 +2,13 @@ jQuery(document).ready(function ($) {
     /**
      * Holds the item template
      */
-    var templateHtml = $('#youtube-urls .youtube-link-list li:last')[0].outerHTML;
+    var templateYoutube = $('#youtube-urls .gallery-items-list li.item-youtube')[0].outerHTML;
+    var templateImage = $('#youtube-urls .gallery-items-list li.item-image')[0].outerHTML;
+
+    /**
+     * Removes the template node if there's any and then adds a correct node
+     */
+    $('#youtube-urls .gallery-items-list li.item-template').remove();
 
     /**
      * Adds a new list item on click
@@ -10,28 +16,34 @@ jQuery(document).ready(function ($) {
     $('#youtube-urls .btn-add-row').on('click', function (e) {
         e.preventDefault();
 
+        // Find which template to use
+        var template = $(this).data('template');
+        var templateHtml = null;
+
+        switch (template) {
+            case 'item-youtube':
+                templateHtml = templateYoutube;
+                break;
+
+            case 'item-image':
+                templateHtml = templateImage;
+                break;
+        }
+
         // Append correct node int to item row
-        var num_rows = $('#youtube-urls .youtube-link-list li').length;
+        var num_rows = $('#youtube-urls .gallery-items-list li').length;
         var new_row_html = templateHtml.replace(/{node}/g, num_rows);
 
         // Set up template
         var template = $(new_row_html);
-        template.find('input, textarea').val('');
-        $('#youtube-urls .youtube-link-list').append(template);
+        template.find('input:not([name*=media]), textarea').val('');
+        $('#youtube-urls .gallery-items-list').append(template);
     });
-
-    /**
-     * Removes the template node if there's any and then adds a correct node
-     */
-    $('#youtube-urls .youtube-link-list li:last').remove();
-    if ($('#youtube-urls .youtube-link-list li').length == 0) {
-        $('#youtube-urls .btn-add-row').trigger('click');
-    }
 
     /**
      * If input is valid youtube-link, get the video details from youtube api with ajax
      */
-    $(document).on('input paste', '#youtube-urls .youtube-link-list input', function (e) {
+    $(document).on('input paste', '#youtube-urls .gallery-items-list input', function (e) {
         e.stopPropagation();
 
         if (isValidYoutube($(this).val())) {
@@ -53,8 +65,10 @@ jQuery(document).ready(function ($) {
                     // Render the item details to html elements
                     var item = response.items[0].snippet;
 
+                    console.log(item.thumbnails);
+
                     $container.find('.item-thumbnail').attr('src', item.thumbnails.medium.url);
-                    $container.find('.item-image-url').val(item.thumbnails.medium.url);
+                    $container.find('.item-image-url').val(item.thumbnails.standard.url);
                     $container.find('.item-title').val(item.title);
                     $container.find('.item-description').val(item.description);
 
@@ -70,7 +84,7 @@ jQuery(document).ready(function ($) {
     /**
      * Removes a list item
      */
-    $(document).on('click', '#youtube-urls .youtube-link-list .btn-remove-row', function (e) {
+    $(document).on('click', '#youtube-urls .gallery-items-list .btn-remove-row', function (e) {
         e.preventDefault();
         $(this).parents('li').remove();
     });
@@ -78,7 +92,7 @@ jQuery(document).ready(function ($) {
     /**
      * Activate sortable in the list
      */
-    $('#youtube-urls .youtube-link-list').sortable({
+    $('#youtube-urls .gallery-items-list').sortable({
         placeholder: "ui-state-highlight"
     });
 });
