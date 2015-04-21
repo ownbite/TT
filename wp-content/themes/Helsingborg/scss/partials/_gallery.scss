@@ -10,17 +10,22 @@
     .hbg-gallery-item {
         display: block;
         width: 25%;
+        padding-bottom: 20%;
         position: relative;
-        transition: .2s all;
+        float: left;
+        overflow: hidden;
+        //transition: .2s all;
 
         .hbg-gallery-item-image-container {
-            position: relative;
+            position: absolute;
+            top: 0;
+            left: 0;
             z-index: 1;
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center center;
             width: 100%;
-            padding-bottom: 75%;
+            height: 100%;
 
             &::after {
                 display: block;
@@ -33,18 +38,18 @@
                 @include gradient(rgba(0, 0, 0, 0), rgba(0,0,0,.9));
             }
 
-            .youtube-play {
-                $icon-size: 50px;
+            .hbg-gallery-media-icon {
+                $icon-size: 30px;
                 position: absolute;
                 z-index: 2;
-                color: #E20613;
+                color: #FFFFFF;
                 font-size: $icon-size;
                 width: $icon-size;
                 height: $icon-size;
                 left: 15px;
                 top: 15px;
                 text-shadow: 0 0 30px rgba(255, 255, 255, .5);
-                transition: .2s all;
+                transition: .1s all;
             }
 
             .hbg-gallery-item-image {
@@ -62,6 +67,7 @@
             font-weight: bold;
             text-shadow: 0 5px 10px #000;
             line-height: 120%;
+            transition: .1s all;
         }
 
         .hbg-gallery-item-description {
@@ -75,7 +81,6 @@
             z-index: 4;
             width: 100%;
             height: 100%;
-            transition: .2s all;
 
             iframe {
                 width: 100%;
@@ -83,19 +88,58 @@
             }
         }
 
-        &:hover {
-            .youtube-play {
-                $icon-size: 80px;
+        &:hover:not(.active) {
+            .hbg-gallery-media-icon {
+                $icon-size: 60px;
                 font-size: $icon-size;
                 width: $icon-size;
                 height: $icon-size;
-                left: 12px;
-                top: 12px;
+                left: 50%;
+                top: 50%;
+                margin-left: -$icon-size/2;
+                margin-top: -$icon-size/2;
+            }
+
+            .hbg-gallery-item-title {
+                bottom: -100%;
             }
         }
 
         &.active {
             width: 50%;
+            padding-bottom: 40%;
+        }
+    }
+
+    .hbg-gallery-item-image {
+        .hbg-gallery-item-description {
+            display: block;
+            position: absolute;
+            z-index: 5;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 30px;
+            background: rgba(0, 0, 0, .7);
+            color: #fff;
+            overflow-y: auto;
+            transition: .2s all;
+        }
+
+        &.active {
+            .hbg-gallery-item-description {
+                top: 0;
+            }
+
+            .hbg-gallery-item-title {
+                bottom: -100%;
+            }
+
+            .hbg-gallery-media-icon {
+                left: -50%;
+                top: -50%;
+            }
         }
     }
 }
