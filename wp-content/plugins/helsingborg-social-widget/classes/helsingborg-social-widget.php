@@ -40,7 +40,8 @@ if (!class_exists('HelsingborgSocialWidget')) {
          * Enqueue js
          */
         public function addJs() {
-            wp_enqueue_script('helsingborg-social-widget', plugins_url('helsingborg-social-widget/assets/js/helsingborg-social-widget.js'), array('jquery'), false, true);
+            wp_enqueue_script('helsingborg-social-widget-js', plugins_url('helsingborg-social-widget/assets/js/helsingborg-social-widget.js'), array('jquery'), false, true);
+            wp_enqueue_style('helsingborg-social-widget-css', plugins_url('helsingborg-social-widget/assets/css/helsingborg-social-widget.css'));
             wp_enqueue_style('http//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css');
         }
 
@@ -61,6 +62,30 @@ if (!class_exists('HelsingborgSocialWidget')) {
         */
         public function update($newInstance, $oldInstance) {
 
+            $instance = array();
+            $instance['feedType'] = $newInstance['feedType'];
+
+            switch ($type = $instance['feedType']) {
+                case 'facebook':
+                    $instance['username']   = $this->getFbUserFromUrl($newInstance[$type . '-url']);
+                    $instance['show_count'] = $newInstance[$type . '-count'];
+                    $instance['key']        = null;
+                    break;
+
+                case 'pinterest':
+                    $instance['username']   = $this->getFbUserFromUrl($newInstance[$type . '-url']);
+                    $instance['show_count'] = $newInstance[$type . '-count'];
+                    $instance['key']        = null;
+                    break;
+
+                default:
+                    $instance['username']   = $newInstance[$type . '-user'];
+                    $instance['show_count'] = $newInstance[$type . '-count'];
+                    $instance['key']        = $newInstance[$type . '-key'];
+                    break;
+            }
+
+            return $instance;
         }
 
         /**
@@ -72,6 +97,13 @@ if (!class_exists('HelsingborgSocialWidget')) {
         public function widget($args, $instance) {
             extract($args);
             //require($this->_viewsPath . 'hbgtextwidget-widget.php');
+        }
+
+        public function getFbUserFromUrl($url) {
+            $matches = null;
+            preg_match_all('/([A-Z1-9-_])\w+/', $url, $matches);
+            $username = $matches[0][0];
+            return $username;
         }
 
     }

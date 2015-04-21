@@ -1,14 +1,67 @@
 <p>
-    <label>Välj typ av flöde:</label>
+    <label>Välj typ av flöde: <?=$instance['feedType']?></label>
     <div class="button-group hbg-social-widget-type">
-        <a href="#" class="button" data-toggle=".hbg-social-widget-section-facebook"><i class="fa fa-facebook-square"></i> Facebook</a>
-        <a href="#" class="button" data-toggle=".hbg-social-widget-section-instagram"><i class="fa fa-instagram"></i> Instagram</a>
-        <a href="#" class="button" data-toggle=".hbg-social-widget-section-twitter"><i class="fa fa-twitter-square"></i> Twitter</a>
-        <a href="#" class="button" data-toggle=".hbg-social-widget-section-pinterest"><i class="fa fa-pinterest-square"></i> Pinterest</a>
+        <a href="#" class="button <?php if ($instance['feedType'] == 'facebook') echo 'active'; ?>" data-toggle=".hbg-social-widget-section-facebook" data-type="facebook"><i class="fa fa-facebook-square"></i> Facebook</a>
+        <a href="#" class="button <?php if ($instance['feedType'] == 'instagram') echo 'active'; ?>" data-toggle=".hbg-social-widget-section-instagram" data-type="instagram"><i class="fa fa-instagram"></i> Instagram</a>
+        <a href="#" class="button <?php if ($instance['feedType'] == 'twitter') echo 'active'; ?>" data-toggle=".hbg-social-widget-section-twitter" data-type="twitter"><i class="fa fa-twitter-square"></i> Twitter</a>
+        <a href="#" class="button <?php if ($instance['feedType'] == 'pinterest') echo 'active'; ?>" data-toggle=".hbg-social-widget-section-pinterest" data-type="pinterest"><i class="fa fa-pinterest-square"></i> Pinterest</a>
     </div>
+    <input type="hidden" name="<?php echo $this->get_field_name('feedType'); ?>" value="<?php echo $instance['feedType']; ?>">
 </p>
 <p>
-    <section class="hbg-social-widget-section-facebook">
-        Facebook
+    <!-- ## FACEBOOK ## -->
+    <section class="hbg-social-widget-section-facebook <?php if ($instance['feedType'] == 'facebook') echo 'active'; ?>">
+        <p>
+            <label>URL till Facebook-sida:</label>
+            <input type="text" id="<?php echo $this->get_field_id('facebook-url'); ?>" name="<?php echo $this->get_field_name('facebook-url'); ?>" class="widefat" value="https://facebook.com/<?php echo $instance['username']; ?>">
+        </p>
+        <p>
+            <label>Antal poster att visa:</label>
+            <input type="number" id="<?php echo $this->get_field_id('facebook-count'); ?>" name="<?php echo $this->get_field_name('facebook-count'); ?>" class="widefat" value="<?php echo $instance['show_count']; ?>">
+        </p>
+    </section>
+
+    <!-- ## INSTAGRAM ## -->
+    <section class="hbg-social-widget-section-instagram <?php if ($instance['feedType'] == 'instagram') echo 'active'; ?>">
+        <p>
+            <label>API Nyckel:</label>
+            <input type="text" id="<?php echo $this->get_field_id('instagram-key'); ?>" name="<?php echo $this->get_field_name('instagram-key'); ?>" class="widefat"  value="<?php echo $instance['key']; ?>">
+        </p>
+        <p>
+            <label>Användare att hämta:</label>
+            <input type="text" id="<?php echo $this->get_field_id('instagram-user'); ?>" name="<?php echo $this->get_field_name('instagram-user'); ?>" class="widefat"  value="<?php echo $instance['username']; ?>">
+        </p>
+        <p>
+            <label>Antal poster att visa:</label>
+            <input type="number" id="<?php echo $this->get_field_id('instagram-count'); ?>" name="<?php echo $this->get_field_name('instagram-count'); ?>" class="widefat"  value="<?php echo $instance['show_count']; ?>">
+        </p>
+    </section>
+
+    <!-- ## TWITTER ## -->
+    <section class="hbg-social-widget-section-twitter <?php if ($instance['feedType'] == 'twitter') echo 'active'; ?>">
+        <p>
+            <label>API Nyckel:</label>
+            <input type="text" id="<?php echo $this->get_field_id('twitter-key'); ?>" name="<?php echo $this->get_field_name('twitter-key'); ?>" class="widefat"  value="<?php echo $instance['key']; ?>">
+        </p>
+        <p>
+            <label>Användare att hämta:</label>
+            <input type="text" id="<?php echo $this->get_field_id('twitter-user'); ?>" name="<?php echo $this->get_field_name('twitter-user'); ?>" class="widefat"  value="<?php echo $instance['username']; ?>">
+        </p>
+        <p>
+            <label>Antal poster att visa:</label>
+            <input type="number" id="<?php echo $this->get_field_id('twitter-count'); ?>" name="<?php echo $this->get_field_name('twitter-count'); ?>" class="widefat" value="<?php echo $instance['show_count']; ?>">
+        </p>
+    </section>
+
+    <!-- ## PINTEREST ## -->
+    <section class="hbg-social-widget-section-pinterest <?php if ($instance['feedType'] == 'pinterest') echo 'active'; ?>">
+        <p>
+            <label>Användare att hämta:</label>
+            <input type="text" id="<?php echo $this->get_field_id('pinterest-user'); ?>" name="<?php echo $this->get_field_name('pinterest-user'); ?>" class="widefat"  value="<?php echo $instance['username']; ?>">
+        </p>
+        <p>
+            <label>Antal poster att visa:</label>
+            <input type="number" id="<?php echo $this->get_field_id('pinterest-count'); ?>" name="<?php echo $this->get_field_name('pinterest-count'); ?>" class="widefat" value="<?php echo $instance['show_count']; ?>">
+        </p>
     </section>
 </p>
