@@ -131,7 +131,6 @@ if (!class_exists('HelsingborgGalleryCustomPost')) {
          * @return void          Saves the metadata
          */
         public function galleryItemsMetaBoxSave($post) {
-
             /**
              * Update post meta if bgGallery is set
              */
@@ -165,9 +164,11 @@ if (!class_exists('HelsingborgGalleryCustomPost')) {
             $galleryId = $attr[0];
             if (is_string(get_post_status($galleryId))) {
                 $galleryItems = get_post_meta($galleryId, 'gallery-items')[0];
+                ob_start();
                 require($this->_viewsPath . 'gallery-template.php');
+                return ob_get_clean();
             } else {
-                echo "Det finns inget galleri med det angivna ID-numret!";
+                return "Det finns inget galleri med det angivna ID-numret!";
             }
         }
     }
