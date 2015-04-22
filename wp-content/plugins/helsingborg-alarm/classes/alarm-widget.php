@@ -41,9 +41,18 @@ if (!class_exists('AlarmListWidget')) {
       $link      = empty($instance['link'])      ? '#'                 : $instance['link'];
       $amount    = empty($instance['amount'])    ? 10                  : $instance['amount'];
 
+      $rss_link  = $instance['rss_link'];
+
+      if (strlen($rss_link) > 0) {
+        $title .= '<a href="' . $rss_link . '" class="rss-link"><span class="icon"></span></a>';
+
+        $widget_class = "alarm-widget ";
+        $before_widget = str_replace('widget', $widget_class . 'widget', $before_widget);
+      }
+
       // Get the default values
-      $json = file_get_contents('http://alarmservice.helsingborg.se/AlarmServices.svc/GetAlarmsForCities/Helsingborg');
-      $alarms = json_decode($json)->GetAlarmsForCitiesResult;
+      $json = file_get_contents('http://alarmservice.helsingborg.se/AlarmServices.svc/GetLatestAlarms');
+      $alarms = json_decode($json)->GetLatestAlarmsResult;
 
       // Print surrounding
       echo $before_widget;
@@ -55,7 +64,7 @@ if (!class_exists('AlarmListWidget')) {
       <div>
         <select id="municipality_multiselect">
           <option value="Bjuv">Bjuv</option>
-          <option value="Helsingborg" data-selected>Helsingborg</option>
+          <option value="Helsingborg">Helsingborg</option>
           <option value="Höganäs">Höganäs</option>
           <option value="Klippan">Klippan</option>
           <option value="Landskrona">Landskrona</option>
@@ -74,7 +83,7 @@ if (!class_exists('AlarmListWidget')) {
       for($i=0;$i<$show; $i++) : ?>
         <li>
           <span class="date"><?php echo $alarms[$i]->SentTime; ?></span>
-          <a href="#" class="modalLink" id="<?php echo $alarms[$i]->ID ?>" data-reveal-id="eventModal"><?php echo $alarms[$i]->HtText ?></a>
+          <a href="#" class="modalLinkAlarm" id="<?php echo $alarms[$i]->ID ?>" data-reveal-id="alarmModal"><?php echo $alarms[$i]->HtText ?></a>
         </li>
       <?php endfor; ?>
 
@@ -85,7 +94,7 @@ if (!class_exists('AlarmListWidget')) {
       <a href="<?php echo $link; ?>" class="read-more">Till arkivet</a>
 
       <div class="reveal-modal-bg"></div>
-      <div id="eventModal" class="reveal-modal" data-reveal>
+      <div id="alarmModal" class="reveal-modal" data-reveal>
         <h2 class="section-title">Alarm</h2>
 
         <div class="divider fade">
@@ -142,7 +151,7 @@ if (!class_exists('AlarmListWidget')) {
 
       <script>
         var _amount = <?php echo $amount; ?>;
-        var _alarms = <?php echo $json; ?>;
+        var _alarms = <?php echo json_encode($alarms); ?>;
       </script>
 
       <?php
@@ -154,6 +163,7 @@ if (!class_exists('AlarmListWidget')) {
       $instance['link']      = strip_tags($new_instance['link']);
       $amount                = $new_instance['amount'];
       $instance['amount']    = $amount;
+      $instance['rss_link']  = $new_instance['rss_link'];
       return $instance;
     }
 
@@ -162,6 +172,7 @@ if (!class_exists('AlarmListWidget')) {
       $title     = strip_tags($instance['title']);
       $link      = strip_tags($instance['link']);
       $amount    = empty($instance['amount']) ? 10 : $instance['amount'];
+      $rss_link = $instance['rss_link'];
   ?>
       <p><label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Titel:'); ?></label>
       <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr($title); ?>" /></p>
@@ -171,6 +182,9 @@ if (!class_exists('AlarmListWidget')) {
 
       <p><label for="<?php echo $this->get_field_id('amount'); ?>"><?php _e('Antal alarm:'); ?></label>
       <input class="widefat" id="<?php echo $this->get_field_id('amount'); ?>" name="<?php echo $this->get_field_name('amount'); ?>" type="number" value="<?php echo esc_attr($amount); ?>" /></p>
+
+      <p><label for="<?php echo $this->get_field_id('rss_link'); ?>"><?php _e('RSS Länk:'); ?></label>
+      <input class="widefat" id="<?php echo $this->get_field_id('rss_link'); ?>" name="<?php echo $this->get_field_name('rss_link'); ?>" type="text" value="<?php echo esc_attr($rss_link); ?>" /></p>
 <?php
     }
   }

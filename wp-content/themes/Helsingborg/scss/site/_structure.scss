@@ -54,8 +54,8 @@ body {
 
 // Reset margin and padding on figure element
 figure {
-	margin: 0;
-	padding: 0;
+	margin: 0 0 rem-calc(20) 0 !important;
+	padding: 0 !important;
 }
 
 // Add some basic styling for figcaption element
@@ -247,7 +247,10 @@ img.alignright {
 
 			a {
 				display: block;
-				color: $black;
+
+				p {
+					color: $black;
+				}
 
 				h2,
 				.read-more {
@@ -405,6 +408,10 @@ img.alignright {
 		margin-top: -16px; /* -1 * image height / 2 */
 	}
 
+	figure {
+		margin: 1em 0;
+	}
+
 
 
 	/**
@@ -493,6 +500,9 @@ img.alignright {
 	 		border: none;
 	 		padding: rem-calc(16) rem-calc(10);
 	 	}
+	 	thead th {
+	 		border-bottom: 1px solid #ddd;
+	 	}
 	 	thead th,
 	 	.table-item.odd {
 			background-color: scale-color($gray-3, $lightness: 70%);
@@ -511,6 +521,9 @@ img.alignright {
 	 		td:last-child {
 	 			padding-right: rem-calc(24);
 	 		}
+	 	}
+	 	tbody:nth-child(odd) .table-item:not(.active) {
+	 		background-color: scale-color($gray-3, $lightness: 70%);
 	 	}
 	 }
 
@@ -546,13 +559,15 @@ img.alignright {
 
 	 /* table sorter plugin style */
 	 .table-list .header {
-	 	background: url(#{$wp-root-url}/assets/img/tablesorter-icons/bg.gif) right center no-repeat;
+	 	background: url(#{$wp-root-url}/assets/img/tablesorter-icons/bg.gif) 95% center no-repeat;
 	 	cursor: pointer;
+	 	padding-right: 25px;
+
 	 	&.headerSortDown {
-	 		background: url(#{$wp-root-url}/assets/img/tablesorter-icons/asc.gif) right center no-repeat;
+	 		background: url(#{$wp-root-url}/assets/img/tablesorter-icons/asc.gif) 95% center no-repeat;
 	 	}
 	 	&.headerSortUp {
-	 		background: url(#{$wp-root-url}/assets/img/tablesorter-icons/desc.gif) right center no-repeat;
+	 		background: url(#{$wp-root-url}/assets/img/tablesorter-icons/desc.gif) 95% center no-repeat;
 	 	}
 	 	&:last-child {
 	 		background-position: 95% center;
@@ -604,8 +619,31 @@ ul.breadcrumbs strong {
 */
 
 @media print {
-  .site-header.row, .sidebar.sidebar-right, .sidebar.sidebar-left, .accessability-menu, .footer, ul.breadcrumbs, .searchform, #read-speaker-player {
-			display: none !important; }
+	.site-header.row,
+	.sidebar.sidebar-right,
+	.sidebar.sidebar-left,
+	.accessability-menu,
+	.footer,
+	ul.breadcrumbs,
+	.searchform,
+	.filter-search,
+	.socialmedia-list,
+	#read-speaker-player {
+		display: none !important;
+	}
+
+	.table-list {
+		thead,
+		.table-item {
+	 		display: none;
+	 	}
+
+	 	.table-content td {
+			word-break: break-word;
+	 		display: table-cell;
+	 		box-shadow: none;
+	 	}
+	}
 }
 
 

@@ -27,6 +27,10 @@ $content = $post->post_content;
         <?php dynamic_sidebar("left-sidebar"); ?>
         <?php get_template_part('templates/partials/sidebar','menu'); ?>
 
+        <?php if ( (is_active_sidebar('left-sidebar-bottom') == TRUE) ) : ?>
+          <?php dynamic_sidebar("left-sidebar-bottom"); ?>
+        <?php endif; ?>
+
       </div><!-- /.row -->
     </div><!-- /.sidebar-left -->
 
@@ -58,9 +62,7 @@ $content = $post->post_content;
         <div class="lower-content row">
             <div class="sidebar large-4 columns">
                 <div class="row">
-                  <?php if ( (is_active_sidebar('left-sidebar-bottom') == TRUE) ) : ?>
-                    <?php dynamic_sidebar("left-sidebar-bottom"); ?>
-                  <?php endif; ?>
+                  
                 </div><!-- /.row -->
             </div><!-- /.sidebar -->
 

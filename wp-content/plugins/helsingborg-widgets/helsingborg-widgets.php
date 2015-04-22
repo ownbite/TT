@@ -19,6 +19,7 @@ include_once('classes/image-list-widget.php');
 include_once('classes/helsingborg-event-list-widget.php');
 include_once('classes/helsingborg-guides.php');
 include_once('classes/helsingborg-unfiltered-html.php');
+//include_once('classes/helsingborg-text-widget.php');
 include_once('helsingborg-settings.php');
 
 // Setup event handling
@@ -37,6 +38,7 @@ $Index_Widget       = new Index_Widget();
 $Index_Large_Widget = new Index_Large_Widget();
 $Image_List         = new Image_List();
 $EventList          = new EventList();
+//$HbgTextWidget      = new HbgTextWidget();
 
 // Add resources used by link-list-widget
 wp_enqueue_style( 'helsingborg-widgets-css', plugin_dir_url(__FILE__) .'css/helsingborg-widgets.css');

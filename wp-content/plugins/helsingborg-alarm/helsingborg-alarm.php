@@ -13,6 +13,9 @@ define('HELSINGBORG_ALARM_BASE', WP_PLUGIN_URL."/".dirname( plugin_basename( __F
 define('ALARM_MARKERS_BASE_URL', 'http://alarmservice.helsingborg.se/AlarmServices.svc/GetAlarmMarkers/');
 define('ALARM_FOR_CITIES_URL'  , 'http://alarmservice.helsingborg.se/AlarmServices.svc/GetAlarmsForCities/');
 
+// Require alarm class/model
+require_once('models/alarm_model.php');
+
 function load_scripts() {
   wp_deregister_script( 'jquery' );
   wp_deregister_script( 'jquery-ui' );

@@ -1,0 +1,14 @@
+.gform_wrapper .chosen-container-multi .chosen-choices li.search-field input[type="text"] {
+    height: auto !important;
+}
+
+.gform_wrapper .chosen-container-multi .chosen-choices {
+    border: none !important;
+    background: transparent !important;
+}
+
+.gform_wrapper .chosen-container-active .chosen-choices {
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+}

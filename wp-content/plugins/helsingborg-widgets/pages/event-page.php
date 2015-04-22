@@ -56,6 +56,9 @@ $end_date   = $number_of_dates > 1 ? $times[$number_of_dates - 1] : null;
 <label for="e_description">Beskrivning</label>
 <textarea id="e_description" class="large-text" maxlength="5000" rows="5"><?php echo htmlentities($event->Description); ?></textarea><br><br>
 
+<label for="e_link">Länk</label>
+<input type="text" id="e_link" value="<?php echo htmlentities($event->Link); ?>"><br><br>
+
 <table width="100%">
   <tr>
     <th>Datum från</th>
@@ -184,6 +187,7 @@ function approveEvent() {
       id: <?php echo $event_id; ?>,
       name: jQuery("#e_name").val(),
       description: jQuery("#e_description").val(),
+      link: jQuery("#e_link").val(),
       startDate: jQuery("#e_start_date").val(),
       endDate: jQuery("#e_end_date").val(),
       time: jQuery("#e_time").val(),
@@ -232,6 +236,7 @@ function saveEvent() {
     id: <?php echo $event_id; ?>,
     name: jQuery("#e_name").val(),
     description: jQuery("#e_description").val(),
+    link: jQuery("#e_link").val(),
     startDate: jQuery("#e_start_date").val(),
     endDate: jQuery("#e_end_date").val(),
     time: jQuery("#e_time").val(),
@@ -246,7 +251,7 @@ function saveEvent() {
 
   if (confirm('Är du säker på du vill spara?')){
     jQuery.post(ajaxurl, data, function(response) {
-      if (redirect) window.location.replace("<?php echo site_url(); ?>/wp-admin/admin.php?page=helsingborg-eventhandling");;
+      if (redirect !== undefined) window.location.replace("<?php echo site_url(); ?>/wp-admin/admin.php?page=helsingborg-eventhandling");
     });
   }
 }

@@ -287,6 +287,7 @@ function event_add_entry_to_db($entry, $form) {
   // Make sure to only hijack the event form -> set in settings
   if (strcmp($entry['form_id'], get_option('helsingborg_event_form_id')) === 0) {
     // Event
+
     $name         = $entry[1];
     $description  = $entry[15];
     $approved     = 0;
@@ -301,6 +302,9 @@ function event_add_entry_to_db($entry, $form) {
     $start_date    = $entry[8];
     $end_date      = $entry[9];
 
+    // Link
+    $link          = $entry[17];
+
     // Selected days
     for($e=1;$e<=7;$e++) {
       if (strlen($entry["10.$e"])>0) {
@@ -311,6 +315,7 @@ function event_add_entry_to_db($entry, $form) {
     // Create event
     $event        = 	array ( 'Name'            => $name,
                               'Description'     => $description,
+                              'Link'            => $link,
                               'Approved'        => $approved,
                               'OrganizerID'     => $organizer,
                               'Location'        => $location,

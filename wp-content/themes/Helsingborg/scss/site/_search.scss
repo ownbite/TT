@@ -55,3 +55,63 @@
     }
   }
 }
+
+/**
+ * ALARM SEARCH
+ */
+
+.alarm-list {
+  li {
+    margin-bottom: 10px !important;
+
+    &:first-child {
+      margin-top: 10px;
+    }
+  }
+}
+
+.alarm a {
+  border: 1px solid #ddd;
+  border-radius: $border-radius;
+  display: block;
+  padding: 15px;
+
+  &:hover {
+    background: #f9f9f9;
+  }
+
+  h2 {
+    margin-bottom: 0
+  }
+
+  .list-content {
+    font-size: 11pt;
+    margin-top: 10px;
+  }
+}
+
+.modal-alarm {
+
+  .modal-title {
+    margin: 0;
+    text-align: left;
+  }
+
+  .modal-date {
+    text-align: left;
+    margin-bottom: 15px;
+  }
+
+  .modal-description {
+    p + p {
+      margin-top: 15px;
+    }
+  }
+
+}
+
+#alarm-pager-top,
+#event-pager-top {
+  margin-bottom: 15px;
+}
+

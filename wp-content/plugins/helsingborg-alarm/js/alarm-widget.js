@@ -12,7 +12,7 @@ jQuery(document).ready(function() {
 			selectAllText: ['Markera alla', 'Avmarkera alla']
 		});
 
-		jQuery(document).on('click', '.modalLink', function(event) {
+		jQuery(document).on('click', '.modalLinkAlarm', function(event) {
 			event.preventDefault();
 
 			var _title = jQuery('.main-title');
@@ -27,9 +27,9 @@ jQuery(document).ready(function() {
 			var _municipality = jQuery('.modalMunicipality');
 			var result;
 
-			for (var i = 0; i < _alarms.GetAlarmsForCitiesResult.length; i++) {
-				if (_alarms.GetAlarmsForCitiesResult[i].ID === this.id) {
-					result = _alarms.GetAlarmsForCitiesResult[i];
+			for (var i = 0; i < _alarms.length; i++) {
+				if (_alarms[i].ID === this.id) {
+					result = _alarms[i];
 				}
 			}
 
@@ -67,7 +67,7 @@ jQuery(document).ready(function() {
 			success: function(result) {
 				if (result) {
 					var data = jQuery.parseJSON(result);
-					_alarms = data;
+					_alarms = data.GetAlarmsForCitiesResult;
 					updateList(data.GetAlarmsForCitiesResult);
 				}
 			}
@@ -79,8 +79,8 @@ jQuery(document).ready(function() {
 		jQuery.each(items, function(i, item) {
 			var alarm = '<li>';
 			alarm += '<span class="date">' + item.SentTime + '</span>';
-			alarm += '<a href="#" class="modalLink" id="' + item.ID +
-				'" data-reveal-id="eventModal">' + item.HtText + '</a>';
+			alarm += '<a href="#" class="modalLinkAlarm" id="' + item.ID +
+				'" data-reveal-id="alarmModal">' + item.HtText + '</a>';
 			alarm += '</li>';
 			jQuery(alarm).appendTo(jQuery('.alarm-list'));
 			return i < (_amount - 1);

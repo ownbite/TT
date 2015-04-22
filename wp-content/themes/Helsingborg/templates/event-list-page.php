@@ -28,6 +28,9 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                 <div class="row">
                   <?php dynamic_sidebar("left-sidebar"); ?>
                   <?php get_template_part('templates/partials/sidebar','menu'); ?>
+                  <?php if ( (is_active_sidebar('left-sidebar-bottom') == TRUE) ) : ?>
+                    <?php dynamic_sidebar("left-sidebar-bottom"); ?>
+                  <?php endif; ?>
                 </div><!-- /.row -->
             </div><!-- /.sidebar-left -->
 
@@ -67,7 +70,7 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                         <footer>
                           <ul class="socialmedia-list">
                               <li class="fbook"><a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode(get_the_permalink()); ?>">Facebook</a></li>
-                              <li class="twitter"><a href="http://twitter.com/share?text=<?php echo strip_tags(get_the_excerpt()); ?>&amp;url=<?php echo urlencode(wp_get_shortlink()); ?>">Twitter</a></li>
+                              <li class="twitter"><a href="http://twitter.com/share?url=<?php echo urlencode(wp_get_shortlink()); ?>">Twitter</a></li>
                           </ul>
                         </footer>
                       </article>
@@ -129,6 +132,7 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                         <div class="modal-event-info large-12 columns">
                             <h2 class="modal-title"></h2>
                             <p class="modal-description"></p>
+                            <p class="modal-link-url"></p>
                             <!--<p class="modal-date"></p>-->
                         </div>
                       </div>
@@ -164,7 +168,12 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                     <script type="text/html" id="eventTemplate">
                       <li>
                         <a class="modal-link" href="#" data-bind="attr: {id: EventID}" data-reveal-id="eventModal" desc="link-desc">
+                          <!-- ko if: ImagePath -->
                           <img data-bind="attr: {src: ImagePath}" alt="alt-text"/>
+                          <!-- /ko -->
+                          <!-- ko if: ImagePath == null -->
+                          <img  alt="alt-text" src="<?php echo get_stylesheet_directory_uri() ; ?>/assets/img/images/event-default.jpg"/>
+                          <!-- /ko -->
                           <p data-bind="text: Location" style="display: none;"></p>
                           <p data-bind="text: EventTypesName" style="display: none;"></p>
                           <h2 data-bind="text: Name" class="list-title"></h2>
@@ -214,6 +223,7 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                             event.preventDefault();
                             var image = $('.modal-image');
                             var title = $('.modal-title');
+                            var link = $('.modal-link-url');
                             var date = $('.modal-date');
                             var description = $('.modal-description');
                             var time_list = $('#time-modal');
@@ -263,6 +273,12 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
 
                             jQuery(image).attr("src", result.ImagePath);
                             jQuery(title).html(result.Name);
+                            console.log(result.Link);
+                            if (result.Link) {
+                              jQuery(link).html('<a href="' + result.Link + '" target="blank">' + result.Link + '</a>').show();
+                            } else {
+                              jQuery(link).hide();
+                            }
                             jQuery(date).html(result.Date);
                             jQuery(description).html(result.Description);
                         });
@@ -351,9 +367,7 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
         <div class="lower-content row">
             <div class="sidebar large-4 columns">
                 <div class="row">
-                  <?php if ( (is_active_sidebar('left-sidebar-bottom') == TRUE) ) : ?>
-                    <?php dynamic_sidebar("left-sidebar-bottom"); ?>
-                  <?php endif; ?>
+                  
                 </div><!-- /.row -->
             </div><!-- /.sidebar -->
 

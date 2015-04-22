@@ -87,7 +87,6 @@ for ($i = 0; $i < count($pages); $i++) {
 usort( $list_items, create_function('$a,$b', 'return strcmp($a["item0"], $b["item0"]);'));
 
 // JSON encode the current data for usage with knockout!
-// TODO -> Load all this with AJAX instead?
 $json_items = json_encode($list_items);
 
 // Get the content, see if <!--more--> is inserted
@@ -113,6 +112,9 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                 <div class="row">
                     <?php dynamic_sidebar("left-sidebar"); ?>
                     <?php get_template_part('templates/partials/sidebar','menu'); ?>
+                    <?php if ( (is_active_sidebar('left-sidebar-bottom') == TRUE) ) : ?>
+                      <?php dynamic_sidebar("left-sidebar-bottom"); ?>
+                    <?php endif; ?>
                 </div><!-- /.row -->
             </div><!-- /.sidebar-left -->
 
@@ -152,7 +154,7 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
 
                         <ul class="socialmedia-list">
                           <li class="fbook"><a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode(get_the_permalink()); ?>">Facebook</a></li>
-                          <li class="twitter"><a href="http://twitter.com/share?text=<?php echo strip_tags(get_the_excerpt()); ?>&amp;url=<?php echo urlencode(wp_get_shortlink()); ?>">Twitter</a></li>
+                          <li class="twitter"><a href="http://twitter.com/share?url=<?php echo urlencode(wp_get_shortlink()); ?>">Twitter</a></li>
                         </ul>
 
                         <div class="filter-search">
@@ -164,14 +166,16 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                           <thead>
                             <tr>
                               <th></th>
-                              <?php foreach ($headers as $header) :
-                                echo('<th>' . $header . '</th>');
+                              <?php $int = 0; foreach ($headers as $header) :
+                                $int++;
+                                echo('<th class="header" data-bind="click: sort">' . $header . '</th>');
                               endforeach; ?>
                             </tr>
                           </thead>
                             <!-- Todo: Generate table body -->
-                          <tbody data-bind="foreach: { data: itemstoshow }">
-                              <tr class="table-item" data-bind="css: { odd: $index() % 2 }">
+                          <!-- ko foreach: { data: itemstoshow } -->
+                          <tbody>
+                              <tr class="table-item">
                                 <?php foreach ($header_keys as $key => $value) :
                                   echo('<td data-bind="text: item' . strval($key) . '"></td>');
                                 endforeach; ?>
@@ -180,33 +184,125 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                                   <td colspan="<?php echo count($headers); ?>" data-bind="html: content"></td>
                               </tr>
                           </tbody>
+                          <!-- /ko -->
                         </table>
 
                       </div>
                       <footer>
                         <script type="text/javascript" language="javascript">
-                          function ListViewModel() {
-                              var self = this;
-                              var itemjson = <?php echo $json_items; ?>;
+                            function ListViewModel() {
 
-                              self.query = ko.observable('');
+                                var self = this;
+                                var itemjson = <?php echo $json_items; ?>;
 
-                              self.itemstoshow = ko.dependentObservable(function() {
-                                  var search = this.query().toLowerCase();
-                                  return ko.utils.arrayFilter(itemjson, function(item) {
-                                    return ((item.content.toLowerCase().indexOf(search) >= 0)
-                                    <?php if (count($header_keys) > 0) { echo '||'; }
-                                    foreach ($header_keys as $key => $value) :
-                                      echo '(item.item' . strval($key) . '.toLowerCase().indexOf(search) >= 0)';
-                                      if ($key != (count($header_keys) - 1)) { echo ' || '; }
-                                    endforeach; ?>
-                                    );
+                                /**
+                                 * Observables
+                                 */
+                                self.itemjson = ko.observable(itemjson);
+                                self.query = ko.observable('');
+                                self.sortBy = ko.observable('');
 
-                                  });
-                              }, self);
+                                /**
+                                 * Items to show
+                                 */
+                                self.itemstoshow = ko.computed(function () {
+                                    // Search filter items
+                                    var sort = self.sortBy();
+                                    var search = self.query().toLowerCase();
 
-                          }
-                          ko.applyBindings(new ListViewModel());
+                                    var items = ko.utils.arrayFilter(self.itemjson(), function(item) {
+                                        return ((item.content.toLowerCase().indexOf(search) >= 0)
+                                            <?php
+                                                if (count($header_keys) > 0) {
+                                                    echo '||';
+                                                }
+
+                                                foreach ($header_keys as $key => $value) {
+                                                    echo '(item.item' . strval($key) . '.toLowerCase().indexOf(search) >= 0)';
+
+                                                    if ($key != (count($header_keys) - 1)) {
+                                                        echo ' || ';
+                                                    }
+                                                }
+                                            ?>
+                                        );
+                                    });
+
+                                    return items;
+                                }, self);
+
+                                /**
+                                 * Triggering the sorting by click on column headers
+                                 */
+                                self.sort = function (item, event) {
+                                    var el = $(event.target);
+                                    var thead = el.parents('table').find('thead');
+
+                                    if (el.hasClass('sorting-desc') || (!el.hasClass('sorting-desc') && !el.hasClass('sorting-asc'))) {
+                                        // Sort asc
+                                        self.resetSort(thead);
+                                        el.addClass('sorting-asc headerSortDown');
+                                        self.sortList('asc', el);
+                                    } else {
+                                        // Sort desc
+                                        self.resetSort(thead);
+                                        el.addClass('sorting-desc headerSortUp');
+                                        self.sortList('desc', el);
+                                    }
+                                }
+
+                                /**
+                                 * Do the actual sorting
+                                 */
+                                self.sortList = function(order, el) {
+                                    var columnNum = (el.index() - 1);
+
+                                    if (order.toLowerCase() == 'asc') {
+                                        // Sort asc
+                                        self.itemjson().sort(function (a, b) {
+                                            var a = a['item' + columnNum].toLowerCase();
+                                            var b = b['item' + columnNum].toLowerCase();
+
+                                            if (a < b) {
+                                                return -1;
+                                            }
+                                            else if (a > b) {
+                                                return 1;
+                                            }
+                                            else {
+                                                return 0;
+                                            }
+                                        });
+                                    } else if (order.toLowerCase() == 'desc') {
+                                        // Sort desc
+                                        self.itemjson().sort(function (a, b) {
+                                            var a = a['item' + columnNum].toLowerCase();
+                                            var b = b['item' + columnNum].toLowerCase();
+
+                                            if (a > b) {
+                                                return -1;
+                                            }
+                                            else if (a < b) {
+                                                return 1;
+                                            }
+                                            else {
+                                                return 0;
+                                            }
+                                        });
+                                    }
+
+                                    self.sortBy(columnNum + order);
+                                }
+
+                                /**
+                                 * Reset the sorting classes on the table header
+                                 */
+                                self.resetSort = function(thead) {
+                                    thead.find('th').removeClass('sorting-asc sorting-desc headerSortDown headerSortUp');
+                                }
+                            }
+
+                            ko.applyBindings(new ListViewModel());
                         </script>
                       </footer>
                     </article>
@@ -217,9 +313,6 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
         <div class="lower-content row">
             <div class="sidebar large-4 columns">
                 <div class="row">
-                  <?php if ( (is_active_sidebar('left-sidebar-bottom') == TRUE) ) : ?>
-                    <?php dynamic_sidebar("left-sidebar-bottom"); ?>
-                  <?php endif; ?>
                 </div><!-- /.row -->
             </div><!-- /.sidebar -->
 

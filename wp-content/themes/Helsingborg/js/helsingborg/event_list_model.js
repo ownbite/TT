@@ -8,6 +8,7 @@ function EventModel(data) {
   self.Date = data.Date;
   self.Name = data.Name;
   self.Description = data.Description;
+  self.Link = data.Link;
   self.ImagePath = data.ImagePath;
   self.Location = data.Location;
   self.EventTypesName = data.EventTypesName;

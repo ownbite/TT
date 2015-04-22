@@ -99,11 +99,27 @@ function helsingborgSetupHandlers($) {
       if ($(':checked', this)) {
         $(this).removeAttr('checked');
       }
-      if (value === undefined) {
-        $(this).val('');
-      } else {
-        $(this).val('Välj bild');
+
+      if (!$(this).is(':checkbox') && !$(this).is(':radio')) {
+        if (value === undefined) {
+          $(this).val('');
+        } else {
+          $(this).val('Välj bild');
+        }
       }
+    });
+
+    $('textarea', item).each(function () {
+      var id_val = $(this).attr('id');
+      var name_val = $(this).attr('name');
+
+      $(this).attr('id', increment_last_num(id_val));
+
+      if (name_val !== undefined) {
+        $(this).attr('name', increment_last_num(name_val));
+      }
+
+      $(this).val('');
     });
 
     $('select', item).each(function() {
@@ -144,9 +160,17 @@ function update_list_item_cells(id, num) {
   }, function(response) {
     if (response != '') {
       var values = response.split('|');
-      document.getElementById(id + num).value = values[0];
-      document.getElementById(id + '_link' + num).value = values[1];
-      document.getElementById(id + '_id' + num).value = selected;
+      if (document.getElementById(id + num) !== null) {
+        document.getElementById(id + num).value = values[0];
+      }
+
+      if (document.getElementById(id + '_link' + num) !== null) {
+        document.getElementById(id + '_link' + num).value = values[1];
+      }
+
+      if (document.getElementById(id + '_id' + num) !== null) {
+        document.getElementById(id + '_id' + num).value = selected;
+      }
     }
   });
 };

@@ -61,11 +61,17 @@ if (!class_exists('Index_Widget_Box')) {
               $image_id = get_post_thumbnail_id( $page->ID );
               $image = wp_get_attachment_image_src( $image_id, 'single-post-thumbnail' );
               $alt_text = get_post_meta($image_id, '_wp_attachment_image_alt', true);
-            endif; ?>
+            endif;
+
+            $title = $page->post_title;
+            if (isset($instance['headline' . ($num+1)]) && strlen($instance['headline' . ($num+1)]) > 0) {
+              $title = $instance['headline' . ($num+1)];
+            }
+          ?>
           <li>
             <a href="<?php echo $link ?>" desc="link-desc">
               <?php if($image) : ?><img src="<?php echo $image[0]; ?>" alt="<?php echo $alt_text; ?>"><?php endif; ?>
-              <h2 class="list-title"><?php echo $page->post_title ?></h2>
+              <h2 class="list-title"><?php echo $title ?></h2>
               <div class="list-content">
                 <?php echo wpautop($main, true); ?>
               </div>
@@ -113,6 +119,7 @@ if (!class_exists('Index_Widget_Box')) {
         foreach ($order as $i => $item_num) {
           $instance['item'.($i+1)] = empty($new_instance['item'.$item_num]) ? '' : strip_tags($new_instance['item'.$item_num]);
           $instance['item_id'.($i+1)] = empty($new_instance['item_id'.$item_num]) ? '' : strip_tags($new_instance['item_id'.$item_num]);
+          $instance['headline'.($i+1)] = empty($new_instance['headline'.$item_num]) ? '' : strip_tags($new_instance['headline'.$item_num]);
         }
       }
 
@@ -149,6 +156,10 @@ if (!class_exists('Index_Widget_Box')) {
         <div id="<?php echo $this->get_field_id($num); ?>" class="list-item">
           <h5 class="moving-handle"><span class="number"><?php echo $num; ?></span>. <span class="item-title"><?php echo $h5 . ' (ID: ' . $item_id . ')'; ?></span><a class="hbgllw-action hide-if-no-js"></a></h5>
           <div class="hbgllw-edit-item">
+            <p>
+              <label for="<?php echo $this->get_field_id('item_headline'.$num); ?>"><?php echo __("Indexrubrik (lämna tomt för att använda sidan titel):"); ?></label><br>
+              <input id="input_<?php echo $this->get_field_id('item_headline'.$num); ?>" type="text" class="input-text" name="<?php echo $this->get_field_name('headline'.$num); ?>" value="<?php echo $instance['headline'.$num]; ?>" />
+            </p>
             <p>
               <label for="<?php echo $this->get_field_id('item_id'.$num); ?>"><?php echo __("Sida att söka efter: "); ?></label><br>
               <input id="input_<?php echo $this->get_field_id('item_id'.$num); ?>" type="text" class="input-text" />

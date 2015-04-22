@@ -41,6 +41,31 @@ if (!function_exists('Helsingborg_scripts')) :
       wp_enqueue_style('jquery-datetimepicker');
     }
 
+    /**
+     * ALARM LIST PAGE
+     **/
+    if ( is_page_template( 'templates/alarm-list-page.php' )) {
+      // Register scripts
+      wp_register_script( 'zurb5-multiselect',     get_template_directory_uri() . '/js/foundation-multiselect/zmultiselect/zurb5-multiselect.js', array(), '1.0.0', false );
+      wp_register_script( 'jquery-datetimepicker', get_template_directory_uri() . '/js/jquery.datetimepicker.js', array(), '1.0.0', false );
+      wp_register_script( 'knockout',              get_template_directory_uri() . '/js/knockout/dist/knockout.js', array(), '3.2.0', false );
+      wp_register_script( 'alarm-list-model',      get_template_directory_uri() . '/js/helsingborg/alarm_list_model.js', array(), '1.0.0', false );
+
+      // Register styles
+      wp_register_style( 'zurb5-multiselect',      get_template_directory_uri() . '/css/multiple-select.css', array(), '1.0.0', 'all' );
+      wp_register_style( 'jquery-datetimepicker',  get_template_directory_uri() . '/js/jquery.datetimepicker.css', array(), '1.0.0', 'all' );
+
+      // Enqueue scripts
+      wp_enqueue_script('zurb5-multiselect');
+      wp_enqueue_script('jquery-datetimepicker');
+      wp_enqueue_script('knockout');
+      wp_enqueue_script('alarm-list-model');
+
+      // Enqueue styles
+      wp_enqueue_style('zurb5-multiselect');
+      wp_enqueue_style('jquery-datetimepicker');
+    }
+
     wp_register_script( 'foundation', get_template_directory_uri() . '/js/app.js', array('jquery'), '1.0.0', true );
     wp_register_script( 'tablesorter', get_template_directory_uri() . '/js/plugins/jquery.tablesorter.min.js', array(), '1.0.0', true );
 

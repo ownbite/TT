@@ -369,6 +369,7 @@ function save_event_callback() {
   $type        = $_POST['type'];
   $name        = $_POST['name'];
   $description = $_POST['description'];
+  $link        = $_POST['link'];
   $days        = $_POST['days'];
   $start_date  = $_POST['startDate'];
   $end_date    = $_POST['endDate'];
@@ -387,6 +388,7 @@ function save_event_callback() {
     'EventID'         => $id,
     'Name'            => $name,
     'Description'     => $description,
+    'Link'            => $link,
     'Approved'        => $approved,
     'OrganizerID'     => $organizer,
     'Location'        => $location,
@@ -441,6 +443,16 @@ function save_event_callback() {
 
   HelsingborgEventModel::update_event($event, $event_types, $administration_units, $image, $event_times);
 
+  die();
+}
+
+
+/* Load all alarms */
+add_action( 'wp_ajax_nopriv_load_alarms', 'load_alarms_callback' );
+add_action( 'wp_ajax_load_alarms', 'load_alarms_callback' );
+function load_alarms_callback() {
+  $result = HelsingborgAlarmModel::load_alarms();
+  echo json_encode($result);
   die();
 }
 ?>
