@@ -24,7 +24,7 @@
     <!-- ## INSTAGRAM ## -->
     <section class="hbg-social-widget-section-instagram <?php if ($instance['feedType'] == 'instagram') echo 'active'; ?>">
         <p>
-            <label>API Nyckel:</label>
+            <label>Clinet ID (hämtas från <a href="http://instagram.com/developer" target="_blank">instagram.com/developer</a>):</label>
             <input type="text" id="<?php echo $this->get_field_id('instagram-key'); ?>" name="<?php echo $this->get_field_name('instagram-key'); ?>" class="widefat"  value="<?php echo $instance['key']; ?>">
         </p>
         <p>
@@ -34,6 +34,10 @@
         <p>
             <label>Antal poster att visa:</label>
             <input type="number" id="<?php echo $this->get_field_id('instagram-count'); ?>" name="<?php echo $this->get_field_name('instagram-count'); ?>" class="widefat"  value="<?php echo $instance['show_count']; ?>">
+        </p>
+        <p>
+            <label>Antal poster per rad:</label>
+            <input type="number" id="<?php echo $this->get_field_id('instagram-col-count'); ?>" name="<?php echo $this->get_field_name('instagram-col-count'); ?>" class="widefat"  value="<?php echo $instance['col_count']; ?>">
         </p>
     </section>
 

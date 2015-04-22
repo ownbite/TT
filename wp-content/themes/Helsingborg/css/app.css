@@ -7115,7 +7115,7 @@ label {
 
 /* Button styles */
 /* generic styles */
-input[type="submit"], input[type="reset"], input[type="button"], button[type="submit"] {
+input[type="submit"], input[type="reset"], input[type="button"], button[type="submit"], .button.button-hbg {
   padding: 0.5rem 1rem;
   margin-bottom: 0;
   border-radius: 4px;
@@ -7124,10 +7124,11 @@ input[type="submit"], input[type="reset"], input[type="button"], button[type="su
   border: 1px solid #bfbfbf;
   box-sizing: border-box;
   box-shadow: 2px 2px 1px 0 rgba(0, 0, 0, 0.15); }
-  input[type="submit"]:hover, input[type="reset"]:hover, input[type="button"]:hover, button[type="submit"]:hover {
+  input[type="submit"]:hover, input[type="reset"]:hover, input[type="button"]:hover, button[type="submit"]:hover, .button.button-hbg:hover {
     background-color: #b3b3b3;
     color: #222;
-    transition: background-color 300ms ease-out; }
+    transition: background-color 300ms ease-out;
+    text-decoration: none; }
 
 /* specific styles */
 /* Search in List */
@@ -7646,6 +7647,11 @@ html.js.flexbox.flexboxlegacy.canvas.canvastext.webgl.no-touch.geolocation.postm
 /* Black loader */
 .loader.loader-black:before, .loader.loader-black:after {
   background: #000; }
+
+.hbg-social-feed.hbg-social-feed-instagram .columns {
+  padding: 5px; }
+.hbg-social-feed.hbg-social-feed-instagram .hbg-social-feed-actions {
+  padding: 15px 0; }
 
 /* Assets */
 /* 

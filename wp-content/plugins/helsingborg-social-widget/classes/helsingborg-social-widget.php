@@ -79,6 +79,13 @@ if (!class_exists('HelsingborgSocialWidget')) {
                     $instance['key']        = null;
                     break;
 
+                case 'instagram':
+                    $instance['username']   = $newInstance[$type . '-user'];
+                    $instance['show_count'] = $newInstance[$type . '-count'];
+                    $instance['key']        = $newInstance[$type . '-key'];
+                    $instance['col_count']  = $newInstance[$type . '-col-count'];
+                    break;
+
                 default:
                     $instance['username']   = $newInstance[$type . '-user'];
                     $instance['show_count'] = $newInstance[$type . '-count'];
@@ -108,11 +115,41 @@ if (!class_exists('HelsingborgSocialWidget')) {
                     require($this->_viewsPath . 'widget-none.php');
                     break;
             }
-            //require($this->_viewsPath . 'hbgtextwidget-widget.php');
         }
 
+        /**
+         * Gets a Instagram users feed (if public)
+         * @param  string $key      Instagram App Clinet ID
+         * @param  string $username The username to get
+         * @param  integer $length  Length of the feed
+         * @return object           The instgram posts
+         */
         public function getInstagramFeed($key, $username, $length) {
-            // https://api.instagram.com/v1/users/search?q=[USERNAME]&access_token=[ACCESS TOKEN]
+            /**
+             * Get Instagram User ID from Username
+             */
+            $endpoint = 'https://api.instagram.com/v1/users/search';
+            $data = array(
+                'q' => $username,
+                'client_id' => $key
+            );
+            $user = HbgCurl::request('GET', $endpoint, $data);
+            $user = json_decode($user);
+
+            $userId = $user->data[0]->id;
+
+            /**
+             * Get the users feed
+             * @var string
+             */
+            $endpoint = 'https://api.instagram.com/v1/users/' . $userId . '/media/recent/';
+            $data = array(
+                'client_id' => $key
+            );
+            $recent = HbgCurl::request('GET', $endpoint, $data);
+            $recent = json_decode($recent);
+
+            return $recent->data;
         }
 
         /**
