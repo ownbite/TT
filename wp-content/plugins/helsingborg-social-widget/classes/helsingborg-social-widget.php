@@ -130,6 +130,11 @@ if (!class_exists('HelsingborgSocialWidget')) {
                     require($this->_viewsPath . 'widget-instagram.php');
                     break;
 
+                case 'facebook':
+                    $feed = $this->getFacebookFeed($instance['username'], $instance['show_count']);
+                    require($this->_viewsPath . 'widget-facebook.php');
+                    break;
+
                 default:
                     require($this->_viewsPath . 'widget-none.php');
                     break;
@@ -170,6 +175,36 @@ if (!class_exists('HelsingborgSocialWidget')) {
             $recent = json_decode($recent);
 
             return $recent->data;
+        }
+
+        public function getFacebookFeed($username, $length) {
+            /**
+             * Get appId and appSecret from options
+             */
+            $appId     = get_option('hbgsf_facebook_app_id');
+            $appSecret = get_option('hbgsf_facebook_app_secret');
+
+            /**
+             * Request a token from Facebook Graph API
+             * @var string
+             */
+            $endpoint = 'https://graph.facebook.com/oauth/access_token';
+            $data = array(
+                'grant_type'    => 'client_credentials',
+                'client_id'     => $appId,
+                'client_secret' => $appSecret
+            );
+            $token = HbgCurl::request('GET', $endpoint, $data);
+            $token = explode('=', $token)[1];
+
+            $endpoint = 'https://graph.facebook.com/' . $username . '/posts';
+            $data = array(
+                'access_token' => $token
+            );
+            $feed = HbgCurl::request('GET', $endpoint, $data);
+            $feed = json_decode($feed);
+
+            return $feed->data;
         }
 
         /**

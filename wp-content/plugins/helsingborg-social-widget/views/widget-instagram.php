@@ -26,7 +26,7 @@
     </ul>
     <div class="clearfix"></div>
     <div class="text-center hbg-social-feed-actions">
-        <a href="#" class="button button-hbg">Besök oss på Instagram</a>
+        <a href="http://instagram.com/<?php echo $instance['username']; ?>" target="_blank" class="button button-hbg">Besök oss på Instagram</a>
     </div>
 </div>
 <?php echo $after_widget; ?>

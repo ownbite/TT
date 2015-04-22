@@ -7685,6 +7685,8 @@ html.js.flexbox.flexboxlegacy.canvas.canvastext.webgl.no-touch.geolocation.postm
   border-radius: 4px; }
 .hbg-social-feed.hbg-social-feed-instagram .hbg-social-feed-actions {
   padding: 15px 0; }
+.hbg-social-feed.hbg-social-feed-facebook img {
+  display: block; }
 
 /* Assets */
 /* 
