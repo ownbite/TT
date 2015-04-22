@@ -23,4 +23,8 @@ require_once(HELSINGBORG_SOCIAL_WIDGET_BASE . 'classes/helsingborg-social-widget
 /**
  * Initialize
  */
-$hbgSocialWidget = new HelsingborgSocialWidget();
+
+add_action('widgets_init', 'hbgSocialWidgetRegister');
+function hbgSocialWidgetRegister() {
+    register_widget('HelsingborgSocialWidget');
+}

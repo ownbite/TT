@@ -12,11 +12,9 @@ if (!class_exists('HelsingborgSocialWidget')) {
             // Sets the views directory path
             $this->_viewsPath = plugin_dir_path(plugin_dir_path(__FILE__)) . 'views/';
 
-            // Register the widget on widgets_init
-            add_action('widgets_init', array($this, 'registerWidget'));
-
             // Enqueue js
             add_action('admin_menu', array($this, 'addJs'));
+            add_action('admin_menu', array($this, 'addSettingsMenu'));
             add_action('wp_enqueue_scripts', array($this, 'addJs'));
 
             // Widget arguments
@@ -30,11 +28,36 @@ if (!class_exists('HelsingborgSocialWidget')) {
         }
 
         /**
-        * Registers the widget
-        */
-        public function registerWidget()
-        {
-            register_widget('HelsingborgSocialWidget');
+         * Adds settings section
+         */
+        public function addSettingsMenu() {
+            add_options_page('Sociala flöden', 'Sociala flöden', 'activate_plugins', 'hbg-social-widget-menu', array($this, 'settingsPage'));
+        }
+
+        /**
+         * Outputs the settings page
+         */
+        public function settingsPage() {
+            /**
+             * Handle options save
+             */
+            if ($_POST['is_post'] == 'true') {
+                update_option('hbgsf_facebook_app_id', esc_attr($_POST['facebook']['app_id']));
+                update_option('hbgsf_facebook_app_secret', esc_attr($_POST['facebook']['app_secret']));
+                update_option('hbgsf_instagram_client_id', esc_attr($_POST['instagram']['client_id']));
+            }
+
+            /**
+             * Get options
+             */
+            $hbgsf_facebook_app_id     = get_option('hbgsf_facebook_app_id');
+            $hbgsf_facebook_app_secret = get_option('hbgsf_facebook_app_secret');
+            $hbgsf_instagram_client_id = get_option('hbgsf_instagram_client_id');
+
+            /**
+             * Require the view
+             */
+            require($this->_viewsPath . 'settings-page.php');
         }
 
         /**
@@ -70,26 +93,22 @@ if (!class_exists('HelsingborgSocialWidget')) {
                 case 'facebook':
                     $instance['username']   = $this->getFbUserFromUrl($newInstance[$type . '-url']);
                     $instance['show_count'] = $newInstance[$type . '-count'];
-                    $instance['key']        = null;
                     break;
 
                 case 'pinterest':
                     $instance['username']   = $this->getFbUserFromUrl($newInstance[$type . '-url']);
                     $instance['show_count'] = $newInstance[$type . '-count'];
-                    $instance['key']        = null;
                     break;
 
                 case 'instagram':
                     $instance['username']   = $newInstance[$type . '-user'];
                     $instance['show_count'] = $newInstance[$type . '-count'];
-                    $instance['key']        = $newInstance[$type . '-key'];
                     $instance['col_count']  = $newInstance[$type . '-col-count'];
                     break;
 
                 default:
                     $instance['username']   = $newInstance[$type . '-user'];
                     $instance['show_count'] = $newInstance[$type . '-count'];
-                    $instance['key']        = $newInstance[$type . '-key'];
                     break;
             }
 
@@ -107,7 +126,7 @@ if (!class_exists('HelsingborgSocialWidget')) {
 
             switch ($instance['feedType']) {
                 case 'instagram':
-                    $feed = $this->getInstagramFeed($instance['key'], $instance['username'], $instance['show_count']);
+                    $feed = $this->getInstagramFeed($instance['username'], $instance['show_count']);
                     require($this->_viewsPath . 'widget-instagram.php');
                     break;
 
@@ -124,10 +143,11 @@ if (!class_exists('HelsingborgSocialWidget')) {
          * @param  integer $length  Length of the feed
          * @return object           The instgram posts
          */
-        public function getInstagramFeed($key, $username, $length) {
+        public function getInstagramFeed($username, $length) {
             /**
              * Get Instagram User ID from Username
              */
+            $key = get_option('hbgsf_instagram_client_id');
             $endpoint = 'https://api.instagram.com/v1/users/search';
             $data = array(
                 'q' => $username,

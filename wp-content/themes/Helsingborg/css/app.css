@@ -7650,6 +7650,39 @@ html.js.flexbox.flexboxlegacy.canvas.canvastext.webgl.no-touch.geolocation.postm
 
 .hbg-social-feed.hbg-social-feed-instagram .columns {
   padding: 5px; }
+  .hbg-social-feed.hbg-social-feed-instagram .columns a {
+    display: block;
+    position: relative;
+    background-size: 100%;
+    background-position: center center;
+    border-radius: 4px; }
+    .hbg-social-feed.hbg-social-feed-instagram .columns a .zoom-icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-left: -0.5px;
+      margin-top: -0.5px;
+      font-size: 1px;
+      width: 1px;
+      height: 1px;
+      color: #fff;
+      opacity: 0;
+      text-shadow: 0 0 50px #000;
+      transition: .2s all; }
+    .hbg-social-feed.hbg-social-feed-instagram .columns a:hover {
+      text-decoration: none; }
+      .hbg-social-feed.hbg-social-feed-instagram .columns a:hover .zoom-icon {
+        font-size: 50px;
+        margin-left: -25px;
+        margin-top: -25px;
+        width: 50px;
+        height: 50px;
+        opacity: 1; }
+    .hbg-social-feed.hbg-social-feed-instagram .columns a:focus {
+      outline: none; }
+.hbg-social-feed.hbg-social-feed-instagram .instagram-image {
+  visibility: hidden;
+  border-radius: 4px; }
 .hbg-social-feed.hbg-social-feed-instagram .hbg-social-feed-actions {
   padding: 15px 0; }
 

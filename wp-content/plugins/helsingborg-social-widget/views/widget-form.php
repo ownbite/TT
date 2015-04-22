@@ -24,10 +24,6 @@
     <!-- ## INSTAGRAM ## -->
     <section class="hbg-social-widget-section-instagram <?php if ($instance['feedType'] == 'instagram') echo 'active'; ?>">
         <p>
-            <label>Clinet ID (hämtas från <a href="http://instagram.com/developer" target="_blank">instagram.com/developer</a>):</label>
-            <input type="text" id="<?php echo $this->get_field_id('instagram-key'); ?>" name="<?php echo $this->get_field_name('instagram-key'); ?>" class="widefat"  value="<?php echo $instance['key']; ?>">
-        </p>
-        <p>
             <label>Användare att hämta:</label>
             <input type="text" id="<?php echo $this->get_field_id('instagram-user'); ?>" name="<?php echo $this->get_field_name('instagram-user'); ?>" class="widefat"  value="<?php echo $instance['username']; ?>">
         </p>
@@ -43,10 +39,6 @@
 
     <!-- ## TWITTER ## -->
     <section class="hbg-social-widget-section-twitter <?php if ($instance['feedType'] == 'twitter') echo 'active'; ?>">
-        <p>
-            <label>API Nyckel:</label>
-            <input type="text" id="<?php echo $this->get_field_id('twitter-key'); ?>" name="<?php echo $this->get_field_name('twitter-key'); ?>" class="widefat"  value="<?php echo $instance['key']; ?>">
-        </p>
         <p>
             <label>Användare att hämta:</label>
             <input type="text" id="<?php echo $this->get_field_id('twitter-user'); ?>" name="<?php echo $this->get_field_name('twitter-user'); ?>" class="widefat"  value="<?php echo $instance['username']; ?>">

@@ -17,7 +17,10 @@
     <ul>
         <?php $int = 0; foreach ($feed as $post) : ?>
         <li class="large-<?php echo $columns; ?> medium-<?php echo $columns; ?> small-6 columns left <?php echo $columns; ?>">
-            <a href="<?php echo $post->link; ?>" target="_blank"><img src="<?php echo $post->images->low_resolution->url; ?>"></a>
+            <a href="<?php echo $post->link; ?>" target="_blank" style="background-image:url('<?php echo $post->images->low_resolution->url; ?>');">
+                <span class="zoom-icon dashicons dashicons-visibility"></span>
+                <img src="<?php echo $post->images->low_resolution->url; ?>" class="instagram-image">
+            </a>
         </li>
         <?php $int++; if ($int == $instance['show_count']) break; endforeach; ?>
     </ul>
