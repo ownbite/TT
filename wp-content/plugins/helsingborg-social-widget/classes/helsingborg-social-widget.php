@@ -45,14 +45,18 @@ if (!class_exists('HelsingborgSocialWidget')) {
                 update_option('hbgsf_facebook_app_id', esc_attr($_POST['facebook']['app_id']));
                 update_option('hbgsf_facebook_app_secret', esc_attr($_POST['facebook']['app_secret']));
                 update_option('hbgsf_instagram_client_id', esc_attr($_POST['instagram']['client_id']));
+                update_option('hbgsf_twitter_consumer_key', esc_attr($_POST['twitter']['consumer_key']));
+                update_option('hbgsf_twitter_consumer_secret', esc_attr($_POST['twitter']['consumer_secret']));
             }
 
             /**
              * Get options
              */
-            $hbgsf_facebook_app_id     = get_option('hbgsf_facebook_app_id');
-            $hbgsf_facebook_app_secret = get_option('hbgsf_facebook_app_secret');
-            $hbgsf_instagram_client_id = get_option('hbgsf_instagram_client_id');
+            $hbgsf_facebook_app_id         = get_option('hbgsf_facebook_app_id');
+            $hbgsf_facebook_app_secret     = get_option('hbgsf_facebook_app_secret');
+            $hbgsf_instagram_client_id     = get_option('hbgsf_instagram_client_id');
+            $hbgsf_twitter_consumer_key    = get_option('hbgsf_twitter_consumer_key');
+            $hbgsf_twitter_consumer_secret = get_option('hbgsf_twitter_consumer_secret');
 
             /**
              * Require the view
@@ -97,7 +101,7 @@ if (!class_exists('HelsingborgSocialWidget')) {
                     break;
 
                 case 'pinterest':
-                    $instance['username']          = $this->getFbUserFromUrl($newInstance[$type . '-url']);
+                    $instance['username']          = $newInstance[$type . '-user'];
                     $instance['show_count']        = $newInstance[$type . '-count'];
                     $instance['show_visit_button'] = $newInstance[$type . '-show-visit-button'];
                     break;
@@ -110,9 +114,10 @@ if (!class_exists('HelsingborgSocialWidget')) {
                     $instance['show_visit_button'] = $newInstance[$type . '-show-visit-button'];
                     break;
 
-                default:
-                    $instance['username']   = $newInstance[$type . '-user'];
-                    $instance['show_count'] = $newInstance[$type . '-count'];
+                case 'twitter':
+                    $instance['username']          = $newInstance[$type . '-user'];
+                    $instance['show_count']        = $newInstance[$type . '-count'];
+                    $instance['show_visit_button'] = $newInstance[$type . '-show-visit-button'];
                     break;
             }
 
@@ -137,6 +142,11 @@ if (!class_exists('HelsingborgSocialWidget')) {
                 case 'facebook':
                     $feed = $this->getFacebookFeed($instance['username'], $instance['show_count']);
                     require($this->_viewsPath . 'widget-facebook.php');
+                    break;
+
+                case 'twitter':
+                    $feed = $this->getTwitterFeed($instance['username'], $instance['show_count']);
+                    require($this->_viewsPath . 'widget-twitter.php');
                     break;
 
                 default:
@@ -181,6 +191,12 @@ if (!class_exists('HelsingborgSocialWidget')) {
             return $recent->data;
         }
 
+        /**
+         * Gets Facebook posts of a specified user from the Facebook Graph API
+         * @param  string $username The user to get posts from
+         * @param  integer $length  Max length (number of posts to show)
+         * @return object           The loaded posts
+         */
         public function getFacebookFeed($username, $length) {
             /**
              * Get appId and appSecret from options
@@ -190,7 +206,6 @@ if (!class_exists('HelsingborgSocialWidget')) {
 
             /**
              * Request a token from Facebook Graph API
-             * @var string
              */
             $endpoint = 'https://graph.facebook.com/oauth/access_token';
             $data = array(
@@ -201,6 +216,9 @@ if (!class_exists('HelsingborgSocialWidget')) {
             $token = HbgCurl::request('GET', $endpoint, $data);
             $token = explode('=', $token)[1];
 
+            /**
+             * Request the posts
+             */
             $endpoint = 'https://graph.facebook.com/' . $username . '/posts';
             $data = array(
                 'access_token' => $token,
@@ -210,6 +228,77 @@ if (!class_exists('HelsingborgSocialWidget')) {
             $feed = json_decode($feed);
 
             return $feed->data;
+        }
+
+        public function getTwitterFeed($username, $length) {
+            /**
+             * Get consumer key from options
+             */
+            $consumer_key    = get_option('hbgsf_twitter_consumer_key');
+            $consumer_secret = get_option('hbgsf_twitter_consumer_secret');
+
+            /**
+             * Encode consumer key and secret
+             */
+            $consumer_key    = urlencode($consumer_key);
+            $consumer_secret = urlencode($consumer_secret);
+
+            /**
+             * Concatenate key and secret and base64 encode
+             */
+            $bearer_token = $consumer_key . ':' . $consumer_secret;
+            $base64_bearer_token = base64_encode($bearer_token);
+
+            /**
+             * Request access token
+             */
+            $endpoint = 'https://api.twitter.com/oauth2/token';
+
+            // Request headers
+            $headers = array(
+                "POST /oauth2/token HTTP/1.1",
+                "Host: api.twitter.com",
+                "User-Agent: jonhurlock Twitter Application-only OAuth App v.1",
+                "Authorization: Basic " . $base64_bearer_token,
+                "Content-Type: application/x-www-form-urlencoded;charset=UTF-8"
+            );
+
+            // Postdata
+            $data = array(
+                'grant_type' => 'client_credentials'
+            );
+
+            // Curl and format response
+            $response = HbgCurl::request('POST', $endpoint, $data, NULL, $headers);
+            $response = json_decode($response);
+            $access_token = $response->access_token;
+
+            /**
+             * Request statuses
+             */
+            $endpoint = 'https://api.twitter.com/1.1/statuses/user_timeline.json';
+
+            // Postdata
+            $data = array(
+                'access_token'     => $access_token,
+                'screen_name'      => $username,
+                'count'            => $length,
+                'exclude_replies ' => true,
+                'include_rts '     => false
+            );
+
+            // Request headers
+            $headers = array(
+                "GET /1.1/search/tweets.json" . http_build_query($data) . " HTTP/1.1",
+                "Host: api.twitter.com",
+                "User-Agent: jonhurlock Twitter Application-only OAuth App v.1",
+                "Authorization: Bearer " . $access_token
+            );
+
+            // Curl
+            $tweets = HbgCurl::request('GET', $endpoint, $data, 'JSON', $headers);
+
+            return json_decode($tweets);
         }
 
         /**

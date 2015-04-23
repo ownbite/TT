@@ -1,30 +1,25 @@
-<!-- Facebook feed -->
+<!-- Twitter feed -->
 <?php echo $before_widget; ?>
-<h2><i class="fa fa-facebook-square"></i> Facebook</h2>
+<h2><i class="fa fa-twitter"></i> Twitter</h2>
 <div class="divider">
     <div class="upper-divider"></div>
     <div class="lower-divider"></div>
 </div>
-<div class="textwidget hbg-social-feed hbg-social-feed-facebook">
+<div class="textwidget hbg-social-feed hbg-social-feed-twitter">
     <ul>
         <?php
             $int = 0;
             foreach ($feed as $post) :
 
-            $date = new DateTime($post->created_time);
+            $date = new DateTime($post->created_at);
             $timeZone = new DateTimeZone('Europe/Stockholm');
             $date->setTimezone($timeZone);
         ?>
         <li>
-            <?php
-                if (isset($post->full_picture)) :
-            ?>
-                <div class="hbg-social-feed-image" style="background-image: url(<?php echo $post->full_picture; ?>);"></div>
-            <?php endif; ?>
             <div class="hbg-social-feed-post-content">
                 <span class="hbg-social-feed-post-date"><?php echo $date->format('Y-m-d H:i'); ?></span>
                 <article>
-                    <?php echo wp_trim_words($post->message, 30, $more = '…<br><a href="' . $post->link . '" target="_blank" class="read-more">Läs mer</a>'); ?>
+                    <?php echo $post->text; ?>
                 </article>
                 <?php if ($post->status_type == 'shared_story') : ?>
                 <a href="<?php echo $post->link; ?>" target="_blank" class="hbg-social-feed-post-attachment">
@@ -42,7 +37,7 @@
 
     <?php if (isset($instance['show_visit_button']) && $instance['show_visit_button'] == 'on') : ?>
     <div class="text-center hbg-social-feed-actions">
-        <a href="https://www.facebook.com/<?php echo $instance['username']; ?>" target="_blank" class="button button-hbg">Besök oss på Facebook</a>
+        <a href="https://www.twitter.com/<?php echo $instance['username']; ?>" target="_blank" class="button button-hbg">Besök oss på twitter</a>
     </div>
     <?php endif; ?>
 </div>

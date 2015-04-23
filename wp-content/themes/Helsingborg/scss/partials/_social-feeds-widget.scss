@@ -67,7 +67,8 @@
         }
     }
 
-    &.hbg-social-feed-facebook {
+    &.hbg-social-feed-facebook,
+    &.hbg-social-feed-twitter {
         margin: rem-calc(-10);
         margin-top: rem-calc(-16);
         margin-bottom: rem-calc(-11);
@@ -88,7 +89,7 @@
             }
         }
 
-        .hbg-social-feed-facebook-image {
+        .hbg-social-feed-image {
             position: absolute;
             top: 5px;
             left: 0;
@@ -100,17 +101,17 @@
             border: 2px solid #ED8B00;
         }
 
-        .hbg-social-feed-facebook-post-content {
+        .hbg-social-feed-post-content {
             margin-left: 60px;
             font-size: 10pt;
             line-height: 140%;
         }
 
-        .hbg-social-feed-facebook-post-attachment {
+        .hbg-social-feed-post-attachment {
             display: block;
         }
 
-        .hbg-social-feed-facebook-post-date {
+        .hbg-social-feed-post-date {
             font-weight: bold;
             font-size: 9pt;
 
@@ -120,7 +121,7 @@
             }
         }
 
-        .hbg-social-feed-facebook-post-attachment {
+        .hbg-social-feed-post-attachment {
             border: 1px solid #f1f1f1;
             border-radius: $border-radius;
             padding: 5px 8px;
@@ -129,20 +130,26 @@
             margin-top: 8px;
             color: #555;
 
-            .hbg-social-feed-facebook-post-attachment-title {
+            .hbg-social-feed-post-attachment-title {
                 color: #555;
                 font-weight: bold;
                 display: block;
             }
 
-            .hbg-social-feed-facebook-post-attachment-description {
+            .hbg-social-feed-post-attachment-description {
                 display: none;
             }
 
-            .hbg-social-feed-facebook-post-attachment-caption {
+            .hbg-social-feed-post-attachment-caption {
                 font-size: 7pt;
                 color: #999;
             }
+        }
+    }
+
+    &.hbg-social-feed-twitter {
+        .hbg-social-feed-post-content {
+            margin-left: 0;
         }
     }
 

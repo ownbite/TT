@@ -23,6 +23,20 @@
                     <th>Instagram Client ID:</th>
                     <td>
                         <input type="text" name="instagram[client_id]"  value="<?php echo $hbgsf_instagram_client_id; ?>">
+                        <p class="description">Hämtas på <a href="https://instagram.com/developer">instagram.com/developer</a></p>
+                    </td>
+                </tr>
+                <tr valign="top">
+                    <th>Twitter Consumer Key:</th>
+                    <td>
+                        <input type="text" name="twitter[consumer_key]"  value="<?php echo $hbgsf_twitter_consumer_key; ?>">
+                    </td>
+                </tr>
+                <tr valign="top">
+                    <th>Twitter Consumer Secret:</th>
+                    <td>
+                        <input type="text" name="twitter[consumer_secret]"  value="<?php echo $hbgsf_twitter_consumer_secret; ?>">
+                        <p class="description">Hämtas på <a href="https://apps.twitter.com">apps.twitter.com</a></p>
                     </td>
                 </tr>
             </tbody>

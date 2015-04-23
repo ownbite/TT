@@ -7696,21 +7696,21 @@ html.js.flexbox.flexboxlegacy.canvas.canvastext.webgl.no-touch.geolocation.postm
 .hbg-social-feed.hbg-social-feed-instagram .instagram-image {
   visibility: hidden;
   border-radius: 4px; }
-.hbg-social-feed.hbg-social-feed-facebook {
+.hbg-social-feed.hbg-social-feed-facebook, .hbg-social-feed.hbg-social-feed-twitter {
   margin: -0.625rem;
   margin-top: -1rem;
   margin-bottom: -0.6875rem; }
-  .hbg-social-feed.hbg-social-feed-facebook ul {
+  .hbg-social-feed.hbg-social-feed-facebook ul, .hbg-social-feed.hbg-social-feed-twitter ul {
     max-height: 400px;
     overflow-y: auto;
     padding: 0.625rem; }
-  .hbg-social-feed.hbg-social-feed-facebook li {
+  .hbg-social-feed.hbg-social-feed-facebook li, .hbg-social-feed.hbg-social-feed-twitter li {
     position: relative;
     min-height: 54px;
     padding-bottom: 10px; }
-    .hbg-social-feed.hbg-social-feed-facebook li + li {
+    .hbg-social-feed.hbg-social-feed-facebook li + li, .hbg-social-feed.hbg-social-feed-twitter li + li {
       margin-top: 5px; }
-  .hbg-social-feed.hbg-social-feed-facebook .hbg-social-feed-facebook-image {
+  .hbg-social-feed.hbg-social-feed-facebook .hbg-social-feed-image, .hbg-social-feed.hbg-social-feed-twitter .hbg-social-feed-image {
     position: absolute;
     top: 5px;
     left: 0;
@@ -7720,19 +7720,19 @@ html.js.flexbox.flexboxlegacy.canvas.canvastext.webgl.no-touch.geolocation.postm
     background-size: cover;
     background-position: center center;
     border: 2px solid #ED8B00; }
-  .hbg-social-feed.hbg-social-feed-facebook .hbg-social-feed-facebook-post-content {
+  .hbg-social-feed.hbg-social-feed-facebook .hbg-social-feed-post-content, .hbg-social-feed.hbg-social-feed-twitter .hbg-social-feed-post-content {
     margin-left: 60px;
     font-size: 10pt;
     line-height: 140%; }
-  .hbg-social-feed.hbg-social-feed-facebook .hbg-social-feed-facebook-post-attachment {
+  .hbg-social-feed.hbg-social-feed-facebook .hbg-social-feed-post-attachment, .hbg-social-feed.hbg-social-feed-twitter .hbg-social-feed-post-attachment {
     display: block; }
-  .hbg-social-feed.hbg-social-feed-facebook .hbg-social-feed-facebook-post-date {
+  .hbg-social-feed.hbg-social-feed-facebook .hbg-social-feed-post-date, .hbg-social-feed.hbg-social-feed-twitter .hbg-social-feed-post-date {
     font-weight: bold;
     font-size: 9pt; }
-    .hbg-social-feed.hbg-social-feed-facebook .hbg-social-feed-facebook-post-date img {
+    .hbg-social-feed.hbg-social-feed-facebook .hbg-social-feed-post-date img, .hbg-social-feed.hbg-social-feed-twitter .hbg-social-feed-post-date img {
       display: inline-block;
       vertical-align: middle; }
-  .hbg-social-feed.hbg-social-feed-facebook .hbg-social-feed-facebook-post-attachment {
+  .hbg-social-feed.hbg-social-feed-facebook .hbg-social-feed-post-attachment, .hbg-social-feed.hbg-social-feed-twitter .hbg-social-feed-post-attachment {
     border: 1px solid #f1f1f1;
     border-radius: 4px;
     padding: 5px 8px;
@@ -7740,15 +7740,17 @@ html.js.flexbox.flexboxlegacy.canvas.canvastext.webgl.no-touch.geolocation.postm
     line-height: 140%;
     margin-top: 8px;
     color: #555; }
-    .hbg-social-feed.hbg-social-feed-facebook .hbg-social-feed-facebook-post-attachment .hbg-social-feed-facebook-post-attachment-title {
+    .hbg-social-feed.hbg-social-feed-facebook .hbg-social-feed-post-attachment .hbg-social-feed-post-attachment-title, .hbg-social-feed.hbg-social-feed-twitter .hbg-social-feed-post-attachment .hbg-social-feed-post-attachment-title {
       color: #555;
       font-weight: bold;
       display: block; }
-    .hbg-social-feed.hbg-social-feed-facebook .hbg-social-feed-facebook-post-attachment .hbg-social-feed-facebook-post-attachment-description {
+    .hbg-social-feed.hbg-social-feed-facebook .hbg-social-feed-post-attachment .hbg-social-feed-post-attachment-description, .hbg-social-feed.hbg-social-feed-twitter .hbg-social-feed-post-attachment .hbg-social-feed-post-attachment-description {
       display: none; }
-    .hbg-social-feed.hbg-social-feed-facebook .hbg-social-feed-facebook-post-attachment .hbg-social-feed-facebook-post-attachment-caption {
+    .hbg-social-feed.hbg-social-feed-facebook .hbg-social-feed-post-attachment .hbg-social-feed-post-attachment-caption, .hbg-social-feed.hbg-social-feed-twitter .hbg-social-feed-post-attachment .hbg-social-feed-post-attachment-caption {
       font-size: 7pt;
       color: #999; }
+.hbg-social-feed.hbg-social-feed-twitter .hbg-social-feed-post-content {
+  margin-left: 0; }
 .hbg-social-feed .hbg-social-feed-actions {
   padding: 15px 0; }
 

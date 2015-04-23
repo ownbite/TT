@@ -65,6 +65,12 @@
             <label>Antal poster att visa:</label>
             <input type="number" id="<?php echo $this->get_field_id('twitter-count'); ?>" name="<?php echo $this->get_field_name('twitter-count'); ?>" class="widefat" value="<?php if ($instance['feedType'] == 'twitter') : ?><?php echo $instance['show_count']; ?><?php endif; ?>">
         </p>
+        <p>
+            <label>
+                <input type="checkbox" id="<?php echo $this->get_field_id('twitter-show-visit-button'); ?>" name="<?php echo $this->get_field_name('twitter-show-visit-button'); ?>" class="widefat"  value="on" <?php checked('on', $instance['show_visit_button'], true); ?>>
+                Visa "Besök oss på Twitter" knapp
+            </label>
+        </p>
     </section>
 
     <!-- ## PINTEREST ## -->
@@ -76,6 +82,12 @@
         <p>
             <label>Antal poster att visa:</label>
             <input type="number" id="<?php echo $this->get_field_id('pinterest-count'); ?>" name="<?php echo $this->get_field_name('pinterest-count'); ?>" class="widefat" value="<?php if ($instance['feedType'] == 'pinterest') : ?><?php echo $instance['show_count']; ?><?php endif; ?>">
+        </p>
+        <p>
+            <label>
+                <input type="checkbox" id="<?php echo $this->get_field_id('pinterest-show-visit-button'); ?>" name="<?php echo $this->get_field_name('pinterest-show-visit-button'); ?>" class="widefat"  value="on" <?php checked('on', $instance['show_visit_button'], true); ?>>
+                Visa "Besök oss på Pinterest" knapp
+            </label>
         </p>
     </section>
 </p>
