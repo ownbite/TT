@@ -91,20 +91,23 @@ if (!class_exists('HelsingborgSocialWidget')) {
 
             switch ($type = $instance['feedType']) {
                 case 'facebook':
-                    $instance['username']   = $this->getFbUserFromUrl($newInstance[$type . '-url']);
-                    $instance['show_count'] = $newInstance[$type . '-count'];
+                    $instance['username']          = $this->getFbUserFromUrl($newInstance[$type . '-url']);
+                    $instance['show_count']        = $newInstance[$type . '-count'];
+                    $instance['show_visit_button'] = $newInstance[$type . '-show-visit-button'];
                     break;
 
                 case 'pinterest':
-                    $instance['username']   = $this->getFbUserFromUrl($newInstance[$type . '-url']);
-                    $instance['show_count'] = $newInstance[$type . '-count'];
+                    $instance['username']          = $this->getFbUserFromUrl($newInstance[$type . '-url']);
+                    $instance['show_count']        = $newInstance[$type . '-count'];
+                    $instance['show_visit_button'] = $newInstance[$type . '-show-visit-button'];
                     break;
 
                 case 'instagram':
-                    $instance['username']   = $newInstance[$type . '-user'];
-                    $instance['show_count'] = $newInstance[$type . '-count'];
-                    $instance['col_count']  = $newInstance[$type . '-col-count'];
-                    $instance['show_likes'] = $newInstance[$type . '-show-likes'];
+                    $instance['username']          = $newInstance[$type . '-user'];
+                    $instance['show_count']        = $newInstance[$type . '-count'];
+                    $instance['col_count']         = $newInstance[$type . '-col-count'];
+                    $instance['show_likes']        = $newInstance[$type . '-show-likes'];
+                    $instance['show_visit_button'] = $newInstance[$type . '-show-visit-button'];
                     break;
 
                 default:

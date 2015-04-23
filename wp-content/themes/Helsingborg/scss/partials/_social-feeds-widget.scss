@@ -69,7 +69,8 @@
 
     &.hbg-social-feed-facebook {
         margin: rem-calc(-10);
-        margin-top: rem-calc(-17);
+        margin-top: rem-calc(-16);
+        margin-bottom: rem-calc(-11);
 
         ul {
             max-height: 400px;
@@ -80,9 +81,10 @@
         li {
             position: relative;
             min-height: 54px;
+            padding-bottom: 10px;
 
             & + li {
-                margin-top: 15px;
+                margin-top: 5px;
             }
         }
 
@@ -111,6 +113,11 @@
         .hbg-social-feed-facebook-post-date {
             font-weight: bold;
             font-size: 9pt;
+
+            img {
+                display: inline-block;
+                vertical-align: middle;
+            }
         }
 
         .hbg-social-feed-facebook-post-attachment {

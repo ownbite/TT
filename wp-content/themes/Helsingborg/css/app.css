@@ -7698,16 +7698,18 @@ html.js.flexbox.flexboxlegacy.canvas.canvastext.webgl.no-touch.geolocation.postm
   border-radius: 4px; }
 .hbg-social-feed.hbg-social-feed-facebook {
   margin: -0.625rem;
-  margin-top: -1.0625rem; }
+  margin-top: -1rem;
+  margin-bottom: -0.6875rem; }
   .hbg-social-feed.hbg-social-feed-facebook ul {
     max-height: 400px;
     overflow-y: auto;
     padding: 0.625rem; }
   .hbg-social-feed.hbg-social-feed-facebook li {
     position: relative;
-    min-height: 54px; }
+    min-height: 54px;
+    padding-bottom: 10px; }
     .hbg-social-feed.hbg-social-feed-facebook li + li {
-      margin-top: 15px; }
+      margin-top: 5px; }
   .hbg-social-feed.hbg-social-feed-facebook .hbg-social-feed-facebook-image {
     position: absolute;
     top: 5px;
@@ -7727,6 +7729,9 @@ html.js.flexbox.flexboxlegacy.canvas.canvastext.webgl.no-touch.geolocation.postm
   .hbg-social-feed.hbg-social-feed-facebook .hbg-social-feed-facebook-post-date {
     font-weight: bold;
     font-size: 9pt; }
+    .hbg-social-feed.hbg-social-feed-facebook .hbg-social-feed-facebook-post-date img {
+      display: inline-block;
+      vertical-align: middle; }
   .hbg-social-feed.hbg-social-feed-facebook .hbg-social-feed-facebook-post-attachment {
     border: 1px solid #f1f1f1;
     border-radius: 4px;

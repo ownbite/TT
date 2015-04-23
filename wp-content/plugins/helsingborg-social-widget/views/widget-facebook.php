@@ -22,9 +22,9 @@
                 <div class="hbg-social-feed-facebook-image" style="background-image: url(<?php echo $post->full_picture; ?>);"></div>
             <?php endif; ?>
             <div class="hbg-social-feed-facebook-post-content">
-                <span class="hbg-social-feed-facebook-post-date"><?php echo $date->format('Y-m-d H:i'); ?> - <?=$post->type; ?></span>
+                <span class="hbg-social-feed-facebook-post-date"><?php echo $date->format('Y-m-d H:i'); ?></span>
                 <article>
-                    <?php echo wp_trim_words($post->message, 30, $more = '… <a href="' . $post->link . '" target="_blank">Läs mer</a>'); ?>
+                    <?php echo wp_trim_words($post->message, 30, $more = '…<br><a href="' . $post->link . '" target="_blank" class="read-more">Läs mer</a>'); ?>
                 </article>
                 <?php if ($post->status_type == 'shared_story') : ?>
                 <a href="<?php echo $post->link; ?>" target="_blank" class="hbg-social-feed-facebook-post-attachment">
@@ -39,8 +39,11 @@
         <?php $int++; if ($int == $instance['show_count']) break; endforeach; ?>
     </ul>
     <div class="clearfix"></div>
+
+    <?php if (isset($instance['show_visit_button']) && $instance['show_visit_button'] == 'on') : ?>
     <div class="text-center hbg-social-feed-actions">
         <a href="https://www.facebook.com/<?php echo $instance['username']; ?>" target="_blank" class="button button-hbg">Besök oss på Facebook</a>
     </div>
+    <?php endif; ?>
 </div>
 <?php echo $after_widget; ?>
