@@ -104,6 +104,7 @@ if (!class_exists('HelsingborgSocialWidget')) {
                     $instance['username']   = $newInstance[$type . '-user'];
                     $instance['show_count'] = $newInstance[$type . '-count'];
                     $instance['col_count']  = $newInstance[$type . '-col-count'];
+                    $instance['show_likes'] = $newInstance[$type . '-show-likes'];
                     break;
 
                 default:
@@ -199,7 +200,8 @@ if (!class_exists('HelsingborgSocialWidget')) {
 
             $endpoint = 'https://graph.facebook.com/' . $username . '/posts';
             $data = array(
-                'access_token' => $token
+                'access_token' => $token,
+                'fields'       =>'full_picture, picture, message, created_time, object_id, link, name, caption, description, icon, type, status_type, likes'
             );
             $feed = HbgCurl::request('GET', $endpoint, $data);
             $feed = json_decode($feed);

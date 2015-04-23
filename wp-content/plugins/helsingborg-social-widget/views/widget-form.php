@@ -35,6 +35,9 @@
             <label>Antal poster per rad:</label>
             <input type="number" id="<?php echo $this->get_field_id('instagram-col-count'); ?>" name="<?php echo $this->get_field_name('instagram-col-count'); ?>" class="widefat"  value="<?php echo $instance['col_count']; ?>">
         </p>
+        <p>
+            <label><input type="checkbox" id="<?php echo $this->get_field_id('instagram-show-likes'); ?>" name="<?php echo $this->get_field_name('instagram-show-likes'); ?>" class="widefat"  value="on" <?php checked('on', $instance['show_likes'], true); ?>> Visa antal likes</label>
+        </p>
     </section>
 
     <!-- ## TWITTER ## -->

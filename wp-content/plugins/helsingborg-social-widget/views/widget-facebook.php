@@ -16,22 +16,31 @@
             $date->setTimezone($timeZone);
         ?>
         <li>
-            <span class="feed-date"><?php echo $date->format('Y-m-d H:i'); ?></span>
             <?php
-                if (isset($post->picture)) :
-                    $picture = parse_url($post->picture);
-                    parse_str($picture['query'], $queryParam);
-                    $picture = $queryParam['url'];
+                if (isset($post->full_picture)) :
             ?>
-                <img src="<?php echo $picture; ?>">
+                <div class="hbg-social-feed-facebook-image" style="background-image: url(<?php echo $post->full_picture; ?>);"></div>
             <?php endif; ?>
-            <article><?php echo $post->message; ?></article>
+            <div class="hbg-social-feed-facebook-post-content">
+                <span class="hbg-social-feed-facebook-post-date"><?php echo $date->format('Y-m-d H:i'); ?> - <?=$post->type; ?></span>
+                <article>
+                    <?php echo wp_trim_words($post->message, 30, $more = '… <a href="' . $post->link . '" target="_blank">Läs mer</a>'); ?>
+                </article>
+                <?php if ($post->status_type == 'shared_story') : ?>
+                <a href="<?php echo $post->link; ?>" target="_blank" class="hbg-social-feed-facebook-post-attachment">
+                    <span class="hbg-social-feed-facebook-post-attachment-title"><?php echo $post->name; ?></span>
+                    <span class="hbg-social-feed-facebook-post-attachment-description"><?php echo wp_trim_words($post->description, 10, $more = '…'); ?></span>
+                    <span class="hbg-social-feed-facebook-post-attachment-caption"><?php echo $post->caption; ?></span>
+                </a>
+                <?php endif; ?>
+            </div>
+            <div class="clearfix"></div>
         </li>
-        <?php $int++; if ($int == $intance['length']) break; endforeach; ?>
+        <?php $int++; if ($int == $instance['show_count']) break; endforeach; ?>
     </ul>
     <div class="clearfix"></div>
     <div class="text-center hbg-social-feed-actions">
-        <a href="#" class="button button-hbg">Besök oss på Facebook</a>
+        <a href="https://www.facebook.com/<?php echo $instance['username']; ?>" target="_blank" class="button button-hbg">Besök oss på Facebook</a>
     </div>
 </div>
 <?php echo $after_widget; ?>

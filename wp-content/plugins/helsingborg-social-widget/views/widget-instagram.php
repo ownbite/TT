@@ -19,7 +19,9 @@
         <li class="large-<?php echo $columns; ?> medium-<?php echo $columns; ?> small-6 columns left <?php echo $columns; ?>">
             <a href="<?php echo $post->link; ?>" target="_blank" style="background-image:url('<?php echo $post->images->low_resolution->url; ?>');">
                 <span class="zoom-icon dashicons dashicons-visibility"></span>
+                <?php if ($instance['show_likes'] == 'on') : ?>
                 <span class="hbg-social-feed-instagram-likes"><i class="fa fa-heart"></i> <span><?php echo $post->likes->count; ?></span></span>
+                <?php endif; ?>
                 <img src="<?php echo $post->images->low_resolution->url; ?>" class="instagram-image">
             </a>
         </li>
