@@ -133,7 +133,7 @@ if (!class_exists('HelsingborgSocialWidget')) {
         public function widget($args, $instance) {
             extract($args);
 
-            if ($id != 'content-area') echo $before_widget;
+            if ($id != 'content-area' && $id != 'content-area-bottom') echo $before_widget;
 
             switch ($instance['feedType']) {
                 case 'instagram':
@@ -156,7 +156,7 @@ if (!class_exists('HelsingborgSocialWidget')) {
                     break;
             }
 
-            if ($id != 'content-area') echo $after_widget;
+            if ($id != 'content-area' && $id != 'content-area-bottom') echo $after_widget;
         }
 
         /**

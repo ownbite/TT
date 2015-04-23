@@ -1,7 +1,7 @@
 <?php
     $columns = 6;
     if (isset($instance['col_count']) && $instance['col_count'] > 0) {
-        $columns = 12/$instance['col_count'];
+        $columns = ceil(12/$instance['col_count']);
     }
 
 ?>

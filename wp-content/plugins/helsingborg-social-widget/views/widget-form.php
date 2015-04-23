@@ -40,6 +40,7 @@
         <p>
             <label>Antal poster per rad:</label>
             <input type="number" id="<?php echo $this->get_field_id('instagram-col-count'); ?>" name="<?php echo $this->get_field_name('instagram-col-count'); ?>" class="widefat"  value="<?php if ($instance['feedType'] == 'instagram') : ?><?php echo $instance['col_count']; ?><?php endif; ?>">
+            <p class="description">Kan komma att justeras automatiskt för att passa in i Helsingborg.se's gridsystem.</p>
         </p>
         <p>
             <label>
