@@ -133,6 +133,8 @@ if (!class_exists('HelsingborgSocialWidget')) {
         public function widget($args, $instance) {
             extract($args);
 
+            if ($id != 'content-area') echo $before_widget;
+
             switch ($instance['feedType']) {
                 case 'instagram':
                     $feed = $this->getInstagramFeed($instance['username'], $instance['show_count']);
@@ -153,6 +155,8 @@ if (!class_exists('HelsingborgSocialWidget')) {
                     require($this->_viewsPath . 'widget-none.php');
                     break;
             }
+
+            if ($id != 'content-area') echo $after_widget;
         }
 
         /**

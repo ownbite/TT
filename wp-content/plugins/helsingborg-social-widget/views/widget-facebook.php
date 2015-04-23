@@ -1,5 +1,4 @@
 <!-- Facebook feed -->
-<?php echo $before_widget; ?>
 <h2><i class="fa fa-facebook-square"></i> Facebook</h2>
 <div class="divider">
     <div class="upper-divider"></div>
@@ -46,4 +45,3 @@
     </div>
     <?php endif; ?>
 </div>
-<?php echo $after_widget; ?>

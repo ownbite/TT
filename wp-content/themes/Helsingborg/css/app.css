@@ -7333,7 +7333,8 @@ html.js.flexbox.flexboxlegacy.canvas.canvastext.webgl.no-touch.geolocation.postm
 /* ICON links / social media */
 .icon-link-list, .socialmedia-list {
   overflow: hidden;
-  margin-left: 0; }
+  margin-left: 0;
+  margin: 20px 0 5px; }
   .icon-link-list li, .socialmedia-list li {
     display: block;
     float: left;
@@ -7648,6 +7649,10 @@ html.js.flexbox.flexboxlegacy.canvas.canvastext.webgl.no-touch.geolocation.postm
 .loader.loader-black:before, .loader.loader-black:after {
   background: #000; }
 
+.hbg-social-feed ul, .hbg-social-feed li {
+  list-style: none;
+  padding: 0;
+  margin: 0; }
 .hbg-social-feed.hbg-social-feed-instagram .columns {
   padding: 5px; }
   .hbg-social-feed.hbg-social-feed-instagram .columns a {
@@ -7697,9 +7702,7 @@ html.js.flexbox.flexboxlegacy.canvas.canvastext.webgl.no-touch.geolocation.postm
   visibility: hidden;
   border-radius: 4px; }
 .hbg-social-feed.hbg-social-feed-facebook, .hbg-social-feed.hbg-social-feed-twitter {
-  margin: -0.625rem;
-  margin-top: -1rem;
-  margin-bottom: -0.6875rem; }
+  margin-top: -1rem; }
   .hbg-social-feed.hbg-social-feed-facebook ul, .hbg-social-feed.hbg-social-feed-twitter ul {
     max-height: 400px;
     overflow-y: auto;
@@ -7753,6 +7756,10 @@ html.js.flexbox.flexboxlegacy.canvas.canvastext.webgl.no-touch.geolocation.postm
   margin-left: 0; }
 .hbg-social-feed .hbg-social-feed-actions {
   padding: 15px 0; }
+
+.widget.hbg-social-feed-facebook, .widget.hbg-social-feed-twitter {
+  margin: -0.625rem;
+  margin-bottom: -0.6875rem; }
 
 .hbg-gallery-container {
   margin: 20px 0;
