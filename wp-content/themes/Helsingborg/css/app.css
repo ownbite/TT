@@ -7761,6 +7761,11 @@ html.js.flexbox.flexboxlegacy.canvas.canvastext.webgl.no-touch.geolocation.postm
   margin: -0.625rem;
   margin-bottom: -0.6875rem; }
 
+.article-page-layout .hbg-gallery-container .hbg-gallery-item {
+  width: 33%; }
+  .article-page-layout .hbg-gallery-container .hbg-gallery-item .hbg-gallery-item-title {
+    font-size: 10pt; }
+
 .hbg-gallery-container {
   margin: 20px 0;
   position: relative; }

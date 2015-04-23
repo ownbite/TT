@@ -1,3 +1,15 @@
+.article-page-layout {
+    .hbg-gallery-container {
+        .hbg-gallery-item {
+            width: 33%;
+
+            .hbg-gallery-item-title {
+                font-size: 10pt;
+            }
+        }
+    }
+}
+
 .hbg-gallery-container {
     margin: 20px 0;
     position: relative;
@@ -14,7 +26,6 @@
         position: relative;
         float: left;
         overflow: hidden;
-        //transition: .2s all;
 
         .hbg-gallery-item-image-container {
             position: absolute;
