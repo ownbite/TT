@@ -7765,6 +7765,9 @@ html.js.flexbox.flexboxlegacy.canvas.canvastext.webgl.no-touch.geolocation.postm
   width: 33%; }
   .article-page-layout .hbg-gallery-container .hbg-gallery-item .hbg-gallery-item-title {
     font-size: 10pt; }
+  .article-page-layout .hbg-gallery-container .hbg-gallery-item.active {
+    width: 66%;
+    padding-bottom: 40%; }
 
 .hbg-gallery-container {
   margin: 20px 0;

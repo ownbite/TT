@@ -6,6 +6,11 @@
             .hbg-gallery-item-title {
                 font-size: 10pt;
             }
+
+            &.active {
+                width: 66%;
+                padding-bottom: 40%;
+            }
         }
     }
 }
