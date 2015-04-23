@@ -5,7 +5,8 @@
 input[type="submit"],
 input[type="reset"],
 input[type="button"],
-button[type="submit"] {
+button[type="submit"],
+.button.button-hbg {
   padding: rem-calc(8) rem-calc(16);
   margin-bottom: 0;
   border-radius: $border-radius;
@@ -19,6 +20,7 @@ button[type="submit"] {
     background-color: scale-color($black, $lightness: 70%);
     color: $black-text;
     @include single-transition(background-color);
+    text-decoration: none;
   }
 }
 

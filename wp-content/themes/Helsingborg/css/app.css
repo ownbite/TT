@@ -7115,7 +7115,7 @@ label {
 
 /* Button styles */
 /* generic styles */
-input[type="submit"], input[type="reset"], input[type="button"], button[type="submit"] {
+input[type="submit"], input[type="reset"], input[type="button"], button[type="submit"], .button.button-hbg {
   padding: 0.5rem 1rem;
   margin-bottom: 0;
   border-radius: 4px;
@@ -7124,10 +7124,11 @@ input[type="submit"], input[type="reset"], input[type="button"], button[type="su
   border: 1px solid #bfbfbf;
   box-sizing: border-box;
   box-shadow: 2px 2px 1px 0 rgba(0, 0, 0, 0.15); }
-  input[type="submit"]:hover, input[type="reset"]:hover, input[type="button"]:hover, button[type="submit"]:hover {
+  input[type="submit"]:hover, input[type="reset"]:hover, input[type="button"]:hover, button[type="submit"]:hover, .button.button-hbg:hover {
     background-color: #b3b3b3;
     color: #222;
-    transition: background-color 300ms ease-out; }
+    transition: background-color 300ms ease-out;
+    text-decoration: none; }
 
 /* specific styles */
 /* Search in List */
@@ -7646,6 +7647,112 @@ html.js.flexbox.flexboxlegacy.canvas.canvastext.webgl.no-touch.geolocation.postm
 /* Black loader */
 .loader.loader-black:before, .loader.loader-black:after {
   background: #000; }
+
+.hbg-social-feed.hbg-social-feed-instagram .columns {
+  padding: 5px; }
+  .hbg-social-feed.hbg-social-feed-instagram .columns a {
+    display: block;
+    position: relative;
+    background-size: 100%;
+    background-position: center center;
+    border-radius: 4px; }
+    .hbg-social-feed.hbg-social-feed-instagram .columns a .zoom-icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-left: -0.5px;
+      margin-top: -0.5px;
+      font-size: 1px;
+      width: 1px;
+      height: 1px;
+      color: #fff;
+      opacity: 0;
+      text-shadow: 0 0 50px #000;
+      transition: .2s all; }
+    .hbg-social-feed.hbg-social-feed-instagram .columns a .hbg-social-feed-instagram-likes {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 20px 8px 5px 8px;
+      color: #fff;
+      font-size: 9pt;
+      background: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 0, 0, 0.9)));
+      background: -moz-linear-gradient(top, transparent, rgba(0, 0, 0, 0.9));
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='transparent', endColorstr='rgba(0, 0, 0, 0.9)'); }
+      .hbg-social-feed.hbg-social-feed-instagram .columns a .hbg-social-feed-instagram-likes .fa {
+        color: #E20613; }
+    .hbg-social-feed.hbg-social-feed-instagram .columns a:hover {
+      text-decoration: none; }
+      .hbg-social-feed.hbg-social-feed-instagram .columns a:hover .zoom-icon {
+        font-size: 50px;
+        margin-left: -25px;
+        margin-top: -25px;
+        width: 50px;
+        height: 50px;
+        opacity: 1; }
+    .hbg-social-feed.hbg-social-feed-instagram .columns a:focus {
+      outline: none; }
+.hbg-social-feed.hbg-social-feed-instagram .instagram-image {
+  visibility: hidden;
+  border-radius: 4px; }
+.hbg-social-feed.hbg-social-feed-facebook, .hbg-social-feed.hbg-social-feed-twitter {
+  margin: -0.625rem;
+  margin-top: -1rem;
+  margin-bottom: -0.6875rem; }
+  .hbg-social-feed.hbg-social-feed-facebook ul, .hbg-social-feed.hbg-social-feed-twitter ul {
+    max-height: 400px;
+    overflow-y: auto;
+    padding: 0.625rem; }
+  .hbg-social-feed.hbg-social-feed-facebook li, .hbg-social-feed.hbg-social-feed-twitter li {
+    position: relative;
+    min-height: 54px;
+    padding-bottom: 10px; }
+    .hbg-social-feed.hbg-social-feed-facebook li + li, .hbg-social-feed.hbg-social-feed-twitter li + li {
+      margin-top: 5px; }
+  .hbg-social-feed.hbg-social-feed-facebook .hbg-social-feed-image, .hbg-social-feed.hbg-social-feed-twitter .hbg-social-feed-image {
+    position: absolute;
+    top: 5px;
+    left: 0;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center center;
+    border: 2px solid #ED8B00; }
+  .hbg-social-feed.hbg-social-feed-facebook .hbg-social-feed-post-content, .hbg-social-feed.hbg-social-feed-twitter .hbg-social-feed-post-content {
+    margin-left: 60px;
+    font-size: 10pt;
+    line-height: 140%; }
+  .hbg-social-feed.hbg-social-feed-facebook .hbg-social-feed-post-attachment, .hbg-social-feed.hbg-social-feed-twitter .hbg-social-feed-post-attachment {
+    display: block; }
+  .hbg-social-feed.hbg-social-feed-facebook .hbg-social-feed-post-date, .hbg-social-feed.hbg-social-feed-twitter .hbg-social-feed-post-date {
+    font-weight: bold;
+    font-size: 9pt; }
+    .hbg-social-feed.hbg-social-feed-facebook .hbg-social-feed-post-date img, .hbg-social-feed.hbg-social-feed-twitter .hbg-social-feed-post-date img {
+      display: inline-block;
+      vertical-align: middle; }
+  .hbg-social-feed.hbg-social-feed-facebook .hbg-social-feed-post-attachment, .hbg-social-feed.hbg-social-feed-twitter .hbg-social-feed-post-attachment {
+    border: 1px solid #f1f1f1;
+    border-radius: 4px;
+    padding: 5px 8px;
+    font-size: 8pt;
+    line-height: 140%;
+    margin-top: 8px;
+    color: #555; }
+    .hbg-social-feed.hbg-social-feed-facebook .hbg-social-feed-post-attachment .hbg-social-feed-post-attachment-title, .hbg-social-feed.hbg-social-feed-twitter .hbg-social-feed-post-attachment .hbg-social-feed-post-attachment-title {
+      color: #555;
+      font-weight: bold;
+      display: block; }
+    .hbg-social-feed.hbg-social-feed-facebook .hbg-social-feed-post-attachment .hbg-social-feed-post-attachment-description, .hbg-social-feed.hbg-social-feed-twitter .hbg-social-feed-post-attachment .hbg-social-feed-post-attachment-description {
+      display: none; }
+    .hbg-social-feed.hbg-social-feed-facebook .hbg-social-feed-post-attachment .hbg-social-feed-post-attachment-caption, .hbg-social-feed.hbg-social-feed-twitter .hbg-social-feed-post-attachment .hbg-social-feed-post-attachment-caption {
+      font-size: 7pt;
+      color: #999; }
+.hbg-social-feed.hbg-social-feed-twitter .hbg-social-feed-post-content {
+  margin-left: 0; }
+.hbg-social-feed .hbg-social-feed-actions {
+  padding: 15px 0; }
 
 /* Assets */
 /* 

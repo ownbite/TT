@@ -33,6 +33,7 @@ wp-content/plugins/*
 !wp-content/plugins/wp-page-widget
 !wp-content/plugins/helsingborg-text-widget
 !wp-content/plugins/helsingborg-gallery
+!wp-content/plugins/helsingborg-social-widget
 
 # Ignore everything in the "themes" directory, except the Helsingborg theme
 wp-content/themes/*
