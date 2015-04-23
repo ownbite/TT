@@ -7669,6 +7669,16 @@ html.js.flexbox.flexboxlegacy.canvas.canvastext.webgl.no-touch.geolocation.postm
       opacity: 0;
       text-shadow: 0 0 50px #000;
       transition: .2s all; }
+    .hbg-social-feed.hbg-social-feed-instagram .columns a .hbg-social-feed-instagram-likes {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 5px 8px;
+      color: #fff;
+      font-size: 9pt; }
+      .hbg-social-feed.hbg-social-feed-instagram .columns a .hbg-social-feed-instagram-likes .fa {
+        color: #E20613; }
     .hbg-social-feed.hbg-social-feed-instagram .columns a:hover {
       text-decoration: none; }
       .hbg-social-feed.hbg-social-feed-instagram .columns a:hover .zoom-icon {

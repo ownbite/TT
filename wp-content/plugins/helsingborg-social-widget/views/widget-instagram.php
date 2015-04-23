@@ -19,6 +19,7 @@
         <li class="large-<?php echo $columns; ?> medium-<?php echo $columns; ?> small-6 columns left <?php echo $columns; ?>">
             <a href="<?php echo $post->link; ?>" target="_blank" style="background-image:url('<?php echo $post->images->low_resolution->url; ?>');">
                 <span class="zoom-icon dashicons dashicons-visibility"></span>
+                <span class="hbg-social-feed-instagram-likes"><i class="fa fa-heart"></i> <span><?php echo $post->likes->count; ?></span></span>
                 <img src="<?php echo $post->images->low_resolution->url; ?>" class="instagram-image">
             </a>
         </li>
