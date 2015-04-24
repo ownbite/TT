@@ -47,7 +47,7 @@ jQuery(document).on('click', '.widget-control-remove', function (e) {
     removeClicked = true;
 });
 
-jQuery(document).ajaxSuccess(function (e, xhr, settings) {
+jQuery(document).ajaxComplete(function (e, xhr, settings) {
     var widgetBaseId = 'hbgtextwidget';
 
     if (settings.data && settings.data.search('action=pw-save-widget') != -1 && settings.data.search('id_base=' + widgetBaseId) != -1) {
