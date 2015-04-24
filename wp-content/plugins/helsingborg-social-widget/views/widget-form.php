@@ -85,6 +85,11 @@
             <input type="number" id="<?php echo $this->get_field_id('pinterest-count'); ?>" name="<?php echo $this->get_field_name('pinterest-count'); ?>" class="widefat" value="<?php if ($instance['feedType'] == 'pinterest') : ?><?php echo $instance['show_count']; ?><?php endif; ?>">
         </p>
         <p>
+            <label>Antal poster per rad:</label>
+            <input type="number" id="<?php echo $this->get_field_id('pinterest-col-count'); ?>" name="<?php echo $this->get_field_name('pinterest-col-count'); ?>" class="widefat"  value="<?php if ($instance['feedType'] == 'pinterest') : ?><?php echo $instance['col_count']; ?><?php endif; ?>">
+            <p class="description">Kan komma att justeras automatiskt för att passa in i Helsingborg.se's gridsystem.</p>
+        </p>
+        <p>
             <label>
                 <input type="checkbox" id="<?php echo $this->get_field_id('pinterest-show-visit-button'); ?>" name="<?php echo $this->get_field_name('pinterest-show-visit-button'); ?>" class="widefat"  value="on" <?php checked('on', $instance['show_visit_button'], true); ?>>
                 Visa "Besök oss på Pinterest" knapp

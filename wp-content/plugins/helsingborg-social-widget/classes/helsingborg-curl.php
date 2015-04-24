@@ -60,6 +60,9 @@ if (!class_exists('HbgCurl')) {
                 $arguments[CURLOPT_HTTPHEADER] = $headers;
             }
 
+            /**
+             * Do the actual curl
+             */
             $ch = curl_init();
             curl_setopt_array($ch, $arguments);
             $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);

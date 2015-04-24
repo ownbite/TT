@@ -104,6 +104,7 @@ if (!class_exists('HelsingborgSocialWidget')) {
                     $instance['username']          = $newInstance[$type . '-user'];
                     $instance['show_count']        = $newInstance[$type . '-count'];
                     $instance['show_visit_button'] = $newInstance[$type . '-show-visit-button'];
+                    $instance['col_count']         = $newInstance[$type . '-col-count'];
                     break;
 
                 case 'instagram':
@@ -149,6 +150,11 @@ if (!class_exists('HelsingborgSocialWidget')) {
                 case 'twitter':
                     $feed = $this->getTwitterFeed($instance['username'], $instance['show_count']);
                     require($this->_viewsPath . 'widget-twitter.php');
+                    break;
+
+                case 'pinterest':
+                    $feed = $this->getPinterestFeed($instance['username'], $instance['show_count']);
+                    require($this->_viewsPath . 'widget-pinterest.php');
                     break;
 
                 default:
@@ -234,6 +240,12 @@ if (!class_exists('HelsingborgSocialWidget')) {
             return $feed->data;
         }
 
+        /**
+         * Gets a twitter feed of a specific username
+         * @param  string $username  The twitter username to get
+         * @param  integer $length   The max number of tweets to get
+         * @return object            Object with the tweets
+         */
         public function getTwitterFeed($username, $length) {
             /**
              * Get consumer key from options
@@ -304,6 +316,21 @@ if (!class_exists('HelsingborgSocialWidget')) {
 
             return json_decode($tweets);
         }
+
+        /**
+         * Gets a Pinterest feed from a specific user
+         * @param  string $username Pinterest username
+         * @param  integer $length  Number of Pins to display
+         * @return object           An object with the pins
+         */
+        function getPinterestFeed($username, $length) {
+            $endpoint = 'https://api.pinterest.com/v3/pidgets/users/' . $username . '/pins/';
+            $response = HbgCurl::request('GET', $endpoint);
+
+            return json_decode($response)->data->pins;
+        }
+
+
 
         /**
          * Gets the username from a Facebook page URL

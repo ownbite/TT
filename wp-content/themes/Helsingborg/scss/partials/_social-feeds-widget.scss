@@ -4,7 +4,8 @@
         padding: 0;
         margin: 0;
     }
-    &.hbg-social-feed-instagram {
+    &.hbg-social-feed-instagram,
+    &.hbg-social-feed-pinterest {
         .columns {
             padding: 5px;
 
@@ -69,6 +70,14 @@
         .instagram-image {
             visibility: hidden;
             border-radius: $border-radius;
+        }
+    }
+
+    &.hbg-social-feed-pinterest {
+        .columns {
+            a {
+                padding-bottom: 100%;
+            }
         }
     }
 
