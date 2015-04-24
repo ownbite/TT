@@ -543,6 +543,9 @@ img.alignright {
  		.td-content p {
  			font-size: rem-calc(14);
  		}
+ 		.td-content p + p {
+			margin-top: 10px;
+		}
  		&.open td {
  			display: table-cell;
  		}

@@ -6149,6 +6149,8 @@ figure {
   border-bottom: 1px solid #e2e3e0; }
 .table-content .td-content, .table-content .td-content p {
   font-size: 0.875rem; }
+.table-content .td-content p + p {
+  margin-top: 10px; }
 .table-content.open td {
   display: table-cell; }
 
