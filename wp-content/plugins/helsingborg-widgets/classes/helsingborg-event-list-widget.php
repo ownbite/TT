@@ -134,15 +134,16 @@ if (!class_exists('EventListWidget')) {
 
               var dates_data = { action: 'load_event_dates', id: this.id, location: result.Location };
               jQuery.post(ajaxurl, dates_data, function(response) {
-                html = "<li>";
+                html = "";
                 var dates = JSON.parse(response);
                 for (var i=0;i<dates.length;i++) {
-
+                  html += '<li>';
                   html += '<span>' + dates[i].Date + '</span>';
                   html += '<span>' + dates[i].Time + '</span>';
                   html += '<span>' + dates_data.location + '</span>';
+                  html += '</li>';
                 }
-                html += '</li>';
+
                 jQuery('#time-modal').html(html);
                 if (dates.length > 0) {
                   document.getElementById('event-times').style.display = 'block';
@@ -171,10 +172,15 @@ if (!class_exists('EventListWidget')) {
                 jQuery(link).hide();
               }
               jQuery(date).html(result.Date);
-              jQuery(description).html(result.Description);
+              jQuery(description).html(nl2br(result.Description));
           });
         });
-      </script>
+
+        function nl2br (str, is_xhtml) {
+            var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br />' : '<br>';
+            return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2');
+        }
+        </script>
 
       <?php
       echo $after_widget;
