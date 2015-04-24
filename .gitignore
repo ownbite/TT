@@ -36,4 +36,7 @@ wp-content/plugins/*
 
 # Ignore everything in the "themes" directory, except the Helsingborg theme
 wp-content/themes/*
+wp-content/themes/Helsingborg-skolor/node_modules
+wp-content/themes/Helsingborg-skolor/scss/.sass-cache
 !wp-content/themes/Helsingborg/
+!wp-content/themes/Helsingborg-skolor/

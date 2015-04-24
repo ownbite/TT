@@ -1,0 +1,283 @@
+
+
+/* TYPOGRAPHY */
+/* placeholder style*/
+%icon-style {
+  line-height: 200%;
+  font-weight: $font-regular;
+  font-size: rem-calc(16);
+  font-style: normal;
+  vertical-align: base-line;
+}
+
+
+body,
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-family;
+}
+
+h1, h2 {
+  font-weight: $font-bold;
+}
+
+.top-bar.top-navigation section ul li > a {
+  font-family: $font-family;
+  font-size: rem-calc(13);
+}
+
+.top-bar.main-navigation {
+  a {
+    text-transform: uppercase;
+  }
+}
+
+.search input {
+  text-transform: uppercase;
+  font-weight: $font-light;
+}
+
+.section-title {
+  font-size: rem-calc(14);
+  font-weight: $font-bold;
+  text-transform: uppercase;
+}
+
+.mobile-section .icon {
+  &:after {
+    @include hbg-icons($menu-1);
+    @extend %icon-style;
+    margin-left: 5px;
+  }
+}
+
+.toggle-search .icon {
+  &:before {
+    @include hbg-icons($search);
+    @extend %icon-style;
+    margin-right: 5px;
+  }
+}
+
+.widget-title,
+.footer-title,
+.mobile-section li a,
+.search-section li > a {
+  text-transform: uppercase;
+  font-size: rem-calc(14);
+  font-weight: $font-bold;
+}
+
+.date,
+.news-date {
+  font-weight: $font-light;
+  font-size: rem-calc(14);
+}
+
+.mobile-navigation a {
+  font-size: rem-calc(16);
+  font-weight: $font-light;
+}
+
+.accessability-menu {
+  li a {
+    font-size: rem-calc(14);
+  }
+}
+
+
+/* COLOR THEMES */
+/* default color theme */
+body {
+  background: $gray-90;
+  color: $gray-20;
+}
+.site-header {
+  background-color: $gray-20;
+}
+.main {
+  background: $white;
+}
+
+.left-off-canvas-menu {
+  background: $gray-30;
+
+  ul li a {
+    color: $white;
+    &:hover {
+      background-color: scale-color($gray-30, $lightness: 5%);
+      color: $white;
+      text-decoration: none;
+    }
+  }
+}
+
+.top-bar.main-navigation {
+  section > ul {
+    background: $white;
+  }
+}
+
+
+.news-title {
+  color: $gray-20;
+}
+
+
+
+.news-date,
+.widget .date {
+  color: $gray-40;
+}
+
+.footer {
+  background: $gray-95;
+  color: $gray-30;
+
+  h1, h2, h3, h4, h5, h6 {
+    color: $gray-30;
+  }
+}
+
+// A more subtle background color for the active menu item
+.top-bar-section li.active:not(.has-form) a:not(.button)  {
+	background: #272727;
+}
+.top-bar-section li.active:not(.has-form) a:hover:not(.button) {
+	background: #202020;
+}
+
+/* RED */
+.red-theme {
+
+  .site-header {
+    background-color: $red-2;
+  }
+  .main {
+    background-color: $white;
+  }
+  a {
+    color: $red-1;
+  }
+  a:hover {
+    color: $red-2;
+    text-decoration: underline;
+  }
+
+  .top-bar.top-navigation,
+  .top-bar.top-navigation .top-bar-section li a,
+  .top-bar.top-navigation .top-bar-section ul li {
+    background: scale-color($red-2, $lightness: -15%);
+  }
+  .top-bar.top-navigation .top-bar-section {
+      li a:hover {
+        background: scale-color($red-2, $lightness: -25%);
+        text-decoration: none;
+      }
+  }
+  .top-bar.top-navigation.expanded .title-area {
+    background: scale-color($red-2, $lightness: -5%);
+  }
+  .top-bar.top-navigation section ul li a {
+    color: $white;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  .search-section {
+    .search,
+    .dropdown-search {
+      background: $yellow;
+    }
+    .search li .toggle-search {
+      color: $gray-20;
+    }
+    input[type="submit"] {
+      background: $gray-20;
+      border: none;
+      color: $white;
+      font-weight: 700;
+    }
+  }
+
+  .search-section li {
+    color: $gray-20;
+  }
+
+  .mobile-section .menu-icon {
+    &:after {
+      color: $white;
+    }
+  }
+  .top-bar.main-navigation {
+    background: $white;
+    .top-bar-section {
+      .has-dropdown > a:after {
+        border-color: rgba(0, 0, 0, 0.4) transparent transparent transparent;
+      }
+      li a {
+        background: $white;
+        color: $gray-10;
+      }
+      li > a:hover,
+      li.active a {
+        background: $yellow;
+        text-decoration: none;
+      }
+      li.active a {
+        font-weight: 700;
+      }
+      .dropdown {
+        li,
+        li a {
+          background: $yellow;
+          color: $gray-30;
+        }
+        li a:hover {
+          background: scale-color($yellow, 20%);
+          color: $gray-30;
+        }
+      }
+    }
+  }
+
+  /* misc page components */
+  .accessability-menu {
+    li a {
+      color: $gray-40;
+    }
+  }
+
+  /* social media list */
+  .icon-link-list {
+    li a {
+      color: $gray-40;
+      &:hover {
+        color: $gray-30;
+      }
+    }
+  }
+
+  .divider {
+    margin-bottom: rem-calc(16);
+    border-bottom-width: 3px;
+    border-bottom-style: solid;
+    .upper-divider,
+    .lower-divider {
+      display: none;
+    }
+  }
+  .widget .divider {
+    border-color: $red-1;
+  }
+  .news-section .divider {
+    border-color: $red-1;
+  }
+
+
+
+  .orbit-container .orbit-caption {
+    background-color: $gray-90;
+    color: $gray-20;
+  }
+}
