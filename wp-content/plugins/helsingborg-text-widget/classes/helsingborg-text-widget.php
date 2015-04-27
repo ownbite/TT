@@ -5,6 +5,13 @@
  */
 
 if (!class_exists('HbgTextWidget')) {
+    include(dirname(__FILE__) . '/hc-tinymce.php');
+
+    add_action('widgets_init', 'hbgtextwidgetRegister');
+    function hbgtextwidgetRegister(){
+        register_widget('hbgtextwidget');
+    }
+
     class HbgTextWidget extends WP_Widget {
 
         protected $_viewsPath;
@@ -16,11 +23,8 @@ if (!class_exists('HbgTextWidget')) {
             // Sets the views directory path
             $this->_viewsPath = plugin_dir_path(plugin_dir_path(__FILE__)) . 'views/';
 
-            // Register the widget on widgets_init
-            add_action('widgets_init', array($this, 'registerWidget'));
-
             // Enqueue js
-            add_action('admin_menu', array($this, 'addJs'));
+            // add_action('admin_menu', array($this, 'addJs'));
 
             // Widget arguments
             parent::__construct(
@@ -30,14 +34,6 @@ if (!class_exists('HbgTextWidget')) {
                     "description" => __('Textwidget med WYSIWYG-editor')
                 )
             );
-        }
-
-        /**
-        * Registers the widget
-        */
-        public function registerWidget()
-        {
-            register_widget('hbgtextwidget');
         }
 
         /**
