@@ -34,6 +34,7 @@ wp-content/plugins/*
 !wp-content/plugins/helsingborg-text-widget
 !wp-content/plugins/helsingborg-gallery
 !wp-content/plugins/helsingborg-social-widget
+!wp-content/plugins/helsingborg-post-inherit-widget
 
 # Ignore everything in the "themes" directory, except the Helsingborg theme
 wp-content/themes/*
