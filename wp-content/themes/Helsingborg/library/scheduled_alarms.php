@@ -203,4 +203,3 @@ function remove_directory($directory) {
         }
     }
 }
-?>
