@@ -5749,6 +5749,13 @@ th.hide-for-touch {
   .alarm-widget a.rss-link:hover {
     text-decoration: none; }
 
+.textwidget p + p {
+  margin-top: 10px; }
+.textwidget p + figure {
+  margin-top: 10px !important; }
+.textwidget figure img {
+  border-radius: 4px; }
+
 /**
  * Table of Contents for Helsingborg:
  *

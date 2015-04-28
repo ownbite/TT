@@ -151,3 +151,17 @@
 		@extend %widget-generic-style;
 	}
 }
+
+.textwidget {
+	p + p {
+		margin-top: 10px;
+	}
+
+	p + figure {
+		margin-top: 10px !important;
+	}
+
+	figure img {
+		border-radius: $border-radius;
+	}
+}
