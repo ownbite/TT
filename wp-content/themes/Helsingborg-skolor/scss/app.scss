@@ -10,6 +10,7 @@
 //@import "../../Helsingborg/scss/config/variables";
 @import "../../Helsingborg/scss/config/settings";
 @import "../../Helsingborg/scss/config/mixins_hbg";
+
 /* Assets */
 //@import "../../Helsingborg/scss/assets/icons";
 /* Plugin css overrides */
@@ -23,13 +24,17 @@
 /* Child theme assets */
 @import "assets/hbg-icons";
 
-/* Site structure */
+/* Child theme structure */
 @import "site/structure";
 @import "site/navigation";
 
-/* Site partials */
+/* Child theme partials */
 @import "partials/page-components";
 @import "partials/widgets";
 @import "partials/orbit";
-/* Site theme */
-@import "theme/theme";
+@import "partials/ribbon";
+@import "partials/social-feeds-widget";
+
+/* Child theme - typography & colorpalettes */
+@import "theme/typography";
+@import "theme/colors";

@@ -1,0 +1,28 @@
+.ribbon {
+  position: absolute;
+  z-index: 400;
+  height: 1000px;
+  left: -30px;
+  top: 0;
+
+  > div {
+    height: 86px;
+    width: 30px;
+  }
+}
+
+.stripe-1 {
+  background: $gray-10;
+}
+.stripe-2 {
+  background: $gray-20;
+}
+.stripe-3 {
+  background: $gray-30;
+}
+.stripe-4 {
+  background: $gray-40;
+}
+.stripe-5 {
+  background: $gray-50;
+}
