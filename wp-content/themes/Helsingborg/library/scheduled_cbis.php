@@ -123,4 +123,3 @@ function cbis_event() {
   $procedure = "CALL spInsertIntoHappyEvent();";
   $mysqli->real_query($procedure);
 }
-?>

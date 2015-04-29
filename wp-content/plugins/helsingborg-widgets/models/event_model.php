@@ -380,7 +380,7 @@ class HelsingborgEventModel {
 		$image = 'SELECT
                         hB.Author,
                         hB.ImageID,
-                        hb.ImagePath
+                        hB.ImagePath
                     FROM
                         happy_images hB,
                         happy_event hE

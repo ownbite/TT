@@ -20,7 +20,13 @@
     /**
      * Renders the WYSIWYG-editor
      */
-    wp_editor($instance['content'], $editorId, $wysiwygSettings);
+    // wp_editor($instance['content'], $editorId, $wysiwygSettings);
+    hc_tinymce(array(
+        'id'    => $editorId,
+        'name'  => $editorName,
+        'value' => $instance['content'],
+        'rows'  => 20
+    ));
 ?>
 </div>
 <input type="hidden" id="<?php echo $this->get_field_id('rand'); ?>" name="<?php echo $this->get_field_name('rand'); ?>" value="<?php echo $rand; ?>">

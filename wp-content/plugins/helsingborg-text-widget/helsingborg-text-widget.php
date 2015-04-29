@@ -13,9 +13,6 @@
 // Include the widget files
 include_once('classes/helsingborg-text-widget.php');
 
-// Initiate widgets
-$HbgTextWidget      = new HbgTextWidget();
-
 // Add resources used by link-list-widget
 wp_enqueue_style( 'helsingborg-widgets-css', plugin_dir_url(__FILE__) .'css/helsingborg-widgets.css');
 wp_enqueue_script( 'jquery', get_template_directory_uri() . '/js/jquery/dist/jquery.min.js');
