@@ -85,6 +85,10 @@ if (!class_exists('SimpleLinkListWidget')) {
 
                 // Get the page
                 $page = get_post($item_id, OBJECT, 'display');
+
+                // Continue if not published
+                if ($page->post_status !== 'publish') continue;
+
                 $title = $item;
                 $link = $item_links[$num];
                 echo('<li' . $class . '><a href="' . $link . '" ' . $target . '>' . $title . '</a></li>');
@@ -126,6 +130,9 @@ if (!class_exists('SimpleLinkListWidget')) {
             foreach ($items as $num => $item) :
                 $item_id = $item_ids[$num];
                 $page = get_post($item_id, OBJECT, 'display');
+
+                // Continue if not published
+                if ($page->post_status !== 'publish') continue;
 
                 // Check if link should be opened in new window
                 $target = $item_targets[$num] ? 'target="_blank"' : '';
@@ -281,10 +288,12 @@ if (!class_exists('SimpleLinkListWidget')) {
         $item_id   = esc_attr($item_ids[$num]);
         $item_date = esc_attr($item_dates[$num]);
         $name      = esc_attr($item);
+
+        $page = get_post($item_id);
       ?>
 
         <div id="<?php echo $this->get_field_id($num); ?>" class="list-item">
-          <h5 class="moving-handle"><span class="number"><?php echo $num; ?></span>. <span class="item-title"><?php echo $name; ?></span><a class="hbgllw-action hide-if-no-js"></a></h5>
+          <h5 class="moving-handle"><span class="number"><?php echo $num; ?></span>. <span class="item-title"><?php echo $name; ?> <?php echo ($page->post_status !== 'publish') ? '<span style="color:#ff0000;font-weight:bold;font-style:italic;">(Ej publicerad)</span>' : ''; ?></span><a class="hbgllw-action hide-if-no-js"></a></h5>
           <div class="hbgllw-edit-item">
 
             <label for="<?php echo $this->get_field_id('item'.$num); ?>"><b><?php echo __("Länktitel:"); ?></b></label>

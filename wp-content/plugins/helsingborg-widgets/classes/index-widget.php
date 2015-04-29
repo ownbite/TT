@@ -151,10 +151,12 @@ if (!class_exists('Index_Widget_Box')) {
         if (!empty($item_id)) {
           $h5 = get_post($item_id, OBJECT, 'display')->post_title;
         }
+
+        $page = get_post($item_id);
       ?>
 
         <div id="<?php echo $this->get_field_id($num); ?>" class="list-item">
-          <h5 class="moving-handle"><span class="number"><?php echo $num; ?></span>. <span class="item-title"><?php echo $h5 . ' (ID: ' . $item_id . ')'; ?></span><a class="hbgllw-action hide-if-no-js"></a></h5>
+          <h5 class="moving-handle"><span class="number"><?php echo $num; ?></span>. <span class="item-title"><?php echo $h5 . ' (ID: ' . $item_id . ')'; ?> <?php echo ($page->post_status !== 'publish') ? '<span style="color:#ff0000;font-weight:bold;font-style:italic;">(Ej publicerad)</span>' : ''; ?></span><a class="hbgllw-action hide-if-no-js"></a></h5>
           <div class="hbgllw-edit-item">
             <p>
               <label for="<?php echo $this->get_field_id('item_headline'.$num); ?>"><?php echo __("Indexrubrik (lämna tomt för att använda sidan titel):"); ?></label><br>
