@@ -73,4 +73,3 @@ function xcap_event() {
                  );
   }
 }
-?>
