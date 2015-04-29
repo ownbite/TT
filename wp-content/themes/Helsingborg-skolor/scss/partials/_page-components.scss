@@ -176,12 +176,9 @@ html.js.flexbox.flexboxlegacy.canvas.canvastext.webgl.no-touch.geolocation.postm
     box-sizing: border-box;
   }
   .item-value {
-    //font-size: rem-calc(14);
   }
   .item-label {
-    //color: $list-item-label-color;
-    //font-weight: 500;
-    //font-size: rem-calc(14);
+
     padding-right: rem-calc(16);
   }
 }
@@ -203,29 +200,7 @@ html.js.flexbox.flexboxlegacy.canvas.canvastext.webgl.no-touch.geolocation.postm
   }
 }
 
-.page-block-list {
-  .mini-item-list {
-    .item-label {
 
-    }
-    .item-value {
-      //font-weight: normal;
-      //font-size: rem-calc(14);
-    }
-  }
-}
-
-.page-block-list.page-list {
-  .mini-item-list {
-    .item-label {
-
-    }
-    .item-value {
-      //font-size: rem-calc(14);
-      //font-weight: 500;
-    }
-  }
-}
 
 /* ICON links / social media */
 
@@ -284,56 +259,6 @@ html.js.flexbox.flexboxlegacy.canvas.canvastext.webgl.no-touch.geolocation.postm
     }
 }
 
-
-	/* guide list */
-
-	.guide-list {
-		margin-left: 0;
-		margin-bottom: rem-calc(16);
-		list-style: none;
-
-		.title {
-			@extend h2;
-			display: block;
-		}
-		img {
-			margin-bottom: rem-calc(16);
-		}
-		li {
-			display: none;
-			&.current {
-				display: block;
-			}
-		}
-		.description {
-			ol, ul {
-				margin-bottom: rem-calc(16);
-				margin-left: rem-calc(40);
-			}
-			li {
-				display: list-item;
-			}
-		}
-	}
-
-	.guide-section {
-		overflow: hidden;
-		margin-bottom: rem-calc(32);
-	}
-
-	.guide-section .guide-button {
-  	color: $white !important;
-  	margin-right: $column-gutter/3;
-  	&:hover {
-  		text-decoration: none;
-  	}
-  	&.next-step {
-  		float: right;
-  	}
-  	&.prev-step {
-  		float: left;
-  	}
-}
 
 /*  MQ - page components  */
 @media #{$small-only} {

@@ -24,11 +24,13 @@
 
 .main-site-container {
 	position: relative;
-	//@include site-space;
 	> .row {
+		position: relative;
 		max-width: rem-calc($max-site-width);
 	}
 }
+
+
 
 
 /**
@@ -93,10 +95,22 @@ img.alignright {
  */
 
 /* header */
+.header-container {
+		margin: 0 auto;
+
+}
+
 .site-header {
-	padding: rem-calc(32) 0;
+	padding: rem-calc(32) 0 rem-calc(32) 0;
+	max-width: rem-calc($max-site-width + 40px);
+
+}
+.prim-logo.columns {
+	padding-left: $column-gutter;
+	padding-right: $column-gutter;
 }
 .sec-logo a {
+	display: none;
 	float: right;
 	margin-right: $column-gutter/2;
 }
@@ -210,9 +224,7 @@ img.alignright {
 	  /* hbg customized block-list,  */
 
 	  /* block style + generics */
-	  .block-list {
 
-	  }
 	  .block-list.page-block-list {
   		li {
   			a:hover {
@@ -220,20 +232,21 @@ img.alignright {
   				> .list-title {
   					text-decoration: underline;
   				}
-  			}
+					> .list-content {
+						color: $text-color;
+					}
+				}
   			a .list-content {
   				display: none;
+					color: $text-color;
   			}
   			a .list-title {
 					margin-top: 0;
-  				&:after {
-  					content: $nbsp $text-arrow;
-  				}
   			}
-			a .list-date {
-				font-size: rem-calc(12);
-				display: block;
-			}
+				a .list-date {
+					font-size: rem-calc(12);
+					display: block;
+				}
 				a img {
 					margin-bottom: rem-calc(8);
 				}
@@ -310,12 +323,6 @@ img.alignright {
 	 * ------------------------------------
 	 */
 
-	.article-page-layout {
-		.slider-container {
-			margin-bottom: rem-calc(10);
-			padding: 0;
-		}
-	}
 
 	.article-column {
 		background-color: $white;
@@ -625,16 +632,7 @@ ul.breadcrumbs strong {
 }
 
 @media #{$medium-up} {
- 	.article-page-layout,
- 	.list-page-layout {
- 		.sidebar-left {
- 			display: block;
- 			margin-top: rem-calc(100);
- 		}
- 	}
- 	.site-bg {
- 		top: rem-calc(180);
- 	}
+
 	h1 {
  		font-size: rem-calc(32);
  	}
@@ -645,13 +643,9 @@ ul.breadcrumbs strong {
  		font-size: rem-calc(20);
  	}
  }
+
+
  @media #{$large-up} {
- 	.article-page-layout,
- 	.list-page-layout {
- 		.sidebar-left {
- 			margin-top: rem-calc(120);
- 		}
- 	}
 
  	.filter-search {
  		width: 70%;
