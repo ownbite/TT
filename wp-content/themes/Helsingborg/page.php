@@ -64,6 +64,7 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
 
 				<?php if ( (is_active_sidebar('content-area') == TRUE) ) : ?>
 					<?php dynamic_sidebar("content-area"); ?>
+					<div class="clearfix"></div>
 				<?php endif; ?>
 			<footer>
 				<ul class="socialmedia-list">
