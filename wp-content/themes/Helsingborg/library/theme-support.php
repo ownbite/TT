@@ -18,5 +18,14 @@ function Helsingborg_theme_support() {
 
 }
 
-add_action('after_setup_theme', 'Helsingborg_theme_support'); 
+add_action('after_setup_theme', 'Helsingborg_theme_support');
+
+/**
+ * Remove medium image size from media uploader
+ */
+function hbg_remove_image_size($sizes) {
+    unset($sizes['medium']);
+    return $sizes;
+}
+add_filter('intermediate_image_sizes_advanced', 'hbg_remove_image_size');
 ?>
