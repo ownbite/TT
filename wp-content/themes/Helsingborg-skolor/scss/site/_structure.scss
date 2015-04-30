@@ -24,6 +24,7 @@
 
 .main-site-container {
 	position: relative;
+	padding-left: 20px;
 	> .row {
 		position: relative;
 		max-width: rem-calc($max-site-width);
