@@ -5972,7 +5972,8 @@ blockquote.alignright, img.alignright {
       content: "\00a0" "»"; }
 
 .news-image img {
-  border-radius: 4px; }
+  border-radius: 4px;
+  margin-top: 0.75rem; }
 
 ul.news-list-large.row section.news-section ul.news-list-large.row li.news-item.large-12.columns div.row div.large-5.medium-4.small-4.columns.news-image img {
   padding-left: 0.9375rem; }
