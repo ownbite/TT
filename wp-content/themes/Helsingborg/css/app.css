@@ -6146,9 +6146,23 @@ figure {
     background-color: #f3f3f2; }
 
 .table-content h2, .table-content .guide-list .title, .guide-list .table-content .title {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #333333;
+  margin: 15px 0 0 0; }
+.table-content h2:first-child, .table-content .guide-list .title:first-child, .guide-list .table-content .title:first-child {
+  font-size: 1.4375rem;
+  margin: 0; }
+.table-content h3 {
   font-size: 1.125rem;
   font-weight: 500;
-  color: #333333; }
+  color: #333333;
+  margin: 15px 0 0 0; }
+.table-content h4 {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: #333333;
+  margin: 15px 0 0 0; }
 .table-content td {
   display: none;
   background: #FFFFFF;
