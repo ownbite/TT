@@ -18,11 +18,13 @@ if (!class_exists('HbgScheduledAlarmsDisturbance')) {
          * @return void
          */
         public function createAlarmPagesSmall() {
+            global $wpdb;
             /**
              * Get small disturbances and news directory page
              */
             $smallDisturbances = $this->getSmallDisturbances();
             $newsDir = get_page_by_title('nyhetskatalog');
+            $pageId = null;
 
             /**
              * Loop disturbances and create articles
@@ -45,10 +47,57 @@ if (!class_exists('HbgScheduledAlarmsDisturbance')) {
                 );
 
                 // If page already exist, add ID to update
-                if ($post->ID > 0 && $post->post_parent == $newsDir->ID) $page['ID'] = $post->ID;
+                if ($post->ID > 0 && $post->post_parent == $newsDir->ID) {
+                    $page['ID'] = $post->ID;
+                }
 
                 // Create/update page
                 $pageId = wp_insert_post($page, true);
+
+                if (!$post) {
+                    /**
+                     * Add to news list widget
+                     */
+
+                    // Get startpage id and widget details
+                    $startpage = get_page_by_title('startsida');
+                    $widgets = $wpdb->get_row("SELECT * FROM $wpdb->postmeta WHERE meta_key = '_sidebars_widgets' AND post_id = $startpage->ID", OBJECT);
+                    $widgets = unserialize($widgets->meta_value);
+                    $linksWidgetID = null;
+
+                    // Find correct widget
+                    foreach ($widgets['content-area'] as $key => $value) {
+                        if (strpos($value, 'simplelinklistwidget') > -1) {
+                            $linksWidgetID = $value;
+                            break;
+                        }
+                    }
+
+                    $linksWidgetID = explode('-', $linksWidgetID)[1];
+
+                    $pageWidgetIdentifier = "widget_{$startpage->ID}_simplelinklistwidget";
+
+                    $pageWidgets = get_option($pageWidgetIdentifier);
+                    $linkListWidget = $pageWidgets[$linksWidgetID];
+
+                    $nextKey = array_intersect_key($linkListWidget, array_flip(preg_grep('/^item_link/', array_keys($linkListWidget))));
+                    $nextKey = count($nextKey) + 1;
+
+                    $linkListWidget['item' . $nextKey] = $disturbance->HtText;
+                    $linkListWidget['item_link' . $nextKey] = get_permalink($pageId);
+                    $linkListWidget['item_class' . $nextKey] = "";
+                    $linkListWidget['item_target' . $nextKey] = "";
+                    $linkListWidget['item_warning' . $nextKey] = "on";
+                    $linkListWidget['item_info' . $nextKey] = "";
+                    $linkListWidget['item_id' . $nextKey] = $pageId;
+                    $linkListWidget['item_date' . $nextKey] = "";
+                    $linkListWidget['amount'] = $nextKey;
+
+                    unset($pageWidgets[$linksWidgetID]);
+                    $pageWidgets[$linksWidgetID] = $linkListWidget;
+
+                    update_option($pageWidgetIdentifier, $pageWidgets);
+                }
             }
         }
 

@@ -35,4 +35,5 @@ require_once('library/helsingborg-ajax.php');
 
 // Add custom meta-functions
 require_once('meta_boxes/meta-functions.php');
+
 ?>
