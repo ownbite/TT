@@ -187,6 +187,14 @@ function update_alarms_in_database($downloadTo) {
   $mysqli    = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
   $procedure = "CALL spInsertIntoAlarmAlarms();";
   $mysqli->real_query($procedure);
+
+  updateDisturbances();
+}
+
+function updateDisturbances() {
+  require_once('scheduled_alarms_disturbance.php');
+  $hbgDistrubance = new HbgScheduledAlarmsDisturbance();
+  $hbgDistrubance->createAlarmPages();
 }
 
 /**
