@@ -5749,6 +5749,9 @@ th.hide-for-touch {
   .alarm-widget a.rss-link:hover {
     text-decoration: none; }
 
+.sidebar .quick-links-widget li + li {
+  margin-top: 10px; }
+
 .textwidget p + p {
   margin-top: 10px; }
 .textwidget p + figure {
