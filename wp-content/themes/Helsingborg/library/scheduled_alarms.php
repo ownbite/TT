@@ -62,6 +62,7 @@ function download_alarms_from_ftp($ftpLocation, $ftpUserName, $ftpPassword, $ftp
 
     // Make sure data is recieved
     if ($list && is_array($list)) {
+
       // Parse through all the files and download each to the local location
       foreach($list as $item) {
         $local_file  = $downloadTo . $item;
@@ -97,7 +98,7 @@ function update_alarms_in_database($downloadTo) {
       continue; // Skip this alarm !
     } else {
       // Check ID is present in the data, otherwise create it
-      if (!empty($ALARM->IDNumber)) {
+      if (!isset($ALARM->IDNumber) || strlen($ALARM->IDNumber) < 1) {
         // Get the string from the last '/' and forward
         $name     = substr(strrchr($filename, "/"), 1);
 
@@ -105,8 +106,7 @@ function update_alarms_in_database($downloadTo) {
         $IDnr     = substr($name, 0, strpos(strtolower($name), '.xml'));
 
         // Build the date
-        $date     = DateTime::CreateFromFormat('Y-m-d H:i:s', $MESSAGE->SendTime);
-        $SentTime = $date->format('Y-m-d H:i');
+        $SentTime = date('Y-m-d H:i:s', strtotime($MESSAGE->SendTime));
       } else {
         $IDnr     = $ALARM->IDNumber;
         $SentTime = $MESSAGE->SendTime;
