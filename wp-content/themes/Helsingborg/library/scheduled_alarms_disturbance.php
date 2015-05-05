@@ -35,7 +35,7 @@ if (!class_exists('HbgScheduledAlarmsDisturbance')) {
 
                 // Set the pages parameters
                 $page = array(
-                    'post_content'   => $this->formatPageContent($disturbance->MoreInfo, $disturbance->Comment),
+                    'post_content'   => $this->formatPageContent($disturbance->MoreInfo),
                     'post_name'      => sanitize_title('alarm-' . $disturbance->HtText),
                     'post_title'     => $disturbance->HtText,
                     'post_status'    => 'publish',
@@ -169,11 +169,10 @@ if (!class_exists('HbgScheduledAlarmsDisturbance')) {
          * @param  string $comment  Comment content
          * @return string           Formatted content
          */
-        public function formatPageContent($moreInfo = null, $comment = null) {
+        public function formatPageContent($moreInfo = null) {
             $content = '';
 
             if (strlen($moreInfo)) $content .= '<p>' . nl2br($moreInfo) . '</p>';
-            if (strlen($comment)) $content .= '<p>' . nl2br($comment) . '</p>';
 
             return $content;
         }
