@@ -143,6 +143,10 @@ if (!class_exists('AlarmListWidget')) {
                       <span class="item-label modalMunicipalityHeader">Kommuner:</span>
                       <span class="item-value modalMunicipality"></span>
                   </li>
+                  <li>
+                      <span class="item-label modalMoreInfoHeader">Kompletterande information:</span>
+                      <span class="item-value modalMoreInfo"></span>
+                  </li>
                 </ul>
             </div>
         </div>

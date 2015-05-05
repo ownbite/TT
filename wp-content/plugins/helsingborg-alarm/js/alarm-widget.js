@@ -25,12 +25,18 @@ jQuery(document).ready(function() {
 			var _location = jQuery('.modalLocation');
 			var _area = jQuery('.modalArea');
 			var _municipality = jQuery('.modalMunicipality');
+			var _moreinfo = jQuery('.modalMoreInfo');
 			var result;
 
 			for (var i = 0; i < _alarms.length; i++) {
 				if (_alarms[i].ID === this.id) {
 					result = _alarms[i];
 				}
+			}
+
+			moreInfoText = '-';
+			if (result.MoreInfo != '') {
+				moreInfoText = result.MoreInfo;
 			}
 
 			jQuery(_title).html(result.HtText);
@@ -43,6 +49,7 @@ jQuery(document).ready(function() {
 			jQuery(_location).html(result.Place);
 			jQuery(_area).html(result.Zone);
 			jQuery(_municipality).html(result.Zone);
+			jQuery(_moreinfo).html(moreInfoText);
 		});
 	}
 
