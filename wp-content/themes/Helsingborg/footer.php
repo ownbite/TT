@@ -19,7 +19,7 @@ $(document).ready( function() {
 });
 </script>
 
-<script src="<?php echo get_stylesheet_directory_uri() ; ?>/js/helsingborg/vergic.js"></script>
+<script src="<?php echo get_template_directory_uri() ; ?>/js/helsingborg/vergic.js"></script>
 
 <?php
     // Google Translate

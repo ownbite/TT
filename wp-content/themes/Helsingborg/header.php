@@ -13,14 +13,11 @@
 		<meta name="moddate" content="<?php echo the_modified_time('d M Y'); ?>">
 		<meta name="google-translate-customization" content="10edc883cb199c91-cbfc59690263b16d-gf15574b8983c6459-12"></meta>
 
-		<link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri() ; ?>/css/app.css">
-		<link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri() ; ?>/css/normalize.css">
-
-		<link rel="icon" href="<?php echo get_stylesheet_directory_uri() ; ?>/assets/img/icons/favicon.ico" type="image/x-icon">
-		<link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo get_stylesheet_directory_uri() ; ?>/assets/img/icons/apple-touch-icon-144x144-precomposed.png">
-		<link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo get_stylesheet_directory_uri() ; ?>/assets/img/icons/apple-touch-icon-114x114-precomposed.png">
-		<link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo get_stylesheet_directory_uri() ; ?>/assets/img/icons/apple-touch-icon-72x72-precomposed.png">
-		<link rel="apple-touch-icon-precomposed" href="<?php echo get_stylesheet_directory_uri() ; ?>/assets/img/icons/apple-touch-icon-precomposed.png">
+		<link rel="icon" href="<?php echo get_template_directory_uri(); ?>/assets/img/icons/favicon.ico" type="image/x-icon">
+		<link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo get_template_directory_uri(); ?>/assets/img/icons/apple-touch-icon-144x144-precomposed.png">
+		<link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo get_template_directory_uri(); ?>/assets/img/icons/apple-touch-icon-114x114-precomposed.png">
+		<link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo get_template_directory_uri(); ?>/assets/img/icons/apple-touch-icon-72x72-precomposed.png">
+		<link rel="apple-touch-icon-precomposed" href="<?php echo get_template_directory_uri(); ?>/assets/img/icons/apple-touch-icon-precomposed.png">
 
 		<?php
 		$colorcode = get_option('helsingborg_color_code', '#ed8b00');
@@ -109,7 +106,7 @@
 									$logo_link = parse_url(get_site_url(), PHP_URL_SCHEME) . '://' . parse_url(get_site_url(), PHP_URL_HOST);
 								?>
 								<a href="<?php echo $logo_link; ?>" class="logo-link">
-									<img src="<?php echo get_stylesheet_directory_uri() ; ?>/assets/img/images/hbg-logo.svg" alt="helsingborg stad" class="logo" />
+									<img src="<?php echo get_template_directory_uri(); ?>/assets/img/images/hbg-logo.svg" alt="helsingborg stad" class="logo" />
 								</a>
 						</div><!-- /.site-logo -->
 

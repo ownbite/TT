@@ -79,6 +79,10 @@ if (!function_exists('Helsingborg_scripts')) :
     // Readspeaker should be added last
     wp_register_script( 'readspeaker', 'http://f1.eu.readspeaker.com/script/5507/ReadSpeaker.js?pids=embhl', array(), '1.0.0', false);
     wp_enqueue_script( 'readspeaker' );
+
+    // Enqueue theme style (app.css and normalize.css)
+    wp_enqueue_style( 'style-normalize', get_template_directory_uri() . '/css/normalize.css' );
+    wp_enqueue_style( 'style-app', get_template_directory_uri() . '/css/app.css' );
   }
   add_action( 'wp_enqueue_scripts', 'Helsingborg_scripts' );
 

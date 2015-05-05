@@ -172,7 +172,7 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                           <img data-bind="attr: {src: ImagePath}" alt="alt-text"/>
                           <!-- /ko -->
                           <!-- ko if: ImagePath == null -->
-                          <img  alt="alt-text" src="<?php echo get_stylesheet_directory_uri() ; ?>/assets/img/images/event-default.jpg"/>
+                          <img  alt="alt-text" src="<?php echo get_template_directory_uri() ; ?>/assets/img/images/event-default.jpg"/>
                           <!-- /ko -->
                           <p data-bind="text: Location" style="display: none;"></p>
                           <p data-bind="text: EventTypesName" style="display: none;"></p>
