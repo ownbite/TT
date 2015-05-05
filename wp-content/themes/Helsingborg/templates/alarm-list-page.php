@@ -163,6 +163,10 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                                     <span class="item-label modalAreaHeader">Insatsområde:</span>
                                     <span class="item-value modalArea">M21M</span>
                                 </li>
+                                <li>
+                                    <span class="item-label modalMoreInfoHeader">Kompletterande information:</span>
+                                    <span class="item-value modalMoreInfo"></span>
+                                </li>
                               </ul>
                           </div>
                       </div>
@@ -245,6 +249,11 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                               }
                             }
 
+                            moreInfoText = '-';
+                            if (result.MoreInfo != '') {
+                              moreInfoText = result.MoreInfo;
+                            }
+
                             $('.modalDate').text(result.SentTime);
                             $('.modalEvent, .main-title').text(result.HtText);
                             $('.modalStation').text(result.Station);
@@ -253,6 +262,7 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                             $('.modalAddress').text(result.Address);
                             $('.modalLocation').text(result.Place);
                             $('.modalArea').text(result.Zone);
+                            $('.modalMoreInfo').text(moreInfoText);
                         });
 
                         var data = { action: 'load_alarms' };
