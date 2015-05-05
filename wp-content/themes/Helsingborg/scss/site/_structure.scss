@@ -356,16 +356,30 @@ img.alignright {
 	  		padding-bottom: 0;
 	  		margin-bottom: rem-calc(32);
 
-	  		a img {
-		   		border-radius: $border-radius;
-		  		float: left;
-	  			margin-right: rem-calc(20);
-	  			max-width: 25%;
+	  		a {
+	  			img {
+	  				border-radius: $border-radius;
+			  		float: left;
+		  			width: 25%;
+		  			margin-top: rem-calc(5);
+	  			}
+
+	  			.list-content-container {
+	  				margin-left: 25%;
+	  				padding-left: rem-calc(20);
+	  			}
+
+	  			.list-content {
+		  			display: block;
+		  		}
+
+		  		&:hover {
+		  			h2 {
+		  				text-decoration: underline;
+		  			}
+		  		}
 	  		}
-	  		a .list-content {
-	  			display: block;
-	  		}
-			}
+		}
 	  }
 
 		.block-list.page-block-list.search-list {

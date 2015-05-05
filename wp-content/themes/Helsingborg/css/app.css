@@ -6021,10 +6021,15 @@ ul.news-list-large.row section.news-section ul.news-list-large.row li.news-item.
   .block-list.page-block-list.page-list > li a img {
     border-radius: 4px;
     float: left;
-    margin-right: 1.25rem;
-    max-width: 25%; }
+    width: 25%;
+    margin-top: 0.3125rem; }
+  .block-list.page-block-list.page-list > li a .list-content-container {
+    margin-left: 25%;
+    padding-left: 1.25rem; }
   .block-list.page-block-list.page-list > li a .list-content {
     display: block; }
+  .block-list.page-block-list.page-list > li a:hover h2, .block-list.page-block-list.page-list > li a:hover .guide-list .title, .guide-list .block-list.page-block-list.page-list > li a:hover .title {
+    text-decoration: underline; }
 
 .block-list.page-block-list.search-list {
   margin-left: 0;

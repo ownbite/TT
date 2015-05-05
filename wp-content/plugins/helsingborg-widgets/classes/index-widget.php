@@ -70,10 +70,14 @@ if (!class_exists('Index_Widget_Box')) {
           ?>
           <li>
             <a href="<?php echo $link ?>" desc="link-desc">
-              <?php if($image) : ?><img src="<?php echo $image[0]; ?>" alt="<?php echo $alt_text; ?>"><?php endif; ?>
-              <h2 class="list-title"><?php echo $title ?></h2>
-              <div class="list-content">
-                <?php echo wpautop($main, true); ?>
+              <?php if($image) : ?>
+                <img src="<?php echo $image[0]; ?>" alt="<?php echo $alt_text; ?>">
+              <?php endif; ?>
+              <div class="list-content-container">
+                <h2 class="list-title"><?php echo $title ?></h2>
+                <div class="list-content">
+                  <?php echo wpautop($main, true); ?>
+                </div>
               </div>
             </a>
           </li>
