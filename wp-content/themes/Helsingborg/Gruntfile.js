@@ -8,7 +8,7 @@ module.exports = function(grunt) {
       },
       dist: {
         options: {
-          outputStyle: 'expanded'
+          outputStyle: 'compressed'
         },
         files: {
           'css/app.css': 'scss/app.scss'
@@ -43,13 +43,14 @@ module.exports = function(grunt) {
     concat: {
       options: {
         separator: ';',
-        outputStyle: 'expanded'
+        outputStyle: 'compressed'
       },
       dist: {
         src: [
           'js/foundation/js/foundation.min.js',
           'js/foundation/js/foundation/foundation.orbit.js',
-          'js/custom/*.js'
+          'js/custom/*.js',
+          'js/dev/hbg.dev.js'
         ],
 
         dest: 'js/app.js'
@@ -63,6 +64,11 @@ module.exports = function(grunt) {
       sass: {
         files: 'scss/**/*.scss',
         tasks: ['sass']
+      },
+
+      concat: {
+        files: 'js/**/*.js',
+        tasks: ['concat']
       }
     }
   });

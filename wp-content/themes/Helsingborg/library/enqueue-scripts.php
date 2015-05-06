@@ -72,10 +72,6 @@ if (!function_exists('Helsingborg_scripts')) :
     wp_enqueue_script('foundation');
     wp_enqueue_script('tablesorter');
 
-    // TODO: Remove! This should be merged into app.js
-    wp_register_script( 'dev', get_template_directory_uri() . '/js/dev/hbg.dev.js', array(), '1.0.0', true );
-    wp_enqueue_script('dev');
-
     // Readspeaker should be added last
     wp_register_script( 'readspeaker', 'http://f1.eu.readspeaker.com/script/5507/ReadSpeaker.js?pids=embhl', array(), '1.0.0', false);
     wp_enqueue_script( 'readspeaker' );
