@@ -7906,33 +7906,73 @@ html.js.flexbox.flexboxlegacy.canvas.canvastext.webgl.no-touch.geolocation.postm
     left: -50%;
     top: -50%; }
 
-.dataTables_wrapper[id*=tablepress] {
+[id*=tablepress][id*=_wrapper] {
   background: #f7f7f7;
   border: 1px solid #f1f1f1;
   padding: 0.625rem 0.9375rem;
   border-radius: 4px; }
-  .dataTables_wrapper[id*=tablepress] .dataTables_filter {
+  [id*=tablepress][id*=_wrapper] .dataTables_filter {
     margin-bottom: 0.5rem; }
-    .dataTables_wrapper[id*=tablepress] .dataTables_filter input {
+    [id*=tablepress][id*=_wrapper] .dataTables_filter input {
       margin-left: 10px;
       height: auto;
       padding: 0.3125rem; }
-  .dataTables_wrapper[id*=tablepress] .dataTables_length select {
+  [id*=tablepress][id*=_wrapper] .dataTables_length select {
     height: auto;
     padding: 0.25rem 0.3125rem; }
-  .dataTables_wrapper[id*=tablepress] table {
+  [id*=tablepress][id*=_wrapper] table {
     border: 1px solid #DDDDDD;
-    margin-top: 0.9375rem !important; }
-    .dataTables_wrapper[id*=tablepress] table th {
+    margin-top: 0.9375rem !important;
+    overflow-x: auto; }
+    [id*=tablepress][id*=_wrapper] table th {
       background: transparent; }
-      .dataTables_wrapper[id*=tablepress] table th:hover {
+      [id*=tablepress][id*=_wrapper] table th:hover {
         background: #ebebeb; }
-    .dataTables_wrapper[id*=tablepress] table tr td:not(:last-child) {
+    [id*=tablepress][id*=_wrapper] table tr td:not(:last-child) {
       border-right: 1px solid #ddd; }
-  .dataTables_wrapper[id*=tablepress] .paging_simple .paginate_button.next::after, .dataTables_wrapper[id*=tablepress] .paging_simple .paginate_button.previous::before {
+  [id*=tablepress][id*=_wrapper] .paging_simple .paginate_button.next::after, [id*=tablepress][id*=_wrapper] .paging_simple .paginate_button.previous::before {
     content: ''; }
-  .dataTables_wrapper[id*=tablepress] .dataTables_paginate.paging_simple {
+  [id*=tablepress][id*=_wrapper] .dataTables_paginate.paging_simple {
     padding: 0; }
+  @media screen and (max-width: 600px) {
+    [id*=tablepress][id*=_wrapper] .dataTables_length {
+      display: none; }
+    [id*=tablepress][id*=_wrapper] .dataTables_filter {
+      float: none; }
+    [id*=tablepress][id*=_wrapper] .dataTables_info {
+      display: none; }
+    [id*=tablepress][id*=_wrapper] .dataTables_paginate {
+      float: none;
+      text-align: center; }
+    [id*=tablepress][id*=_wrapper] table {
+      background: transparent;
+      border: none; }
+      [id*=tablepress][id*=_wrapper] table thead {
+        display: none; }
+      [id*=tablepress][id*=_wrapper] table tbody, [id*=tablepress][id*=_wrapper] table tr, [id*=tablepress][id*=_wrapper] table th, [id*=tablepress][id*=_wrapper] table td {
+        display: block;
+        padding: 0;
+        text-align: left;
+        white-space: normal; }
+      [id*=tablepress][id*=_wrapper] table tr {
+        border: 1px solid #ddd;
+        margin-bottom: 0.9375rem;
+        border-top-width: 5px; }
+        [id*=tablepress][id*=_wrapper] table tr td:not(:last-child) {
+          border-right: none; }
+      [id*=tablepress][id*=_wrapper] table td {
+        text-align: right;
+        border: none;
+        font-size: 0.9375rem;
+        padding: 0.4375rem; }
+        [id*=tablepress][id*=_wrapper] table td:not(:last-child) {
+          border-bottom: 1px solid #ddd;
+          border-right: 0; }
+      [id*=tablepress][id*=_wrapper] table td[data-title]::before {
+        content: attr(data-title);
+        display: block;
+        float: left;
+        color: #747779; } }
 
 /* Assets */
 /* 

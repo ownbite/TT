@@ -109,4 +109,17 @@ jQuery(document).ready(function(){
         $(this).html('<div class="loader"></div>');
         return true;
     });
+
+    /**
+     * Tablepress attributes
+     */
+    $('table[id*=tablepress]').each(function (index, element) {
+        var $this = $(this);
+        var headers = $this.find('th');
+        $.each(headers, function (index, element) {
+            console.log(index);
+            var title = $(element).text();
+            $this.find('tr td:nth-child(' + (index+1) + ')').attr('data-title', title);
+        });
+    });
 });
