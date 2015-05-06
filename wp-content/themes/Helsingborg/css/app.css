@@ -7906,6 +7906,34 @@ html.js.flexbox.flexboxlegacy.canvas.canvastext.webgl.no-touch.geolocation.postm
     left: -50%;
     top: -50%; }
 
+.dataTables_wrapper[id*=tablepress] {
+  background: #f7f7f7;
+  border: 1px solid #f1f1f1;
+  padding: 0.625rem 0.9375rem;
+  border-radius: 4px; }
+  .dataTables_wrapper[id*=tablepress] .dataTables_filter {
+    margin-bottom: 0.5rem; }
+    .dataTables_wrapper[id*=tablepress] .dataTables_filter input {
+      margin-left: 10px;
+      height: auto;
+      padding: 0.3125rem; }
+  .dataTables_wrapper[id*=tablepress] .dataTables_length select {
+    height: auto;
+    padding: 0.25rem 0.3125rem; }
+  .dataTables_wrapper[id*=tablepress] table {
+    border: 1px solid #DDDDDD;
+    margin-top: 0.9375rem !important; }
+    .dataTables_wrapper[id*=tablepress] table th {
+      background: transparent; }
+      .dataTables_wrapper[id*=tablepress] table th:hover {
+        background: #ebebeb; }
+    .dataTables_wrapper[id*=tablepress] table tr td:not(:last-child) {
+      border-right: 1px solid #ddd; }
+  .dataTables_wrapper[id*=tablepress] .paging_simple .paginate_button.next::after, .dataTables_wrapper[id*=tablepress] .paging_simple .paginate_button.previous::before {
+    content: ''; }
+  .dataTables_wrapper[id*=tablepress] .dataTables_paginate.paging_simple {
+    padding: 0; }
+
 /* Assets */
 /* 
  * Foundation Icons v 3.0

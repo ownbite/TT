@@ -1,0 +1,48 @@
+.dataTables_wrapper[id*=tablepress] {
+    background: #f7f7f7;
+    border: 1px solid #f1f1f1;
+    padding: rem-calc(10) rem-calc(15);
+    border-radius: $border-radius;
+
+    .dataTables_filter {
+        margin-bottom: rem-calc(8);
+
+        input {
+            margin-left: 10px;
+            height: auto;
+            padding: rem-calc(5);
+        }
+    }
+
+    .dataTables_length select {
+        height: auto;
+        padding: rem-calc(4) rem-calc(5);
+    }
+
+    table {
+        border: 1px solid #DDDDDD;
+        margin-top: rem-calc(15) !important;
+
+        th {
+            background: transparent;
+
+            &:hover {
+                background: #ebebeb;
+            }
+        }
+
+        tr {
+            td:not(:last-child) {
+                border-right: 1px solid #ddd;
+            }
+        }
+    }
+
+    .paging_simple .paginate_button.next::after, .paging_simple .paginate_button.previous::before {
+        content: '';
+    }
+
+    .dataTables_paginate.paging_simple {
+        padding: 0;
+    }
+}
