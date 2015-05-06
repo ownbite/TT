@@ -68,8 +68,8 @@ if (!class_exists('HelsingborgSocialWidget')) {
          * Enqueue js
          */
         public function addJs($hook) {
-            wp_enqueue_script('helsingborg-social-widget-js', plugins_url('helsingborg-social-widget/assets/js/helsingborg-social-widget.js'), array('jquery'), false, true);
-            wp_enqueue_style('helsingborg-social-widget-css', plugins_url('helsingborg-social-widget/assets/css/helsingborg-social-widget.css'));
+            wp_enqueue_script('helsingborg-social-widget-js', plugins_url('helsingborg-extra-mer/helsingborg-social-widget/assets/js/helsingborg-social-widget.js'), array('jquery'), false, true);
+            wp_enqueue_style('helsingborg-social-widget-css', plugins_url('helsingborg-extra-mer/helsingborg-social-widget/assets/css/helsingborg-social-widget.css'));
             wp_enqueue_style('helsingborg-social-font-awesome', '//netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css', array(), '4.3.0');
         }
 
