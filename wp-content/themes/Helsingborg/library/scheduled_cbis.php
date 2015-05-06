@@ -83,17 +83,18 @@ function cbis_event() {
          */
         $attributes = array();
         foreach ($product->Attributes->AttributeData as $attribute) {
-            $attributes[$attribute->AttributeId] = $attribute->Value->Data;
+            $attributes[$attribute->AttributeId] = $attribute->Value;
         }
 
         /**
          * Map attributes to correct variables
          */
-        $title        = $product->SystemName ?: '';
-        $status       = $product->Status ?: 'Övrigt';
-        $imageid      = $product->Image->Url ?: '';
-        $introduction = $attributes[101] ?: '';
-        $description  = $attributes[102] ?: '';
+        $title        = $product->SystemName   ?: '';
+        $status       = $product->Status       ?: 'Övrigt';
+        $imageid      = $product->Image->Url   ?: '';
+        $introduction = $attributes[101]->Data ?: '';
+        $description  = $attributes[102]->Data ?: '';
+        $link         = $attributes[125]->Data ?: '';
 
         /**
          * Get the event category
@@ -136,10 +137,12 @@ function cbis_event() {
                         'Date'        => $date->format('Y-m-d'),
                         'Time'        => $time->format('H:i'),
                         'Location'    => $location,
-                        'ImageID'     => $imageid
+                        'ImageID'     => $imageid,
+                        'Link'        => $link
                     ),
                     array(
                         '%d',
+                        '%s',
                         '%s',
                         '%s',
                         '%s',
