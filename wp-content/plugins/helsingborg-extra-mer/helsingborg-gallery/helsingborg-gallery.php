@@ -1,14 +1,4 @@
 <?php
-/*
- * Plugin Name: Helsingborg Galleri
- * Plugin URI: -
- * Description: Mediagalleri custom post type
- * Version: 1.0
- * Author: Kristoffer Svanmark
- * Author URI: -
- *
- * Copyright (C) 2014 Helsingborg stad
- */
 
 define('HELSINGBORG_GALLERY_BASE', plugin_dir_path(__FILE__));
 define('HELSINGBORG_GALLERY_URL', plugin_dir_url(__FILE__));
