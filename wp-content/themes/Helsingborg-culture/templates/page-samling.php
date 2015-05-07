@@ -42,7 +42,7 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
 		                </footer>
 		            </article>
 	            <?php endwhile; // End the loop ?>
-				
+
 				<?php if ( (is_active_sidebar('content-area') == TRUE) ) : ?>
                   <?php dynamic_sidebar("content-area"); ?>
                 <?php endif; ?>
@@ -51,8 +51,8 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
 				//Hämta vald Parent-node(page) från metaboxen på samlingssidan
 				$hbgMeta = get_post_meta($post->ID, '_helsingborg_meta', true); ?>
 				<section class="samlingssidor_output">
-					<ul class="row">		
-						<?php									
+					<ul class="row">
+						<?php
 						// Get the child pages of the chosen parent-node(page)
 						$pages = get_pages(array(
 						  'sort_order' => 'DESC',
@@ -65,24 +65,24 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
 						// Go through all childs
 						for ($i = 0; $i < count($pages); $i++) {
 							$child_post = $pages[$i];
-							$child_post_id = $pages[$i]->ID; 
+							$child_post_id = $pages[$i]->ID;
 							$link = get_permalink($child_post_id);
-							
-							//Hämta (Ja eller Nej) så vi vet om ingress ska visas - (metabox "Visa Ingress" från Advanced Custom Fields plugin)							
+
+							//Hämta (Ja eller Nej) så vi vet om ingress ska visas - (metabox "Visa Ingress" från Advanced Custom Fields plugin)
 						    $visa_ingress_i_samling = get_post_meta($child_post_id, 'visa_ingress_i_samling'); ?>
-						<li class="small-12 medium-6 large-4 columns left samling_child_li">	
-							<div class="samling_child_content">				
+						<li class="small-12 medium-6 large-4 columns left samling_child_li">
+							<div class="samling_child_content">
 								<?php
-								// Try to get the thumbnail for the child-page	
+								// Try to get the thumbnail for the child-page
 							    if (has_post_thumbnail( $child_post_id ) ) {
 							      $image_id = get_post_thumbnail_id( $child_post_id );
 							      $image = wp_get_attachment_image_src( $image_id, 'single-post-thumbnail' );
-							      $alt_text = get_post_meta($image_id, '_wp_attachment_image_alt', true); 
+							      $alt_text = get_post_meta($image_id, '_wp_attachment_image_alt', true);
 								} ?>
 								<a href="<?php echo $link; ?>"><img src="<?php echo $image[0]; ?>" alt="<?php echo $alt_text; ?>"></a>
 								<h2><a href="<?php echo $link; ?>"><?php echo $child_post->post_title; ?></a></h2>
 								<?php get_template_part('templates/partials/divider','section'); ?>
-						
+
 								<?php
 								if($pages[$i]->post_excerpt !=null || $pages[$i]->post_excerpt !=''){
 									$excerpt = $pages[$i]->post_excerpt;
@@ -90,36 +90,36 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
 									$excerpt = $pages[$i]->post_content;
 									$excerpt = preg_split( '/<!--more(.*?)?-->/', $excerpt );
 									$excerpt = $excerpt[0];
-									$excerpt = strip_tags($excerpt);		
-									$excerpt = shorten_Post_Content($excerpt,$link);		
+									$excerpt = strip_tags($excerpt);
+									$excerpt = shorten_Post_Content($excerpt,$link);
 								}
 								//kolla om vi ska visa ingressen
-								if($visa_ingress_i_samling[0] != 'Nej'){	
-									echo '<p class="samling_child_excerpt">'.$excerpt.'</p>'; 
+								if($visa_ingress_i_samling[0] != 'Nej'){
+									echo '<p class="samling_child_excerpt">'.$excerpt.'</p>';
 								}
-								global $wpdb;	
+								global $wpdb;
 								//tabellen "_customize_sidebars" anger om artikeln har custom eller generella sidebars
-								$customize_sidebars = $wpdb->get_results("SELECT meta_value FROM $wpdb->postmeta WHERE meta_key = '_customize_sidebars' AND post_id ='$child_post_id'",ARRAY_A);	
-								if( $customize_sidebars[0]['meta_value'] == 'yes' ) {			
-									$sidebars_widgets = $wpdb->get_results("SELECT * FROM $wpdb->postmeta WHERE meta_key = '_sidebars_widgets' AND post_id ='$child_post_id'",ARRAY_A);	
-									$sidebars_widgetsUnserialized = unserialize($sidebars_widgets[0]['meta_value']);									
+								$customize_sidebars = $wpdb->get_results("SELECT meta_value FROM $wpdb->postmeta WHERE meta_key = '_customize_sidebars' AND post_id ='$child_post_id'",ARRAY_A);
+								if( $customize_sidebars[0]['meta_value'] == 'yes' ) {
+									$sidebars_widgets = $wpdb->get_results("SELECT * FROM $wpdb->postmeta WHERE meta_key = '_sidebars_widgets' AND post_id ='$child_post_id'",ARRAY_A);
+									$sidebars_widgetsUnserialized = unserialize($sidebars_widgets[0]['meta_value']);
 									$widget_id = checkforbookingwidget($sidebars_widgetsUnserialized);
-									
-									if($widget_id != null || $widget_id != ''){			
-										$bookingWidgetsOnThisPostInDatabase = 'widget_'.$child_post_id.'_hbgbookingwidget';			
-										$result = $wpdb->get_results("SELECT * FROM $wpdb->options WHERE option_name = '$bookingWidgetsOnThisPostInDatabase'",ARRAY_A);			
-										$result_ = unserialize($result[0]['option_value']);			
+
+									if($widget_id != null || $widget_id != ''){
+										$bookingWidgetsOnThisPostInDatabase = 'widget_'.$child_post_id.'_hbgbookingwidget';
+										$result = $wpdb->get_results("SELECT * FROM $wpdb->options WHERE option_name = '$bookingWidgetsOnThisPostInDatabase'",ARRAY_A);
+										$result_ = unserialize($result[0]['option_value']);
 										$datum = $result_[$widget_id]['datum'];
 										$rubrik_kopknapp = $result_[$widget_id]['rubrik_kopknapp'];
-										$lank_till_webbshop = $result_[$widget_id]['lank_till_webbshop'];			
-										echo '<p class="samling_child_datum">'.$datum.'</p><div class="samling_child_button"><button id="searchsubmit" class="button" type="submit"><a href="'.$lank_till_webbshop.'">'.$rubrik_kopknapp.'</a></button></div>';			
+										$lank_till_webbshop = $result_[$widget_id]['lank_till_webbshop'];
+										echo '<p class="samling_child_datum">'.$datum.'</p><div class="samling_child_button"><button id="searchsubmit" class="button" type="submit"><a href="'.$lank_till_webbshop.'">'.$rubrik_kopknapp.'</a></button></div>';
 									} // if bookingwidget exists
-								} // if custom sidebars ?>				
+								} // if custom sidebars ?>
 							</div>
-						</li> <?php	
+						</li> <?php
 						} //for loop ?>
 					</ul>
-				</section>				
+				</section>
 				<?php if ( (is_active_sidebar('content-area-bottom') == TRUE) ) : ?>
 					<?php dynamic_sidebar("content-area-bottom"); ?>
 				<?php endif; ?>
