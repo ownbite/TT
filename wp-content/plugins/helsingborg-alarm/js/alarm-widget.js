@@ -95,81 +95,84 @@ jQuery(document).ready(function() {
 	}
 
 	var mapCanvas = document.getElementById('map-canvas');
-	var mapOptions = {
-		zoom: 9,
-		center: new google.maps.LatLng(56.100769, 12.854576)
-	};
-	var map = mapCanvas ? new google.maps.Map(mapCanvas, mapOptions) : null;
-	var infowindow = new google.maps.InfoWindow({
-		content: ""
-	});
-	var bounds = new google.maps.LatLngBounds();
-	var markers = [];
-	var infoArray = [];
-	var counter = 0;
-	var options;
 
-	function setupMarkers() {
-		if (map) {
-			var select = jQuery("select#municipality_multiselect");
-			if (select.val()) {
-				var selectedValues = select.zmultiselect('getValue');
-				if (selectedValues) {
-					options = selectedValues.join(",");
-				}
-			}
-			loadMarkers(options);
-		}
-	}
-
-	function loadMarkers(options)  {
-		jQuery.ajax({
-			type: 'GET',
-			url: ajaxalarm.url,
-			data: {
-				action: 'get_markers',
-				options: options
-			},
-			success: function(result) {
-				if (result)
-					setMarkers(map, jQuery.parseJSON(result));
-			}
+	if (mapCanvas) {
+		var mapOptions = {
+			zoom: 9,
+			center: new google.maps.LatLng(56.100769, 12.854576)
+		};
+		var map = mapCanvas ? new google.maps.Map(mapCanvas, mapOptions) : null;
+		var infowindow = new google.maps.InfoWindow({
+			content: ""
 		});
-	}
+		var bounds = new google.maps.LatLngBounds();
+		var markers = [];
+		var infoArray = [];
+		var counter = 0;
+		var options;
 
-	function removeMarkers() {
-		for (var i = 0; i < markers.length; i++) {
-			markers[i].setMap(null);
+		function setupMarkers() {
+			if (map) {
+				var select = jQuery("select#municipality_multiselect");
+				if (select.val()) {
+					var selectedValues = select.zmultiselect('getValue');
+					if (selectedValues) {
+						options = selectedValues.join(",");
+					}
+				}
+				loadMarkers(options);
+			}
 		}
-		markers = [];
-	}
 
-	function setMarkers(map, locations) {
-		removeMarkers();
-		bounds = new google.maps.LatLngBounds();
-		for (var i = 0; i < locations.length; i++) {
-			var alarm = locations[i];
-			var myLatLng = new google.maps.LatLng(alarm.Latitude, alarm.Longitude);
-			bounds.extend(myLatLng);
-			var marker = new google.maps.Marker({
-				position: myLatLng,
-				map: map,
-				html: '<div id="infowindow" style="height:50px;"><div><b>' + alarm.Time +
-					'</b></div><div>' + alarm.Information + '</div></div>',
-				title: alarm.Information,
-				icon: alarm.Icon
+		function loadMarkers(options)  {
+			jQuery.ajax({
+				type: 'GET',
+				url: ajaxalarm.url,
+				data: {
+					action: 'get_markers',
+					options: options
+				},
+				success: function(result) {
+					if (result)
+						setMarkers(map, jQuery.parseJSON(result));
+				}
 			});
-
-			google.maps.event.addListener(marker, 'click', function() {
-				infowindow.setContent(this.html);
-				infowindow.open(map, this);
-			});
-
-			markers.push(marker);
 		}
-		map.fitBounds(bounds);
-		google.maps.event.trigger(map, "rezise");
-	}
 
-	google.maps.event.addDomListener(window, 'load', setupMarkers);
+		function removeMarkers() {
+			for (var i = 0; i < markers.length; i++) {
+				markers[i].setMap(null);
+			}
+			markers = [];
+		}
+
+		function setMarkers(map, locations) {
+			removeMarkers();
+			bounds = new google.maps.LatLngBounds();
+			for (var i = 0; i < locations.length; i++) {
+				var alarm = locations[i];
+				var myLatLng = new google.maps.LatLng(alarm.Latitude, alarm.Longitude);
+				bounds.extend(myLatLng);
+				var marker = new google.maps.Marker({
+					position: myLatLng,
+					map: map,
+					html: '<div id="infowindow" style="height:50px;"><div><b>' + alarm.Time +
+						'</b></div><div>' + alarm.Information + '</div></div>',
+					title: alarm.Information,
+					icon: alarm.Icon
+				});
+
+				google.maps.event.addListener(marker, 'click', function() {
+					infowindow.setContent(this.html);
+					infowindow.open(map, this);
+				});
+
+				markers.push(marker);
+			}
+			map.fitBounds(bounds);
+			google.maps.event.trigger(map, "rezise");
+		}
+
+		google.maps.event.addDomListener(window, 'load', setupMarkers);
+	}
 });
