@@ -2,9 +2,9 @@
 </div><!-- /.main-site-container -->
 
 <footer class="footer">
-		<div class="row">
-				<?php dynamic_sidebar("footer-area"); ?>
-		</div>
+	<div class="row">
+		<?php dynamic_sidebar("footer-area"); ?>
+	</div>
 </footer>
 
 </div><!-- /.inner-wrap -->
@@ -18,17 +18,11 @@ $(document).ready( function() {
 	});
 });
 </script>
-
 <script src="<?php echo get_template_directory_uri() ; ?>/js/helsingborg/vergic.js"></script>
+<script type="text/javascript">function googleTranslateElementInit() {new google.translate.TranslateElement({pageLanguage:"sv",autoDisplay:false,gaTrack:true,gaId:"UA-16678811-1"},"google-translate-element");}</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
-<?php
-    // Google Translate
-?>
-<script type="text/javascript">
-function googleTranslateElementInit() {
-  new google.translate.TranslateElement({pageLanguage: "sv", autoDisplay: false, gaTrack: true, gaId: "UA-16678811-1"}, "google-translate-element");
-}
-</script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<!-- # WP FOOTER # -->
 <?php wp_footer(); ?>
 </body>
 </html>
