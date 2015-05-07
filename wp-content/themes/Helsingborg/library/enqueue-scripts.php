@@ -8,6 +8,10 @@ if (!function_exists('hbgScripts')) {
      */
     function hbgScripts() {
 
+        // Remove emoji support
+        remove_action('wp_head', 'print_emoji_detection_script', 7);
+        remove_action('wp_print_styles', 'print_emoji_styles' );
+
         // Deregister jquery
         wp_deregister_script('jquery');
         wp_deregister_script('jquery-ui');
