@@ -174,11 +174,13 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                           <!-- ko if: ImagePath == null -->
                           <img  alt="alt-text" src="<?php echo get_template_directory_uri() ; ?>/assets/img/images/event-default.jpg"/>
                           <!-- /ko -->
-                          <p data-bind="text: Location" style="display: none;"></p>
-                          <p data-bind="text: EventTypesName" style="display: none;"></p>
-                          <h2 data-bind="text: Name" class="list-title"></h2>
-                          <span data-bind="text: Date" class="list-date"></span>
-                          <div data-bind="trimText: Description" class="list-content"></div>
+                          <div class="list-content-container">
+                            <p data-bind="text: Location" style="display: none;"></p>
+                            <p data-bind="text: EventTypesName" style="display: none;"></p>
+                            <h2 data-bind="text: Name" class="list-title"></h2>
+                            <span data-bind="text: Date" class="list-date"></span>
+                            <div data-bind="trimText: Description" class="list-content"></div>
+                          </div>
                         </a>
                       </li>
                     </script>
