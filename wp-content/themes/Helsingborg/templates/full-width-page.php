@@ -11,17 +11,13 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
 ?>
 
 <div class="full-width-page-layout row">
-
     <div class="main-area large-12 columns">
         <div class="main-content row">
             <div class="large-12 medium-12 columns">
+
                 <div class="alert row"></div>
-
-                <?php
-                    get_template_part('templates/partials/header','image');
-                ?>
-
-                <div class="row no-image"></div><!-- /.row -->
+                <?php get_template_part('templates/partials/header','image'); ?>
+                <div class="row no-image"></div>
 
                 <?php the_breadcrumb(); ?>
 
@@ -29,22 +25,25 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                 <article class="article" id="article">
                     <header>
                         <?php get_template_part('templates/partials/accessability','menu'); ?>
-                        article-title"><?php the_title(); ?></h1>
+                        <h1 class="article-title"><?php the_title(); ?></h1>
                     </header>
+
                     <?php if (!empty($content)) : ?>
                         <div class="ingress">
                             <?php echo apply_filters('the_content', $main); ?>
                         </div><!-- /.ingress -->
                     <?php endif; ?>
+
                     <div class="article-body">
-                    <?php
-                        if (!empty($content)){
-                            echo apply_filters('the_content', $content);
-                        } else {
-                            echo apply_filters('the_content', $main);
-                        }
-                    ?>
+                        <?php
+                            if (!empty($content)){
+                                echo apply_filters('the_content', $content);
+                            } else {
+                                echo apply_filters('the_content', $main);
+                            }
+                        ?>
                     </div>
+
                     <footer>
                         <ul class="socialmedia-list">
                             <li class="fbook"><a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode(get_the_permalink()); ?>">Facebook</a></li>
@@ -54,11 +53,12 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                 </article>
                 <?php endwhile; // End the loop ?>
 
-                <?php if ( (is_active_sidebar('content-area') == TRUE) ) : ?>
-                <?php dynamic_sidebar("content-area"); ?>
-                <?php endif; ?>
+                <?php
+                    if ( (is_active_sidebar('content-area') == TRUE) ) {
+                        dynamic_sidebar("content-area");
+                    }
+                ?>
 
-                </div>
             </div>
         </div>
     </div>
