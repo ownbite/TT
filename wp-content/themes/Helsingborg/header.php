@@ -1,17 +1,17 @@
 <!doctype html>
 <html class="no-js" <?php language_attributes(); ?> >
 	<head>
-		<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+		<meta http-equiv="X-UA-Compatible" content="IE=EDGE">
 
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 		<title>Helsingborg stad</title>
 		<meta name="description" content="">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="pubdate" content="<?php echo the_time('d M Y'); ?>">
 		<meta name="moddate" content="<?php echo the_modified_time('d M Y'); ?>">
-		<meta name="google-translate-customization" content="10edc883cb199c91-cbfc59690263b16d-gf15574b8983c6459-12"></meta>
+		<meta name="google-translate-customization" content="10edc883cb199c91-cbfc59690263b16d-gf15574b8983c6459-12">
 
 		<link rel="icon" href="<?php echo get_template_directory_uri(); ?>/assets/img/icons/favicon.ico" type="image/x-icon">
 		<link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo get_template_directory_uri(); ?>/assets/img/icons/apple-touch-icon-144x144-precomposed.png">
