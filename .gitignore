@@ -43,3 +43,6 @@ wp-content/themes/Helsingborg-skolor/scss/.sass-cache
 !wp-content/themes/Helsingborg-skolor/
 !wp-content/themes/Helsingborg-school/
 !wp-content/themes/Helsingborg-culture/
+
+# Ignore log file
+wp-content/plugins/all-in-one-wp-security-and-firewall/logs/wp-security-log.txt
