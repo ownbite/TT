@@ -15,7 +15,8 @@
 			display: none;
 		}
 	}
-	div.timeline-cal .date > a {
+
+	.timeline-cal .date > a {
 		background-color: #4a4a4a;
 		color: #b7b7b7;
 		display: inline-block;
@@ -29,7 +30,8 @@
 		padding-top: 2px;
 		font-size: 12px;
 	}
-	div.timeline-cal .date a.hasevents {
+
+	.timeline-cal .date a.hasevents {
 		background-color: #06b9d4;
 		color: #000;
 		text-shadow:none;
@@ -37,30 +39,33 @@
 		position:relative;
 		z-index: 10;
 	}
-	div.timeline-cal .date .redday {
+	.timeline-cal .date .redday {
 		border-bottom: 2px solid #EC008C;
 	}
-	div.timeline-cal .date {
+
+	.timeline-cal .date {
 		position: relative;
 	}
-	div.timeline-cal .date .eventlist {
+
+	.timeline-cal .date .eventlist {
 		position: absolute;
 		bottom: rem-calc(34);
 		left: rem-calc(-100);
 	}
+
 	.popup {
 		background-color: #000;
 		color: #fff;
 		width: rem-calc(200);
 		padding: rem-calc(10);
 	}
+
 	.popup::after {
 		content: "";
 		position: absolute;
 		left: 51%;
 		bottom: -10px;
 		border-width: 10px;
-		
 		border-top-color: #252525;
 		display: block;
 		width: 0;
@@ -70,17 +75,18 @@
 		margin-left: -9px;
 		border-bottom-width: 0;
 	}
+
 	.flex-direction-nav {
 		display: block;
 		position:absolute;
-		top:2px;
-		bottom: 20px;
+		top:-30px;
 		width:100%;
 		z-index: 5;
 		margin: 0;
 		padding: 0;
 		list-style: none;
 	}
+
 	.flex-direction-nav a {
 		display: block;
 		margin: 0;
@@ -90,11 +96,13 @@
 		opacity: .5;
 		color: #000;
 	}
+
 	.show_thin_design .timeline.flexslider li.flex-nav-prev,
 	.show_thin_design .timeline.flexslider li.flex-nav-next {
 		display: block;
 	}
-	.flex-direction-nav a.flex-prev, 
+
+	.flex-direction-nav a.flex-prev,
 	.flex-direction-nav a.flex-next {
 		display: block;
 		position:absolute;
@@ -104,20 +112,20 @@
 		background-color: #fff;
 		height: 17px;
 		width: 17px;
-		
 		text-indent: -99999px;
 		-webkit-transition:none;
 	}
-	.flex-direction-nav a.flex-prev {
-		
-	}
-	.flex-direction-nav a.flex-next {
 
+	.flex-direction-nav a.flex-prev {
+
+	}
+
+	.flex-direction-nav a.flex-next {
 		background-position: -2px -16px;
 		margin-left:300px;
 	}
 }
 
 .show_big_design {
-	
+
 }

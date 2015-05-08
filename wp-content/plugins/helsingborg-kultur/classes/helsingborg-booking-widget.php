@@ -168,10 +168,10 @@ class HbgBookingWidget extends WP_Widget {
 			<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>">
 
 			<label for="<?php echo $this->get_field_id( 'datum' ); ?>"><?php _e( 'Datum:' ); ?></label>
-			<input class="widefat" id="<?php echo $this->get_field_id( 'datum' ); ?>" name="<?php echo $this->get_field_name( 'datum' ); ?>" type="text" value="<?php echo esc_attr( $datum ); ?>">
+			<input class="widefat datepicker_booking_widget" id="<?php echo $this->get_field_id( 'datum' ); ?>" name="<?php echo $this->get_field_name( 'datum' ); ?>" type="text" value="<?php echo esc_attr( $datum ); ?>">
 
 			<label for="<?php echo $this->get_field_id( 'tid' ); ?>"><?php _e( 'Tid:' ); ?></label>
-			<input class="widefat datepicker_booking_widget" id="<?php echo $this->get_field_id( 'tid' ); ?>" name="<?php echo $this->get_field_name( 'tid' ); ?>" type="text" value="<?php echo esc_attr( $tid ); ?>">
+			<input class="widefat" id="<?php echo $this->get_field_id( 'tid' ); ?>" name="<?php echo $this->get_field_name( 'tid' ); ?>" type="text" value="<?php echo esc_attr( $tid ); ?>">
 
 			<label for="<?php echo $this->get_field_id( 'pris' ); ?>"><?php _e( 'Pris:' ); ?></label>
 			<input class="widefat" id="<?php echo $this->get_field_id( 'tid' ); ?>" name="<?php echo $this->get_field_name( 'pris' ); ?>" type="text" value="<?php echo esc_attr( $pris ); ?>">

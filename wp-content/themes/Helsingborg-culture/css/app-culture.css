@@ -5830,7 +5830,7 @@ a.clickable_excerpt_text {
     display: inline-block; }
   .show_thin_design .timeline.flexslider li.flex-active-slide .timeline-cal ul li .eventlist {
     display: none; }
-.show_thin_design div.timeline-cal .date > a {
+.show_thin_design .timeline-cal .date > a {
   background-color: #4a4a4a;
   color: #b7b7b7;
   display: inline-block;
@@ -5843,18 +5843,18 @@ a.clickable_excerpt_text {
   text-align: center;
   padding-top: 2px;
   font-size: 12px; }
-.show_thin_design div.timeline-cal .date a.hasevents {
+.show_thin_design .timeline-cal .date a.hasevents {
   background-color: #06b9d4;
   color: #000;
   text-shadow: none;
   cursor: pointer;
   position: relative;
   z-index: 10; }
-.show_thin_design div.timeline-cal .date .redday {
+.show_thin_design .timeline-cal .date .redday {
   border-bottom: 2px solid #EC008C; }
-.show_thin_design div.timeline-cal .date {
+.show_thin_design .timeline-cal .date {
   position: relative; }
-.show_thin_design div.timeline-cal .date .eventlist {
+.show_thin_design .timeline-cal .date .eventlist {
   position: absolute;
   bottom: 2.125rem;
   left: -6.25rem; }
@@ -5880,8 +5880,7 @@ a.clickable_excerpt_text {
 .show_thin_design .flex-direction-nav {
   display: block;
   position: absolute;
-  top: 2px;
-  bottom: 20px;
+  top: -30px;
   width: 100%;
   z-index: 5;
   margin: 0;
