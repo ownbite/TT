@@ -104,10 +104,15 @@ function cbis_event() {
             $type = $category->Name;
         }
 
+        $occations = $product->Occasions;
+        if (isset($product->Occasions->OccasionObject) && count($product->Occasions->OccasionObject) > 0) {
+            $occations = $product->Occasions->OccasionObject;
+        }
+
         /**
          * Loop occations
          */
-        foreach ($product->Occasions as $occasion) {
+        foreach ($occations as $occasion) {
 
             // Make sure the occasion has a startdate !
             if (isset($occasion->StartDate)) {
