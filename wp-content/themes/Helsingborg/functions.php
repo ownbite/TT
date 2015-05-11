@@ -33,6 +33,9 @@ require_once('library/helsingborg.php');
 // Add scheduled tasks
 require_once('library/scheduled-tasks.php');
 
+// Add happy event functions
+require_once('library/happy-event.php');
+
 // Add Helsingborg AJAX functions
 require_once('library/helsingborg-ajax.php');
 
