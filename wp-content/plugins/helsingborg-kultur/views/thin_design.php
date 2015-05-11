@@ -26,7 +26,7 @@
             ?>
                 <li>
                     <div class="month-year-nav"><?php echo __($monthName, 'helsingborg') . ' ' . $year; ?></div>
-                    <div class="timeline-cal clearfix">
+                    <div class="timeline-cal">
                         <ul>
                             <?php
                                 for ($j = 1; $j <= $daysInMonth; $j++) :
@@ -44,13 +44,13 @@
                                             <ul class="popup">
                                                 <?php
                                                     foreach ($eventsToday as $event) {
-                                                        echo '<li><a href="' . $event['link'] . '" >' . $event['title'] . '</a></li>';
+                                                        echo '<li><a href="' . get_permalink($event['post_id']) . '"><span class="event-time">' . $event['tid'] . '</span> <span class="event-title">' . $event['title'] . '</span></a></li>';
                                                     }
                                                 ?>
                                             </ul>
                                         </div>
                                     <?php else : ?>
-                                        <a class="<?php echo $weekday; ?>" href="#"><?php echo $currentDate->format('d'); ?></a>
+                                        <span class="<?php echo $weekday; ?>"><?php echo $currentDate->format('d'); ?></span>
                                     <?php endif; ?>
                                 </li>
                             <?php endfor; ?>

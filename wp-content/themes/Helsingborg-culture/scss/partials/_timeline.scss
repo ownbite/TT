@@ -2,99 +2,86 @@
 	.timeline.flexslider {
 		margin-bottom: rem-calc(100);
 		position:relative;
+
 		ul.slides li {
 			display: none;
+			text-align: center;
 		}
+
 		li.flex-active-slide {
 			display: block;
 		}
-		li.flex-active-slide ul li {
+
+		li.flex-active-slide ul > li {
 			display: inline-block;
 		}
-		li.flex-active-slide .timeline-cal ul li .eventlist {
-			display: none;
-		}
 	}
 
-	.timeline-cal .date > a {
-		background-color: #4a4a4a;
-		color: #b7b7b7;
-		display: inline-block;
-		overflow: hidden;
-		float: left;
-		margin-right: 2px;
-		margin-left:2px;
-		width: 25px;
-		height: 23px;
+	.month-year-nav {
 		text-align: center;
-		padding-top: 2px;
-		font-size: 12px;
 	}
 
-	.timeline-cal .date a.hasevents {
-		background-color: #06b9d4;
-		color: #000;
-		text-shadow:none;
-		cursor: pointer;
-		position:relative;
-		z-index: 10;
-	}
-	.timeline-cal .date .redday {
-		border-bottom: 2px solid #EC008C;
+	.timeline-cal {
+		text-align: center;
+
+		ul {
+			margin: 0;
+			text-align: center;
+			width: 100%;
+
+			li {
+				display: inline-block;
+			}
+		}
 	}
 
 	.timeline-cal .date {
 		position: relative;
-	}
+		background-color: #4a4a4a;
+		color: #b7b7b7;
+		display: inline-block;
+		width: 25px;
+		height: 23px;
+		text-align: center;
+		font-size: 12px;
 
-	.timeline-cal .date .eventlist {
-		position: absolute;
-		bottom: rem-calc(34);
-		left: rem-calc(-100);
-	}
+	 	> a,
+		> span {
+			display: block;
+			width: 100%;
+			height: 100%;
+			padding-top: 2px;
+		}
 
-	.popup {
-		background-color: #000;
-		color: #fff;
-		width: rem-calc(200);
-		padding: rem-calc(10);
-	}
+		a.hasevents {
+			background-color: #06b9d4;
+			color: #000;
+			text-shadow:none;
+			cursor: pointer;
+			position:relative;
+			z-index: 10;
+		}
 
-	.popup::after {
-		content: "";
-		position: absolute;
-		left: 51%;
-		bottom: -10px;
-		border-width: 10px;
-		border-top-color: #252525;
-		display: block;
-		width: 0;
-		z-index: 1;
-		border-color: #000 transparent;
-		border-style: solid;
-		margin-left: -9px;
-		border-bottom-width: 0;
+		.redday {
+			border-bottom: 2px solid #EC008C;
+		}
+
+		&:hover {
+			.eventlist {
+				display: block;
+			}
+		}
 	}
 
 	.flex-direction-nav {
 		display: block;
 		position:absolute;
-		top:-30px;
+		top: 6px;
 		width:100%;
 		z-index: 5;
 		margin: 0;
 		padding: 0;
 		list-style: none;
-	}
-
-	.flex-direction-nav a {
-		display: block;
-		margin: 0;
-		background: url(../assets/img/images/slideshow-direction-sprite.png) no-repeat 0 0;
-		z-index: 10;
-		cursor: pointer;
-		opacity: .5;
-		color: #000;
 	}
 
 	.show_thin_design .timeline.flexslider li.flex-nav-prev,
@@ -108,21 +95,79 @@
 		position:absolute;
 		top:-2px;
 		left:33%;
-		background-image:url(../assets/img/images/cal-arrows_mod.png);
-		background-color: #fff;
+		background-image: url(../assets/img/images/cal-arrows_mod.png);
+		background-repeat: no-repeat;
 		height: 17px;
-		width: 17px;
+		width: 13px;
 		text-indent: -99999px;
 		-webkit-transition:none;
-	}
 
-	.flex-direction-nav a.flex-prev {
-
+		&:hover {
+			background-position: 0 -34px;
+		}
 	}
 
 	.flex-direction-nav a.flex-next {
-		background-position: -2px -16px;
-		margin-left:300px;
+		background-position: 0 -16px;
+		margin-left: 300px;
+
+		&:hover {
+			background-position: 0 -50px;
+		}
+	}
+
+	.eventlist {
+		display: none;
+		position: absolute;
+		z-index: 99;
+		bottom: 28px;
+		left: 50%;
+		transform: translateX(-50%);
+		-moz-transform: translateX(-50%);
+		-webkit-transform: translateX(-50%);
+		margin-left: -9px;
+
+		.popup {
+			background-color: #000;
+			color: #fff;
+			width: rem-calc(200);
+			padding: rem-calc(5);
+			border-radius: 5px;
+
+			li {
+				display: block !important;
+
+				a {
+					color: #f9f9f9;
+					font-size: rem-calc(13);
+					line-height: 100%;
+
+					&:hover {
+						color: #fff;
+						text-decoration: underline;
+					}
+				}
+
+				& + li {
+					margin-top: -5px;
+				}
+			}
+		}
+
+		.popup::after {
+			content: "";
+			position: absolute;
+			left: 50%;
+			bottom: -10px;
+			border-width: 10px;
+			border-top-color: #252525;
+			display: block;
+			width: 0;
+			z-index: 1;
+			border-color: #000 transparent;
+			border-style: solid;
+			border-bottom-width: 0;
+		}
 	}
 }
 
