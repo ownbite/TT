@@ -45,18 +45,18 @@ class Helsingborg_Event_Search_Table extends WP_List_Table {
 
     function get_columns(){
         $columns = array(
-            'EventID'     => 'ID',
+            'EventID' => 'ID',
             'Name'    => 'Namn',
-            'Date'  => 'Datum'
+            'Date'    => 'Datum'
         );
         return $columns;
     }
 
     function get_sortable_columns() {
         $sortable_columns = array(
-            'EventID'     => array('EventID',false),     //true means it's already sorted
+            'EventID' => array('EventID',false),     //true means it's already sorted
             'Name'    => array('Name',false),
-            'Date'  => array('Date',false)
+            'Date'    => array('Date',false)
         );
         return $sortable_columns;
     }
@@ -95,8 +95,8 @@ class Helsingborg_Event_Search_Table extends WP_List_Table {
             'total_items' => $total_items,
             'per_page'    => $per_page,
             'total_pages' => ceil($total_items/$per_page),
-            'orderby'   => ! empty( $_REQUEST['orderby'] ) && '' != $_REQUEST['orderby'] ? $_REQUEST['orderby'] : 'title',
-            'order'     => ! empty( $_REQUEST['order'] ) && '' != $_REQUEST['order'] ? $_REQUEST['order'] : 'asc'
+            'orderby'     => ! empty( $_REQUEST['orderby'] ) && '' != $_REQUEST['orderby'] ? $_REQUEST['orderby'] : 'title',
+            'order'       => ! empty( $_REQUEST['order'] ) && '' != $_REQUEST['order'] ? $_REQUEST['order'] : 'asc'
         ) );
     }
 

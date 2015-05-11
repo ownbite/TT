@@ -8,10 +8,10 @@ class Helsingborg_Event_List_Table extends WP_List_Table {
     function __construct(){
         global $status, $page;
         parent::__construct( array(
-            'singular'  => 'event',     //singular name of the listed records
-            'plural'    => 'events',    //plural name of the listed records
-            'ajax'      => false        //does this table support ajax?
-        ) );
+            'singular' => 'event',     //singular name of the listed records
+            'plural'   => 'events',    //plural name of the listed records
+            'ajax'     => false        //does this table support ajax?
+        ));
     }
 
     function column_default($item, $column_name){
@@ -20,8 +20,11 @@ class Helsingborg_Event_List_Table extends WP_List_Table {
             case 'Name':
             case 'Date':
                 return $item[$column_name];
+                break;
+
             default:
                 return print_r($item,true); //Show the whole array for troubleshooting purposes
+                break;
         }
     }
 
@@ -40,18 +43,18 @@ class Helsingborg_Event_List_Table extends WP_List_Table {
 
     function get_columns(){
         $columns = array(
-            'EventID'     => 'ID',
+            'EventID' => 'ID',
             'Name'    => 'Namn',
-            'Date'  => 'Datum'
+            'Date'    => 'Datum'
         );
         return $columns;
     }
 
     function get_sortable_columns() {
         $sortable_columns = array(
-            'EventID'     => array('EventID',false),     //true means it's already sorted
+            'EventID' => array('EventID',false),     //true means it's already sorted
             'Name'    => array('Name',false),
-            'Date'  => array('Date',false)
+            'Date'    => array('Date',false)
         );
         return $sortable_columns;
     }
