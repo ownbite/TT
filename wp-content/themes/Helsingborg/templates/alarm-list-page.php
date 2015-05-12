@@ -110,11 +110,41 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                         <div class="lower-divider"></div>
                     </div>
 
-                    <div class="Pager" id="alarm-pager-top"></div>
+                    <div class="Pager" id="alarm-pager-top">
+                        <!-- ko if: pager.maxPageIndex() > 0 -->
+                        <ul class="pagination" role="menubar" aria-label="Pagination">
+                            <li class="arrow"><a href="#" data-bind="click: pager.movePrevious, enable: pager.currentPageIndex() > 0">&laquo; Föregående</a></li>
+
+                            <!-- ko foreach: pager.pagerPages() -->
+                            <li data-bind="css: $parent.pager.currentStatus($data-1), visible: $parent.pager.isHidden($index())">
+                                <a href="#" data-bind="text: ($data), click: function(data, event) { $parent.pager.changePageIndex($data-1) }"></a>
+                            </li>
+                            <!-- /ko -->
+
+                            <li class="arrow"><a href="#" data-bind="click: pager.moveNext, enable: pager.currentPageIndex() < pager.maxPageIndex()">Nästa &raquo;</a></li>
+                        </ul>
+                        <!-- /ko -->
+                    </div>
+
                     <div class="event-list-loader" id="loading-event" style="margin-top:10px;position:relative;"></div>
                     <div class="NoEvents" id="no-event"></div>
                     <ul data-bind="template: {name:'eventTemplate',foreach: pager.currentPageEvents}" class="block-list page-block-list page-list large-block-grid-3 medium-block-grid-3 small-block-grid-2"></ul>
-                    <div class="Pager" id="event-pager-bottom"></div>
+
+                    <div class="Pager" id="event-pager-bottom">
+                        <!-- ko if: pager.maxPageIndex() > 0 -->
+                        <ul class="pagination" role="menubar" aria-label="Pagination">
+                            <li class="arrow"><a href="#" data-bind="click: pager.movePrevious, enable: pager.currentPageIndex() > 0">&laquo; Föregående</a></li>
+
+                            <!-- ko foreach: pager.pagerPages() -->
+                            <li data-bind="css: $parent.pager.currentStatus($data-1), visible: $parent.pager.isHidden($index())">
+                                <a href="#" data-bind="text: ($data), click: function(data, event) { $parent.pager.changePageIndex($data-1) }"></a>
+                            </li>
+                            <!-- /ko -->
+
+                            <li class="arrow"><a href="#" data-bind="click: pager.moveNext, enable: pager.currentPageIndex() < pager.maxPageIndex()">Nästa &raquo;</a></li>
+                        </ul>
+                        <!-- /ko -->
+                    </div>
 
                     <!-- MODAL TEMPLATE -->
                     <div id="alarmModal" class="reveal-modal modal modal-alarm" data-reveal>
