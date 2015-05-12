@@ -172,7 +172,7 @@ if (!class_exists('Image_List_Widget')) {
 
       // First retrieve all saved data from before, if any
       $instance       = wp_parse_args( (array) $instance, array( 'title' => '', 'text' => '', 'title_link' => '' ) );
-      $show_placement = empty($instance['show_placement']) ? 'show_in_sidebar' : $instance['show_placement'];
+      $show_placement = empty($instance['show_placement']) ? 'show_in_slider' : $instance['show_placement'];
       $amount         = empty($instance['amount']) ? 1 : $instance['amount'];
 
       for ($i = 1; $i <= $amount; $i++) {
