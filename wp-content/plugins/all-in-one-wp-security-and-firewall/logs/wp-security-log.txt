@@ -1,2 +1,0 @@
-[05/05/2015 1:08 PM] - FAILURE : Error inserting record into wp_aiowps_login_activity
-[05/12/2015 12:03 PM] - FAILURE : Error inserting record into wp_aiowps_login_activity
