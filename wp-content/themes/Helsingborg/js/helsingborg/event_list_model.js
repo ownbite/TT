@@ -113,19 +113,6 @@ function PagerModel(events) {
             end = current + 3;
         }
 
-        /*
-        if (current - range < 0) {
-            start = 1;
-            end = range;
-        } else if (current >= (total - range)) {
-            start = total - range;
-            end = total;
-        } else {
-            start = current - Math.floor(((range-2)/2));
-            end = current +  Math.floor(((range+1)/2));
-        }
-        */
-
         var pages = new Array();
         for (var i = start; i <= end; i++) {
             pages.push(i);
@@ -208,22 +195,6 @@ function PagerModel(events) {
 
     self.renderPagers = function() {
         self.pagerPages();
-        /*
-        var pager = '<ul class="pagination" role="menubar" aria-label="Pagination">';
-        pager += '<li class="arrow"><a href="#" data-bind="click: pager.movePrevious, enable: pager.currentPageIndex() > 0">&laquo; Föregående</a></li>';
-
-        var max = self.maxPageIndex();
-
-        for (i = 0; i <= max; i++) {
-            pager += '<li data-bind="css: pager.currentStatus(' + i + '), visible: pager.isHidden(' + i + ')"><a href="#" data-bind="click: pager.changePageIndex(' + i + ')">' + (i + 1) + '</a></li>';
-        }
-
-        pager += '<li class="arrow"><a href="#" data-bind="click: pager.moveNext, enable: pager.currentPageIndex() < pager.maxPageIndex()">Nästa &raquo;</a></li>';
-        pager += '</ul>';
-
-        $("div.Pager").html(pager);
-        ko.applyBindings();
-        */
     };
 
     self.renderNoEvents = function() {
