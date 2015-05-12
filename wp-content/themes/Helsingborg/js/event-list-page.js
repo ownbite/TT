@@ -1,5 +1,4 @@
 var _eventPageModel = null;
-alert(ajaxurl);
 
 jQuery(document).ready(function() {
     var events = {};

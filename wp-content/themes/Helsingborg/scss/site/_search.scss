@@ -115,3 +115,16 @@
   margin-bottom: 15px;
 }
 
+.event-list {
+  margin-top: 20px
+}
+
+.pagination {
+  text-align: center;
+
+  li {
+    display: inline-block !important;
+    float: none !important;
+    margin: 0 !important;
+  }
+}

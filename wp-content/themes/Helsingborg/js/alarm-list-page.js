@@ -39,6 +39,7 @@ jQuery(document).ready(function() {
         for (var i = 0; i < alarms.length; i++) {
             if (alarms[i].IDnr === this.id) {
                 result = alarms[i];
+                break;
             }
         }
 
