@@ -9,7 +9,7 @@ $easyToRead = get_post_meta($post->ID, 'hbg_easy_to_read', TRUE);
 <ul class="accessability-menu rs_skip rs_preserve">
     <?php if ($easyToRead) : ?>
     <li>
-        <a href="<?php echo $easyToRead; ?>">Lättläst version</a>
+        <a href="<?php echo $easyToRead; ?>">Lättläst</a>
     </li>
     <?php endif; ?>
     <li>
