@@ -215,7 +215,7 @@ class GF_Field_Checkbox extends GF_Field {
 					$id = $form_id . '_' . $this->id . '_' . $choice_number ++;
 				}
 
-				if ( empty( $_POST ) && rgar( $choice, 'isSelected' ) ) {
+				if ( ! isset( $_GET['gf_token'] ) && empty( $_POST ) && rgar( $choice, 'isSelected' ) ) {
 					$checked = "checked='checked'";
 				} else if ( is_array( $value ) && RGFormsModel::choice_value_match( $this, $choice, rgget( $input_id, $value ) ) ) {
 					$checked = "checked='checked'";
@@ -233,11 +233,13 @@ class GF_Field_Checkbox extends GF_Field {
 					$price = rgempty( 'price', $choice ) ? 0 : GFCommon::to_number( rgar( $choice, 'price' ) );
 					$choice_value .= '|' . $price;
 				}
-				$choice_value = esc_attr( $choice_value );
-				$choices .= "<li class='gchoice_{$id}'>
+				$choice_value  = esc_attr( $choice_value );
+				$choice_markup = "<li class='gchoice_{$id}'>
 								<input name='input_{$input_id}' type='checkbox' $logic_event value='{$choice_value}' {$checked} id='choice_{$id}' {$tabindex} {$disabled_text} />
 								<label for='choice_{$id}' id='label_{$id}'>{$choice['text']}</label>
 							</li>";
+
+				$choices .= apply_filters( 'gform_field_choice_markup_pre_render_' . $this->formId, apply_filters( 'gform_field_choice_markup_pre_render', $choice_markup, $choice, $this, $value ), $choice, $this, $value );
 
 				$is_entry_detail = $this->is_entry_detail();
 				$is_form_editor  = $this->is_form_editor();

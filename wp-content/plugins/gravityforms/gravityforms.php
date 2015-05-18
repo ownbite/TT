@@ -3,7 +3,7 @@
 Plugin Name: Gravity Forms
 Plugin URI: http://www.gravityforms.com
 Description: Easily create web forms and manage form entries within the WordPress admin.
-Version: 1.9.5
+Version: 1.9.8
 Author: rocketgenius
 Author URI: http://www.rocketgenius.com
 Text Domain: gravityforms
@@ -112,7 +112,7 @@ add_action( 'plugins_loaded', array( 'GFForms', 'loaded' ) );
 
 class GFForms {
 
-	public static $version = '1.9.5';
+	public static $version = '1.9.8';
 
 	public static function loaded() {
 
@@ -318,18 +318,27 @@ class GFForms {
 			return;
 		}
 
-		if ( 'upload' === rgget( 'gf_page' ) ) {
+		$page = rgget( 'gf_page' );
+
+		$is_legacy_upload_page = $_SERVER['REQUEST_METHOD'] == 'POST' && $page == 'upload';
+
+		if ( $is_legacy_upload_page && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
+			_doing_it_wrong( 'gf_page=upload', 'gf_page=upload is now deprecated. Use GFCommon::get_upload_page_slug() instead', '1.9.6.13' );
+		}
+
+		$is_upload_page = $_SERVER['REQUEST_METHOD'] == 'POST' && $page == GFCommon::get_upload_page_slug();
+
+		if ( $is_upload_page || $is_legacy_upload_page ) {
 			require_once( GFCommon::get_base_path() . '/includes/upload.php' );
 			exit();
 		}
-
 
 		//ensure users are logged in
 		if ( ! is_user_logged_in() ) {
 			auth_redirect();
 		}
 
-		switch ( rgget( 'gf_page' ) ) {
+		switch ( $page ) {
 			case 'preview':
 				require_once( GFCommon::get_base_path() . '/preview.php' );
 				break;
@@ -584,8 +593,6 @@ class GFForms {
 			return;
 		}
 
-		self::do_self_healing();
-
 		GFCommon::recursive_add_index_file( $upload_root );
 
 		GFCommon::add_htaccess_file();
@@ -611,7 +618,7 @@ class GFForms {
 	 * Renames files with a .bak extension if they have a file extension that is not allowed in the Gravity Forms uploads folder.
 	 */
 	private static function rename_suspicious_files_recursive( $dir, $flag_security_alert = false ) {
-		if ( ! is_dir( $dir ) ) {
+		if ( ! is_dir( $dir ) || is_link( $dir ) ) {
 			return;
 		}
 
@@ -626,7 +633,7 @@ class GFForms {
 			if ( is_dir( $dir . DIRECTORY_SEPARATOR . $file ) && $file != '.' && $file != '..' ) {
 				$flag_security_alert = self::rename_suspicious_files_recursive( $dir . DIRECTORY_SEPARATOR . $file, $flag_security_alert );
 			} elseif ( GFCommon::file_name_has_disallowed_extension( $file )
-			           && ! GFCommon::match_file_extension( $file, array( 'htaccess', 'bak' ) ) ) {
+			           && ! GFCommon::match_file_extension( $file, array( 'htaccess', 'bak', 'html' ) ) ) {
 				$mini_hash = substr( wp_hash( $file ), 0, 6 );
 				$newName   = sprintf( '%s/%s.%s.bak', $dir, $file, $mini_hash );
 				rename( $dir . '/' . $file, $newName );
@@ -1581,23 +1588,23 @@ class GFForms {
 		$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG || isset( $_GET['gform_debug'] ) ? '' : '.min';
 
 		wp_register_script( 'gform_chosen', $base_url . '/js/chosen.jquery.min.js', array( 'jquery' ), $version );
-		wp_register_script( 'gform_conditional_logic', $base_url . '/js/conditional_logic.js', array( 'jquery' ), $version );
-		wp_register_script( 'gform_datepicker_init', $base_url . '/js/datepicker.js', array( 'jquery', 'jquery-ui-datepicker', 'gform_gravityforms' ), $version, true );
-		wp_register_script( 'gform_floatmenu', $base_url . '/js/floatmenu_init.js', array( 'jquery' ), $version );
-		wp_register_script( 'gform_form_admin', $base_url . '/js/form_admin.js', array( 'jquery', 'jquery-ui-autocomplete', 'gform_placeholder' ), $version );
-		wp_register_script( 'gform_form_editor', $base_url . '/js/form_editor.js', array( 'jquery', 'gform_json', 'gform_placeholder' ), $version );
-		wp_register_script( 'gform_forms', $base_url . '/js/forms.js', array( 'jquery' ), $version );
+		wp_register_script( 'gform_conditional_logic', $base_url . "/js/conditional_logic{$min}.js", array( 'jquery' ), $version );
+		wp_register_script( 'gform_datepicker_init', $base_url . "/js/datepicker{$min}.js", array( 'jquery', 'jquery-ui-datepicker', 'gform_gravityforms' ), $version, true );
+		wp_register_script( 'gform_floatmenu', $base_url . "/js/floatmenu_init{$min}.js", array( 'jquery' ), $version );
+		wp_register_script( 'gform_form_admin', $base_url . "/js/form_admin{$min}.js", array( 'jquery', 'jquery-ui-autocomplete', 'gform_placeholder' ), $version );
+		wp_register_script( 'gform_form_editor', $base_url . "/js/form_editor{$min}.js", array( 'jquery', 'gform_json', 'gform_placeholder' ), $version );
+		wp_register_script( 'gform_forms', $base_url . "/js/forms{$min}.js", array( 'jquery' ), $version );
 		wp_register_script( 'gform_gravityforms', $base_url . "/js/gravityforms{$min}.js", array( 'jquery', 'gform_json' ), $version );
 		wp_register_script( 'gform_json', $base_url . '/js/jquery.json-1.3.js', array( 'jquery' ), $version, true );
 		wp_register_script( 'gform_masked_input', $base_url . '/js/jquery.maskedinput.min.js', array( 'jquery' ), $version );
-		wp_register_script( 'gform_menu', $base_url . '/js/menu.js', array( 'jquery' ), $version );
+		wp_register_script( 'gform_menu', $base_url . "/js/menu{$min}.js", array( 'jquery' ), $version );
 		wp_register_script( 'gform_placeholder', $base_url . '/js/placeholders.jquery.min.js', array( 'jquery' ), $version );
-		wp_register_script( 'gform_tooltip_init', $base_url . '/js/tooltip_init.js', array( 'jquery-ui-tooltip' ), $version );
+		wp_register_script( 'gform_tooltip_init', $base_url . "/js/tooltip_init{$min}.js", array( 'jquery-ui-tooltip' ), $version );
 		wp_register_script( 'gform_textarea_counter', $base_url . '/js/jquery.textareaCounter.plugin.js', array( 'jquery' ), $version );
-		wp_register_script( 'gform_field_filter', $base_url . '/js/gf_field_filter.js', array( 'jquery' ), $version );
-		wp_register_script( 'gform_shortcode_ui', $base_url . '/js/shortcode-ui.js', array( 'jquery', 'wp-backbone' ), $version, true );
+		wp_register_script( 'gform_field_filter', $base_url . "/js/gf_field_filter{$min}.js", array( 'jquery' ), $version );
+		wp_register_script( 'gform_shortcode_ui', $base_url . "/js/shortcode-ui{$min}.js", array( 'jquery', 'wp-backbone' ), $version, true );
 
-		wp_register_style( 'gform_shortcode_ui', $base_url . '/css/shortcode-ui.css', array(), $version );
+		wp_register_style( 'gform_shortcode_ui', $base_url . "/css/shortcode-ui{$min}.css", array(), $version );
 
 		// only required for WP versions prior to 3.3
 		wp_register_script( 'gf_thickbox', $base_url . '/js/thickbox.js', array(), $version );
@@ -1758,7 +1765,6 @@ class GFForms {
 		}
 
 		if ( self::page_supports_add_form_button() ) {
-			// add_filter( 'gform_shortcode_preview_disabled', '__return_false' );
 			require_once( GFCommon::get_base_path() . '/tooltips.php' );
 			wp_enqueue_script( 'gform_shortcode_ui' );
 			wp_enqueue_style( 'gform_shortcode_ui' );
@@ -1768,6 +1774,7 @@ class GFForms {
 				'previewDisabled' => apply_filters( 'gform_shortcode_preview_disabled', true ),
 				'strings' => array(
 					'pleaseSelectAForm' => __( 'Please select a form.', 'gravityforms' ),
+					'errorLoadingPreview' => __( 'Failed to load the preview for this form.', 'gravityforms' ),
 				)
 			) );
 		}
@@ -2524,14 +2531,15 @@ class GFForms {
 						$label        = rgar( $menu_item, 'label' );
 						$sub_menu_str = self::toolbar_sub_menu_items( $sub_menu_items, $compact );
 					}
-					$link_class = rgar( $menu_item, 'link_class' );
+					$link_class = esc_attr( rgar( $menu_item, 'link_class' ) );
 					$icon       = rgar( $menu_item, 'icon' );
-					$url        = rgar( $menu_item, 'url' );
-					$title      = rgar( $menu_item, 'title' );
-					$onclick    = rgar( $menu_item, 'onclick' );
+					$url        = esc_url( rgar( $menu_item, 'url' ) );
+					$title      = esc_attr( rgar( $menu_item, 'title' ) );
+					$onclick    = esc_js( rgar( $menu_item, 'onclick' ) );
+					$label 		= esc_html( $label );
+					$target 	= rgar( $menu_item, 'target' );
 
-					$target = rgar( $menu_item, 'target' );
-					$link   = "<a class='{$link_class}' onclick='{$onclick}' title='{$title}' href='{$url}' target='{$target}'>{$icon} {$label}</a>" . $sub_menu_str;
+					$link   	= "<a class='{$link_class}' onclick='{$onclick}' title='{$title}' href='{$url}' target='{$target}'>{$icon} {$label}</a>" . $sub_menu_str;
 					if ( $compact ) {
 						if ( $key == 'delete' ) {
 							$link = apply_filters( 'gform_form_delete_link', $link );
@@ -2558,6 +2566,8 @@ class GFForms {
 
 	public static function get_toolbar_menu_items( $form_id, $compact = false ) {
 		$menu_items = array();
+
+		$form_id = absint( $form_id );
 
 		//---- Form Editor ----
 		$edit_capabilities = array( 'gravityforms_edit_forms' );
@@ -2633,11 +2643,11 @@ class GFForms {
 		$sub_menu_items_string = '';
 		foreach ( $menu_items as $menu_item ) {
 			if ( GFCommon::current_user_can_any( rgar( $menu_item, 'capabilities' ) ) ) {
-				$menu_class = rgar( $menu_item, 'menu_class' );
-				$link_class = rgar( $menu_item, 'link_class' );
-				$url        = rgar( $menu_item, 'url' );
-				$label      = rgar( $menu_item, 'label' );
-				$target     = rgar( $menu_item, 'target' );
+				$menu_class = esc_attr( rgar( $menu_item, 'menu_class' ) );
+				$link_class = esc_attr( rgar( $menu_item, 'link_class' ) );
+				$url        = esc_url( rgar( $menu_item, 'url' ) );
+				$label      = esc_html( rgar( $menu_item, 'label' ) );
+				$target     = esc_attr( rgar( $menu_item, 'target' ) );
 				$sub_menu_items_string .= "<li class='{$menu_class}'><a href='{$url}' class='{$link_class}' target='{$target}'>{$label}</a></li>";
 			}
 		}
@@ -2736,7 +2746,7 @@ class GFForms {
 
 	public static function maybe_auto_update( $update, $item ) {
 
-		if ( $item->slug == 'gravityforms' ) {
+		if ( isset($item->slug) && $item->slug == 'gravityforms' ) {
 
 			GFCommon::log_debug( 'GFForms::maybe_auto_update() - Starting auto-update for gravityforms.' );
 
@@ -2895,14 +2905,16 @@ class GFForms {
 
 		$base_url = GFCommon::get_base_url();
 
-		$editor_styles = $base_url . '/css/shortcode-ui-editor-styles.css,';
-		$form_styles = $base_url . '/css/formsmain.css';
+		$min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG || isset( $_GET['gform_debug'] ) ? '' : '.min';
+
+		$editor_styles = $base_url . "/css/shortcode-ui-editor-styles{$min}.css,";
+		$form_styles = $base_url . "/css/formsmain{$min}.css";
 
 		if ( isset( $init['content_css'] ) ) {
 			if ( empty( $init['content_css'] ) ) {
 				$init['content_css'] = '';
 			} elseif ( is_array( $init['content_css'] ) ) {
-				$init['content_css'][] = $base_url . '/css/shortcode-ui-editor-styles.css,';
+				$init['content_css'][] = $editor_styles;
 				$init['content_css'][] = $form_styles;
 				return $init;
 			} else {

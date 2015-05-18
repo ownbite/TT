@@ -190,13 +190,15 @@ class GFFormsModel {
 	public static function get_form_counts( $form_id ) {
 		global $wpdb;
 		$lead_table_name = self::get_lead_table_name();
+		$lead_detail_table_name = self::get_lead_details_table_name();
+
 		$sql             = $wpdb->prepare(
 			"SELECT
-                    (SELECT count(0) FROM $lead_table_name WHERE form_id=%d AND status='active') as total,
-                    (SELECT count(0) FROM $lead_table_name WHERE is_read=0 AND status='active' AND form_id=%d) as unread,
-                    (SELECT count(0) FROM $lead_table_name WHERE is_starred=1 AND status='active' AND form_id=%d) as starred,
-                    (SELECT count(0) FROM $lead_table_name WHERE status='spam' AND form_id=%d) as spam,
-                    (SELECT count(0) FROM $lead_table_name WHERE status='trash' AND form_id=%d) as trash",
+                    (SELECT count(DISTINCT(l.id)) FROM $lead_table_name l INNER JOIN $lead_detail_table_name ld ON l.id=ld.lead_id WHERE l.form_id=%d AND l.status='active') as total,
+                    (SELECT count(DISTINCT(l.id)) FROM $lead_table_name l INNER JOIN $lead_detail_table_name ld ON l.id=ld.lead_id WHERE l.is_read=0 AND l.status='active' AND l.form_id=%d) as unread,
+                    (SELECT count(DISTINCT(l.id)) FROM $lead_table_name l INNER JOIN $lead_detail_table_name ld ON l.id=ld.lead_id WHERE l.is_starred=1 AND l.status='active' AND l.form_id=%d) as starred,
+                    (SELECT count(DISTINCT(l.id)) FROM $lead_table_name l INNER JOIN $lead_detail_table_name ld ON l.id=ld.lead_id WHERE l.status='spam' AND l.form_id=%d) as spam,
+                    (SELECT count(DISTINCT(l.id)) FROM $lead_table_name l INNER JOIN $lead_detail_table_name ld ON l.id=ld.lead_id WHERE l.status='trash' AND l.form_id=%d) as trash",
 			$form_id, $form_id, $form_id, $form_id, $form_id
 		);
 
@@ -348,6 +350,7 @@ class GFFormsModel {
 		$form = self::load_notifications_to_legacy( $form );
 
 		$form = apply_filters( 'gform_form_post_get_meta', $form );
+		$form = apply_filters( "gform_form_post_get_meta_{$form_id}", $form );
 
 		// cached form meta for cheaper retrieval on subsequent requests
 		self::$_current_forms[ $form_id ] = $form;
@@ -659,7 +662,7 @@ class GFFormsModel {
 				// if property is status, prev value is spam and new value is active
 				if ( $property_name == 'status' && $previous_value == 'spam' && $property_value == 'active' && ! rgar( $lead, 'post_id' ) ) {
 					$lead[ $property_name ] = $property_value;
-					$lead['post_id']      = GFCommon::create_post( $form, $lead );
+					$lead['post_id']      = GFCommon::create_post( isset( $form ) ? $form : GFAPI::get_form( $lead['form_id'] ), $lead );
 				}
 
 				do_action( "gform_update_{$property_name}", $lead_id, $property_value, $previous_value );
@@ -1271,11 +1274,11 @@ class GFFormsModel {
 	public static function save_lead( $form, &$lead ) {
 		global $wpdb;
 
-		GFCommon::log_debug( 'GFFormsModel::save_lead(): Saving entry.' );
+		GFCommon::log_debug( __METHOD__ . '(): Saving entry.' );
 
-		$is_form_editor = GFCommon::is_form_editor();
+		$is_form_editor  = GFCommon::is_form_editor();
 		$is_entry_detail = GFCommon::is_entry_detail();
-		$is_admin = $is_form_editor || $is_entry_detail;
+		$is_admin        = $is_form_editor || $is_entry_detail;
 
 		if ( $is_admin && ! GFCommon::current_user_can_any( 'gravityforms_edit_entries' ) ) {
 			die( __( "You don't have adequate permission to edit entries.", 'gravityforms' ) );
@@ -1302,7 +1305,7 @@ class GFFormsModel {
 			$lead_id = $wpdb->insert_id;
 			$lead    = array( 'id' => $lead_id );
 
-			GFCommon::log_debug( "GFFormsModel::save_lead(): Entry record created in the database. ID: {$lead_id}." );
+			GFCommon::log_debug( __METHOD__ . "(): Entry record created in the database. ID: {$lead_id}." );
 		}
 
 		$current_fields   = $wpdb->get_results( $wpdb->prepare( "SELECT id, field_number FROM $lead_detail_table WHERE lead_id=%d", $lead['id'] ) );
@@ -1312,7 +1315,7 @@ class GFFormsModel {
 		$calculation_fields = array();
 		$recalculate_total  = false;
 
-		GFCommon::log_debug( 'GFFormsModel::save_lead(): Saving entry fields.' );
+		GFCommon::log_debug( __METHOD__ . '(): Saving entry fields.' );
 
 		foreach ( $form['fields'] as $field ) {
 			/* @var $field GF_Field */
@@ -1347,14 +1350,11 @@ class GFFormsModel {
 					continue;
 				}
 
-				GFCommon::log_debug( "GFFormsModel::save_lead(): Saving field {$field->label}(#{$field->id} - {$field->type})." );
-
 				if ( $field->type == 'post_category' ) {
 					$field = GFCommon::add_categories_as_choices( $field, '' );
 				}
 
 				$inputs = $field->get_entry_inputs();
-
 				if ( is_array( $inputs ) ) {
 					foreach ( $inputs as $input ) {
 						self::save_input( $form, $field, $lead, $current_fields, $input['id'] );
@@ -1367,11 +1367,7 @@ class GFFormsModel {
 
 		if ( ! empty( $calculation_fields ) ) {
 			foreach ( $calculation_fields as $calculation_field ) {
-
-				GFCommon::log_debug( "GFFormsModel::save_lead(): Saving calculated field {$calculation_field->label}(#{$calculation_field->id} - {$calculation_field->type})." );
-
 				$inputs = $calculation_field->get_entry_inputs();
-
 				if ( is_array( $inputs ) ) {
 					foreach ( $inputs as $input ) {
 						self::save_input( $form, $calculation_field, $lead, $current_fields, $input['id'] );
@@ -1388,11 +1384,11 @@ class GFFormsModel {
 		//saving total field as the last field of the form.
 		if ( ! empty( $total_fields ) ) {
 			foreach ( $total_fields as $total_field ) {
-				GFCommon::log_debug( 'GFFormsModel::save_lead(): Saving total field.' );
 				self::save_input( $form, $total_field, $lead, $current_fields, $total_field->id );
 				self::refresh_lead_field_value( $lead['id'], $total_field['id'] );
 			}
 		}
+		GFCommon::log_debug( __METHOD__ . '(): Finished saving entry fields.' );
 	}
 
 	public static function create_lead( $form ) {
@@ -1486,7 +1482,13 @@ class GFFormsModel {
 	public static function get_prepared_input_value( $form, $field, $lead, $input_id ) {
 
 		$input_name = 'input_' . str_replace( '.', '_', $input_id );
-		$value      = rgpost( $input_name );
+		if ( $field->enableCopyValuesOption && rgpost( 'input_' . $field->id . '_copy_values_activated' ) ) {
+			$source_field_id   = $field->copyValuesOptionField;
+			$source_input_name = str_replace( 'input_' . $field->id, 'input_' . $source_field_id, $input_name );
+			$value             = rgpost( $source_input_name );
+		} else {
+			$value = rgpost( $input_name );
+		}
 
 		$is_form_editor = GFCommon::is_form_editor();
 		$is_entry_detail = GFCommon::is_entry_detail();
@@ -1872,6 +1874,8 @@ class GFFormsModel {
 		}
 		global $wpdb;
 
+		$table = self::get_incomplete_submissions_table_name();
+
 		$submitted_values = array();
 		foreach ( $form['fields'] as $field ) {
 			/* @var GF_Field $field */
@@ -1886,11 +1890,21 @@ class GFFormsModel {
 		$submission['page_number']     = $page_number;
 		$submission['files']           = $files;
 		$submission['gform_unique_id'] = $form_unique_id;
+
+		// Issue a new token if no longer valid
+		if ( ! empty( $resume_token ) ) {
+			$sql = $wpdb->prepare("SELECT COUNT(*) FROM {$table} WHERE uuid = %s", $resume_token );
+			$count = $wpdb->get_var( $sql );
+			if ( $count != 1 ) {
+				$resume_token = false;
+			}
+		}
+
 		if ( empty( $resume_token ) ) {
 			$resume_token = self::get_uuid();
 
 			$result = $wpdb->insert(
-				self::get_incomplete_submissions_table_name(),
+				$table,
 				array(
 					'uuid'         => $resume_token,
 					'form_id'      => $form['id'],
@@ -1910,7 +1924,7 @@ class GFFormsModel {
 			);
 		} else {
 			$result = $wpdb->update(
-				self::get_incomplete_submissions_table_name(),
+				$table,
 				array(
 					'form_id'      => $form['id'],
 					'date_created' => current_time( 'mysql', true ),
@@ -2357,13 +2371,13 @@ class GFFormsModel {
 		$unique_id = '';
 		if ( rgpost( 'gform_submit' ) == $form_id ) {
 			$posted_uid = rgpost( 'gform_unique_id' );
-			if ( false === empty( $posted_uid ) ) {
-				$unique_id                  = $posted_uid;
+			if ( false === empty( $posted_uid ) && ctype_alnum( $posted_uid )) {
+				$unique_id = $posted_uid;
 				self::$unique_ids[ $form_id ] = $unique_id;
 			} elseif ( isset( self::$unique_ids[ $form_id ] ) ) {
 				$unique_id = self::$unique_ids[ $form_id ];
 			} else {
-				$unique_id                  = uniqid();
+				$unique_id = uniqid();
 				self::$unique_ids[ $form_id ] = $unique_id;
 			}
 		}
@@ -2823,12 +2837,13 @@ class GFFormsModel {
 		$value = self::prepare_value( $form, $field, $value, $input_name, rgar( $lead, 'id' ) );
 
         //ignore fields that have not changed
-        if( $lead != null && isset( $lead[ $input_id ] ) && $value === rgget( (string) $input_id, $lead ) ){
+        if ( $lead != null && isset( $lead[ $input_id ] ) && $value === rgget( (string) $input_id, $lead ) ) {
             return;
         }
 
 		$lead_detail_id = self::get_lead_detail_id( $current_fields, $input_id );
-		self::update_lead_field_value( $form, $lead, $field, $lead_detail_id, $input_id, $value );
+		$result         = self::update_lead_field_value( $form, $lead, $field, $lead_detail_id, $input_id, $value );
+		GFCommon::log_debug( __METHOD__ . "(): Saving: {$field->label}(#{$input_id} - {$field->type}). Result: " . var_export( $result, 1 ) );
 
 	}
 
@@ -3756,11 +3771,11 @@ class GFFormsModel {
 	 *
 	 * @return string
 	 */
-	public static function get_label( $field, $input_id = 0, $input_only = false ) {
+	public static function get_label( $field, $input_id = 0, $input_only = false, $allow_admin_label = true ) {
 		if ( ! $field instanceof GF_Field ) {
 			$field = GF_Fields::create( $field );
 		}
-		$field_label = ( IS_ADMIN || RG_CURRENT_PAGE == 'select_columns.php' || RG_CURRENT_PAGE == 'print-entry.php' || rgget( 'gf_page', $_GET ) == 'select_columns' || rgget( 'gf_page', $_GET ) == 'print-entry' ) && ! empty( $field->adminLabel ) ? $field->adminLabel : $field->label;
+		$field_label = ( IS_ADMIN || RG_CURRENT_PAGE == 'select_columns.php' || RG_CURRENT_PAGE == 'print-entry.php' || rgget( 'gf_page', $_GET ) == 'select_columns' || rgget( 'gf_page', $_GET ) == 'print-entry' ) && ! empty( $field->adminLabel ) && $allow_admin_label ? $field->adminLabel : $field->label;
 		$input       = self::get_input( $field, $input_id );
 		if ( self::get_input_type($field) == 'checkbox' && $input != null ) {
 			return $input['label'];
@@ -4344,17 +4359,13 @@ class GFFormsModel {
 					if ( is_array( $search_term ) ) {
 						if ( in_array( $operator, array( '=', 'in' ) ) ) {
 							$operator = 'IN'; // Override operator
-							// Format in SQL and sanitize the strings in the list
-							$search_terms = array_fill( 0, count( $search_term ), '%s' );
-							$search_term_placeholder = $wpdb->prepare( '( ' . implode( ', ', $search_terms ) . ' )', $search_term );
-							$search_term = ''; // Set to blank, still gets passed to wpdb::prepare below but isn't used
 						} elseif ( in_array( $operator, array( '!=', '<>', 'not in' ) ) ) {
 							$operator = 'NOT IN'; // Override operator
-							// Format in SQL and sanitize the strings in the list
-							$search_terms = array_fill( 0, count( $search_term ), '%s' );
-							$search_term_placeholder = $wpdb->prepare( '( ' . implode( ', ', $search_terms ) . ' )', $search_term );
-							$search_term = ''; // Set to blank, still gets passed to wpdb::prepare below but isn't used
 						}
+						// Format in SQL and sanitize the strings in the list
+						$search_terms = array_fill( 0, count( $search_term ), '%s' );
+						$search_term_placeholder = $wpdb->prepare( '( ' . implode( ', ', $search_terms ) . ' )', $search_term );
+						$search_term = ''; // Set to blank, still gets passed to wpdb::prepare below but isn't used
 					}
 
 					$upper_field_number_limit = (string) (int) $key === $key ? (float) $key + 0.9999 : (float) $key + 0.0001;
@@ -4467,6 +4478,19 @@ class GFFormsModel {
 					$meta        = rgar( $entry_meta, $key );
 					$placeholder = rgar( $meta, 'is_numeric' ) ? '%s' : '%s';
 					$search_term = 'like' == $operator ? "%$val%" : $val;
+
+					if ( is_array( $search_term ) ) {
+						if ( in_array( $operator, array( '=', 'in' ) ) ) {
+							$operator = 'IN';
+						} elseif ( in_array( $operator, array( '!=', '<>', 'not in' ) ) ) {
+							$operator = 'NOT IN';
+						}
+						$search_terms = array_fill( 0, count( $search_term ), '%s' );
+						$placeholder = $wpdb->prepare( '( ' . implode( ', ', $search_terms ) . ' )', $search_term );
+
+						$search_term = '';
+					}
+
 					$sql_array[] = $wpdb->prepare(
 						"
                         l.id IN
@@ -4822,7 +4846,7 @@ function gform_get_meta( $entry_id, $meta_key ) {
 	//get from cache if available
 	$cache_key = $entry_id . '_' . $meta_key;
 	if ( array_key_exists( $cache_key, $_gform_lead_meta ) ) {
-		return $_gform_lead_meta[ $cache_key ];
+		return maybe_unserialize( $_gform_lead_meta[ $cache_key ] );
 	}
 
 	$table_name                   = RGFormsModel::get_lead_meta_table_name();
@@ -4871,27 +4895,73 @@ function gform_get_meta_values_for_entries( $entry_ids, $meta_keys ) {
 	return $meta_value_array;
 }
 
-function gform_update_meta( $entry_id, $meta_key, $meta_value ) {
+
+/**
+ * Add or update metadata associated with an entry
+ *
+ * Data will be serialized; no sanitation is necessary.
+ *
+ * @param int $entry_id The ID of the entry to be updated
+ * @param string $meta_key The key for the meta data to be stored
+ * @param mixed $meta_value The data to be stored for the entry
+ * @param int|null $form_id The form ID of the entry (optional, saves extra query if passed when creating the metadata)
+ */
+function gform_update_meta( $entry_id, $meta_key, $meta_value, $form_id = null ) {
 	global $wpdb, $_gform_lead_meta;
 	$table_name = RGFormsModel::get_lead_meta_table_name();
 	if ( false === $meta_value ) {
 		$meta_value = '0';
 	}
-	$meta_value  = maybe_serialize( $meta_value );
+	$serialized_meta_value  = maybe_serialize( $meta_value );
 	$meta_exists = gform_get_meta( $entry_id, $meta_key ) !== false;
 	if ( $meta_exists ) {
-		$wpdb->update( $table_name, array( 'meta_value' => $meta_value ), array( 'lead_id' => $entry_id, 'meta_key' => $meta_key ), array( '%s' ), array( '%d', '%s' ) );
+		$wpdb->update( $table_name, array( 'meta_value' => $serialized_meta_value ), array( 'lead_id' => $entry_id, 'meta_key' => $meta_key ), array( '%s' ), array( '%d', '%s' ) );
 	} else {
-		$lead_table_name = RGFormsModel::get_lead_table_name();
-		$form_id         = $wpdb->get_var( $wpdb->prepare( "SELECT form_id from $lead_table_name WHERE id=%d", $entry_id ) );
-		$wpdb->insert( $table_name, array( 'form_id' => $form_id, 'lead_id' => $entry_id, 'meta_key' => $meta_key, 'meta_value' => $meta_value ), array( '%d', '%d', '%s', '%s' ) );
+
+		if ( empty( $form_id ) ) {
+			$lead_table_name = RGFormsModel::get_lead_table_name();
+			$form_id         = $wpdb->get_var( $wpdb->prepare( "SELECT form_id from $lead_table_name WHERE id=%d", $entry_id ) );
+		} else {
+			$form_id = intval( $form_id );
+		}
+
+		$wpdb->insert( $table_name, array( 'form_id' => $form_id, 'lead_id' => $entry_id, 'meta_key' => $meta_key, 'meta_value' => $serialized_meta_value ), array( '%d', '%d', '%s', '%s' ) );
 	}
 
 	//updates cache
 	$cache_key = $entry_id . '_' . $meta_key;
 	if ( array_key_exists( $cache_key, $_gform_lead_meta ) ) {
-		$_gform_lead_meta[ $cache_key ] = maybe_unserialize( $meta_value );
+		$_gform_lead_meta[ $cache_key ] = $meta_value;
 	}
+}
+
+/**
+ * Add metadata associated with an entry
+ *
+ * Data will be serialized; no sanitation is necessary.
+ *
+ * @param int $entry_id The ID of the entry where metadata is to be added
+ * @param string $meta_key The key for the meta data to be stored
+ * @param mixed $meta_value The data to be stored for the entry
+ * @param int|null $form_id The form ID of the entry (optional, saves extra query if passed when creating the metadata)
+ */
+function gform_add_meta( $entry_id, $meta_key, $meta_value, $form_id = null ) {
+	global $wpdb, $_gform_lead_meta;
+	$table_name = RGFormsModel::get_lead_meta_table_name();
+	if ( false === $meta_value ) {
+		$meta_value = '0';
+	}
+	$serialized_meta_value  = maybe_serialize( $meta_value );
+
+	if ( empty( $form_id ) ) {
+		$lead_table_name = RGFormsModel::get_lead_table_name();
+		$form_id         = $wpdb->get_var( $wpdb->prepare( "SELECT form_id from $lead_table_name WHERE id=%d", $entry_id ) );
+	} else {
+		$form_id = intval( $form_id );
+	}
+
+	$wpdb->insert( $table_name, array( 'form_id' => $form_id, 'lead_id' => $entry_id, 'meta_key' => $meta_key, 'meta_value' => $serialized_meta_value ), array( '%d', '%d', '%s', '%s' ) );
+
 }
 
 function gform_delete_meta( $entry_id, $meta_key = '' ) {
