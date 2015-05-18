@@ -12,6 +12,7 @@
     <div class="lower-divider"></div>
 </div>
 <div class="textwidget hbg-social-feed hbg-social-feed-pinterest">
+    <?php if ($feed && count($feed) > 0) : ?>
     <ul>
         <?php $int = 0; foreach ($feed as $post) : ?>
         <li class="large-<?php echo $columns; ?> medium-<?php echo $columns; ?> small-6 columns left <?php echo $columns; ?>">
@@ -24,6 +25,9 @@
         </li>
         <?php $int++; if ($int == $instance['show_count']) break; endforeach; ?>
     </ul>
+    <?php else : ?>
+        <p>Inga pins att visa</p>
+    <?php endif; ?>
     <div class="clearfix"></div>
 
     <?php if (isset($instance['show_visit_button']) && $instance['show_visit_button'] == 'on') : ?>

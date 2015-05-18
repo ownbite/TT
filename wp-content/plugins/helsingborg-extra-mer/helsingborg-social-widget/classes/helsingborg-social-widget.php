@@ -185,10 +185,18 @@ if (!class_exists('HelsingborgSocialWidget')) {
                 'q' => $username,
                 'client_id' => $key
             );
-            $user = HbgCurl::request('GET', $endpoint, $data);
-            $user = json_decode($user);
 
-            $userId = $user->data[0]->id;
+            $users = HbgCurl::request('GET', $endpoint, $data);
+            $users = json_decode($users);
+
+            $userId = null;
+
+            foreach ($users->data as $user) {
+                if ($user->username == $username) {
+                    $userId = $user->id;
+                    break;
+                }
+            }
 
             /**
              * Get the users feed

@@ -5,6 +5,7 @@
     <div class="lower-divider"></div>
 </div>
 <div class="textwidget hbg-social-feed hbg-social-feed-facebook">
+    <?php if ($feed && count($feed) > 0) : ?>
     <ul>
         <?php
             $int = 0;
@@ -37,6 +38,9 @@
         </li>
         <?php $int++; if ($int == $instance['show_count']) break; endforeach; ?>
     </ul>
+    <?php else : ?>
+        <p>Inga bilder att visa</p>
+    <?php endif; ?>
     <div class="clearfix"></div>
 
     <?php if (isset($instance['show_visit_button']) && $instance['show_visit_button'] == 'on') : ?>
