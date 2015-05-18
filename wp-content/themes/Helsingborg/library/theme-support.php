@@ -15,7 +15,6 @@ function Helsingborg_theme_support() {
 
     // Add post formarts support: http://codex.wordpress.org/Post_Formats
     add_theme_support('post-formats', array('aside', 'gallery', 'link', 'image', 'quote', 'status', 'video', 'audio', 'chat'));
-
 }
 
 add_action('after_setup_theme', 'Helsingborg_theme_support');
@@ -28,4 +27,8 @@ function hbg_remove_image_size($sizes) {
     return $sizes;
 }
 add_filter('intermediate_image_sizes_advanced', 'hbg_remove_image_size');
-?>
+
+function admin_script_enqueue( $hook ) {
+    wp_enqueue_script('admin-js', get_template_directory_uri() . '/js/admin.js' );
+}
+add_action('admin_enqueue_scripts', 'admin_script_enqueue');
