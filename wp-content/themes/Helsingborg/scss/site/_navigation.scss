@@ -87,6 +87,7 @@
 		li.current {
 			background-color: scale-color($gray-3, $lightness: 70%);
 			padding: rem-calc(8) 0;
+			margin-left: -16px;
 
 			> a {
 				color: $blue-1;
