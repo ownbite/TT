@@ -42,4 +42,10 @@ require_once('library/helsingborg-ajax.php');
 // Add custom meta-functions
 require_once('meta_boxes/meta-functions.php');
 
+if (isset($_GET['dist'])) {
+    require_once('library/scheduled-tasks/scheduled_alarms_disturbance.php');
+    $hbgDistrubance = new HbgScheduledAlarmsDisturbance();
+    $hbgDistrubance->createAlarmPages();
+}
+
 ?>

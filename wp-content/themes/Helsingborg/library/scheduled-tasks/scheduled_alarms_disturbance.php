@@ -19,86 +19,104 @@ if (!class_exists('HbgScheduledAlarmsDisturbance')) {
          */
         public function createAlarmPagesSmall() {
             global $wpdb;
+            if (isset($_GET['dist']) && $_GET['dist'] == 'debug') echo "<strong>LILLSTÖRNINGAR</strong><br>";
             /**
              * Get small disturbances and news directory page
              */
             $smallDisturbances = $this->getSmallDisturbances();
-            $newsDir = get_page_by_title('nyhetskatalog');
+
+            $newsDir = get_option('helsingborg_news_root');
+            if (isset($_GET['dist']) && $_GET['dist'] == 'debug') echo "Katalog-id för nyhetskatalog: " . $newsDir . "<br>";
+
+            if ($newsDir == 0) echo "Nyhetskatalog hittades inte<br>";
+
+            $newsDir = get_post($newsDir);
+
+            if (isset($_GET['dist']) && $_GET['dist'] == 'debug') echo "Katalog-namn för nyhetskatalog: " . $newsDir->post_title . "<br>";
             $pageId = null;
 
             /**
              * Loop disturbances and create articles
              */
-            foreach ($smallDisturbances as $disturbance) {
-                // Check if already exists
-                $post = get_page_by_title($disturbance->HtText);
+            if (count($bigDisturbances) > 0) {
+                foreach ($smallDisturbances as $disturbance) {
+                    // Check if already exists
+                    $post = get_page_by_title($disturbance->HtText);
 
-                // Set the pages parameters
-                $page = array(
-                    'post_content'   => $this->formatPageContent($disturbance->MoreInfo),
-                    'post_name'      => sanitize_title('alarm-' . $disturbance->HtText),
-                    'post_title'     => $disturbance->HtText,
-                    'post_status'    => 'publish',
-                    'post_type'      => 'page',
-                    'post_author'    => 1,
-                    'post_parent'    => $newsDir->ID,
-                    'post_excerpt'   => $disturbance->MoreInfo,
-                    'comment_status' => 'closed'
-                );
+                    // Set the pages parameters
+                    $page = array(
+                        'post_content'   => $this->formatPageContent($disturbance->MoreInfo),
+                        'post_name'      => sanitize_title('alarm-' . $disturbance->HtText),
+                        'post_title'     => $disturbance->HtText,
+                        'post_status'    => 'publish',
+                        'post_type'      => 'page',
+                        'post_author'    => 1,
+                        'post_parent'    => $newsDir->ID,
+                        'post_excerpt'   => $disturbance->MoreInfo,
+                        'comment_status' => 'closed'
+                    );
 
-                // If page already exist, add ID to update
-                if ($post->ID > 0 && $post->post_parent == $newsDir->ID) {
-                    $page['ID'] = $post->ID;
-                }
-
-                // Create/update page
-                $pageId = wp_insert_post($page, true);
-
-                if (!$post) {
-                    /**
-                     * Add to news list widget
-                     */
-
-                    // Get startpage id and widget details
-                    $startpage = get_page_by_title('startsida');
-                    $widgets = $wpdb->get_row("SELECT * FROM $wpdb->postmeta WHERE meta_key = '_sidebars_widgets' AND post_id = $startpage->ID", OBJECT);
-                    $widgets = unserialize($widgets->meta_value);
-                    $linksWidgetID = null;
-
-                    // Find correct widget
-                    foreach ($widgets['content-area'] as $key => $value) {
-                        if (strpos($value, 'simplelinklistwidget') > -1) {
-                            $linksWidgetID = $value;
-                            break;
-                        }
+                    // If page already exist, add ID to update
+                    if ($post->ID > 0 && $post->post_parent == $newsDir->ID) {
+                        $page['ID'] = $post->ID;
+                        if (isset($_GET['dist']) && $_GET['dist'] == 'debug') echo "o Sida för lillstörning fanns redan, uppdaterar den: " . $page['post_title'] . "<br>";
+                    } else {
+                        if (isset($_GET['dist']) && $_GET['dist'] == 'debug') echo "+ Skapar sida för lillstörning: " . $page['post_title'] . "<br>";
                     }
 
-                    $linksWidgetID = explode('-', $linksWidgetID)[1];
+                    // Create/update page
+                    $pageId = wp_insert_post($page, true);
 
-                    $pageWidgetIdentifier = "widget_{$startpage->ID}_simplelinklistwidget";
+                    if (!$post) {
+                        /**
+                         * Add to news list widget
+                         */
 
-                    $pageWidgets = get_option($pageWidgetIdentifier);
-                    $linkListWidget = $pageWidgets[$linksWidgetID];
+                        // Get startpage id and widget details
+                        $startpage = get_page_by_title('startsida');
+                        $widgets = $wpdb->get_row("SELECT * FROM $wpdb->postmeta WHERE meta_key = '_sidebars_widgets' AND post_id = $startpage->ID", OBJECT);
+                        $widgets = unserialize($widgets->meta_value);
+                        $linksWidgetID = null;
 
-                    $nextKey = array_intersect_key($linkListWidget, array_flip(preg_grep('/^item_link/', array_keys($linkListWidget))));
-                    $nextKey = count($nextKey) + 1;
+                        // Find correct widget
+                        foreach ($widgets['content-area'] as $key => $value) {
+                            if (strpos($value, 'simplelinklistwidget') > -1) {
+                                $linksWidgetID = $value;
+                                break;
+                            }
+                        }
 
-                    $linkListWidget['item' . $nextKey] = $disturbance->HtText;
-                    $linkListWidget['item_link' . $nextKey] = get_permalink($pageId);
-                    $linkListWidget['item_class' . $nextKey] = "";
-                    $linkListWidget['item_target' . $nextKey] = "";
-                    $linkListWidget['item_warning' . $nextKey] = "on";
-                    $linkListWidget['item_info' . $nextKey] = "";
-                    $linkListWidget['item_id' . $nextKey] = $pageId;
-                    $linkListWidget['item_date' . $nextKey] = "";
-                    $linkListWidget['amount'] = $nextKey;
+                        $linksWidgetID = explode('-', $linksWidgetID)[1];
 
-                    unset($pageWidgets[$linksWidgetID]);
-                    $pageWidgets[$linksWidgetID] = $linkListWidget;
+                        $pageWidgetIdentifier = "widget_{$startpage->ID}_simplelinklistwidget";
 
-                    update_option($pageWidgetIdentifier, $pageWidgets);
+                        $pageWidgets = get_option($pageWidgetIdentifier);
+                        $linkListWidget = $pageWidgets[$linksWidgetID];
+
+                        $nextKey = array_intersect_key($linkListWidget, array_flip(preg_grep('/^item_link/', array_keys($linkListWidget))));
+                        $nextKey = count($nextKey) + 1;
+
+                        $linkListWidget['item' . $nextKey] = $disturbance->HtText;
+                        $linkListWidget['item_link' . $nextKey] = get_permalink($pageId);
+                        $linkListWidget['item_class' . $nextKey] = "";
+                        $linkListWidget['item_target' . $nextKey] = "";
+                        $linkListWidget['item_warning' . $nextKey] = "on";
+                        $linkListWidget['item_info' . $nextKey] = "";
+                        $linkListWidget['item_id' . $nextKey] = $pageId;
+                        $linkListWidget['item_date' . $nextKey] = "";
+                        $linkListWidget['amount'] = $nextKey;
+
+                        unset($pageWidgets[$linksWidgetID]);
+                        $pageWidgets[$linksWidgetID] = $linkListWidget;
+
+                        update_option($pageWidgetIdentifier, $pageWidgets);
+                    }
                 }
+            } else {
+                if (isset($_GET['dist']) && $_GET['dist'] == 'debug') echo "Fanns inga lillstörningar i databasen, inga sidor skapade.<br>";
             }
+
+            if (isset($_GET['dist']) && $_GET['dist'] == 'debug') echo "<strong>LILLSTÖRNINGAR SLUT</strong><br><br>";
         }
 
         /**
@@ -107,60 +125,87 @@ if (!class_exists('HbgScheduledAlarmsDisturbance')) {
          */
         public function createAlarmPagesBig() {
             global $wpdb;
+            if (isset($_GET['dist']) && $_GET['dist'] == 'debug') echo "<strong>STORSTÖRNINGAR</strong><br>";
+
             /**
              * Get big disturbances, news directory page and disturbance page
              */
             $bigDisturbances = $this->getBigDisturbances();
-            $newsDir = get_page_by_title('nyhetskatalog');
-            $disturbanceDir = get_page_by_title('storstörning');
+
+            $newsDir = get_option('helsingborg_news_root');
+            if (isset($_GET['dist']) && $_GET['dist'] == 'debug') echo "Katalog-id för nyhetskatalog: " . $newsDir . "<br>";
+
+            if ($newsDir == 0) echo "Nyhetskatalog hittades inte<br>";
+
+            $newsDir = get_post($newsDir);
+            if (isset($_GET['dist']) && $_GET['dist'] == 'debug') echo "Katalog-namn för nyhetskatalog: " . $newsDir->post_title . "<br>";
+
+
+            $disturbanceDir = get_option('helsingborg_big_disturbance_root');
+            if (isset($_GET['dist']) && $_GET['dist'] == 'debug') echo "Katalog-id för storstörning: " . $disturbanceDir . "<br>";
+
+            // If no disturbance dir was found, return
+            if ($disturbanceDir == 0) echo "Katalog för storstörning hittades inte<br>";
+
+            $disturbanceDir = get_post($disturbanceDir);
+            if (isset($_GET['dist']) && $_GET['dist'] == 'debug') echo "Katalog-namn för storstörning: " . $disturbanceDir->post_title . "<br>";
 
             /**
              * Loop disturbances and create articles that we need
              */
-            foreach ($bigDisturbances as $disturbance) {
+            if (count($bigDisturbances) > 0) {
+                foreach ($bigDisturbances as $disturbance) {
 
-                // Check if post with same name and parent already exist
-                $post = $wpdb->get_results("SELECT ID FROM $wpdb->posts WHERE post_parent = $newsDir->ID AND post_title = '$disturbance->HtText' AND post_status = 'publish'", OBJECT);
-                $post = (isset($post[0])) ? $post[0] : NULL;
+                    // Check if post with same name and parent already exist
+                    $post = $wpdb->get_results("SELECT ID FROM $wpdb->posts WHERE post_parent = $newsDir->ID AND post_title = '$disturbance->HtText' AND post_status = 'publish'", OBJECT);
+                    $post = (isset($post[0])) ? $post[0] : NULL;
 
-                // Set the pages parameters
-                $page = array(
-                    'post_content'   => $this->formatPageContent($disturbance->MoreInfo, $disturbance->Comment),
-                    'post_title'     => $disturbance->HtText,
-                    'post_status'    => 'publish',
-                    'post_type'      => 'page',
-                    'post_author'    => 1,
-                    'post_parent'    => $newsDir->ID,
-                    'post_excerpt'   => $disturbance->MoreInfo,
-                    'comment_status' => 'closed'
-                );
-
-                // If page already exist, add ID to update
-                if (isset($post) && $post->ID > 0) $page['ID'] = $post->ID;
-
-                // Create/update page
-                $pageId = wp_insert_post($page);
-
-                // Check if post with same name and parent already exist
-                $post = $wpdb->get_results("SELECT ID FROM $wpdb->posts WHERE post_parent = $disturbanceDir->ID AND post_title = '$disturbance->HtText' AND post_status = 'publish'", OBJECT);
-                $post = (isset($post[0])) ? $post[0] : NULL;
-
-                // If no page exists since earlier create one (storstörning)
-                if (!$post) {
+                    // Set the pages parameters
                     $page = array(
-                        'post_content'   => '<p><a href="' . get_permalink($pageId) . '">Läs mer</a></p>',
+                        'post_content'   => $this->formatPageContent($disturbance->MoreInfo, $disturbance->Comment),
                         'post_title'     => $disturbance->HtText,
                         'post_status'    => 'publish',
                         'post_type'      => 'page',
                         'post_author'    => 1,
-                        'post_parent'    => $disturbanceDir->ID,
-                        'post_excerpt'   => '<a href="' . get_permalink($pageId) . '">Läs mer</a>',
+                        'post_parent'    => $newsDir->ID,
+                        'post_excerpt'   => $disturbance->MoreInfo,
                         'comment_status' => 'closed'
                     );
 
-                    wp_insert_post($page);
+                    // If page already exist, add ID to update
+                    if (isset($post) && $post->ID > 0) $page['ID'] = $post->ID;
+
+                    // Create/update page
+                    $pageId = wp_insert_post($page);
+
+                    // Check if post with same name and parent already exist
+                    $post = $wpdb->get_results("SELECT ID FROM $wpdb->posts WHERE post_parent = $disturbanceDir->ID AND post_title = '$disturbance->HtText' AND post_status = 'publish'", OBJECT);
+                    $post = (isset($post[0])) ? $post[0] : NULL;
+
+                    // If no page exists since earlier create one (storstörning)
+                    if (!$post) {
+                        $page = array(
+                            'post_content'   => '<p><a href="' . get_permalink($pageId) . '">Läs mer</a></p>',
+                            'post_title'     => $disturbance->HtText,
+                            'post_status'    => 'publish',
+                            'post_type'      => 'page',
+                            'post_author'    => 1,
+                            'post_parent'    => $disturbanceDir->ID,
+                            'post_excerpt'   => '<a href="' . get_permalink($pageId) . '">Läs mer</a>',
+                            'comment_status' => 'closed'
+                        );
+
+                        wp_insert_post($page);
+                        if (isset($_GET['dist']) && $_GET['dist'] == 'debug') echo "+ Skapade sida för storstörning: " . $page['post_title'] . "<br>";
+                    } else {
+                        if (isset($_GET['dist']) && $_GET['dist'] == 'debug') echo "- Sida för storstörning finns redan (skapades ej igen): " . $page['post_title'] . "<br>";
+                    }
                 }
+            } else {
+                if (isset($_GET['dist']) && $_GET['dist'] == 'debug') echo "Fanns inga storstörningar i databasen, inga sidor skapade.<br>";
             }
+
+            if (isset($_GET['dist']) && $_GET['dist'] == 'debug') echo "<strong>STORSTÖRNINGAR SLUT</strong><br><br>";
         }
 
         /**
