@@ -30,9 +30,24 @@ require_once('library/theme-support.php');
 // Add Helsingborg specific functions
 require_once('library/helsingborg.php');
 
+// Add scheduled tasks
+require_once('library/scheduled-tasks.php');
+
+// Add happy event functions
+require_once('library/happy-event.php');
+
 // Add Helsingborg AJAX functions
 require_once('library/helsingborg-ajax.php');
 
 // Add custom meta-functions
 require_once('meta_boxes/meta-functions.php');
+
+/*
+if (isset($_GET['dist'])) {
+    require_once('library/scheduled-tasks/scheduled_alarms_disturbance.php');
+    $hbgDistrubance = new HbgScheduledAlarmsDisturbance();
+    $hbgDistrubance->createAlarmPages();
+}
+*/
+
 ?>

@@ -1,0 +1,84 @@
+/* TYPOGRAPHY */
+/* placeholder style*/
+%icon-style {
+  line-height: 200%;
+  font-weight: $font-regular;
+  font-size: rem-calc(16);
+  font-style: normal;
+  vertical-align: base-line;
+}
+
+
+body,
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-family;
+}
+
+h1, h2 {
+  font-weight: $font-bold;
+}
+
+.top-bar.top-navigation section ul li > a {
+  font-family: $font-family;
+  font-size: rem-calc(13);
+  font-weight: $font-bold;
+}
+
+.top-bar.main-navigation {
+  a {
+    text-transform: uppercase;
+  }
+}
+
+.search input {
+  //text-transform: uppercase;
+  font-weight: $font-light;
+}
+
+.section-title {
+  font-size: rem-calc(14);
+  font-weight: $font-bold;
+  text-transform: uppercase;
+}
+
+.mobile-section .icon {
+  &:after {
+    @include hbg-icons($menu-1);
+    @extend %icon-style;
+    margin-left: 5px;
+  }
+}
+
+.toggle-search .icon {
+  &:before {
+    @include hbg-icons($search);
+    @extend %icon-style;
+    margin-right: 5px;
+  }
+}
+
+.widget-title,
+.footer-title,
+.mobile-section li a
+/*.search-section li > a*/ {
+  text-transform: uppercase;
+  font-size: rem-calc(14);
+  font-weight: $font-bold;
+}
+
+.date,
+.news-date {
+  font-weight: $font-light;
+  font-size: rem-calc(14);
+}
+
+.mobile-navigation a {
+  font-size: rem-calc(16);
+  font-weight: $font-light;
+}
+
+.accessability-menu {
+  li a {
+    font-size: rem-calc(14);
+  }
+}

@@ -26,7 +26,7 @@
 <?php } ?>
 
 <?php
-// Do not delete these lines
+	// Do not delete these lines
 	if (!empty($_SERVER['SCRIPT_FILENAME']) && 'comments.php' == basename($_SERVER['SCRIPT_FILENAME']))
 		die (__('Please do not load this page directly. Thanks!', 'Helsingborg'));
 
@@ -40,6 +40,7 @@
 		return;
 	}
 ?>
+
 <?php // You can start editing here. Customize the respond form below ?>
 <?php if ( have_comments() ) : ?>
 	<section id="comments">

@@ -38,7 +38,7 @@ Template Name: RSS
         <pubDate><?php echo helsingborg_rss_date($pages[$lastPage]->post_modified_gmt); ?></pubDate>
         <docs>http://www.rssboard.org/rss-specification</docs>
         <image>
-            <url><?php echo get_stylesheet_directory_uri(); ?>/assets/img/images/hbg-logo-rss.jpg</url>
+            <url><?php echo get_template_directory_uri(); ?>/assets/img/images/hbg-logo-rss.jpg</url>
             <title><![CDATA[Helsingborg Stad]]></title>
             <link>http://www.helsingborg.se</link>
         </image>

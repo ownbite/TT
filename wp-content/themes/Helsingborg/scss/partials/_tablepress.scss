@@ -1,0 +1,118 @@
+[id*=tablepress][id*=_wrapper] {
+    background: #f7f7f7;
+    border: 1px solid #f1f1f1;
+    padding: rem-calc(10) rem-calc(15);
+    border-radius: $border-radius;
+
+    .dataTables_filter {
+        margin-bottom: rem-calc(8);
+
+        input {
+            margin-left: 10px;
+            height: auto;
+            padding: rem-calc(5);
+        }
+    }
+
+    .dataTables_length select {
+        height: auto;
+        padding: rem-calc(4) rem-calc(5);
+    }
+
+    table {
+        border: 1px solid #DDDDDD;
+        margin-top: rem-calc(15) !important;
+        overflow-x: auto;
+
+        th {
+            background: transparent;
+
+            &:hover {
+                background: #ebebeb;
+            }
+        }
+
+        tr {
+            td:not(:last-child) {
+                border-right: 1px solid #ddd;
+            }
+        }
+    }
+
+    .paging_simple .paginate_button.next::after, .paging_simple .paginate_button.previous::before {
+        content: '';
+    }
+
+    .dataTables_paginate.paging_simple {
+        padding: 0;
+    }
+
+    @media screen and (max-width: 600px) {
+        .dataTables_length {
+            display: none;
+        }
+
+        .dataTables_filter {
+            float: none;
+        }
+
+        .dataTables_info {
+            display: none;
+        }
+
+        .dataTables_paginate {
+            float: none;
+            text-align: center;
+        }
+
+        table {
+            background: transparent;
+            border: none;
+
+            thead {
+                display: none;
+            }
+
+            tbody,
+            tr,
+            th,
+            td {
+                display: block;
+                padding: 0;
+                text-align: left;
+                white-space: normal;
+            }
+
+            tr {
+                border: 1px solid #ddd;
+                margin-bottom: rem-calc(15);
+                border-top-width: 5px;
+
+                td:not(:last-child) {
+                    border-right: none;
+                }
+            }
+
+            td {
+                text-align: right;
+                border: none;
+                font-size: rem-calc(15);
+                padding: rem-calc(7);
+
+                &:not(:last-child) {
+                    border-bottom: 1px solid #ddd;
+                    border-right: 0;
+                }
+            }
+
+            td[data-title] {
+                &::before {
+                    content: attr(data-title);
+                    display: block;
+                    float: left;
+                    color: $gray-1;
+                }
+            }
+        }
+    }
+}

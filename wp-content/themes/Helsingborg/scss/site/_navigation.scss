@@ -9,96 +9,102 @@
 
 .main-nav {
 	.main-nav-list {
-		list-style: none;
 		margin-bottom: rem-calc(32);
 
-		// # Top level
-		li a {
-			display: block;
-			position: relative;
-			font-size: rem-calc(18);
-			color: $main-nav-text-color;
-			padding-left: rem-calc(13);
-			padding-right: rem-calc(10);
+		// # Top Level and default
+		li {
+			a {
+				display: block;
+				position: relative;
+				font-size: rem-calc(18);
+				color: $main-nav-text-color;
 
-			&:hover {
-				background-color: $main-nav-hover-color;
+				&:hover {
+					background-color: $main-nav-hover-color;
+				}
 			}
 		}
 
-		// Has childs (submenu)
+		// # Sub level
+		.sub-menu {
+			margin-left: rem-calc(33);
+
+			a {
+				font-size: rem-calc(14);
+			}
+
+			.sub-menu {
+				margin-left: rem-calc(44);
+			}
+		}
+
+		// # Node with children
 		li.has-childs {
 			> a {
 				&:before {
+					position: absolute;
+					left: -18px;
+					top: 3px;
 					@include hbg-icons($arrow-solid-right);
 					color: $blue-1;
-					margin-right: rem-calc(5);
-					margin-left: - rem-calc(19);
-				}
-
-				&:hover {
-					text-decoration: none;
 				}
 			}
 		}
 
 		// # Current node
-		li.current-node:not(.current-ancestor) > a {
-			text-decoration: underline;
-			font-weight: bold;
+		li.current-node {
+			> a {
+				font-weight: bold;
+				color: $blue-1;
+			}
+
+			/*
+			> .sub-menu {
+				margin-left: rem-calc(30);
+			}
+			*/
 		}
 
 		// # Current ancestor
-		li.current-ancestor > a {
-			// Arrow down
-			&:before {
-				@include hbg-icons($arrow-solid-down);
-				color: $blue-1;
-				margin-right: rem-calc(5);
-			}
-
-			&:hover {
-				text-decoration: none;
-			}
-		}
-
-		// # Current page/item
-		li.current {
-			background-color: scale-color($gray-3, $lightness: 70%);
-			padding: rem-calc(5) 0;
-
-			// Active color
+		li.current-ancestor:not(.current-node) {
 			> a {
-				color: $blue-1;
+				&:before {
+					position: absolute;
+					left: -18px;
+					top: 3px;
+					@include hbg-icons($arrow-solid-down);
+					color: $blue-1;
+					margin-right: 5px;
+				}
 
 				&:hover {
 					text-decoration: none;
 				}
 			}
-
-			// Append arrow if current has childs
-			&.has-childs {
-				> a {
-					&:before {
-						@include hbg-icons($arrow-solid-down);
-						margin-right: rem-calc(5);
-					}
-
-					&:hover {
-						text-decoration: none;
-					}
-				}
-			}
 		}
 
-		// # Sub menu
-		.sub-menu {
-			margin-left: rem-calc(20);
-			//border-left: 2px solid scale-color($gray-3, $lightness: 30%);
+		// # Current page
+		li.current {
+			background-color: scale-color($gray-3, $lightness: 70%);
+			padding: rem-calc(8) 0;
+			margin-left: -16px;
 
-			a {
-				font-size: rem-calc(14);
-				padding-left: rem-calc(30);
+			> a {
+				color: $blue-1;
+				font-weight: bold;
+				margin-left: rem-calc(15);
+			}
+
+			&.has-childs {
+				margin-left: -28px;
+				> a {
+					margin-left: rem-calc(28);
+
+					&::before {
+						@include hbg-icons($arrow-solid-down);
+						color: $blue-1;
+					}
+				}
 			}
 		}
 	}
@@ -114,14 +120,17 @@
 		background-color:#fff;
 }
 
+/*
 nav > ul > li.nav-home a
 {
 	width: 2.5rem;
 	text-indent:-12px;
 }
+*/
 
-.main-page-layout .main-nav .sub-menu li:first-child a, .article-page-layout .main-nav .sub-menu li:first-child a, .list-page-layout .main-nav .sub-menu li:first-child a
-{
+.main-page-layout .main-nav .sub-menu li:first-child a,
+.article-page-layout .main-nav .sub-menu li:first-child a,
+.list-page-layout .main-nav .sub-menu li:first-child a {
 	background-image: none;
 	text-indent: 0;
 	width: auto;

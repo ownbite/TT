@@ -34,7 +34,6 @@ if (!class_exists('AlarmListWidget')) {
       // Only load scripts and styles if widget is used
       wp_enqueue_style('multiselect-css',       HELSINGBORG_ALARM_BASE .'/css/multiselect.css');
       wp_enqueue_script('multiselect-js',       HELSINGBORG_ALARM_BASE .'/js/multiselect.js');
-      wp_enqueue_script('foundation-js',        HELSINGBORG_ALARM_BASE .'/js/foundation.min.js');
       wp_enqueue_script('foundation-reveal-js', HELSINGBORG_ALARM_BASE .'/js/foundation.reveal.js');
 
       $title     = empty($instance['title'])     ? __('Aktuella larm') : $instance['title'];
@@ -142,6 +141,10 @@ if (!class_exists('AlarmListWidget')) {
                   <li>
                       <span class="item-label modalMunicipalityHeader">Kommuner:</span>
                       <span class="item-value modalMunicipality"></span>
+                  </li>
+                  <li>
+                      <span class="item-label modalMoreInfoHeader">Kompletterande information:</span>
+                      <span class="item-value modalMoreInfo"></span>
                   </li>
                 </ul>
             </div>

@@ -34,9 +34,9 @@ $end_date   = $number_of_dates > 1 ? $times[$number_of_dates - 1] : null;
 
 ?>
 
-<script src="<?php echo get_stylesheet_directory_uri() ; ?>/js/jquery/dist/jquery-ui.min.js"></script>
-<script src="<?php echo get_stylesheet_directory_uri() ; ?>/js/foundation-multiselect/zmultiselect/zurb5-multiselect.js"></script>
-<link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri() ; ?>/bower_components/foundation-multiselect/zmultiselect/zurb5-multiselect.css">
+<script src="<?php echo get_template_directory_uri(); ; ?>/js/jquery/dist/jquery-ui.min.js"></script>
+<script src="<?php echo get_template_directory_uri() ; ?>/js/foundation-multiselect/zmultiselect/zurb5-multiselect.js"></script>
+<link rel="stylesheet" href="<?php echo get_template_directory_uri() ; ?>/bower_components/foundation-multiselect/zmultiselect/zurb5-multiselect.css">
 <link rel="stylesheet" href="<?php echo plugins_url(); ?>/helsingborg-widgets/css/helsingborg-admin.css">
 
 <div class="wrap"><div id="icon-options-general" class="icon32"><br></div>

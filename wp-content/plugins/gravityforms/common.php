@@ -128,7 +128,7 @@ class GFCommon {
 	}
 
 	public static function recursive_add_index_file( $dir ) {
-		if ( ! is_dir( $dir ) ) {
+		if ( ! is_dir( $dir ) || is_link( $dir ) ) {
 			return;
 		}
 
@@ -302,8 +302,8 @@ class GFCommon {
 		return true;
 	}
 
-	public static function get_label( $field, $input_id = 0, $input_only = false ) {
-		return RGFormsModel::get_label( $field, $input_id, $input_only );
+	public static function get_label( $field, $input_id = 0, $input_only = false, $allow_admin_label = true ) {
+		return RGFormsModel::get_label( $field, $input_id, $input_only, $allow_admin_label );
 	}
 
 	public static function get_input( $field, $id ) {
@@ -786,7 +786,10 @@ class GFCommon {
 	}
 
 	public static function replace_variables( $text, $form, $lead, $url_encode = false, $esc_html = true, $nl2br = true, $format = 'html' ) {
+
 		$text = $nl2br ? nl2br( $text ) : $text;
+
+		$text = apply_filters( 'gform_pre_replace_merge_tags', $text, $form, $lead, $url_encode, $esc_html, $nl2br, $format );
 
 		//Replacing field variables: {FIELD_LABEL:FIELD_ID} {My Field:2}
 		preg_match_all( '/{[^{]*?:(\d+(\.\d+)?)(:(.*?))?}/mi', $text, $matches, PREG_SET_ORDER );
@@ -863,21 +866,32 @@ class GFCommon {
 		}
 
 		//pricing fields
-		if ( strpos( $text, '{pricing_fields}' ) !== false ) {
-			$pricing_fields = self::get_submitted_pricing_fields( $form, $lead, $format );
-			if ( $format == 'html' ) {
-				$text = str_replace(
-					'{pricing_fields}', '<table width="99%" border="0" cellpadding="1" cellspacing="0" bgcolor="#EAEAEA">
-                                                           <tr><td>
-                                                                <table width="100%" border="0" cellpadding="5" cellspacing="0" bgcolor="#FFFFFF">' .
-					                    $pricing_fields .
-					                    '</table>
-                                                           </tr></td>
-                                                     </table>',
-					$text
-				);
-			} else {
-				$text = str_replace( '{pricing_fields}', $pricing_fields, $text );
+		$pricing_matches = array();
+		preg_match_all( "/{pricing_fields(:(.*?))?}/", $text, $pricing_matches, PREG_SET_ORDER );
+		foreach ( $pricing_matches as $match ) {
+			$options 		 = explode( ',', rgar( $match, 2 ) );
+			$use_value       = in_array( 'value', $options );
+			$use_admin_label = in_array( 'admin', $options );
+
+			//all submitted pricing fields using text
+			if ( strpos( $text, $match[0] ) !== false ) {
+				$pricing_fields = self::get_submitted_pricing_fields( $form, $lead, $format, ! $use_value, $use_admin_label );
+
+				if ( $format == 'html' ) {
+					$text = str_replace(
+						$match[0], '<table width="99%" border="0" cellpadding="1" cellspacing="0" bgcolor="#EAEAEA">
+															   <tr><td>
+																	<table width="100%" border="0" cellpadding="5" cellspacing="0" bgcolor="#FFFFFF">' .
+											$pricing_fields .
+											'</table>
+															   </tr></td>
+														 </table>',
+						$text
+					);
+				}
+				else {
+					$text = str_replace( $match[0], $pricing_fields, $text );
+				}
 			}
 		}
 
@@ -1091,7 +1105,7 @@ class GFCommon {
 		foreach ( $form['fields'] as $field ) {
 			$field_value = '';
 
-			$field_label = $use_admin_label && ! empty( $field->adminLabel ) ? $field->adminLabel : esc_html( GFCommon::get_label( $field ) );
+			$field_label = $use_admin_label && ! empty( $field->adminLabel ) ? $field->adminLabel : esc_html( GFCommon::get_label( $field, 0, false, $use_admin_label ) );
 
 			switch ( $field->type ) {
 				case 'captcha' :
@@ -2137,13 +2151,18 @@ class GFCommon {
 		}
 	}
 
-	public static function date_display( $value, $format = 'mdy' ) {
-		$date = self::parse_date( $value, $format );
+	public static function date_display( $value, $input_format = 'mdy', $output_format = false ) {
+
+		if( ! $output_format ) {
+			$output_format = $input_format;
+		}
+
+		$date = self::parse_date( $value, $input_format );
 		if ( empty( $date ) ) {
 			return $value;
 		}
 
-		list( $position, $separator ) = rgexplode( '_', $format, 2 );
+		list( $position, $separator ) = rgexplode( '_', $output_format, 2 );
 		switch ( $separator ) {
 			case 'dash' :
 				$separator = '-';
@@ -2317,7 +2336,7 @@ class GFCommon {
 
 			if ( GFFormsModel::get_input_type( $field ) == 'select' && ! empty( $field->placeholder ) ) {
 				$selected = empty( $value ) ? "selected='selected'" : '';
-				$choices .= sprintf( "<option value='' %s>%s</option>", $selected, esc_html( $field->placeholder ) );
+				$choices .= sprintf( "<option value='' %s class='gf_placeholder'>%s</option>", $selected, esc_html( $field->placeholder ) );
 			}
 
 			foreach ( $field->choices as $choice ) {
@@ -2643,7 +2662,7 @@ class GFCommon {
 	}
 
 	public static function get_disallowed_file_extensions() {
-		return array( 'php', 'asp', 'exe', 'com', 'htaccess', 'phtml', 'php3', 'php4', 'php5', 'php6' );
+		return array( 'php', 'asp', 'aspx', 'cmd', 'csh', 'bat', 'html', 'hta', 'jar', 'exe', 'com', 'js', 'lnk', 'htaccess', 'phtml', 'ps1', 'ps2', 'php3', 'php4', 'php5', 'php6', 'py', 'rb', 'tmp' );
 	}
 
 	public static function match_file_extension( $file_name, $extensions ) {
@@ -2662,6 +2681,30 @@ class GFCommon {
 	public static function file_name_has_disallowed_extension( $file_name ) {
 
 		return self::match_file_extension( $file_name, self::get_disallowed_file_extensions() ) || strpos( strtolower( $file_name ), '.php.' ) !== false;
+	}
+
+	public static function check_type_and_ext( $file, $file_name = ''){
+		if ( empty( $file_name ) ) {
+			$file_name = $file['name'];
+		}
+		$tmp_name = $file['tmp_name'];
+		// Whitelist the mime type and extension
+		$wp_filetype = wp_check_filetype_and_ext( $tmp_name, $file_name );
+		$ext = empty( $wp_filetype['ext'] ) ? '' : $wp_filetype['ext'];
+		$type = empty( $wp_filetype['type'] ) ? '' : $wp_filetype['type'];
+		$proper_filename = empty( $wp_filetype['proper_filename'] ) ? '' : $wp_filetype['proper_filename'];
+
+		if ( $proper_filename ) {
+			return new WP_Error( 'invalid_file', __( 'There was an problem while verifying your file.' ) );
+		}
+		if ( ! $ext ) {
+			return new WP_Error( 'illegal_extension', __( 'Sorry, this file extension is not permitted for security reasons.' ) );
+		}
+		if ( ! $type ) {
+			return new WP_Error( 'illegal_type', __( 'Sorry, this file type is not permitted for security reasons.' ) );
+		}
+
+		return true;
 	}
 
 	public static function to_money( $number, $currency_code = '' ) {
@@ -4006,6 +4049,7 @@ class GFCommon {
 		$message_format = 'html';
 
 		$resume_url  = add_query_arg( array( 'gf_token' => $resume_token ), $embed_url );
+		$resume_url = esc_url( $resume_url );
 		$resume_link = "<a href='{$resume_url}'>{$resume_url}</a>";
 		$message .= $resume_link;
 
@@ -4112,23 +4156,73 @@ class GFCommon {
     }
 
 	public static function is_form_editor(){
-		return GFForms::get_page() == 'form_editor' || ( defined( 'DOING_AJAX' ) && DOING_AJAX && in_array( rgpost( 'action' ), array( 'rg_add_field', 'rg_refresh_field_preview', 'rg_duplicate_field', 'rg_delete_field', 'rg_change_input_type' ) ) );
+		$is_form_editor = GFForms::get_page() == 'form_editor' || ( defined( 'DOING_AJAX' ) && DOING_AJAX && in_array( rgpost( 'action' ), array( 'rg_add_field', 'rg_refresh_field_preview', 'rg_duplicate_field', 'rg_delete_field', 'rg_change_input_type' ) ) );
+		return apply_filters( 'gform_is_form_editor', $is_form_editor );
 	}
 
 	public static function is_entry_detail(){
-		return GFForms::get_page() == 'entry_detail_edit' || GFForms::get_page() == 'entry_detail' ;
+		$is_entry_detail = GFForms::get_page() == 'entry_detail_edit' || GFForms::get_page() == 'entry_detail' ;
+		return apply_filters( 'gform_is_entry_detail', $is_entry_detail );
 	}
 
 	public static function is_entry_detail_view(){
-		return GFForms::get_page() == 'entry_detail' ;
+		$is_entry_detail_view = GFForms::get_page() == 'entry_detail' ;
+		return apply_filters( 'gform_is_entry_detail_view', $is_entry_detail_view );
 	}
 
 	public static function is_entry_detail_edit(){
-		return GFForms::get_page() == 'entry_detail_edit';
+		$is_entry_detail_edit = GFForms::get_page() == 'entry_detail_edit';
+		return apply_filters( 'gform_is_entry_detail_edit', $is_entry_detail_edit );
 	}
 
 	public static function has_merge_tag( $string ) {
 		return preg_match( '/{.+}/', $string );
+	}
+
+	public static function get_upload_page_slug() {
+		$slug = get_option( 'gform_upload_page_slug' );
+		if ( empty( $slug ) ) {
+			$slug = substr( str_shuffle( wp_hash( microtime() ) ), 0, 15 );
+			update_option( 'gform_upload_page_slug', $slug );
+		}
+
+		return $slug;
+	}
+
+	/**
+	 * Whitelists a value. Returns the value or the first value in the array.
+	 *
+	 * @param $value
+	 * @param $whitelist
+	 *
+	 * @return mixed
+	 */
+	public static function whitelist( $value, $whitelist ) {
+
+		if ( ! in_array( $value, $whitelist ) ) {
+			$value = $whitelist[0];
+		}
+		return $value;
+	}
+
+	/**
+	 * Forces an integer into a range of integers. Returns the value or the minimum if it's outside the range.
+	 *
+	 * @param $value
+	 * @param $min
+	 * @param $max
+	 *
+	 * @return int
+	 */
+	public static function int_range( $value, $min, $max ) {
+		$value = (int) $value;
+		$min   = (int) $min;
+		$max   = (int) $max;
+
+		return filter_var( $value, FILTER_VALIDATE_INT, array(
+			'min_range' => $min,
+			'max_range' => $max
+		) ) ? $value : $min;
 	}
 }
 

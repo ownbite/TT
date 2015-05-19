@@ -1,0 +1,147 @@
+﻿/**
+ * Variables - Helsingborg.se Education child theme
+ * ----------------------------------------------------------------------------
+*/
+
+ /* Base colors */
+$white 				             :	#FFFFFF;
+$black				             :	#000000;
+$black-text			           :	#222;
+
+/* grayscale */
+$gray-10                    :  scale-color($black, $lightness: 10%);
+$gray-20                    :  scale-color($black, $lightness: 20%);
+$gray-30                    :  scale-color($black, $lightness: 30%);
+$gray-40                    :  scale-color($black, $lightness: 40%);
+$gray-50                    :  scale-color($black, $lightness: 50%);
+$gray-60                    :  scale-color($black, $lightness: 60%);
+$gray-70                    :  scale-color($black, $lightness: 70%);
+$gray-80                    :  scale-color($black, $lightness: 80%);
+$gray-90                    :  scale-color($black, $lightness: 90%);
+$gray-95                    :  scale-color($black, $lightness: 95%);
+
+
+/* Helsingborg brand color palettes */
+/* Red */
+$red-1				             :	#e3000f;
+$red-2				             :	#ae0b05;
+$pink 				             :	#cb0050;
+$orange				             :	#ec6701;
+$yellow				             :	#f7a600;
+
+/* purple */
+$purple-1			             :	#d35098;
+$purple-2			             :	#712082;
+$purple-3			             :	#a84c98;
+$purple-4			             :	#7b075e;
+$purple-5			             :	#a61380;
+
+/* blue */
+$blue-1				             :	#4db4e7;
+$blue-2				             :	#0069b4;
+$blue-3				             :	#5ba1d8;
+$blue-4				             :	#005c86;
+$blue-5				             :	#0095db;
+
+/* green */
+$green-1				           :	#afca05;
+$green-2				           :	#11a636;
+$green-3				           :	#a0c855;
+$green-4				           :	#50811b;
+$green-5				           :	#76b828;
+
+
+/* misc typo colors */
+$text-color                 :  $gray-20;
+$facebook-color             :  $blue-2;
+$twitter-color              :  $blue-1;
+
+/* push links *//*
+$main-nav-hover-color       :	 ;
+$main-nav-text-color        : $black-text;
+$headline-color			        : scale-color($black, $lightness: 20%);
+
+/* buttons *//*
+$button-color-standard      : $orange;
+
+/* forms *//*
+$form-text-color            : scale-color($black, $lightness: 30%);
+
+/* form-validation *//*
+$form-validation-color      : $orange;
+$form-validation-bg-color   : lighten($form-validation-color, 40%);
+$form-validation-text-color : darken($form-validation-color, 10%);
+*/
+
+
+/* alert colors */
+/* warnings*/
+$warning-color              : $yellow;
+$warning-bg-color           : lighten($warning-color, 40%);
+$warning-text-color         : darken($orange, 10%);
+$warning-border-color       : darken($orange, 10%);
+
+/* info */
+$info-color                 : $blue-2;
+$info-bg-color              : lighten($info-color, 46%);
+$info-text-color            : darken($info-color, 10%);
+$info-border-color          : lighten($info-color, 10%);
+
+/* Box-shadows */
+$box-shadow-color 	        :	"0, 0, 0, 0.5";
+
+/* Grid and MQ adjustments */
+$max-site-width		          :	1280;	/* Extends the foundation max width */
+$site-outer-padding         :	15;		/* Outer container padding */
+
+/* positioning and z-index levels */
+$level-1 			              :	100;
+$level-2			              :	200;
+$level-3			              :	300;
+$level-4			              :	100;
+
+/* URLs */
+$wp-root-url		            :	"/wp-content/themes/Helsingborg"; //Pick assets from Master theme
+$wp-theme-img-url	          :	"assets/img/images";
+$wp-font-url		            :	"assets/fonts";
+
+$wp-child-root-url		      :	"/wp-content/themes/Helsingborg-skolor"; //Pick assets from Child theme
+
+$border-radius              : 4px;
+
+/* Typography */
+$font-family                : 'Roboto', sans-serif;
+
+$font-light                 : 300;
+$font-regular               : 500;
+$font-bold                  : 700;
+
+
+
+/* Icons */
+$arrow-solid-down		        :	"\e606";
+$arrow-solid-right		      :	"\e607";
+$arrow-thin-right		        :	"\e608";
+$check					            :	"\e609";
+$close					            :	"\e60a";
+$home					              :	"\e60b";
+$link					              :	"\e60c";
+$menu-1					            :	"\e60d";
+$menu-2					            :	"\e60e";
+$minus					            :	"\e60f";
+$plus					              :	"\e610";
+$rss					              :	"\e611";
+$search					            :	"\e612";
+$speaker				            :	"\e600";
+$facebook				            :	"\e622";
+$twitter				            :	"\e621";
+$instagram                  : "\e602";
+$warning                    : "\e620";
+$info                       : "\e601";
+
+/* unicode symbols */
+$text-arrow				          : "»";
+$nbsp					              :	"\00a0";
+$arrow-next                 : "\BB";
+$arrow-prev                 : "\AB";
+$close                      : "\D7";

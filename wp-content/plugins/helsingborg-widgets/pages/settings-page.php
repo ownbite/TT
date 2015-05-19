@@ -8,57 +8,60 @@ if (!current_user_can('read_private_pages')) {
 // Check if postback
 if (isset($_POST["update_settings"])) {
 
-  // Do the saving
-  $color_code = esc_attr($_POST["color_code"]);
-  update_option('helsingborg_color_code', $color_code);
+    // Do the saving
+    $color_code = esc_attr($_POST["color_code"]);
+    update_option('helsingborg_color_code', $color_code);
 
-  $event_form_id = esc_attr($_POST["event_form_id"]);
-  update_option('helsingborg_event_form_id', $event_form_id);
+    $event_form_id = esc_attr($_POST["event_form_id"]);
+    update_option('helsingborg_event_form_id', $event_form_id);
 
-  $big_disturbance_root = esc_attr($_POST["big_disturbance_root"]);
-  update_option('helsingborg_big_disturbance_root', $big_disturbance_root);
+    $big_disturbance_root = esc_attr($_POST["big_disturbance_root"]);
+    update_option('helsingborg_big_disturbance_root', $big_disturbance_root);
 
-  $big_information_root = esc_attr($_POST["big_information_root"]);
-  update_option('helsingborg_big_information_root', $big_information_root);
+    $big_information_root = esc_attr($_POST["big_information_root"]);
+    update_option('helsingborg_big_information_root', $big_information_root);
 
-  // Custom header image
-  $header_image_title = esc_attr($_POST['header_image_title']);
-  update_option('helsingborg_header_image_title', $header_image_title);
+    $news_root = esc_attr($_POST["news_root"]);
+    update_option('helsingborg_news_root', $news_root);
 
-  $header_image_imageurl = esc_attr($_POST['header_image_imageurl']);
-  update_option('helsingborg_header_image_imageurl', $header_image_imageurl);
+    // Custom header image
+    $header_image_title = esc_attr($_POST['header_image_title']);
+    update_option('helsingborg_header_image_title', $header_image_title);
 
-  $header_image_alt = esc_attr($_POST['header_image_alt']);
-  update_option('helsingborg_header_image_alt', $header_image_alt);
+    $header_image_imageurl = esc_attr($_POST['header_image_imageurl']);
+    update_option('helsingborg_header_image_imageurl', $header_image_imageurl);
 
-  $header_image_item_force_width = esc_attr($_POST['header_image_item_force_width']);
-  update_option('helsingborg_header_image_item_force_width', $header_image_item_force_width);
+    $header_image_alt = esc_attr($_POST['header_image_alt']);
+    update_option('helsingborg_header_image_alt', $header_image_alt);
 
-  $header_image_item_force_margin = esc_attr($_POST['header_image_item_force_margin']);
-  update_option('helsingborg_header_image_item_force_margin', $header_image_item_force_margin);
+    $header_image_item_force_width = esc_attr($_POST['header_image_item_force_width']);
+    update_option('helsingborg_header_image_item_force_width', $header_image_item_force_width);
 
-  $header_image_item_force_margin_value = esc_attr($_POST['header_image_item_force_margin_value']);
-  update_option('helsingborg_header_image_item_force_margin_value', $header_image_item_force_margin_value);
+    $header_image_item_force_margin = esc_attr($_POST['header_image_item_force_margin']);
+    update_option('helsingborg_header_image_item_force_margin', $header_image_item_force_margin);
 
-  $cbis_api_key = esc_attr($_POST['cbis_api_key']);
-  update_option('helsingborg_cbis_api_key', $cbis_api_key);
+    $header_image_item_force_margin_value = esc_attr($_POST['header_image_item_force_margin_value']);
+    update_option('helsingborg_header_image_item_force_margin_value', $header_image_item_force_margin_value);
 
-  $cbis_hbg_id = esc_attr($_POST['cbis_hbg_id']);
-  update_option('helsingborg_cbis_hbg_id', $cbis_hbg_id);
+    $cbis_api_key = esc_attr($_POST['cbis_api_key']);
+    update_option('helsingborg_cbis_api_key', $cbis_api_key);
 
-  $cbis_category_id = esc_attr($_POST['cbis_category_id']);
-  update_option('helsingborg_cbis_category_id', $cbis_category_id);
+    $cbis_hbg_id = esc_attr($_POST['cbis_hbg_id']);
+    update_option('helsingborg_cbis_hbg_id', $cbis_hbg_id);
 
-  $alarm_user_name = esc_attr($_POST['alarm_user_name']);
-  update_option('helsingborg_alarm_user_name', $alarm_user_name);
+    $cbis_category_id = esc_attr($_POST['cbis_category_id']);
+    update_option('helsingborg_cbis_category_id', $cbis_category_id);
 
-  $alarm_password = esc_attr($_POST['alarm_password']);
-  update_option('helsingborg_alarm_password', $alarm_password);
+    $alarm_user_name = esc_attr($_POST['alarm_user_name']);
+    update_option('helsingborg_alarm_user_name', $alarm_user_name);
 
-  $alarm_location = esc_attr($_POST['alarm_location']);
-  update_option('helsingborg_alarm_location', $alarm_location);
+    $alarm_password = esc_attr($_POST['alarm_password']);
+    update_option('helsingborg_alarm_password', $alarm_password);
 
-  echo('<div id="message" class="updated">Dina inställningar är sparade!</div>');
+    $alarm_location = esc_attr($_POST['alarm_location']);
+    update_option('helsingborg_alarm_location', $alarm_location);
+
+    echo('<div id="message" class="updated">Dina inställningar är sparade!</div>');
 }
 
 // Make sure we can use media selector for header
@@ -155,6 +158,24 @@ $alarm_location  = get_option('helsingborg_alarm_location');
             'id' => 'big_information_root',
             'name' => 'big_information_root'
           )); ?>
+        </td>
+      </tr>
+
+      <tr valign="top">
+        <th scope="row">
+          <label for="big_disturbance_root">
+            Nyhetskatalog:
+          </label>
+        </th>
+        <td>
+            <?php wp_dropdown_pages(array(
+              'show_option_none' => 'Ingen sida vald',
+              'depth' => 2,
+              'post_status'  => 'publish,private',
+              'selected' => $news_root,
+              'id' => 'news_root',
+              'name' => 'news_root'
+            )); ?>
         </td>
       </tr>
 

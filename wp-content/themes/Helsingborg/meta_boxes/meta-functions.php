@@ -4,6 +4,28 @@ define('helsingborg_WORDPRESS_FOLDER',$_SERVER['DOCUMENT_ROOT']);
 define('helsingborg_THEME_FOLDER',str_replace("\\",'/',dirname(__FILE__)));
 define('helsingborg_THEME_PATH','/' . substr(helsingborg_THEME_FOLDER,stripos(helsingborg_THEME_FOLDER,'wp-content')));
 
+add_action('admin_init', 'helsingborg_meta_easyread');
+
+function helsingborg_meta_easyread() {
+  // Adds metabox for easy-to-read link
+  add_meta_box('helsingborg_easytoread_meta', 'Lättläst version', 'helsingborg_meta_easytoread', 'page', 'side', 'core');
+  add_action('save_post','helsingborg_meta_easytoread_save');
+}
+
+function helsingborg_meta_easytoread() {
+  global $post;
+  $easyRead = get_post_meta($post->ID, 'hbg_easy_to_read', TRUE);
+  include(helsingborg_THEME_FOLDER . '/UI/easy-to-read.php');
+}
+
+function helsingborg_meta_easytoread_save($post_id) {
+  if (isset($_POST['hbg_easy_to_read_link']) && filter_var($_POST['hbg_easy_to_read_link'], FILTER_VALIDATE_URL)) {
+    update_post_meta($post_id, 'hbg_easy_to_read', $_POST['hbg_easy_to_read_link']);
+  } else {
+    update_post_meta($post_id, 'hbg_easy_to_read', '');
+  }
+}
+
 add_action('admin_init','helsingborg_meta_init');
 
 function helsingborg_meta_init()
@@ -28,7 +50,6 @@ function helsingborg_meta_init()
     // add a meta box for each of the wordpress page types: posts and pages
     foreach (array('post','page') as $type)
     {
-
       // LIST PAGE
       if ($template_file == 'templates/list-page.php') {
         add_meta_box('helsingborg_all_meta', "Listpresentation", 'helsingborg_meta_ListPage', $type, 'normal', 'high');

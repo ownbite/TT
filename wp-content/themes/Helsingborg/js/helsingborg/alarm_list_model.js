@@ -81,97 +81,129 @@ function AlarmPageModel(alarms) {
 function PagerModel(events) {
   var self = this;
 
-  self.events = GetObservableArray(events);
-  self.currentPageIndex = ko.observable(self.events().length > 0 ? 0 : -1);
-  self.currentPageSize = 7;
-  self.eventCount = ko.computed(function() {
-    return self.events().length;
-  });
-  self.maxPageIndex = ko.computed(function() {
-    return Math.ceil(self.events().length / self.currentPageSize) - 1;
-  });
-  self.currentPageEvents = ko.computed(function() {
-    var newPageIndex = -1;
-    var pageIndex = self.currentPageIndex();
-    var maxPageIndex = self.maxPageIndex();
-    if (pageIndex > maxPageIndex) {
-      newPageIndex = maxPageIndex;
-    } else if (pageIndex == -1) {
-      if (maxPageIndex > -1) {
-        newPageIndex = 0;
-      } else {
-        newPageIndex = -2;
-      }
-    } else {
-      newPageIndex = pageIndex;
+    self.events = GetObservableArray(events);
+    self.currentPageIndex = ko.observable(self.events().length > 0 ? 0 : -1);
+    self.currentPageSize = 7;
+
+    self.eventCount = ko.computed(function() {
+        return self.events().length;
+    });
+
+    self.maxPageIndex = ko.computed(function() {
+        var maxpageindex = Math.ceil(self.events().length / self.currentPageSize) - 1;
+        return maxpageindex;
+    });
+
+    self.pagerPages = function () {
+        var total = self.maxPageIndex();
+        var current = self.currentPageIndex();
+        var range = 5;
+        var start = 0;
+        var end = 0;
+
+        if (current < 2) {
+            start = 1;
+            end = range;
+        }
+        else if (current + range > total) {
+            start = total - range;
+            end = total;
+        } else {
+            start = current - 1;
+            end = current + 3;
+        }
+
+        var pages = new Array();
+        for (var i = start; i <= end; i++) {
+            pages.push(i);
+        }
+
+        return pages;
+    };
+
+    self.currentPageEvents = ko.computed(function() {
+        var newPageIndex = -1;
+        var pageIndex = self.currentPageIndex();
+        var maxPageIndex = self.maxPageIndex();
+
+        if (pageIndex > maxPageIndex) {
+            newPageIndex = maxPageIndex;
+        } else if (pageIndex == -1) {
+            if (maxPageIndex > -1) {
+                newPageIndex = 0;
+            } else {
+                newPageIndex = -2;
+            }
+        } else {
+            newPageIndex = pageIndex;
+        }
+
+        if (newPageIndex != pageIndex) {
+            if (newPageIndex >= -1) {
+                self.currentPageIndex(newPageIndex);
+            }
+
+            return [];
+        }
+
+        var pageSize = self.currentPageSize;
+        var startIndex = pageIndex * pageSize;
+        var endIndex = startIndex + pageSize;
+
+        self.renderPagers();
+
+        return self.events().slice(startIndex, endIndex);
+    }).extend({
+        throttle: 5
+    });
+
+    self.currentStatus = function(index) {
+        return (self.currentPageIndex() == index) ? 'current' : '';
+    };
+
+    self.isHidden = function(index) {
+        return (self.maxPageIndex() >= index) ? true : false;
     }
 
-    if (newPageIndex != pageIndex) {
-      if (newPageIndex >= -1) {
-        self.currentPageIndex(newPageIndex);
-      }
-      return [];
-    }
+    self.moveFirst = function() {
+        self.changePageIndex(0);
+    };
 
-    var pageSize = self.currentPageSize;
-    var startIndex = pageIndex * pageSize;
-    var endIndex = startIndex + pageSize;
-    return self.events().slice(startIndex, endIndex);
-  }).extend({
-    throttle: 5
-  });
-  self.currentStatus = function(index) {
-    return (self.currentPageIndex() == index) ? 'current' : '';
-  };
-  self.isHidden = function(index) {
-    return (self.maxPageIndex() >= index) ? true : false;
-  }
-  self.moveFirst = function() {
-    self.changePageIndex(0);
-  };
-  self.movePrevious = function() {
-    self.changePageIndex(self.currentPageIndex() - 1);
-  };
-  self.moveNext = function() {
-    self.changePageIndex(self.currentPageIndex() + 1);
-  };
-  self.moveLast = function() {
-    self.changePageIndex(self.maxPageIndex());
-  };
-  self.changePageIndex = function(newIndex) {
-    if (newIndex < 0 || newIndex == self.currentPageIndex() || newIndex >
-      self.maxPageIndex()) {
-      return;
-    }
-    self.currentPageIndex(newIndex);
-  };
-  self.onPageSizeChange = function() {
-    self.currentPageIndex(0);
-  };
-  self.renderPagers = function() {
-    var pager =
-      '<ul class="pagination" role="menubar" aria-label="Pagination">';
-    pager +=
-      '<li class="arrow"><a href="#" data-bind="click: pager.movePrevious, enable: pager.currentPageIndex() > 0">&laquo; Föregående</a></li>';
-    var max = self.maxPageIndex();
-    for (i = 0; i <= max; i++) {
-      pager += '<li data-bind="css: pager.currentStatus(' + i +
-        '), visible: pager.isHidden(' + i +
-        ')"><a href="#" data-bind="click: function(data, event) { pager.currentPageIndex(' +
-        i + ') }">' + (i + 1) + '</a></li>';
-    }
-    pager +=
-      '<li class="arrow"><a href="#" data-bind="click: pager.moveNext, enable: pager.currentPageIndex() < pager.maxPageIndex()">Nästa &raquo;</a></li>';
-    pager += '</ul>';
-    $("div.Pager").html(pager);
-  };
-  self.renderNoEvents = function() {
-    var message =
-      "<span data-bind=\"visible: pager.eventCount() == 0\">Hittade inga event.</span>";
-    $("div.NoEvents").html(message);
-  };
-  self.renderPagers();
-  self.renderNoEvents();
+    self.movePrevious = function() {
+        self.changePageIndex(self.currentPageIndex() - 1);
+    };
+
+    self.moveNext = function() {
+        self.changePageIndex(self.currentPageIndex() + 1);
+    };
+
+    self.moveLast = function() {
+        self.changePageIndex(self.maxPageIndex());
+    };
+
+    self.changePageIndex = function(newIndex) {
+        if (newIndex < 0 || newIndex == self.currentPageIndex() || newIndex >
+            self.maxPageIndex()) {
+            return;
+        }
+        self.currentPageIndex(newIndex);
+    };
+
+    self.onPageSizeChange = function() {
+        self.currentPageIndex(0);
+    };
+
+    self.renderPagers = function() {
+        self.pagerPages();
+    };
+
+    self.renderNoEvents = function() {
+        var message = "<span data-bind=\"visible: pager.eventCount() == 0\">Hittade inga event.</span>";
+        $("div.NoEvents").html(message);
+    };
+
+    //self.renderPagers();
+    //self.renderNoEvents();
 }
 
 function FilterModel(filters, events) {

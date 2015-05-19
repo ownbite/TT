@@ -1,0 +1,28 @@
+/* foundation orbit slider */
+
+/* orbit slider container */
+.slider-container {
+  margin-bottom: rem-calc(32);
+}
+
+.article-page-layout {
+  .orbit.row {
+      
+  }
+  .slider-container {
+    margin-bottom: 0;
+  }
+}
+
+/* orbit slider slider component */
+.orbit-slide-number,
+.orbit-timer {
+  display: none;
+}
+.orbit-bullets-container,
+.orbit-bullets {
+  margin-bottom: 0;
+}
+.orbit-bullets {
+  top: 0;
+}

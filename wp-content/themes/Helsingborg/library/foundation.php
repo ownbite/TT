@@ -2,9 +2,9 @@
 // Pagination
 function Helsingborg_pagination() {
 	global $wp_query;
- 
+
 	$big = 999999999; // This needs to be an unlikely integer
- 
+
 	// For more options and info view the docs for paginate_links()
 	// http://codex.wordpress.org/Function_Reference/paginate_links
 	$paginate_links = paginate_links( array(
@@ -17,7 +17,7 @@ function Helsingborg_pagination() {
 	    'next_text' => __('&raquo;', 'Helsingborg'),
 		'type' => 'list'
 	) );
- 
+
 	$paginate_links = str_replace( "<ul class='page-numbers'>", "<ul class='pagination'>", $paginate_links );
 	$paginate_links = str_replace( "<li><span class='page-numbers current'>", "<li class='current'><a href='#'>", $paginate_links );
 	$paginate_links = str_replace( "</span>", "</a>", $paginate_links );

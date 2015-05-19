@@ -70,10 +70,14 @@ if (!class_exists('Index_Widget_Box')) {
           ?>
           <li>
             <a href="<?php echo $link ?>" desc="link-desc">
-              <?php if($image) : ?><img src="<?php echo $image[0]; ?>" alt="<?php echo $alt_text; ?>"><?php endif; ?>
-              <h2 class="list-title"><?php echo $title ?></h2>
-              <div class="list-content">
-                <?php echo wpautop($main, true); ?>
+              <?php if($image) : ?>
+                <img src="<?php echo $image[0]; ?>" alt="<?php echo $alt_text; ?>">
+              <?php endif; ?>
+              <div class="list-content-container">
+                <h2 class="list-title"><?php echo $title ?></h2>
+                <div class="list-content">
+                  <?php echo wpautop($main, true); ?>
+                </div>
               </div>
             </a>
           </li>
@@ -151,10 +155,12 @@ if (!class_exists('Index_Widget_Box')) {
         if (!empty($item_id)) {
           $h5 = get_post($item_id, OBJECT, 'display')->post_title;
         }
+
+        $page = get_post($item_id);
       ?>
 
         <div id="<?php echo $this->get_field_id($num); ?>" class="list-item">
-          <h5 class="moving-handle"><span class="number"><?php echo $num; ?></span>. <span class="item-title"><?php echo $h5 . ' (ID: ' . $item_id . ')'; ?></span><a class="hbgllw-action hide-if-no-js"></a></h5>
+          <h5 class="moving-handle"><span class="number"><?php echo $num; ?></span>. <span class="item-title"><?php echo $h5 . ' (ID: ' . $item_id . ')'; ?> <?php echo ($page->post_status !== 'publish') ? '<span style="color:#ff0000;font-weight:bold;font-style:italic;">(Ej publicerad)</span>' : ''; ?></span><a class="hbgllw-action hide-if-no-js"></a></h5>
           <div class="hbgllw-edit-item">
             <p>
               <label for="<?php echo $this->get_field_id('item_headline'.$num); ?>"><?php echo __("Indexrubrik (lämna tomt för att använda sidan titel):"); ?></label><br>

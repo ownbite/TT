@@ -1,26 +1,23 @@
 <!doctype html>
 <html class="no-js" <?php language_attributes(); ?> >
 	<head>
-		<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+		<meta http-equiv="X-UA-Compatible" content="IE=EDGE">
 
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 		<title>Helsingborg stad</title>
 		<meta name="description" content="">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="pubdate" content="<?php echo the_time('d M Y'); ?>">
 		<meta name="moddate" content="<?php echo the_modified_time('d M Y'); ?>">
-		<meta name="google-translate-customization" content="10edc883cb199c91-cbfc59690263b16d-gf15574b8983c6459-12"></meta>
+		<meta name="google-translate-customization" content="10edc883cb199c91-cbfc59690263b16d-gf15574b8983c6459-12">
 
-		<link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri() ; ?>/css/app.css">
-		<link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri() ; ?>/css/normalize.css">
-
-		<link rel="icon" href="<?php echo get_stylesheet_directory_uri() ; ?>/assets/img/icons/favicon.ico" type="image/x-icon">
-		<link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo get_stylesheet_directory_uri() ; ?>/assets/img/icons/apple-touch-icon-144x144-precomposed.png">
-		<link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo get_stylesheet_directory_uri() ; ?>/assets/img/icons/apple-touch-icon-114x114-precomposed.png">
-		<link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo get_stylesheet_directory_uri() ; ?>/assets/img/icons/apple-touch-icon-72x72-precomposed.png">
-		<link rel="apple-touch-icon-precomposed" href="<?php echo get_stylesheet_directory_uri() ; ?>/assets/img/icons/apple-touch-icon-precomposed.png">
+		<link rel="icon" href="<?php echo get_template_directory_uri(); ?>/assets/img/icons/favicon.ico" type="image/x-icon">
+		<link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo get_template_directory_uri(); ?>/assets/img/icons/apple-touch-icon-144x144-precomposed.png">
+		<link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo get_template_directory_uri(); ?>/assets/img/icons/apple-touch-icon-114x114-precomposed.png">
+		<link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo get_template_directory_uri(); ?>/assets/img/icons/apple-touch-icon-72x72-precomposed.png">
+		<link rel="apple-touch-icon-precomposed" href="<?php echo get_template_directory_uri(); ?>/assets/img/icons/apple-touch-icon-precomposed.png">
 
 		<?php
 		$colorcode = get_option('helsingborg_color_code', '#ed8b00');
@@ -68,16 +65,6 @@
 
 	</head>
 	<body>
-		<script>
-		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-		  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-		  ga('create', 'UA-16678811-1', 'auto');
-		  ga('send', 'pageview');
-		</script>
-
 		<div class="off-canvas-wrap" data-offcanvas>
 		<div class="inner-wrap">
 
@@ -109,7 +96,7 @@
 									$logo_link = parse_url(get_site_url(), PHP_URL_SCHEME) . '://' . parse_url(get_site_url(), PHP_URL_HOST);
 								?>
 								<a href="<?php echo $logo_link; ?>" class="logo-link">
-									<img src="<?php echo get_stylesheet_directory_uri() ; ?>/assets/img/images/hbg-logo.svg" alt="helsingborg stad" class="logo" />
+									<img src="<?php echo get_template_directory_uri(); ?>/assets/img/images/hbg-logo.svg" alt="helsingborg stad" class="logo" />
 								</a>
 						</div><!-- /.site-logo -->
 

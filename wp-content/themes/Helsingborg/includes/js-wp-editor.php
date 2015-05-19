@@ -31,6 +31,7 @@
  */
 
 function js_wp_editor( $settings = array() ) {
+	global $typenow;
 	if ( ! class_exists( '_WP_Editors' ) )
 		require( ABSPATH . WPINC . '/class-wp-editor.php' );
 	$set = _WP_Editors::parse_settings( 'apid', $settings );
@@ -59,7 +60,9 @@ function js_wp_editor( $settings = array() ) {
 		'includes_url' => includes_url()
 	);
 
-	wp_register_script( 'ap_wpeditor_init', get_template_directory_uri() . '/js/helsingborg/js-wp-editor.js', array( 'jquery' ), '1.1', true );
-	wp_localize_script( 'ap_wpeditor_init', 'ap_vars', $ap_vars );
-	wp_enqueue_script( 'ap_wpeditor_init' );
+	if ($typenow == 'hbg_guide') {
+		wp_register_script( 'ap_wpeditor_init', get_template_directory_uri() . '/js/helsingborg/js-wp-editor.js', array('foundation'), '1.1', true );
+		wp_localize_script( 'ap_wpeditor_init', 'ap_vars', $ap_vars );
+		wp_enqueue_script( 'ap_wpeditor_init' );
+	}
 }
