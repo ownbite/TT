@@ -4,13 +4,89 @@ if (!class_exists('HbgScheduledAlarmsDisturbance')) {
 
     class HbgScheduledAlarmsDisturbance {
 
+        public $existingDisturbances;
+        public $modifiedDisturbances = array();
+        public $newsDir;
+        public $disturbanceDir;
+
         /**
          * Creates pages for all samll and large disturbances
          * @return [type] [description]
          */
         public function createAlarmPages() {
+            // Get existing alarms, disturbance folder and news folder
+            $this->getExistingAlarms();
+            $this->getDisturbanceFolders();
+
+            // Create or update alarm pages
             $this->createAlarmPagesSmall();
             $this->createAlarmPagesBig();
+
+            // Remove unwanted pages
+            $this->removeTurnedOffAlarms();
+        }
+
+        /**
+         * Gets the existing alarms from db and attaches the result to $this->exstingDisturbances
+         * @return void
+         */
+        public function getExistingAlarms() {
+            /**
+             * Get existing disturbances
+             */
+            $queryArgs = array(
+                'post_type' => 'any',
+                'meta_query' => array(
+                    array(
+                        'key' => 'alarm_id',
+                        'value' => '0',
+                        'compare' => '>'
+                    )
+                )
+            );
+
+            $disturbances = new WP_Query($queryArgs);
+            $disturbances = $disturbances->posts ?: array();
+            $arrDisturbances = array();
+
+            foreach ($disturbances as $disturbance) {
+                $alarm_id = get_post_meta($disturbance->ID, 'alarm_id')[0];
+                $arrDisturbances[$alarm_id] = $disturbance;
+            }
+
+            $this->existingDisturbances = $arrDisturbances;
+        }
+
+        /**
+         * Gets the pages/posts which represent the folders of news and disturbances
+         * @return void
+         */
+        public function getDisturbanceFolders() {
+            if (isset($_GET['dist']) && $_GET['dist'] == 'debug') echo "<strong>HÄMTA KATALOGER</strong><br>";
+            /**
+             * Get news dir
+             */
+            $newsDir = get_option('helsingborg_news_root');
+            if (isset($_GET['dist']) && $_GET['dist'] == 'debug') echo "Katalog-id för nyhetskatalog: " . $newsDir . "<br>";
+
+            if ($newsDir == 0) echo "Nyhetskatalog hittades inte<br>";
+            $this->newsDir = get_post($newsDir);
+
+            if (isset($_GET['dist']) && $_GET['dist'] == 'debug') echo "Katalog-namn för nyhetskatalog: " . $this->newsDir->post_title . "<br>";
+
+            /**
+             * Get disturbance dir
+             */
+            $disturbanceDir = get_option('helsingborg_big_disturbance_root');
+            if (isset($_GET['dist']) && $_GET['dist'] == 'debug') echo "Katalog-id för storstörning: " . $disturbanceDir . "<br>";
+
+            // If no disturbance dir was found, return
+            if ($disturbanceDir == 0) echo "Katalog för storstörning hittades inte<br>";
+
+            $this->disturbanceDir = get_post($disturbanceDir);
+            if (isset($_GET['dist']) && $_GET['dist'] == 'debug') echo "Katalog-namn för storstörning: " . $this->disturbanceDir->post_title . "<br>";
+
+            if (isset($_GET['dist']) && $_GET['dist'] == 'debug') echo "<strong>HÄMTA KATALOGER SLUT</strong><br><br>";
         }
 
         /**
@@ -20,28 +96,22 @@ if (!class_exists('HbgScheduledAlarmsDisturbance')) {
         public function createAlarmPagesSmall() {
             global $wpdb;
             if (isset($_GET['dist']) && $_GET['dist'] == 'debug') echo "<strong>LILLSTÖRNINGAR</strong><br>";
+
             /**
              * Get small disturbances and news directory page
              */
             $smallDisturbances = $this->getSmallDisturbances();
-
-            $newsDir = get_option('helsingborg_news_root');
-            if (isset($_GET['dist']) && $_GET['dist'] == 'debug') echo "Katalog-id för nyhetskatalog: " . $newsDir . "<br>";
-
-            if ($newsDir == 0) echo "Nyhetskatalog hittades inte<br>";
-
-            $newsDir = get_post($newsDir);
-
-            if (isset($_GET['dist']) && $_GET['dist'] == 'debug') echo "Katalog-namn för nyhetskatalog: " . $newsDir->post_title . "<br>";
             $pageId = null;
 
             /**
              * Loop disturbances and create articles
              */
-            if (count($bigDisturbances) > 0) {
+            if (count($smallDisturbances) > 0) {
                 foreach ($smallDisturbances as $disturbance) {
                     // Check if already exists
-                    $post = get_page_by_title($disturbance->HtText);
+
+                    $exists = array_key_exists($disturbance->IDnr, $this->existingDisturbances);
+                    $post = ($exists) ? $this->existingDisturbances[$disturbance->IDnr] : null;
 
                     // Set the pages parameters
                     $page = array(
@@ -51,13 +121,13 @@ if (!class_exists('HbgScheduledAlarmsDisturbance')) {
                         'post_status'    => 'publish',
                         'post_type'      => 'page',
                         'post_author'    => 1,
-                        'post_parent'    => $newsDir->ID,
+                        'post_parent'    => $this->newsDir->ID,
                         'post_excerpt'   => $disturbance->MoreInfo,
                         'comment_status' => 'closed'
                     );
 
                     // If page already exist, add ID to update
-                    if ($post->ID > 0 && $post->post_parent == $newsDir->ID) {
+                    if ($post) {
                         $page['ID'] = $post->ID;
                         if (isset($_GET['dist']) && $_GET['dist'] == 'debug') echo "o Sida för lillstörning fanns redan, uppdaterar den: " . $page['post_title'] . "<br>";
                     } else {
@@ -66,6 +136,8 @@ if (!class_exists('HbgScheduledAlarmsDisturbance')) {
 
                     // Create/update page
                     $pageId = wp_insert_post($page, true);
+                    add_post_meta($pageId, 'alarm_id', $disturbance->IDnr, true);
+                    $this->modifiedDisturbances[] = $disturbance->IDnr;
 
                     if (!$post) {
                         /**
@@ -132,80 +204,56 @@ if (!class_exists('HbgScheduledAlarmsDisturbance')) {
              */
             $bigDisturbances = $this->getBigDisturbances();
 
-            $newsDir = get_option('helsingborg_news_root');
-            if (isset($_GET['dist']) && $_GET['dist'] == 'debug') echo "Katalog-id för nyhetskatalog: " . $newsDir . "<br>";
-
-            if ($newsDir == 0) echo "Nyhetskatalog hittades inte<br>";
-
-            $newsDir = get_post($newsDir);
-            if (isset($_GET['dist']) && $_GET['dist'] == 'debug') echo "Katalog-namn för nyhetskatalog: " . $newsDir->post_title . "<br>";
-
-
-            $disturbanceDir = get_option('helsingborg_big_disturbance_root');
-            if (isset($_GET['dist']) && $_GET['dist'] == 'debug') echo "Katalog-id för storstörning: " . $disturbanceDir . "<br>";
-
-            // If no disturbance dir was found, return
-            if ($disturbanceDir == 0) echo "Katalog för storstörning hittades inte<br>";
-
-            $disturbanceDir = get_post($disturbanceDir);
-            if (isset($_GET['dist']) && $_GET['dist'] == 'debug') echo "Katalog-namn för storstörning: " . $disturbanceDir->post_title . "<br>";
-
             /**
              * Loop disturbances and create articles that we need
              */
             if (count($bigDisturbances) > 0) {
                 foreach ($bigDisturbances as $disturbance) {
 
-                    // Check if post with same name and parent already exist
-                    $post = $wpdb->get_results("SELECT ID FROM $wpdb->posts WHERE post_parent = $newsDir->ID AND post_title = '$disturbance->HtText' AND post_status = 'publish'", OBJECT);
-                    $post = (isset($post[0])) ? $post[0] : NULL;
+                    // Check if post with same name and parent already exist in big disturbance "folder"
+                    $exists = array_key_exists($disturbance->IDnr, $this->existingDisturbances);
+                    $post = ($exists) ? $this->existingDisturbances[$disturbance->IDnr] : null;
 
-                    // Set the pages parameters
+                    // If no page exists since earlier create one (storstörning)
                     $page = array(
                         'post_content'   => $this->formatPageContent($disturbance->MoreInfo, $disturbance->Comment),
                         'post_title'     => $disturbance->HtText,
                         'post_status'    => 'publish',
                         'post_type'      => 'page',
                         'post_author'    => 1,
-                        'post_parent'    => $newsDir->ID,
-                        'post_excerpt'   => $disturbance->MoreInfo,
+                        'post_parent'    => $this->disturbanceDir->ID,
+                        'post_excerpt'   => '<a href="' . get_permalink($pageId) . '">Läs mer</a>',
                         'comment_status' => 'closed'
                     );
 
-                    // If page already exist, add ID to update
-                    if (isset($post) && $post->ID > 0) $page['ID'] = $post->ID;
-
-                    // Create/update page
-                    $pageId = wp_insert_post($page);
-
-                    // Check if post with same name and parent already exist
-                    $post = $wpdb->get_results("SELECT ID FROM $wpdb->posts WHERE post_parent = $disturbanceDir->ID AND post_title = '$disturbance->HtText' AND post_status = 'publish'", OBJECT);
-                    $post = (isset($post[0])) ? $post[0] : NULL;
-
-                    // If no page exists since earlier create one (storstörning)
-                    if (!$post) {
-                        $page = array(
-                            'post_content'   => '<p><a href="' . get_permalink($pageId) . '">Läs mer</a></p>',
-                            'post_title'     => $disturbance->HtText,
-                            'post_status'    => 'publish',
-                            'post_type'      => 'page',
-                            'post_author'    => 1,
-                            'post_parent'    => $disturbanceDir->ID,
-                            'post_excerpt'   => '<a href="' . get_permalink($pageId) . '">Läs mer</a>',
-                            'comment_status' => 'closed'
-                        );
-
-                        wp_insert_post($page);
-                        if (isset($_GET['dist']) && $_GET['dist'] == 'debug') echo "+ Skapade sida för storstörning: " . $page['post_title'] . "<br>";
+                    // If post already exist, add id to perform an update instead of insert
+                    if ($post) {
+                        $page['ID'] = $post->ID;
+                        if (isset($_GET['dist']) && $_GET['dist'] == 'debug') echo "o Sidan för storstörning finns redan, uppdaterar den: " . $page['post_title'] . "<br>";
                     } else {
-                        if (isset($_GET['dist']) && $_GET['dist'] == 'debug') echo "- Sida för storstörning finns redan (skapades ej igen): " . $page['post_title'] . "<br>";
+                        if (isset($_GET['dist']) && $_GET['dist'] == 'debug') echo "+ Skapade sida för storstörning: " . $page['post_title'] . "<br>";
                     }
+
+                    $pageId = wp_insert_post($page);
+                    add_post_meta($pageId, 'alarm_id', $disturbance->IDnr, true);
+                    $this->modifiedDisturbances[] = $disturbance->IDnr;
                 }
             } else {
                 if (isset($_GET['dist']) && $_GET['dist'] == 'debug') echo "Fanns inga storstörningar i databasen, inga sidor skapade.<br>";
             }
 
             if (isset($_GET['dist']) && $_GET['dist'] == 'debug') echo "<strong>STORSTÖRNINGAR SLUT</strong><br><br>";
+        }
+
+        public function removeTurnedOffAlarms() {
+            if (isset($_GET['dist']) && $_GET['dist'] == 'debug') echo "<strong>INAKTUELLA ALARM</strong><br>";
+            foreach ($this->existingDisturbances as $key => $disturbance) {
+                if (!in_array($key, $this->modifiedDisturbances)) {
+                    wp_delete_post($disturbance->ID);
+                    if (isset($_GET['dist']) && $_GET['dist'] == 'debug') echo "- Tog bort: " . $disturbance->post_title . "<br>";
+                }
+            }
+            if (isset($_GET['dist']) && $_GET['dist'] == 'debug') echo "<strong>INAKTUELLA ALARM SLUT</strong><br>";
         }
 
         /**
@@ -216,9 +264,7 @@ if (!class_exists('HbgScheduledAlarmsDisturbance')) {
          */
         public function formatPageContent($moreInfo = null) {
             $content = '';
-
             if (strlen($moreInfo)) $content .= '<p>' . nl2br($moreInfo) . '</p>';
-
             return $content;
         }
 
