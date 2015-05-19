@@ -140,6 +140,7 @@ if (!class_exists('HbgScheduledAlarmsDisturbance')) {
                     $this->modifiedDisturbances[] = $disturbance->IDnr;
 
                     if (!$post || $post->post_parent == $this->disturbanceDir->ID) {
+                    //if ("hej" == "hej") {
                         /**
                          * Add to news list widget
                          */
@@ -166,22 +167,40 @@ if (!class_exists('HbgScheduledAlarmsDisturbance')) {
 
                         $pageWidgets = get_option($pageWidgetIdentifier);
                         $linkListWidget = $pageWidgets[$linksWidgetID];
+                        $linkListWidgetNew = array();
 
-                        $nextKey = array_intersect_key($linkListWidget, array_flip(preg_grep('/^item_link/', array_keys($linkListWidget))));
-                        $nextKey = count($nextKey) + 1;
+                        foreach ($linkListWidget as $key => $value) {
+                            if (substr($key, 0, 4) != 'item') {
+                                $linkListWidgetNew[$key] = $value;
+                            }
+                        }
 
-                        $linkListWidget['item' . $nextKey] = $disturbance->HtText;
-                        $linkListWidget['item_link' . $nextKey] = get_permalink($pageId);
-                        $linkListWidget['item_class' . $nextKey] = "";
-                        $linkListWidget['item_target' . $nextKey] = "";
-                        $linkListWidget['item_warning' . $nextKey] = "on";
-                        $linkListWidget['item_info' . $nextKey] = "";
-                        $linkListWidget['item_id' . $nextKey] = $pageId;
-                        $linkListWidget['item_date' . $nextKey] = "";
-                        $linkListWidget['amount'] = $nextKey;
+                        $nextKey = 1;
+                        $linkListWidgetNew['item' . $nextKey] = $disturbance->HtText;
+                        $linkListWidgetNew['item_link' . $nextKey] = get_permalink($pageId);
+                        $linkListWidgetNew['item_class' . $nextKey] = "";
+                        $linkListWidgetNew['item_target' . $nextKey] = "";
+                        $linkListWidgetNew['item_warning' . $nextKey] = "on";
+                        $linkListWidgetNew['item_info' . $nextKey] = "";
+                        $linkListWidgetNew['item_id' . $nextKey] = $pageId;
+                        $linkListWidgetNew['item_date' . $nextKey] = "";
+                        $linkListWidgetNew['amount'] = $linkListWidget['amount']+1;
+
+                        $lastNode = 1;
+                        foreach ($linkListWidget as $key => $value) {
+                            if (substr($key, 0, 4) == 'item') {
+                                // Find key
+                                preg_match_all('/item([0-9])+/', $key, $matches);
+                                if (isset($matches[1][0])) $lastNode++;
+
+                                // Add values to key
+                                $stringKey = preg_replace('/[0-9]+/', '', $key);
+                                $linkListWidgetNew[$stringKey . $lastNode] = $value;
+                            }
+                        }
 
                         unset($pageWidgets[$linksWidgetID]);
-                        $pageWidgets[$linksWidgetID] = $linkListWidget;
+                        $pageWidgets[$linksWidgetID] = $linkListWidgetNew;
 
                         update_option($pageWidgetIdentifier, $pageWidgets);
                     }
