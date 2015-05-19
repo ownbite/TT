@@ -29,10 +29,21 @@ if (!class_exists('HelsingborgSocialWidget')) {
         }
 
         /**
-         * Adds settings section
+         * Adds settings section to either the Helsingborg submenu (if exists) or to the core settings submenu
          */
         public function addSettingsMenu() {
-            add_options_page('Sociala flöden', 'Sociala flöden', 'activate_plugins', 'hbg-social-widget-menu', array($this, 'settingsPage'));
+            if (!$this->menuExist('helsingborg')) {
+                add_options_page('Sociala flöden', 'Sociala flöden', 'activate_plugins', 'hbg-social-widget-menu', array($this, 'settingsPage'));
+            } else {
+                add_submenu_page(
+                    'helsingborg',
+                    'Sociala flöden',
+                    'Sociala flöden',
+                    'read_private_pages',
+                    'hbg-social-widget-menu',
+                    array($this, 'settingsPage')
+                );
+            }
         }
 
         /**
@@ -353,6 +364,27 @@ if (!class_exists('HelsingborgSocialWidget')) {
             preg_match_all('/([A-Z1-9-_])\w+/', $url, $matches);
             $username = $matches[0][0];
             return $username;
+        }
+
+        public function menuExist($handle, $sub = false){
+            if (!is_admin() || (defined('DOING_AJAX') && DOING_AJAX)) return false;
+
+            global $menu, $submenu;
+            $check_menu = $sub ? $submenu : $menu;
+
+            if (empty($check_menu)) return false;
+
+            foreach($check_menu as $k => $item){
+                if ($sub) {
+                    foreach( $item as $sm ){
+                        if ($handle == $sm[2]) return true;
+                    }
+                } else {
+                    if ($handle == $item[2]) return true;
+                }
+            }
+
+            return false;
         }
 
     }
