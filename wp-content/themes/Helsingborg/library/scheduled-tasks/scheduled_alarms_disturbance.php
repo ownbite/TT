@@ -139,10 +139,12 @@ if (!class_exists('HbgScheduledAlarmsDisturbance')) {
                     add_post_meta($pageId, 'alarm_id', $disturbance->IDnr, true);
                     $this->modifiedDisturbances[] = $disturbance->IDnr;
 
-                    if (!$post) {
+                    if (!$post || $post->post_parent == $this->disturbanceDir->ID) {
                         /**
                          * Add to news list widget
                          */
+
+                        if (isset($_GET['dist']) && $_GET['dist'] == 'debug') echo "++ Skapar list-nod för lillstörning: " . $page['post_title'] . "<br>";
 
                         // Get startpage id and widget details
                         $startpage = get_page_by_title('startsida');
