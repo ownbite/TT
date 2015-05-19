@@ -89,13 +89,14 @@ function big_notification_callback() {
     $class = in_array($notification, $disturbances, TRUE) ? 'warning' : 'info';
     $link = get_permalink($notification->ID);
     $the_content = get_extended($notification->post_content);
-    $main = $the_content['main'];
+    $main = strip_tags($the_content['main']);
+    if (strlen($main) > 50) $main = substr($main, 0, 100) . "…";
     $content = $the_content['extended'];
 
     echo('<div class="small-12 columns">'.
     '<div class="alert-msg '.$class.'">'.
-    '<a href="' . $link . '" class="alert-link" title="link-title">'.$notification->post_title .'</a>'.
-    '<p>'.$main.'</p></div><!-- /.alert-msg --></div><!-- /.columns -->');
+    '<a href="' . $link . '" class="alert-link" title="link-title">' . $notification->post_title . ' </a>'.
+    '<p>' . $main . '</p></div><!-- /.alert-msg --></div><!-- /.columns -->');
   }
 
   // Return
