@@ -10,6 +10,7 @@
  * Copyright (C) 2014 Helsingborg stad
  */
 define('HELSINGBORG_ALARM_BASE', WP_PLUGIN_URL."/".dirname( plugin_basename( __FILE__ ) ) );
+define('HELSINGBORG_ALARM_BASE_URI', plugin_dir_path(__FILE__));
 define('ALARM_MARKERS_BASE_URL', 'http://alarmservice.helsingborg.se/AlarmServices.svc/GetAlarmMarkers/');
 define('ALARM_FOR_CITIES_URL'  , 'http://alarmservice.helsingborg.se/AlarmServices.svc/GetAlarmsForCities/');
 
