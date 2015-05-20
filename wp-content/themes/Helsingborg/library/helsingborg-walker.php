@@ -160,6 +160,9 @@ class Helsingborg_Walker extends Walker {
              */
             if ($page->ID == $current_page) {
                 array_push($css_class_list, 'current');
+                if ($page->post_parent == get_option('page_on_front')) {
+                    array_push($css_class_list, 'current-node');
+                }
             }
 
             /**
