@@ -479,9 +479,13 @@ class HelsingborgEventModel {
 	public static function load_event_times_with_event_id($event_id) {
 		global $wpdb;
 
-		$result_times = $wpdb->get_results('SELECT *
+		$result_times = $wpdb->get_results('
+                                            SELECT *
                                             FROM happy_event_times
-                                            WHERE EventID = ' . $event_id, OBJECT);
+                                            WHERE EventID = ' . $event_id . '
+                                            AND Date >= CURDATE()
+                                            LIMIT 10'
+                                    , OBJECT);
 
 		return $result_times;
 	}
