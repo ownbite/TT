@@ -188,7 +188,7 @@ function update_alarms_in_database($downloadTo) {
   $procedure = "CALL spInsertIntoAlarmAlarms();";
   $mysqli->real_query($procedure);
 
-  //updateDisturbances();
+  updateDisturbances();
 }
 
 function updateDisturbances() {

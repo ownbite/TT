@@ -90,7 +90,7 @@ function big_notification_callback() {
         $link = get_permalink($notification->ID);
         $the_content = get_extended($notification->post_content);
         $main = strip_tags($the_content['main']);
-        if (strlen($main) > 50) $main = substr($main, 0, 100) . "…";
+        if (strlen($main) > 50) $main = trim(substr($main, 0, 100)) . "…";
         $content = $the_content['extended'];
 
         echo(
