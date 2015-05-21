@@ -17,8 +17,8 @@
 		elseif (is_paged()) :
 	?>
 		<nav id="post-nav">
-			<div class="post-previous"><?php next_posts_link( __( '&larr; Older posts','helsingborg' ) ); ?></div>
-			<div class="post-next"><?php previous_posts_link( __( 'Newer posts &rarr;','helsingborg' ) ); ?></div>
+			<div class="post-previous"><?php next_posts_link(__('&larr; Older posts','helsingborg')); ?></div>
+			<div class="post-next"><?php previous_posts_link(__('Newer posts &rarr;','helsingborg')); ?></div>
 		</nav>
 	<?php endif; ?>
 	</div>

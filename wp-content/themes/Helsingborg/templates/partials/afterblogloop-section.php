@@ -1,4 +1,4 @@
-<?php if ( (is_active_sidebar('content-area') == TRUE) ) : ?>
+				<?php if ( (is_active_sidebar('content-area') == TRUE) ) : ?>
 					<?php dynamic_sidebar("content-area"); ?>
 				<?php endif; ?>
 			<footer>
@@ -9,11 +9,11 @@
 			</footer>
 
 			<div class="timestamp">
-			<?php if (get_the_modified_time() != get_the_time()) : ?>
- 				<p class= "timestamp">Publicerad: <?php the_time('j F, Y'); ?> kl <?php the_time('H:i'); ?> </BR>   Senast ändrad: <?php the_modified_time('j F, Y'); ?> kl <?php the_modified_time('H:i'); ?></p>
- 			<?php else: ?>
- 				<p class= "timestamp">Publicerad: <?php the_time('j F, Y'); ?> kl <?php the_time('H:i'); ?></p>
- 			<?php endif; ?>
+				<?php if (get_the_modified_time() != get_the_time()) : ?>
+	 				<p class= "timestamp">Publicerad: <?php the_time('j F, Y'); ?> kl <?php the_time('H:i'); ?> </BR>   Senast ändrad: <?php the_modified_time('j F, Y'); ?> kl <?php the_modified_time('H:i'); ?></p>
+	 			<?php else: ?>
+	 				<p class= "timestamp">Publicerad: <?php the_time('j F, Y'); ?> kl <?php the_time('H:i'); ?></p>
+	 			<?php endif; ?>
  			</div><!-- /.timestamp -->
 
 			</div><!-- /.columns -->
@@ -44,5 +44,5 @@
 			<?php endif; ?>
 
 		</div><!-- /.rows -->
-	</div><!-- /.sidebar -->
-</div><!-- /.article-page-layout -->
+	</div><<!-- /.article-page-layout -->!-- /.sidebar -->
+</div>
