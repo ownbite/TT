@@ -3,15 +3,7 @@
 	<div class="main-area large-9 columns">
 
 		<div class="main-content row">
-			<!-- SIDEBAR LEFT -->
-			<div class="sidebar sidebar-left large-4 medium-4 columns">
-
-				<div class="row">
-					<?php get_search_form(); ?>
-					<?php dynamic_sidebar("left-sidebar"); ?>
-					<?php get_template_part('templates/partials/sidebar','menu'); ?>
-				</div><!-- /.row -->
-			</div><!-- /.sidebar-left -->
+			<?php get_template_part('templates/sidebar-left'); ?>
 
 			<div class="large-8 medium-8 columns article-column">
 				<div class="alert row"></div>
