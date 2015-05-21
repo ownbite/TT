@@ -47,3 +47,89 @@
         }
     }
 }
+
+.comments-area {
+    position: relative;
+
+    .logged-in-as {
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        font-size: rem-calc(13);
+    }
+
+    .form-allowed-tags {
+        display: none;
+    }
+
+    .comment-respond {
+        margin-top: 15px;
+    }
+
+    .comment-list {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+
+        .comment {
+            position: relative;
+            background: #f1f1f1;
+            padding: rem-calc(10) rem-calc(13);
+            font-size: rem-calc(13);
+
+            & + .comment {
+                margin-top: 10px;
+            }
+
+            .comment-body {
+                > p {
+                    clear: both;
+                }
+            }
+
+            .comment-author {
+                border: none;
+                padding: 0;
+                margin: 0;
+                color: #787878;
+                margin-bottom: 5px;
+
+                .fn {
+                    font-size: rem-calc(13);
+                }
+
+                .avatar {
+                    display: none;
+                }
+            }
+
+            .comment-meta {
+                font-size: rem-calc(13);
+                color: #999;
+                position: absolute;
+                right: 13px;
+                top: 10px;
+
+                a {
+                    color: #999;
+                }
+            }
+
+            .reply {
+                margin-top: 5px;
+            }
+
+            .children {
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+
+                .comment {
+                    background: #fff;
+                    margin-top: 10px;
+                }
+            }
+        }
+    }
+}
