@@ -1,0 +1,49 @@
+.article.post[id*="post"] {
+
+    h1 {
+        margin: 0;
+    }
+
+    .post-date {
+        font-size: rem-calc(13);
+        margin-bottom: 15px;
+
+        .dashicons {
+            $icon-size: 15px;
+            font-size: $icon-size;
+            width: $icon-size;
+            height: $icon-size;
+            vertical-align: middle;
+            position: relative;
+            top: -1px;
+        }
+    }
+
+    .wp-post-image {
+        margin-bottom: 15px;
+    }
+
+    footer {
+        $font-size: 13;
+        font-size: rem-calc($font-size);
+        background: #f9f9f9;
+        border: 1px solid #ededed;
+        padding: rem-calc(10) rem-calc(13);
+        border-radius: $border-radius;
+
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+
+            li {
+                padding: 0;
+                margin: 0;
+            }
+        }
+
+        p, li {
+            font-size: rem-calc($font-size);
+        }
+    }
+}

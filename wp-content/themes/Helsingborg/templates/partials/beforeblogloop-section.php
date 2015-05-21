@@ -6,9 +6,8 @@
 			<!-- SIDEBAR LEFT -->
 			<div class="sidebar sidebar-left large-4 medium-4 columns">
 
-				<?php get_search_form(); ?>
-
 				<div class="row">
+					<?php get_search_form(); ?>
 					<?php dynamic_sidebar("left-sidebar"); ?>
 					<?php get_template_part('templates/partials/sidebar','menu'); ?>
 				</div><!-- /.row -->
@@ -26,4 +25,4 @@
 				</div><!-- /.row -->
 
 
-				<?php the_breadcrumb(); ?>
+				<?php // the_breadcrumb(); ?>
