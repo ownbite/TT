@@ -107,7 +107,7 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
     <div class="main-area large-12 columns">
         <div class="main-content row">
 
-            <?php get_template_part('templates/sidebar-left'); ?>
+            <?php get_template_part('templates/partials/sidebar-left'); ?>
 
             <div class="large-9 medium-8 columns article-column">
                 <div class="alert row"></div>

@@ -35,14 +35,5 @@
 		</div><!-- /.lower-content -->
 	</div>  <!-- /.main-area -->
 
-	<div class="sidebar sidebar-right large-3 columns">
-		<div class="row">
-
-			<?php /* Add the page's widgets */ ?>
-			<?php if ( (is_active_sidebar('right-sidebar') == TRUE) ) : ?>
-				<?php dynamic_sidebar("right-sidebar"); ?>
-			<?php endif; ?>
-
-		</div><!-- /.rows -->
-	</div><<!-- /.article-page-layout -->!-- /.sidebar -->
+	<?php get_template_part('templates/partials/sidebar-right'); ?>
 </div>

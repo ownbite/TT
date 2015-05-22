@@ -19,7 +19,7 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
     <div class="main-area large-9 columns">
         <div class="main-content row">
 
-            <?php get_template_part('templates/sidebar-left'); ?>
+            <?php get_template_part('templates/partials/sidebar-left'); ?>
 
             <div class="large-8 medium-8 columns">
                 <div class="alert row"></div>
@@ -244,15 +244,7 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
         </div><!-- /.lower-content -->
     </div>  <!-- /.main-area -->
 
-    <div class="sidebar sidebar-right large-3 columns">
-        <div class="row">
-            <?php
-                if ((is_active_sidebar('right-sidebar') == TRUE)) {
-                    dynamic_sidebar("right-sidebar");
-                }
-            ?>
-        </div><!-- /.rows -->
-    </div><!-- /.sidebar -->
+    <?php get_template_part('templates/partials/sidebar-right'); ?>
 
 </div><!-- /.article-page-layout -->
 

@@ -17,7 +17,7 @@ $content = $post->post_content;
         </div>
 
         <div class="main-content row">
-            <?php get_template_part('templates/sidebar-left'); ?>
+            <?php get_template_part('templates/partials/sidebar-left'); ?>
 
             <?php if (!empty($content)) : ?>
                 <div class="start-content large-8 medium-8 columns">

@@ -3,7 +3,7 @@
 	<div class="main-area large-9 columns">
 
 		<div class="main-content row">
-			<?php get_template_part('templates/sidebar-left'); ?>
+			<?php get_template_part('templates/partials/sidebar-left'); ?>
 
 			<div class="large-8 medium-8 columns article-column">
 				<div class="alert row"></div>
