@@ -1,4 +1,4 @@
-<div class="sidebar sidebar-left large-3 medium-4 columns">
+<div class="sidebar sidebar-left large-4 medium-4 columns">
     <div class="row">
         <?php
             get_search_form();
