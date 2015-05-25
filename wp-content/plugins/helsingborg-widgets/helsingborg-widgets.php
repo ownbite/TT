@@ -50,14 +50,6 @@ function hbgWidgetAdminEnqueue () {
     wp_enqueue_script( 'steps-js', plugin_dir_url(__FILE__) . 'js/steps.js');
 }
 
-add_action('wp_enqueue_scripts', 'hbgWidgetEnqueue');
-function hbgWidgetEnqueue () {
-    wp_enqueue_script( 'jquery', get_template_directory_uri() . '/js/jquery/dist/jquery.min.js');
-    if (get_post_type() == 'hbg_guide') {
-        wp_enqueue_script( 'steps-js', plugin_dir_url(__FILE__) . 'js/steps.js');
-    }
-}
-
 // Function to purge the cache of a specific page_id/post_id when page widgets is updated
 if (!function_exists("hbg_purge_page")) {
     function hbg_purge_page($args) {

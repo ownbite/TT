@@ -339,11 +339,15 @@ html.js.flexbox.flexboxlegacy.canvas.canvastext.webgl.no-touch.geolocation.postm
 				display: list-item;
 			}
 		}
+
 	}
 
 	.guide-section {
-		overflow: hidden;
 		margin-bottom: rem-calc(32);
+
+    ul.pagination li {
+      height: auto !important;
+    }
 	}
 
 	.guide-section .guide-button {

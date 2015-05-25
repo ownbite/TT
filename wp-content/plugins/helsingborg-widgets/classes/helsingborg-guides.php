@@ -327,6 +327,8 @@ function disable_autosave() {
 
 add_shortcode( 'display_hbg_guide', 'hbg_guide_func' );
 function hbg_guide_func( $atts ) {
+    wp_enqueue_script('steps-js', dirname(plugin_dir_url(__FILE__)) . '/js/steps.js');
+
     if (isset($atts['id'])) {
         $post_id = sanitize_text_field( $atts['id'] );
         $post_type= sanitize_text_field( $atts['type'] );
@@ -369,13 +371,13 @@ function hbg_guide_func( $atts ) {
         $guide .= '</ul>'; //<!-- /.guide-list -->
 
         $guide .= '<ul class="pagination" role="menubar" aria-label="Pagination">';
-        $guide .= '<li><a href="#" class="button radius guide-button prev-step">' . __(Föregående) . '</a></li>';
+        $guide .= '<li><a href="#" class="button radius prev-step">' . __(Föregående) . '</a></li>';
 
         for($i=0;$i<count($article_steps_meta["guide_step"]);$i++){
             $guide .= '<li' . ($i==0?' class="current-pager"':'') . '><a href="#">' . ($i+1) . '</a></li>';
         }
 
-        $guide .= '<li><a href="#" class="button radius guide-button next-step">' . __ (Nästa) . '</a></li>';
+        $guide .= '<li><a href="#" class="button radius next-step">' . __ (Nästa) . '</a></li>';
         $guide .= '</ul>';
         $guide .= '</section>';
 
