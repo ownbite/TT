@@ -4,7 +4,7 @@ if (!class_exists('HelsingborgGalleryYoutubeWrapper')) {
 
     class HelsingborgGalleryYoutubeWrapper {
 
-        static protected $_apiKey = 'AIzaSyC4cvd-_16O7FehpsMeIAW23boplo6h5GI';
+        static protected $_apiKey = 'AIzaSyAK4m-Yqi12k0CsfCwc5S0av_JK9gJ-4uE';
 
         /**
          * Gets video information for videos with specified id's
