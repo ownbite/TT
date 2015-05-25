@@ -29,7 +29,7 @@ jQuery(document).ready(function($) {
 	});
 
 	$('.pagination li').on('click', function(e) {
-		if (this.innerText.length <= 3 && this.innerText.length > 0) {
+		if (this.innerText !== undefined && this.innerText.length <= 3 && this.innerText.length > 0) {
 			e.preventDefault();
 
 			var currentElem = $('.guide-list li.current');
