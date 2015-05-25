@@ -33,6 +33,7 @@ wp-content/plugins/*
 !wp-content/plugins/helsingborg-post-inherit-widget
 !wp-content/plugins/helsingborg-extra-mer
 !wp-content/plugins/helsingborg-kultur
+!wp-content/plugins/shortcodes-ultimate
 
 # Ignore everything in the "themes" directory, except the Helsingborg theme
 wp-content/themes/*

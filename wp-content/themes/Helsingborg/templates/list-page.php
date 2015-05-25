@@ -144,7 +144,10 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
                         ?>
                     </div>
 
-                    <?php get_template_part('templates/partials/share'); ?>
+                    <ul class="socialmedia-list">
+                        <li class="fbook"><a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode(get_the_permalink()); ?>">Facebook</a></li>
+                        <li class="twitter"><a href="http://twitter.com/share?url=<?php echo urlencode(wp_get_shortlink()); ?>">Twitter</a></li>
+                    </ul>
 
                     <div class="filter-search">
                         <input type="text" placeholder="Sök i listan..." data-bind="value: query, valueUpdate: 'keyup'" autocomplete="off"/>

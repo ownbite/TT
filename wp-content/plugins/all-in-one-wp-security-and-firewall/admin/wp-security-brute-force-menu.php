@@ -49,12 +49,8 @@ class AIOWPSecurity_Brute_Force_Menu extends AIOWPSecurity_Admin_Menu
         echo '<h2 class="nav-tab-wrapper">';
         foreach ( $this->menu_tabs as $tab_key => $tab_caption ) 
         {
-            if (AIOWPSecurity_Utility::is_multisite_install() && get_current_blog_id() != 1 && stristr($tab_caption, "Rename Login Page") === false){
-                //Suppress the all Brute Force menu tabs except rename login if site is a multi site AND not the main site
-            }else{
-                $active = $current_tab == $tab_key ? 'nav-tab-active' : '';
-                echo '<a class="nav-tab ' . $active . '" href="?page=' . $this->menu_page_slug . '&tab=' . $tab_key . '">' . $tab_caption . '</a>';	
-            }
+            $active = $current_tab == $tab_key ? 'nav-tab-active' : '';
+            echo '<a class="nav-tab ' . $active . '" href="?page=' . $this->menu_page_slug . '&tab=' . $tab_key . '">' . $tab_caption . '</a>';	
         }
         echo '</h2>';
     }
