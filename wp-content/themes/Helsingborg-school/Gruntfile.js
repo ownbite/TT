@@ -35,19 +35,19 @@ module.exports = function(grunt) {
         concat: {
             dist1: {
                 src: [
-                    'js/modernizr/modernizr.min.js',
-                    'js/foundation/js/foundation.min.js',
-                    'js/foundation/js/foundation/foundation.orbit.js',
-                    'js/plugins/jquery.tablesorter.min.js',
-                    'js/custom/*.js',
-                    'js/dev/hbg.dev.js'
+                    '../Helsingborg/js/modernizr/modernizr.min.js',
+                    '../Helsingborg/js/foundation/js/foundation.min.js',
+                    '../Helsingborg/js/foundation/js/foundation/foundation.orbit.js',
+                    '../Helsingborg/js/plugins/jquery.tablesorter.min.js',
+                    '../Helsingborg/js/custom/*.js',
+                    'js/dev/hbg-school.dev.js'
                 ],
                 dest: 'js/app.js'
             },
             dist2: {
                 src: [
-                    'js/jquery/dist/jquery.min.js',
-                    'js/jquery/dist/jquery-ui.min.js'
+                    '../Helsingborg/js/jquery/dist/jquery.min.js',
+                    '../Helsingborg/js/jquery/dist/jquery-ui.min.js'
                 ],
                 dest: 'js/app.jquery.min.js'
             }
@@ -56,7 +56,7 @@ module.exports = function(grunt) {
         uglify: {
             dist: {
                 files: {
-                    'js/modernizr/modernizr.min.js': ['js/modernizr/modernizr.js'],
+                    '../Helsingborg/js/modernizr/modernizr.min.js': ['js/modernizr/modernizr.js'],
                     'js/app.min.js': 'js/app.js'
                 }
             }
