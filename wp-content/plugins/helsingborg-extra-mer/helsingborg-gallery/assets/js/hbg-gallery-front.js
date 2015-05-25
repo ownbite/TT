@@ -2,9 +2,16 @@ jQuery(document).ready(function ($) {
 
     $(window).load(function () {
 
-        $itemsContainer = $('.hbg-gallery-container');
+        var $itemsContainer = $('.hbg-gallery-container');
+        var columnWidth = $itemsContainer.outerWidth()/3;
 
-        $('.hbg-gallery-container .hbg-gallery-item').on('click', function (e) {
+        var masonry = new Masonry($itemsContainer[0], {
+            columnWidth: columnWidth,
+            itemSelector: '.hbg-gallery-item',
+            isAnimated: true
+        });
+
+        $('.hbg-gallery-container .hbg-gallery-item:not(.hbg-gallery-item-column-helper)').on('click', function (e) {
             e.preventDefault();
 
             $('.hbg-gallery-item').removeClass('active');
@@ -26,17 +33,7 @@ jQuery(document).ready(function ($) {
             }
 
             $(this).addClass('active');
-            $itemsContainer.masonry();
-        });
-
-        var $masonry = $itemsContainer.imagesLoaded(function () {
-            $itemsContainer.masonry({
-                columnWidth: function(containerWidth) {
-                  return containerWidth / 4;
-                }(),
-                itemSelector: '.hbg-gallery-item',
-                isAnimated: true
-            });
+            masonry.layout();
         });
 
     })
