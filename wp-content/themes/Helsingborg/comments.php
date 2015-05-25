@@ -1,95 +1,61 @@
-<?php function Helsingborg_comments($comment, $args, $depth) {
-	$GLOBALS['comment'] = $comment; ?>
-	<li <?php comment_class(); ?>>
-		<article id="comment-<?php comment_ID(); ?>">
-			<header class="comment-author">
-				<?php echo get_avatar($comment,$size='48'); ?>
-				<div class="author-meta">
-					<?php printf(__('<cite class="fn">%s</cite>', 'Helsingborg'), get_comment_author_link()) ?>
-					<time datetime="<?php echo comment_date('c') ?>"><a href="<?php echo esc_url( get_comment_link( $comment->comment_ID ) ) ?>"><?php printf(__('%1$s', 'Helsingborg'), get_comment_date(),  get_comment_time()) ?></a></time>
-					<?php edit_comment_link(__('(Edit)', 'Helsingborg'), '', '') ?>
-				</div>
-			</header>
-
-			<?php if ($comment->comment_approved == '0') : ?>
-				<div class="notice">
-					<p class="bottom"><?php _e('Your comment is awaiting moderation.', 'Helsingborg') ?></p>
-				</div>
-			<?php endif; ?>
-
-			<section class="comment">
-				<?php comment_text() ?>
-				<?php comment_reply_link(array_merge( $args, array('depth' => $depth, 'max_depth' => $args['max_depth']))) ?>
-			</section>
-
-		</article>
-<?php } ?>
-
 <?php
-	// Do not delete these lines
-	if (!empty($_SERVER['SCRIPT_FILENAME']) && 'comments.php' == basename($_SERVER['SCRIPT_FILENAME']))
-		die (__('Please do not load this page directly. Thanks!', 'Helsingborg'));
+/**
+ * The template for displaying comments
+ *
+ * The area of the page that contains both current comments
+ * and the comment form.
+ *
+ * @package WordPress
+ * @subpackage Twenty_Fifteen
+ * @since Twenty Fifteen 1.0
+ */
 
-	if ( post_password_required() ) { ?>
-	<section id="comments">
-		<div class="notice">
-			<p class="bottom"><?php _e('This post is password protected. Enter the password to view comments.', 'Helsingborg'); ?></p>
-		</div>
-	</section>
-	<?php
-		return;
-	}
+/*
+ * If the current post is protected by a password and
+ * the visitor has not yet entered the password we will
+ * return early without loading the comments.
+ */
+if ( post_password_required() ) {
+	return;
+}
 ?>
 
-<?php // You can start editing here. Customize the respond form below ?>
-<?php if ( have_comments() ) : ?>
-	<section id="comments">
-		<h3><?php comments_number(__('No Responses to', 'Helsingborg'), __('One Response to', 'Helsingborg'), __('% Responses to', 'Helsingborg') ); ?> &#8220;<?php the_title(); ?>&#8221;</h3>
-		<ol class="commentlist">
-		<?php wp_list_comments('type=comment&callback=Helsingborg_comments'); ?>
+<div id="comments" class="comments-area">
 
+	<?php if (have_comments()) : ?>
+		<h2 class="comments-title">
+			<?php
+				printf(
+					_nx('One thought on &ldquo;%2$s&rdquo;', '%1$s thoughts on &ldquo;%2$s&rdquo;',
+						get_comments_number(),
+						'comments title',
+						'helsingborg'
+					),
+					number_format_i18n(get_comments_number()),
+					get_the_title()
+				);
+			?>
+		</h2>
+
+		<ol class="comment-list">
+			<?php
+				wp_list_comments(array(
+					'style'       => 'ol',
+					'short_ping'  => true,
+					'avatar_size' => 56,
+				));
+			?>
 		</ol>
-		<footer>
-			<nav id="comments-nav">
-				<div class="comments-previous"><?php previous_comments_link( __( '&larr; Older comments', 'Helsingborg' ) ); ?></div>
-				<div class="comments-next"><?php next_comments_link( __( 'Newer comments &rarr;', 'Helsingborg' ) ); ?></div>
-			</nav>
-		</footer>
-	</section>
-<?php endif; ?>
-<?php if ( comments_open() ) : ?>
-<section id="respond">
-	<h3><?php comment_form_title( __('Leave a Reply', 'Helsingborg'), __('Leave a Reply to %s', 'Helsingborg') ); ?></h3>
-	<p class="cancel-comment-reply"><?php cancel_comment_reply_link(); ?></p>
-	<?php if ( get_option('comment_registration') && !is_user_logged_in() ) : ?>
-	<p><?php printf( __('You must be <a href="%s">logged in</a> to post a comment.', 'Helsingborg'), wp_login_url( get_permalink() ) ); ?></p>
-	<?php else : ?>
-	<form action="<?php echo get_option('siteurl'); ?>/wp-comments-post.php" method="post" id="commentform">
-		<?php if ( is_user_logged_in() ) : ?>
-		<p><?php printf(__('Logged in as <a href="%s/wp-admin/profile.php">%s</a>.', 'Helsingborg'), get_option('siteurl'), $user_identity); ?> <a href="<?php echo wp_logout_url(get_permalink()); ?>" title="<?php __('Log out of this account', 'Helsingborg'); ?>"><?php _e('Log out &raquo;', 'Helsingborg'); ?></a></p>
-		<?php else : ?>
-		<p>
-			<label for="author"><?php _e('Name', 'Helsingborg'); if ($req) _e(' (required)', 'Helsingborg'); ?></label>
-			<input type="text" class="five" name="author" id="author" value="<?php echo esc_attr($comment_author); ?>" size="22" tabindex="1" <?php if ($req) echo "aria-required='true'"; ?>>
-		</p>
-		<p>
-			<label for="email"><?php _e('Email (will not be published)', 'Helsingborg'); if ($req) _e(' (required)', 'Helsingborg'); ?></label>
-			<input type="text" class="five" name="email" id="email" value="<?php echo esc_attr($comment_author_email); ?>" size="22" tabindex="2" <?php if ($req) echo "aria-required='true'"; ?>>
-		</p>
-		<p>
-			<label for="url"><?php _e('Website', 'Helsingborg'); ?></label>
-			<input type="text" class="five" name="url" id="url" value="<?php echo esc_attr($comment_author_url); ?>" size="22" tabindex="3">
-		</p>
-		<?php endif; ?>
-		<p>
-			<label for="comment"><?php _e('Comment', 'Helsingborg'); ?></label>
-			<textarea name="comment" id="comment" tabindex="4"></textarea>
-		</p>
-		<p id="allowed_tags" class="small"><strong>XHTML:</strong> <?php _e('You can use these tags:','Helsingborg'); ?> <code><?php echo allowed_tags(); ?></code></p>
-		<p><input name="submit" class="button" type="submit" id="submit" tabindex="5" value="<?php esc_attr_e('Submit Comment', 'Helsingborg'); ?>"></p>
-		<?php comment_id_fields(); ?>
-		<?php do_action('comment_form', $post->ID); ?>
-	</form>
-	<?php endif; // If registration required and not logged in ?>
-</section>
-<?php endif; // if you delete this the sky will fall on your head ?>
+	<?php endif; // have_comments() ?>
+
+	<?php if (!comments_open() && get_comments_number() && post_type_supports(get_post_type(), 'comments')) : ?>
+		<p class="no-comments"><?php _e( 'Comments are closed.', 'helsingborg' ); ?></p>
+	<?php endif; ?>
+
+	<?php
+		comment_form(array(
+			'class_submit' => 'button'
+		));
+	?>
+
+</div><!-- .comments-area -->

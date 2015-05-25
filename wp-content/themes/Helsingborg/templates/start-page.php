@@ -17,21 +17,7 @@ $content = $post->post_content;
         </div>
 
         <div class="main-content row">
-            <!-- SIDEBAR LEFT -->
-            <div class="sidebar large-4 medium-4 columns">
-                <div class="row">
-                    <?php get_search_form(); ?>
-
-                    <?php dynamic_sidebar("left-sidebar"); ?>
-                    <?php get_template_part('templates/partials/sidebar','menu'); ?>
-
-                    <?php
-                        if ((is_active_sidebar('left-sidebar-bottom') == TRUE)) {
-                            dynamic_sidebar("left-sidebar-bottom");
-                        }
-                    ?>
-                </div>
-            </div>
+            <?php get_template_part('templates/partials/sidebar-left'); ?>
 
             <?php if (!empty($content)) : ?>
                 <div class="start-content large-8 medium-8 columns">

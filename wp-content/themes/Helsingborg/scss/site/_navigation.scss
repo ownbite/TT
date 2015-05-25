@@ -27,14 +27,14 @@
 
 		// # Sub level
 		.sub-menu {
-			margin-left: rem-calc(33);
+			margin-left: rem-calc(17);
+
+			.sub-menu {
+				//margin-left: 0;
+			}
 
 			a {
 				font-size: rem-calc(14);
-			}
-
-			.sub-menu {
-				margin-left: rem-calc(44);
 			}
 		}
 
@@ -57,16 +57,12 @@
 				font-weight: bold;
 				color: $blue-1;
 			}
-
-			/*
-			> .sub-menu {
-				margin-left: rem-calc(30);
-			}
-			*/
 		}
 
 		// # Current ancestor
 		li.current-ancestor:not(.current-node) {
+			//margin-left: rem-calc(17);
+
 			> a {
 				&:before {
 					position: absolute;
@@ -86,20 +82,19 @@
 		// # Current page
 		li.current {
 			background-color: scale-color($gray-3, $lightness: 70%);
-			padding: rem-calc(8) 0;
-			margin-left: -16px;
+			padding: rem-calc(8) rem-calc(15);
+			margin-left: rem-calc(-17);
 
 			> a {
 				color: $blue-1;
 				font-weight: bold;
-				margin-left: rem-calc(15);
 			}
 
 			&.has-childs {
-				margin-left: -28px;
-				> a {
-					margin-left: rem-calc(28);
+				padding-left: rem-calc(30);
+				margin-left: rem-calc(-32);
 
+				> a {
 					&::before {
 						@include hbg-icons($arrow-solid-down);
 						color: $blue-1;

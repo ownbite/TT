@@ -107,21 +107,7 @@ $content = $the_content['extended']; // If content is empty, no <!--more--> tag 
     <div class="main-area large-12 columns">
         <div class="main-content row">
 
-            <!-- SIDEBAR LEFT -->
-            <div class="sidebar sidebar-left large-3 medium-4 columns">
-                <?php get_search_form(); ?>
-
-                <div class="row">
-                    <?php
-                        dynamic_sidebar("left-sidebar");
-                        get_template_part('templates/partials/sidebar','menu');
-
-                        if ((is_active_sidebar('left-sidebar-bottom') == TRUE)) {
-                            dynamic_sidebar("left-sidebar-bottom");
-                        }
-                    ?>
-                </div><!-- /.row -->
-            </div><!-- /.sidebar-left -->
+            <?php get_template_part('templates/partials/sidebar-left'); ?>
 
             <div class="large-9 medium-8 columns article-column">
                 <div class="alert row"></div>
