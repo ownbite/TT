@@ -75,7 +75,8 @@
 }
 
 /* font mixin */
-@mixin hbg-icons($icon: $home, $iconset: #{'hbg-se-iconset'}) {
+@mixin hbg-icons($icon: $home, $iconset: #{'FontAwesome'}) {
+    //@mixin hbg-icons($icon: $home, $iconset: #{'hbg-se-iconset'}) {
 		font-family: $iconset;
 		speak: none;
 		font-style: normal;

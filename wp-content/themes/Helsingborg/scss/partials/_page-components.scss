@@ -231,6 +231,7 @@ html.js.flexbox.flexboxlegacy.canvas.canvastext.webgl.no-touch.geolocation.postm
 
 .icon-link-list,
 .socialmedia-list {
+  $icon-size: 42;
 	overflow: hidden;
   margin-left: 0;
   margin: 20px 0 5px;
@@ -242,11 +243,11 @@ html.js.flexbox.flexboxlegacy.canvas.canvastext.webgl.no-touch.geolocation.postm
 
     a {
 			display: block;
-			width: rem-calc(38);
-			height: rem-calc(38);
+			width: rem-calc($icon-size - ($icon-size/7));
+			height: rem-calc($icon-size);
 			overflow: hidden;
-			//line-height: rem-calc(24);
-			padding-right: - rem-calc(4);
+      text-decoration: none;
+
 			&:hover {
 				text-decoration: none;
 				&:before {
@@ -254,7 +255,7 @@ html.js.flexbox.flexboxlegacy.canvas.canvastext.webgl.no-touch.geolocation.postm
 				}
 			}
 			&:before {
-				font-size: rem-calc(42);
+				font-size: rem-calc($icon-size);
 			}
 		}
 		a.facebook-icon {
@@ -272,6 +273,11 @@ html.js.flexbox.flexboxlegacy.canvas.canvastext.webgl.no-touch.geolocation.postm
 				@include hbg-icons($instagram);
 			}
 		}
+    a.linkedin-icon {
+      &:before {
+        @include hbg-icons($linkedin);
+      }
+    }
 	}
 }
 
@@ -285,6 +291,11 @@ html.js.flexbox.flexboxlegacy.canvas.canvastext.webgl.no-touch.geolocation.postm
     .twitter a {
       &:before {
         @include hbg-icons($twitter);
+      }
+    }
+    .linkedin a {
+      &:before {
+        @include hbg-icons($linkedin);
       }
     }
     li a {
