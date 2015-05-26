@@ -44,21 +44,30 @@
 
             <div class="main-site-container">
                 <header class="header-main">
-                    <div class="header-content row">
-                        <div class="large-3 medium-4 small-8 columns">
-                            <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/tycho-logo.png">
-                        </div>
+                    <div class="color-band color-band-red"></div>
 
-                        <nav class="nav-mainmenu large-9 medium-8 small-4 columns">
-                            <ul>
-                                <li><a href="#">Hem</a></li>
-                                <li><a href="#">Om oss</a></li>
-                                <li><a href="#">Våra program</a></li>
-                                <li><a href="#">Elevkåren</a></li>
-                                <li><a href="#">Ansök</a></li>
-                                <li><a href="#">Kontakt</a></li>
-                                <li><a href="#"><i class="fa fa-search"></i></a></li>
-                            </ul>
-                        </nav>
+                    <div class="nav-bar">
+                        <div class="row">
+                            <div class="large-3 medium-4 small-8 columns">
+                                <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/tycho-logo.png">
+                            </div>
+
+                            <nav class="nav-mainmenu large-9 medium-8 small-4 columns clearfix">
+                                <ul>
+                                    <li><a href="#">Hem</a></li>
+                                    <li><a href="#">Om oss</a></li>
+                                    <li><a href="#">Våra program</a></li>
+                                    <li><a href="#">Elevkåren</a></li>
+                                    <li><a href="#">Ansök</a></li>
+                                    <li><a href="#">Kontakt</a></li>
+                                    <li><a href="#"><i class="fa fa-search"></i></a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+
+                    <div class="hero">
+                        <div class="columns large-9" style="background-image:url('http://i.ytimg.com/vi/le_ccWDoAs8/maxresdefault.jpg');"></div>
+                        <div class="columns large-3"></div>
                     </div>
                 </header>

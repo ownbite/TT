@@ -1,4 +1,27 @@
 .header-main {
+    position: relative;
+
+    .color-band {
+        position: absolute;
+        z-index: 2;
+        top: 0;
+        left: 0;
+        width: 5px;
+        height: 100%;
+    }
+}
+
+.nav-bar {
     background: $band-red-4;
     padding: 15px 0;
+}
+
+.hero {
+    height: 300px;
+
+    .columns {
+        background-size: cover;
+        background-position: center center;
+        height: 100%;
+    }
 }
