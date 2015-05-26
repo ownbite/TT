@@ -1,6 +1,47 @@
+/**
+ * Mobile navigation
+ */
 .mobile-nav {
     display: none;
     width: 100%;
     background: $mobile-nav-bg-color;
     //@extend .clearfix;
+}
+
+/**
+ * Main menu
+ */
+
+.nav-mainmenu {
+    height: 100%;
+
+    > ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        margin-top: 6px;
+        float: right;
+
+        > li {
+            display: inline-block;
+
+            & + li {
+                margin-left: 15px;
+            }
+
+            a {
+                font: 300 rem-calc(18) $font-roboto;
+                letter-spacing: 1px;
+                color: #fff;
+
+                .fa-search {
+                    font-size: rem-calc(23);
+                }
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
 }

@@ -5,8 +5,6 @@ jQuery(document).ready(function ($) {
         var $itemsContainer = $('.hbg-gallery-container');
         var columnWidth = $itemsContainer.outerWidth()/3;
 
-        console.log(columnWidth);
-
         var masonry = new Masonry($itemsContainer[0], {
             columnWidth: columnWidth,
             itemSelector: '.hbg-gallery-item',

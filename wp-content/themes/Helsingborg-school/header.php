@@ -45,6 +45,20 @@
             <div class="main-site-container">
                 <header class="header-main">
                     <div class="header-content row">
-                        Test
+                        <div class="large-3 medium-4 small-8 columns">
+                            <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/tycho-logo.png">
+                        </div>
+
+                        <nav class="nav-mainmenu large-9 medium-8 small-4 columns">
+                            <ul>
+                                <li><a href="#">Hem</a></li>
+                                <li><a href="#">Om oss</a></li>
+                                <li><a href="#">Våra program</a></li>
+                                <li><a href="#">Elevkåren</a></li>
+                                <li><a href="#">Ansök</a></li>
+                                <li><a href="#">Kontakt</a></li>
+                                <li><a href="#"><i class="fa fa-search"></i></a></li>
+                            </ul>
+                        </nav>
                     </div>
                 </header>
