@@ -312,6 +312,7 @@ nav > ul > li.nav-home a
 	@extend .clearfix;
 	@include drop-shadow;
 }
+
 .mobile-navigation {
 		display: block;
 		> a {
