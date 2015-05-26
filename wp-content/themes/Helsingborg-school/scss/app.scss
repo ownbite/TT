@@ -9,5 +9,9 @@
 @import "config/colors";
 @import "config/mixins";
 
+/* Typography */
+@import "typography/article";
+@import "typography/headlines";
+
 /* Site structure */
 @import "site/global";
