@@ -19,7 +19,7 @@
 .hero {
     height: 350px;
 
-    .columns {
+    > .columns.no-margin {
         background-size: cover;
         background-position: center center;
         height: 100%;
@@ -52,8 +52,9 @@
 
                 .caption-content {
                     position: absolute;
-                    left: 45px;
+                    left: 0;
                     bottom: 30px;
+                    width: 100%;
                     font: bold 20pt $font-roboto;
                     color: #fff;
                     text-shadow: 0 5px 20px rgba(0,0,0,.7);
