@@ -1,3 +1,9 @@
 .row {
     max-width: $row-max-width;
 }
+
+.read-more {
+    &::after {
+        content: "\00a0" "»";
+    }
+}
