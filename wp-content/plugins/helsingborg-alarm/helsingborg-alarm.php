@@ -16,15 +16,6 @@ define('ALARM_FOR_CITIES_URL'  , 'http://alarmservice.helsingborg.se/AlarmServic
 // Require alarm class/model
 require_once('models/alarm_model.php');
 
-function load_scripts() {
-  wp_deregister_script( 'jquery' );
-  wp_deregister_script( 'jquery-ui' );
-  wp_register_script( 'jquery', get_template_directory_uri() . '/js/jquery/dist/jquery.min.js', array(), '1.0.0', false );
-  wp_register_script( 'jquery-ui', get_template_directory_uri() . '/js/jquery/dist/jquery-ui.min.js', array(), '1.0.0', false );
-  wp_enqueue_script('jquery');
-  wp_enqueue_script('jquery-ui');
-}
-add_action('wp_enqueue_scripts', 'load_scripts');
 
 // Include the neccessary classes
 include_once('classes/alarm-widget.php');
