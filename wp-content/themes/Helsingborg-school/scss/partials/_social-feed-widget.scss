@@ -1,0 +1,185 @@
+.hbg-social-feed {
+    ul, li {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    &.hbg-social-feed-instagram,
+    &.hbg-social-feed-pinterest {
+        margin-left: -5px;
+        margin-right: -5px;
+
+        .columns {
+            padding: 5px;
+
+            a {
+                display: block;
+                position: relative;
+                background-size: 100%;
+                background-position: center center;
+                border-radius: $border-radius;
+                overflow: hidden;
+
+                .zoom-icon {
+                    $icon-size: 1px;
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    margin-left: -$icon-size/2;
+                    margin-top: -$icon-size/2;
+                    font-size: $icon-size;
+                    color: #fff;
+                    opacity: 0;
+                    text-shadow: 0 0 50px #000;
+                    transition: .2s all;
+                }
+
+                .hbg-social-feed-instagram-likes {
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    width: 100%;
+                    padding: 20px 8px 5px 8px;
+                    color: #fff;
+                    font-size: 9pt;
+                    @include gradient(rgba(0, 0, 0, 0), rgba(0,0,0,.9));
+
+                    .fa {
+                        color: #E20613;
+                    }
+                }
+
+                &:hover {
+                    text-decoration: none;
+
+                    .zoom-icon {
+                        $icon-size: 50px;
+                        font-size: $icon-size;
+                        margin-left: -$icon-size/2;
+                        margin-top: -$icon-size/2;
+                        opacity: 1;
+                    }
+                }
+
+                &:focus {
+                    outline: none;
+                }
+            }
+        }
+
+        .instagram-image {
+            visibility: hidden;
+            border-radius: $border-radius;
+            overflow: hidden;
+        }
+    }
+
+    &.hbg-social-feed-pinterest {
+        .columns {
+            a {
+                padding-bottom: 100%;
+            }
+        }
+    }
+
+    &.hbg-social-feed-facebook,
+    &.hbg-social-feed-twitter {
+        margin-top: rem-calc(-16);
+
+        ul {
+            max-height: 400px;
+            overflow-y: auto;
+            padding: rem-calc(10);
+        }
+
+        li {
+            position: relative;
+            min-height: 54px;
+            padding-bottom: 10px;
+
+            & + li {
+                margin-top: 5px;
+            }
+        }
+
+        .hbg-social-feed-image {
+            position: absolute;
+            top: 5px;
+            left: 0;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-size: cover;
+            background-position: center center;
+            border: 2px solid #ED8B00;
+        }
+
+        .hbg-social-feed-post-content {
+            margin-left: 60px;
+            font-size: 10pt;
+            line-height: 140%;
+        }
+
+        .hbg-social-feed-post-attachment {
+            display: block;
+        }
+
+        .hbg-social-feed-post-date {
+            font-weight: bold;
+            font-size: 9pt;
+
+            img {
+                display: inline-block;
+                vertical-align: middle;
+            }
+        }
+
+        .hbg-social-feed-post-attachment {
+            border: 1px solid #f1f1f1;
+            border-radius: $border-radius;
+            padding: 5px 8px;
+            font-size: 8pt;
+            line-height: 140%;
+            margin-top: 8px;
+            color: #555;
+
+            .hbg-social-feed-post-attachment-title {
+                color: #555;
+                font-weight: bold;
+                display: block;
+            }
+
+            .hbg-social-feed-post-attachment-description {
+                display: none;
+            }
+
+            .hbg-social-feed-post-attachment-caption {
+                font-size: 7pt;
+                color: #999;
+            }
+        }
+    }
+
+    &.hbg-social-feed-twitter {
+        .hbg-social-feed-post-content {
+            margin-left: 0;
+        }
+    }
+
+    .hbg-social-feed-actions {
+        padding: 15px 0 0 0;
+
+        .button {
+            display: block;
+            margin: 0 5px;
+        }
+    }
+}
+
+.widget {
+    &.hbg-social-feed-facebook,
+    &.hbg-social-feed-twitter {
+        margin: rem-calc(-10);
+        margin-bottom: rem-calc(-11);
+    }
+}

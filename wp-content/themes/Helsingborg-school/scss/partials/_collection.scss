@@ -1,0 +1,86 @@
+.collection {
+
+    .collection-item {
+        margin-bottom: 30px;
+
+        .collection-item-image {
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center center;
+            width: 100%;
+            padding-bottom: 50%;
+        }
+
+        .collection-item-headline {
+            font: bold 15pt $font-roboto;
+            letter-spacing: .5px;
+            color: #fff;
+            padding: 10px 14px;
+
+            &::after {
+                content: "\00a0" "»";
+            }
+        }
+
+    }
+
+    /**
+     * Test colors for the collection items
+     * The colors should be set back-end in the future
+     */
+    &.collection-test-colors {
+        .collection-item {
+
+            &:nth-child(1n) {
+                .collection-item-content {
+                    background: $band-red-1;
+
+                    &:hover {
+                        background: darken($band-red-1, 5%);
+                    }
+                }
+            }
+
+            &:nth-child(2n) {
+                .collection-item-content {
+                    background: $band-red-2;
+
+                    &:hover {
+                        background: darken($band-red-2, 5%);
+                    }
+                }
+            }
+
+            &:nth-child(3n) {
+                .collection-item-content {
+                    background: $band-red-3;
+
+                    &:hover {
+                        background: darken($band-red-3, 5%);
+                    }
+                }
+            }
+
+            &:nth-child(4n) {
+                .collection-item-content {
+                    background: $band-red-4;
+
+                    &:hover {
+                        background: darken($band-red-4, 5%);
+                    }
+                }
+            }
+
+            &:nth-child(5n) {
+                .collection-item-content {
+                    background: $band-red-5;
+
+                    &:hover {
+                        background: darken($band-red-5, 5%);
+                    }
+                }
+            }
+
+        }
+    }
+}

@@ -1,0 +1,74 @@
+/**
+ * Widget structure
+ */
+.widget-content {
+    padding: 0;
+    color: #fff;
+
+    .widget-title,
+    h2 {
+        font: bold 18pt $font-roboto;
+        color: #fff;
+        margin: 0;
+        padding: 0;
+        margin-bottom: 10px;
+
+        .fa {
+            margin-right: 5px;
+            position: relative;
+            top: -1px;
+        }
+    }
+}
+
+/**
+ * Widget content holder
+ */
+.widget-content-holder {
+    padding: 25px;
+}
+
+/**
+ * Widget colors from color band
+ */
+.widgets-test-color {
+    .widget {
+        &:nth-child(1n) {
+            .widget-content {
+                background: $band-red-1;
+            }
+        }
+
+        &:nth-child(2n) {
+            .widget-content {
+                background: $band-red-2;
+            }
+        }
+
+        &:nth-child(3n) {
+            .widget-content {
+                background: $band-red-3;
+            }
+        }
+
+        &:nth-child(4n) {
+            .widget-content {
+                background: $band-red-4;
+            }
+        }
+
+        &:nth-child(5n) {
+            .widget-content {
+                background: $band-red-5;
+            }
+        }
+    }
+}
+
+/**
+ * Quick links widget
+ */
+
+.quick-links-widget.widget-content {
+    padding: 25px;
+}

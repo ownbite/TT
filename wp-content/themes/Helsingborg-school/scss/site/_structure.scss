@@ -1,7 +1,31 @@
+/**
+ * Row max width
+ */
 .row {
     max-width: $row-max-width;
 }
 
+/**
+ * Content container
+ */
+.content-container {
+    padding: 70px 0;
+}
+
+/**
+ * Sidebars
+ */
+
+.sidebar-right {
+    .widget + .widget {
+        margin-top: 30px;
+    }
+}
+
+/**
+ * Read more button
+ * Always append a chrevron right to read more buttons
+ */
 .read-more {
     &::after {
         content: "\00a0" "»";

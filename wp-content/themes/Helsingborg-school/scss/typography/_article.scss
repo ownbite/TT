@@ -4,3 +4,11 @@ article {
     font-size: 12pt;
     letter-spacing: .5px;
 }
+
+p {
+    margin: 0;
+
+    & + p {
+        margin-top: 20px;
+    }
+}

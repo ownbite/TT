@@ -1,25 +1,25 @@
 <div class="hero">
     <div class="columns large-12 no-margin">
         <ul class="hero-orbit" data-orbit data-options="animation:fade; timer_speed:10000; slide_number:false;">
-            <li style="background-image:url('http://www.gymnasieguiden.se/files/attachment/file/1526/DCC_vasteras3.jpg');">
+            <li style="background-image:url('http://upload.wikimedia.org/wikipedia/commons/7/7e/Olympiaskolan_2.jpg');">
                 <div class="caption">
                     <div class="caption-content">
                         <div class="row">
                             <div class="columns large-12">
-                                Våra elever trivs i skolan.
-                                <a class="read-more">Läs undersökningen här</a>
+                                Det är snart dags för gymnasievalet.
+                                <a class="read-more">Läs mer här om varför du ska välja oss</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </li>
-            <li style="background-image:url('http://www.procivitas.se/wp-content/uploads/2014/10/Skolan_ProCivitas.jpg');">
+            <li style="background-image:url('http://sidaalumni.files.wordpress.com/2014/04/20140416_1321351.jpg');">
                 <div class="caption">
                     <div class="caption-content">
                         <div class="row">
                             <div class="columns large-12">
-                                Maria och Petra berättar om varför de sökte till Tycho
-                                <a class="read-more">Läs mer om hur du söker</a>
+                                Följ med på klass SP3A:s dag i skolan
+                                <a class="read-more">Häng med</a>
                             </div>
                         </div>
                     </div>

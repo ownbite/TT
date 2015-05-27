@@ -55,10 +55,11 @@
                             <nav class="nav-mainmenu large-9 medium-8 small-4 columns clearfix">
                                 <ul>
                                     <li><a href="#">Hem</a></li>
-                                    <li><a href="#">Om oss</a></li>
-                                    <li><a href="#">Våra program</a></li>
-                                    <li><a href="#">Elevkåren</a></li>
                                     <li><a href="#">Ansök</a></li>
+                                    <li><a href="#">Elev</a></li>
+                                    <li><a href="#">Framtid</a></li>
+                                    <li><a href="#">Program</a></li>
+                                    <li><a href="#">Skolan</a></li>
                                     <li><a href="#">Kontakt</a></li>
                                     <li><a href="#"><i class="fa fa-search"></i></a></li>
                                 </ul>

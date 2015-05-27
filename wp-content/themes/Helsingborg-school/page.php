@@ -48,7 +48,7 @@
             </div>
         </div>
 
-        <?php get_template_part('templates/partials/sidebar', 'right'); ?>
+        <!-- Overlapping sidebar right -->
     </div>
 </div>
 
