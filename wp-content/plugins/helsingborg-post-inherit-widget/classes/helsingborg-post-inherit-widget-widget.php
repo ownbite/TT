@@ -59,7 +59,13 @@ if (!class_exists('HelsingborgPostInheritWidget')) {
             extract($args);
             $post = get_post($instance['post_id']);
             setup_postdata($post);
-            require($this->_viewsPath . 'widget-content.php');
+
+            $view = 'widget-content.php';
+            if (locate_template('templates/hbg-inherit-widget/' . $view)) {
+                locate_template('templates/hbg-inherit-widget/' . $view, true);
+            } else {
+                require($this->_viewsPath . $view);
+            }
         }
 
     }
