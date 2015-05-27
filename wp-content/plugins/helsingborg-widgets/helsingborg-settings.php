@@ -43,17 +43,17 @@ function helsingborg_panel_func(){
   <h2>Helsingborg</h2></div>';
 }
 function helsingborg_panel_func_eventhandling(){
-  include('classes/helsingborg-event-list-table.php');
-  include('includes/panel_eventhandling.php');
+  include('helsingborg-event/classes/helsingborg-event-list-table.php');
+  include('helsingborg-settings/panel_eventhandling.php');
 }
 function helsingborg_panel_func_eventsearch(){
-  include('classes/helsingborg-event-search-table.php');
-  include('includes/panel_eventsearch.php');
+  include('helsingborg-event/classes/helsingborg-event-search-table.php');
+  include('helsingborg-settings/panel_eventsearch.php');
 }
 function helsingborg_panel_func_settings(){
-  include('pages/settings-page.php');
+  include('helsingborg-settings/views/settings-page.php');
 }
 function helsingborg_panel_func_event_details(){
-  include('pages/event-page.php');
+  include('helsingborg-event/views/event-page.php');
 }
 ?>

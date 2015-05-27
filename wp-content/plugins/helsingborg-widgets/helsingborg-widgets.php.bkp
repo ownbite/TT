@@ -1,0 +1,44 @@
+<?php
+/*
+ * Plugin Name: Helsingborg Widgets
+ * Plugin URI: -
+ * Description: Skapar en samling med Widgets anpassade för Helsingborg stad
+ * Version: 1.0
+ * Author: Henric Lind
+ * Author URI: -
+ *
+ * Copyright (C) 2014 Helsingborg stad
+ */
+
+// Include the widget files
+
+
+
+
+
+
+
+include_once('classes/helsingborg-unfiltered-html.php');
+//include_once('classes/helsingborg-text-widget.php');
+
+
+// ** KLARA **
+include_once('helsingborg-settings.php');
+include_once('classes/helsingborg-event-list-widget.php');
+
+// Setup event handling
+
+// require_once ('classes/helsingborg-post-thumbnail.php');
+
+if (!class_exists( 'post_author' ) ) {
+    include_once ('classes/post_author.php');
+    $post_author_filter = new post_author_filter();
+}
+
+// Initiate widgets
+$SimpleLinkList     = new SimpleLinkList();
+$News_List_Widget   = new News_List_Widget();
+$Index_Widget       = new Index_Widget();
+$Index_Large_Widget = new Index_Large_Widget();
+$Image_List         = new Image_List();
+$EventList          = new EventList();

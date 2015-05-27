@@ -1,56 +1,51 @@
 <?php
-/*
- * Plugin Name: Helsingborg Widgets
- * Plugin URI: -
- * Description: Skapar en samling med Widgets anpassade för Helsingborg stad
- * Version: 1.0
- * Author: Henric Lind
- * Author URI: -
- *
- * Copyright (C) 2014 Helsingborg stad
- */
 
-// Include the widget files
-include_once('classes/link-list-widget.php');
-include_once('classes/news-list-widget.php');
-include_once('classes/index-widget.php');
-include_once('classes/index-large-widget.php');
-include_once('classes/image-list-widget.php');
-include_once('classes/helsingborg-event-list-widget.php');
-include_once('classes/helsingborg-guides.php');
-include_once('classes/helsingborg-unfiltered-html.php');
-//include_once('classes/helsingborg-text-widget.php');
+/**
+ * Include settings page
+ */
 include_once('helsingborg-settings.php');
 
-// Setup event handling
-require_once('models/event_model.php');
-// require_once ('classes/helsingborg-post-thumbnail.php');
+/**
+ * Include all plugin widgets and stuff
+ */
+function includeHbgWidgets() {
+    $basedir = plugin_dir_path(__FILE__);
 
-if (!class_exists( 'post_author' ) ) {
-    include_once ('classes/post_author.php');
-    $post_author_filter = new post_author_filter();
+    $exclude = array(
+        'helsingborg-post-thumbnail',
+        'helsingborg-settings',
+        'assets',
+        'js'
+    );
+
+    $plugins = glob($basedir . '*', GLOB_ONLYDIR);
+
+    foreach ($plugins as $plugin) {
+        $plugin = basename($plugin);
+        if (!in_array($plugin, $exclude)) {
+            include_once($basedir . '/' . $plugin . '/' . $plugin . '.php');
+        }
+    }
 }
 
-// Initiate widgets
-$SimpleLinkList     = new SimpleLinkList();
-$News_List_Widget   = new News_List_Widget();
-$Index_Widget       = new Index_Widget();
-$Index_Large_Widget = new Index_Large_Widget();
-$Image_List         = new Image_List();
-$EventList          = new EventList();
-//$HbgTextWidget      = new HbgTextWidget();
+includeHbgWidgets();
 
-// Add resources used by link-list-widget
+
+/**
+ * Add resources used by link-list-widget
+ */
 add_action('admin_enqueue_scripts', 'hbgWidgetAdminEnqueue');
 function hbgWidgetAdminEnqueue () {
-    wp_enqueue_style( 'helsingborg-widgets-css', plugin_dir_url(__FILE__) .'css/helsingborg-widgets.css');
-    wp_enqueue_script( 'jquery', get_template_directory_uri() . '/js/jquery/dist/jquery.min.js');
-    wp_enqueue_script( 'helsingborg-list-sort-js', plugin_dir_url(__FILE__) .'js/helsingborg-list-sort.js');
-    wp_enqueue_script( 'helsingborg-media-selector-original-js', plugin_dir_url(__FILE__) .'js/helsingborg-media-selector-original.js');
-    wp_enqueue_script( 'steps-js', plugin_dir_url(__FILE__) . 'js/steps.js');
+    wp_enqueue_style( 'helsingborg-widgets-css', plugin_dir_url(__FILE__) .'assets/css/helsingborg-widgets.css');
+    wp_enqueue_script( 'jquery', get_template_directory_uri() . 'js/jquery/dist/jquery.min.js');
+    wp_enqueue_script( 'helsingborg-list-sort-js', plugin_dir_url(__FILE__) .'assets/js/helsingborg-list-sort.js');
+    wp_enqueue_script( 'helsingborg-media-selector-original-js', plugin_dir_url(__FILE__) .'assets/js/helsingborg-media-selector-original.js');
+    wp_enqueue_script( 'steps-js', plugin_dir_url(__FILE__) . 'assets/js/steps.js');
 }
 
-// Function to purge the cache of a specific page_id/post_id when page widgets is updated
+/**
+ * Function to purge the cache of a specific page_id/post_id when page widgets is updated
+ */
 if (!function_exists("hbg_purge_page")) {
     function hbg_purge_page($args) {
         $post_id = $args['post_id'];
@@ -61,3 +56,5 @@ if (!function_exists("hbg_purge_page")) {
     }
     add_filter('hbg_page_widget_save', 'hbg_purge_page');
 }
+
+

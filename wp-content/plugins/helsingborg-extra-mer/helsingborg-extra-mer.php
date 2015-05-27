@@ -13,7 +13,7 @@
 function includeExtraMer() {
     $exclude = array();
     $basedir = plugin_dir_path(__FILE__);
-    $plugins = glob($basedir . '/*', GLOB_ONLYDIR);
+    $plugins = glob($basedir . '*', GLOB_ONLYDIR);
 
     foreach ($plugins as $plugin) {
         $plugin = basename($plugin);
