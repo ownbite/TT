@@ -150,30 +150,34 @@ if (!class_exists('HelsingborgSocialWidget')) {
 
             if ($id != 'content-area' && $id != 'content-area-bottom') echo $before_widget;
 
+            $view = 'widget-none.php';
+
             switch ($instance['feedType']) {
                 case 'instagram':
                     $feed = $this->getInstagramFeed($instance['username'], $instance['show_count']);
-                    require($this->_viewsPath . 'widget-instagram.php');
+                    $view = 'widget-instagram.php';
                     break;
 
                 case 'facebook':
                     $feed = $this->getFacebookFeed($instance['username'], $instance['show_count']);
-                    require($this->_viewsPath . 'widget-facebook.php');
+                    $view = 'widget-facebook.php';
                     break;
 
                 case 'twitter':
                     $feed = $this->getTwitterFeed($instance['username'], $instance['show_count']);
-                    require($this->_viewsPath . 'widget-twitter.php');
+                    $view = 'widget-twitter.php';
                     break;
 
                 case 'pinterest':
                     $feed = $this->getPinterestFeed($instance['username'], $instance['show_count']);
-                    require($this->_viewsPath . 'widget-pinterest.php');
+                    $view = 'widget-pinterest.php';
                     break;
+            }
 
-                default:
-                    require($this->_viewsPath . 'widget-none.php');
-                    break;
+            if (locate_template('templates/social/' . $view)) {
+                locate_template('templates/social/' . $view, true);
+            } else {
+                require($this->_viewsPath . $view);
             }
 
             if ($id != 'content-area' && $id != 'content-area-bottom') echo $after_widget;
