@@ -33,50 +33,50 @@
 
             &:nth-child(1n) {
                 .collection-item-content {
-                    background: $band-red-1;
+                    background: $band-color-1;
 
                     &:hover {
-                        background: darken($band-red-1, 5%);
+                        background: darken($band-color-1, 5%);
                     }
                 }
             }
 
             &:nth-child(2n) {
                 .collection-item-content {
-                    background: $band-red-2;
+                    background: $band-color-2;
 
                     &:hover {
-                        background: darken($band-red-2, 5%);
+                        background: darken($band-color-2, 5%);
                     }
                 }
             }
 
             &:nth-child(3n) {
                 .collection-item-content {
-                    background: $band-red-3;
+                    background: $band-color-3;
 
                     &:hover {
-                        background: darken($band-red-3, 5%);
+                        background: darken($band-color-3, 5%);
                     }
                 }
             }
 
             &:nth-child(4n) {
                 .collection-item-content {
-                    background: $band-red-4;
+                    background: $band-color-4;
 
                     &:hover {
-                        background: darken($band-red-4, 5%);
+                        background: darken($band-color-4, 5%);
                     }
                 }
             }
 
             &:nth-child(5n) {
                 .collection-item-content {
-                    background: $band-red-5;
+                    background: $band-color-5;
 
                     &:hover {
-                        background: darken($band-red-5, 5%);
+                        background: darken($band-color-5, 5%);
                     }
                 }
             }

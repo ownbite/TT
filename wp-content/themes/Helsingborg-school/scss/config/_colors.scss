@@ -10,6 +10,13 @@ $band-red-3: #ec6701;
 $band-red-4: #ae0b05;
 $band-red-5: #e3000f;
 
+/* USE THIS COLOR BAND */
+$band-color-1: $band-red-1;
+$band-color-2: $band-red-2;
+$band-color-3: $band-red-3;
+$band-color-4: $band-red-4;
+$band-color-5: $band-red-5;
+
 /**
  * BLACKS / GRAYS
  */
@@ -22,4 +29,4 @@ $light-gray-text: #a5a5a5;
  * MOBILE NAVIGATION
  */
 
-$mobile-nav-bg-color: $band-red-5;
+$mobile-nav-bg-color: $band-color-5;
