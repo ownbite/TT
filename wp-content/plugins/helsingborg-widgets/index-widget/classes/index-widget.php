@@ -51,8 +51,8 @@ if (!class_exists('Index_Widget_Box')) {
 
             // View
             $view = 'widget.php';
-            if (locate_template('templates/plugins/hbg-index-widget/' . $view)) {
-                locate_template('templates/plugins/hbg-index-widget/' . $view, true);
+            if ($templatePath = locate_template('templates/plugins/hbg-index-widget/' . $view)) {
+                require($templatePath);
             } else {
                 require($this->_viewsPath . $view);
             }
