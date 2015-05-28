@@ -1,11 +1,15 @@
 <div class="header-welcome">
     <div class="row">
         <div class="columns large-8 header-welcome-text">
+            <?php
+                the_post();
+                $the_content = get_extended($post->post_content);
+                $main = $the_content['main'];
+                $content = $the_content['extended']; // If content is empty, no <!--more--> tag was used -> content is in $main
+            ?>
             <article>
-                <h1>Välkommen till din skola</h1>
-                <p>
-                    Olympiaskolan är en gymnasieskola där du kan känna spår av stolta traditioner när du rör dig i korridorer och studieutrymmen. Att bry sig om och vilja påverka har länge varit karakteristiskt för Olympiaskolans personal och elever. Hos oss är elevinflytande och demokrati inte bara vackra ord utan en del av skolans kultur.
-                </p>
+                <h1><?php the_title(); ?></h1>
+                <?php echo apply_filters('the_content', $main); ?>
             </article>
         </div>
 

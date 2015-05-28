@@ -2,7 +2,6 @@
  * Widget structure
  */
 .widget-content {
-    padding: 0;
     color: #fff;
 
     .widget-title,
@@ -19,13 +18,19 @@
             top: -1px;
         }
     }
+
+    p > a {
+        &:hover {
+            text-decoration: underline;
+        }
+    }
 }
 
 /**
  * Widget content holder
  */
 .widget-content-holder {
-    padding: 20px;
+    padding: $widget-padding;
 }
 
 /**
@@ -36,30 +41,50 @@
         &:nth-child(1n) {
             .widget-content {
                 background: $band-color-1;
+
+                p > a {
+                    color: darken($band-color-1, 20%);
+                }
             }
         }
 
         &:nth-child(2n) {
             .widget-content {
                 background: $band-color-2;
+
+                p > a {
+                    color: darken($band-color-2, 20%);
+                }
             }
         }
 
         &:nth-child(3n) {
             .widget-content {
                 background: $band-color-3;
+
+                p > a {
+                    color: darken($band-color-3, 20%);
+                }
             }
         }
 
         &:nth-child(4n) {
             .widget-content {
                 background: $band-color-4;
+
+                p > a {
+                    color: darken($band-color-4, 20%);
+                }
             }
         }
 
         &:nth-child(5n) {
             .widget-content {
                 background: $band-color-5;
+
+                p > a {
+                    color: darken($band-color-5, 20%);
+                }
             }
         }
     }
@@ -93,6 +118,24 @@
             &:hover {
                 background: rgba(0, 0, 0, .2);
             }
+        }
+    }
+}
+
+/**
+ * Text widget
+ */
+
+.widget.widget_text {
+    .widget-content {
+        padding: $widget-padding;
+
+        p + p {
+            margin-top: 10px;
+        }
+
+        .flex-video {
+            margin-bottom: 0;
         }
     }
 }

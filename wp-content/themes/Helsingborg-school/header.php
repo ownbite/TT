@@ -67,7 +67,14 @@
                         </div>
                     </div>
 
-                    <?php get_template_part('templates/partials/header', 'orbit'); ?>
+                    <?php
+                        get_template_part('templates/partials/header', 'orbit');
 
-                    <?php get_template_part('templates/partials/header', 'welcome'); ?>
+                        /**
+                         * Display Welcome section if this is the font page
+                         */
+                        if (is_front_page()) {
+                            get_template_part('templates/partials/header', 'welcome');
+                        }
+                    ?>
                 </header>
