@@ -139,3 +139,19 @@
         }
     }
 }
+
+/**
+ * Image widget
+ */
+
+.widget_sp_image {
+    img {
+        width: 100%;
+        height: auto;
+    }
+
+    a {
+        display: block;
+        color: #fff;
+    }
+}
