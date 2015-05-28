@@ -48,7 +48,7 @@
 
                     <div class="nav-bar">
                         <div class="row">
-                            <div class="large-3 medium-4 small-8 columns">
+                            <div class="large-3 medium-4 small-8 columns logotype">
                                 <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/olympiaskolan.svg">
                             </div>
 

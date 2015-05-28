@@ -15,33 +15,91 @@
 .nav-mainmenu {
     height: 100%;
 
+    a, ul, li {
+        font-family: $font-roboto;
+        font-weight: 300;
+    }
+
     > ul {
         list-style-type: none;
         margin: 0;
         padding: 0;
-        margin-top: 14px;
         float: right;
 
+        // ## All levels
+        li {
+            position: relative;
+
+            // Submenus
+            ul {
+                position: absolute;
+                z-index: 99;
+                background: $band-color-4;
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+                width: 200px;
+
+                li {
+                    a {
+                        display: block;
+                        color: #fff;
+                        font-size: 13pt;
+                        padding: 10px 15px;
+
+                        &:hover {
+                            background: darken($band-color-4, 5%);
+                        }
+                    }
+
+                    &.has-childs > a {
+                        &::after {
+                            content: "\f0da";
+                            font-family: 'FontAwesome';
+                            position: absolute;
+                            right: 15px;
+                            top: 50%;
+                            transform: translateY(-50%);
+                            -moz-transform: translateY(-50%);
+                            -webkit-transform: translateY(-50%);
+                        }
+                    }
+
+                    // ## 2nd level submenu and deeper
+                    ul {
+                        left: 100%;
+                        top: 0;
+                    }
+                }
+            }
+
+            // Display submenu on hover
+            &:hover {
+                > ul {
+                    display: block;
+                }
+            }
+        }
+
+        // ## Only top level
         > li {
             display: inline-block;
 
-            & + li {
-                margin-left: 15px;
-            }
-
-            a {
-                font: 300 rem-calc(18) $font-roboto;
+            > a {
+                font-size: rem-calc(18);
                 letter-spacing: 1px;
                 color: #fff;
-
-                .fa-search {
-                    font-size: rem-calc(23);
-                }
+                display: block;
+                padding: 19px 8px;
 
                 &:hover {
                     text-decoration: underline;
                 }
             }
+        }
+
+        .sub-menu {
+            display: none;
         }
     }
 }
