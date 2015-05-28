@@ -1,5 +1,17 @@
 <?php
 
+/*
+ * Plugin Name: Helsingborg Widgets
+ * Plugin URI: -
+ * Description: Skapar en samling med Widgets anpassade för Helsingborg stad
+ * Version: 1.0
+ * Author: Henric Lind
+ * Author URI: -
+ *
+ * Copyright (C) 2014 Helsingborg stad
+ */
+
+
 /**
  * Include settings page
  */
@@ -12,18 +24,21 @@ function includeHbgWidgets() {
     $basedir = plugin_dir_path(__FILE__);
 
     $exclude = array(
-        'helsingborg-post-thumbnail',
-        'helsingborg-settings',
         'assets',
-        'js'
+        'js',
+        'slider-widget',
+        'post_author',
+        'helsingborg-settings',
+        'helsingborg-post-thumbnail',
     );
 
     $plugins = glob($basedir . '*', GLOB_ONLYDIR);
 
     foreach ($plugins as $plugin) {
         $plugin = basename($plugin);
+        //var_dump(in_array($plugin, $exclude), $plugin);
         if (!in_array($plugin, $exclude)) {
-            include_once($basedir . '/' . $plugin . '/' . $plugin . '.php');
+            include_once($basedir . '' . $plugin . '/' . $plugin . '.php');
         }
     }
 }

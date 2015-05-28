@@ -58,8 +58,8 @@ foreach ($items as $num => $item) :
                     <select id="<?php echo $this->get_field_id('position'.$num); ?>" name="<?php echo $this->get_field_name('position'.$num); ?>">
                         <option><?php echo __('&mdash; Select &mdash;'); ?></option>
                         <?php
-                        for($i = 1; $i <= count($items); $i++) {
-                            if $i == $num){
+                        for ($i = 1; $i <= count($items); $i++) {
+                            if ($i == $num){
                                 echo "<option value='$i' selected>$i</option>";
                             } else {
                                 echo "<option value='$i'>$i</option>";
