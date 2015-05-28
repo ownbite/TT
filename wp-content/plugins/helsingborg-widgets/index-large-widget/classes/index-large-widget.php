@@ -48,8 +48,8 @@ if (!class_exists('Index_Large_Widget_Box')) {
             }
 
             $view = 'widget.php';
-            if (locate_template('templates/plugins/hbg-index-large-widget/' . $view)) {
-                locate_template('templates/plugins/hbg-index-large-widget/' . $view, true);
+            if ($templatePath = locate_template('templates/plugins/hbg-index-large-widget/' . $view)) {
+                require($templatePath);
             } else {
                 require($this->_viewsPath . $view);
             }

@@ -174,8 +174,8 @@ if (!class_exists('HelsingborgSocialWidget')) {
                     break;
             }
 
-            if (locate_template('templates/plugins/hbg-social-widget/' . $view)) {
-                locate_template('templates/plugins/hbg-social-widget/' . $view, true);
+            if ($templatePath = locate_template('templates/plugins/hbg-social-widget/' . $view)) {
+                require($templatePath);
             } else {
                 require($this->_viewsPath . $view);
             }

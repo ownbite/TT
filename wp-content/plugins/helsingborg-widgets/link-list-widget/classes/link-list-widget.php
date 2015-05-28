@@ -68,8 +68,8 @@ if (!class_exists('SimpleLinkListWidget')) {
                     break;
             }
 
-            if (locate_template('templates/plugins/hbg-link-list-widget/' . $view)) {
-                locate_template('templates/plugins/hbg-link-list-widget/' . $view, true);
+            if ($templatePath = locate_template('templates/plugins/hbg-link-list-widget/' . $view)) {
+                require($templatePath);
             } else {
                 require($this->_viewsPath . $view);
             }

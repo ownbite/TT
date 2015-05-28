@@ -58,8 +58,8 @@ if (!class_exists('EventListWidget')) {
             $reference = $link . "?q=" . $administration_ids;
 
             $view = 'widget.php';
-            if (locate_template('templates/plugins/hbg-event-list/' . $view)) {
-                locate_template('templates/plugins/hbg-event-list/' . $view, true);
+            if ($templatePath = locate_template('templates/plugins/hbg-event-list/' . $view)) {
+               require($templatePath);
             } else {
                 require($this->_viewsPath . $view);
             }

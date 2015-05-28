@@ -76,8 +76,8 @@ if (!class_exists('Image_List_Widget')) {
                     break;
             }
 
-            if (locate_template('templates/plugins/hbg-image-list-widget/' . $view)) {
-                locate_template('templates/plugins/hbg-image-list-widget/' . $view, true);
+            if ($templatePath = locate_template('templates/plugins/hbg-image-list-widget/' . $view)) {
+                require($templatePath);
             } else {
                 require($this->_viewsPath . $view);
             }

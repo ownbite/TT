@@ -49,8 +49,8 @@ if (!class_exists('News_List_Widget_Box')) {
             }
 
             $view = 'widget.php';
-            if (locate_template('templates/plugins/hbg-news-list-widget/' . $view)) {
-                locate_template('templates/plugins/hbg-news-list-widget/' . $view, true);
+            if ($templatePath = locate_template('templates/plugins/hbg-news-list-widget/' . $view)) {
+                require($templatePath);
             } else {
                 require($this->_viewsPath . $view);
             }
