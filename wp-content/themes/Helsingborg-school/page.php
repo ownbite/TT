@@ -3,6 +3,17 @@
 <div class="content-container">
     <div class="row">
         <div class="columns large-8">
+
+            <?php
+                /**
+                 * Widget content-area
+                 */
+                if ((is_active_sidebar('content-area') == true)) {
+                    dynamic_sidebar("content-area");
+                }
+            ?>
+
+            <!--
             <div class="collection collection-test-colors">
                 <div class="row">
                     <a href="#" class="collection-item columns large-6 medium-6 small-12 left">
@@ -11,7 +22,6 @@
                             <div class="collection-item-headline">
                                 Humanistiska programmet
                             </div>
-                            <!--<div class="collection-item-text"></div>-->
                         </div>
                     </a>
 
@@ -21,7 +31,6 @@
                             <div class="collection-item-headline">
                                 Naturvetenskap
                             </div>
-                            <!--<div class="collection-item-text"></div>-->
                         </div>
                     </a>
 
@@ -31,7 +40,6 @@
                             <div class="collection-item-headline">
                                 Samhällsvetenskap
                             </div>
-                            <!--<div class="collection-item-text"></div>-->
                         </div>
                     </a>
 
@@ -41,11 +49,11 @@
                             <div class="collection-item-headline">
                                 Ansök nu
                             </div>
-                            <!--<div class="collection-item-text"></div>-->
                         </div>
                     </a>
                 </div>
             </div>
+            -->
         </div>
 
         <!-- Overlapping sidebar right -->
