@@ -28,6 +28,7 @@ if (!class_exists('Index_Widget_Box')) {
          */
         function Index_Widget_Box() {
             parent::WP_Widget(false, '* Index', array('description' => 'Lägg till de index som du vill visa.'));
+            $this->_viewsPath = plugin_dir_path(plugin_dir_path(__FILE__)) . 'views/';
         }
 
         /**
