@@ -100,8 +100,62 @@
             }
         }
 
+        // Hide submenus by default
         .sub-menu {
             display: none;
+        }
+
+        // Search
+        .item-search {
+            position: relative;
+
+            &.show-search {
+                background: darken($band-color-4, 5%);
+
+                .search-container {
+                    display: block;
+                }
+            }
+
+            .search-container {
+                display: none;
+                position: absolute;
+                z-index: 5;
+                right: 0;
+                width: 400px;
+                background: darken($band-color-4, 5%);
+                padding: 10px;
+
+                .input-field {
+                    margin: 0;
+                    background: #fff;
+                    border: none;
+
+                    &::-webkit-input-placeholder { /* WebKit browsers */
+                        color:    #bcbcbc;
+                    }
+                    &:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+                        color:    #bcbcbc;
+                        opacity:  1;
+                    }
+                    &::-moz-placeholder { /* Mozilla Firefox 19+ */
+                        color:    #bcbcbc;
+                        opacity:  1;
+                    }
+                    &:-ms-input-placeholder { /* Internet Explorer 10+ */
+                        color:    #bcbcbc;
+                    }
+                }
+
+                .button.search {
+                    padding: 9px 15px;
+                    border-radius: 0;
+                    background: $band-color-1;
+                    margin: 0;
+                    font-weight: bold;
+                    width: 100%;
+                }
+            }
         }
     }
 }

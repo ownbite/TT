@@ -485,3 +485,11 @@ jQuery(document).foundation(); //END INIT FOUNDATION
 $('#start-jr').on('click', function() {
   $(document).foundation('joyride','start');
 });
+jQuery(document).ready(function ($) {
+
+    $('.item-search a').on('click', function (e) {
+        e.preventDefault;
+        $(this).parent('.item-search').toggleClass('show-search');
+    });
+
+});
