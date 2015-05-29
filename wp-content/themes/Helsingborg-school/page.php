@@ -11,19 +11,19 @@
                 the_breadcrumb();
 
                 /**
-                 * Widget content-area
-                 */
-                if ((is_active_sidebar('content-area') == true)) {
-                    dynamic_sidebar("content-area");
-                }
-
-                /**
                  * Show the content if this isnt the front page
                  * - If this is the front page, content will be shown in templates/partilas/header-welcome.php instead
                  */
                 if (!is_front_page()) {
                     the_post();
                     get_template_part('templates/partials/article', 'content');
+                }
+
+                /**
+                 * Widget content-area
+                 */
+                if ((is_active_sidebar('content-area') == true)) {
+                    dynamic_sidebar("content-area");
                 }
             ?>
         </div>

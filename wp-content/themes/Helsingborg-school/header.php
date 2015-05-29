@@ -47,7 +47,13 @@
                     </div>
 
                     <?php
-                        get_template_part('templates/partials/header', 'orbit');
+                        /**
+                         * Include the slider area
+                         */
+                        if ((is_active_sidebar('slider-area') == true)) {
+                            dynamic_sidebar("slider-area");
+                        }
+                        //get_template_part('templates/partials/header', 'orbit');
 
                         /**
                          * Display Welcome section if this is the font page

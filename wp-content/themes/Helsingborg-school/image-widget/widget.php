@@ -16,6 +16,8 @@
     <?php endif; ?>
 
         <img src="<?php echo $instance['imageurl']; ?>" alt="<?php echo $instance['alt']; ?>">
+
+        <?php if (!empty($title) && !empty($description)) : ?>
         <div class="widget-content-holder">
             <?php echo (!empty($title)) ? $before_title . $title . $after_title : ''; ?>
 
@@ -25,6 +27,7 @@
             </div>
             <?php endif; ?>
         </div>
+        <?php endif; ?>
 
     <?php if (!empty($instance['link'])) : ?>
     </a>
