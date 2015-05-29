@@ -5,6 +5,9 @@
 .main-site-container {
     background: #fff;
     transition: all .3s;
+    box-shadow: 0 0 20px #111;
+    -moz-box-shadow: 0 0 20px #111;
+    -webkit-box-shadow: 0 0 20px #111;
 
     .move-left & {
         height: 100vh;

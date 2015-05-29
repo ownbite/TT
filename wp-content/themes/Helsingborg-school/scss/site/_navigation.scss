@@ -192,7 +192,7 @@
     // # Top level
     > ul {
         list-style-type: none;
-        margin: 50px 0 0 0;
+        margin: 50px 0;
         padding: 0 20px 0 0;
 
         // # Current node
@@ -201,15 +201,17 @@
                 background: $band-color-1;
             }
 
-            > a::after {
-                position: absolute;
-                top: 0;
-                right: 0;
-                height: 100%;
-                background: darken($band-color-1, 8%);
-                padding: 11.5px;
-                box-sizing: border-box;
-                @include hbg-icons($icon-caret-down);
+            &.menu-item-has-children {
+                > a::after {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    height: 100%;
+                    background: darken($band-color-1, 8%);
+                    padding: 11.5px;
+                    box-sizing: border-box;
+                    @include hbg-icons($icon-caret-down);
+                }
             }
         }
 
