@@ -35,6 +35,7 @@
                 position: absolute;
                 z-index: 99;
                 background: $band-color-4;
+                background: darken($band-color-4, 5%);
                 list-style-type: none;
                 margin: 0;
                 padding: 0;
@@ -48,11 +49,11 @@
                         padding: 10px 15px;
 
                         &:hover {
-                            background: darken($band-color-4, 5%);
+                            background: darken($band-color-4, 8%);
                         }
                     }
 
-                    &.has-childs > a {
+                    &.menu-item-has-children > a {
                         &::after {
                             content: "\f0da";
                             font-family: 'FontAwesome';
@@ -75,6 +76,7 @@
 
             // Display submenu on hover
             &:hover {
+                background: darken($band-color-4, 5%);
                 > ul {
                     display: block;
                 }
@@ -90,10 +92,10 @@
                 letter-spacing: 1px;
                 color: #fff;
                 display: block;
-                padding: 19px 8px;
+                padding: 19px 10px;
 
                 &:hover {
-                    text-decoration: underline;
+                    //text-decoration: underline;
                 }
             }
         }
