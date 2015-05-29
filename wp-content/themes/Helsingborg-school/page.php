@@ -3,60 +3,40 @@
 <div class="content-container">
     <div class="row">
         <div class="columns large-8">
-
             <?php
+
+                /**
+                 * Breadcrumb
+                 */
+                the_breadcrumb();
+
                 /**
                  * Widget content-area
                  */
                 if ((is_active_sidebar('content-area') == true)) {
                     dynamic_sidebar("content-area");
                 }
+
+                /**
+                 * Show the content if this isnt the front page
+                 * - If this is the front page, content will be shown in templates/partilas/header-welcome.php instead
+                 */
+                if (!is_front_page()) {
+                    the_post();
+                    get_template_part('templates/partials/article', 'content');
+                }
             ?>
-
-            <!--
-            <div class="collection collection-test-colors">
-                <div class="row">
-                    <a href="#" class="collection-item columns large-6 medium-6 small-12 left">
-                        <div class="collection-item-content">
-                            <div class="collection-item-image" style="background-image:url('http://www.helsingborg.se/olympiaskolan/wp-content/uploads/sites/71/2015/04/02_olympia_program_640x250.jpg');"></div>
-                            <div class="collection-item-headline">
-                                Humanistiska programmet
-                            </div>
-                        </div>
-                    </a>
-
-                    <a href="#" class="collection-item columns large-6 medium-6 small-12 left">
-                        <div class="collection-item-content">
-                            <div class="collection-item-image" style="background-image:url('http://www.helsingborg.se/olympiaskolan/wp-content/uploads/sites/71/2015/04/03_olympia_program_640x250.jpg');"></div>
-                            <div class="collection-item-headline">
-                                Naturvetenskap
-                            </div>
-                        </div>
-                    </a>
-
-                    <a href="#" class="collection-item columns large-6 medium-6 small-12 left">
-                        <div class="collection-item-content">
-                            <div class="collection-item-image" style="background-image:url('http://www.helsingborg.se/olympiaskolan/wp-content/uploads/sites/71/2015/04/04_olympia_program_640x250.jpg');"></div>
-                            <div class="collection-item-headline">
-                                Samhällsvetenskap
-                            </div>
-                        </div>
-                    </a>
-
-                    <a href="#" class="collection-item columns large-6 medium-6 small-12 left">
-                        <div class="collection-item-content">
-                            <div class="collection-item-image" style="background-image:url('http://www.helsingborg.se/olympiaskolan/wp-content/uploads/sites/71/2015/04/ansok_640x250.jpg');"></div>
-                            <div class="collection-item-headline">
-                                Ansök nu
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            -->
         </div>
 
-        <!-- Overlapping sidebar right -->
+        <?php
+            /**
+             * Include sidebar here if this is not the front page
+             * - If it's the front page, the sidebar will be included in templates/partials/header-welcome.php instead
+             */
+            if (!is_front_page()) {
+                get_template_part('templates/partials/sidebar', 'right');
+            }
+        ?>
     </div>
 </div>
 

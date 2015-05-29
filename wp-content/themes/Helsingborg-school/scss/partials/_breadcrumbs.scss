@@ -1,0 +1,13 @@
+.breadcrumbs {
+    background: transparent;
+    border: none;
+    padding: 0;
+
+    * {
+        text-transform: none;
+    }
+
+    a, strong {
+        color: $band-color-4;
+    }
+}

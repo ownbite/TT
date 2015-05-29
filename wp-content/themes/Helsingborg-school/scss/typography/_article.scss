@@ -3,12 +3,35 @@ article {
     font-weight: 200;
     font-size: 12pt;
     letter-spacing: .5px;
+    color: #333;
+
+    .article-ingress {
+        font-weight: bold;
+        margin-bottom: rem-calc(20);
+
+        p {
+            font-weight: bold;
+            font-size: rem-calc(18);
+        }
+    }
+
+    // Append icon to external links
+    a[href^="http://"]:not([href*="helsingborg.se"]),
+    a[href^="https://"]:not([href*="helsingborg.se"]),
+    a[href^="//"]:not([href*="helsingborg.se"]) {
+        &::before {
+            $icon-size: 12px;
+            font-size: $icon-size;
+            margin-right: 3px;
+            @include hbg-icons($icon-external-link);
+        }
+    }
 }
 
 p {
     margin: 0;
 
     & + p {
-        margin-top: 20px;
+        margin-top: rem-calc(20);
     }
 }

@@ -49,7 +49,9 @@
     }
 
     article {
-        color: $light-gray-text;
+        p {
+            color: $light-gray-text;
+        }
     }
 
     .sidebar-right {
