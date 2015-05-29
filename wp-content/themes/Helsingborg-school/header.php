@@ -24,23 +24,7 @@
 <body>
     <div class="off-canvas-wrap" data-offcanvas>
         <div class="inner-wrap">
-            <?php get_template_part('templates/partials/mobile','menu'); ?>
-
-            <a class="exit-off-canvas"></a>
-            <nav class="mobile-nav" role="navigation">
-                <div class="mobile-navigation clearfix" role="navigation">
-                        <a href="#" class="show-mobile-nav left-off-canvas-toggle">Meny</a>
-                        <a href="#" class="show-mobile-search">Sök</a>
-                </div>
-                <div class="mobile-search">
-                    <div class="mobile-search-input-container">
-                        <form role="search" method="get" id="searchform" action="<?php echo home_url('/'); ?>">
-                            <input type="text" class="mobile-search-input" name="s" placeholder="Din S&ouml;kning"/>
-                            <input type="submit" class="mobile-search-btn" value="s&ouml;k" />
-                        </form>
-                    </div>
-                </div>
-            </nav>
+            <?php get_template_part('templates/partials/navigation','off-canvas'); ?>
 
             <div class="main-site-container">
                 <header class="header-main">
@@ -48,12 +32,16 @@
 
                     <div class="nav-bar">
                         <div class="row">
-                            <div class="large-3 medium-4 small-8 columns logotype">
-                                <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/olympiaskolan.svg">
+                            <div class="large-3 medium-4 small-12 columns logotype">
+                                <img class="logotype" src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/olympiaskolan.svg">
                             </div>
 
                             <nav class="nav-mainmenu large-9 medium-8 small-4 columns clearfix">
                                 <?php get_template_part('templates/partials/navigation', 'main'); ?>
+                            </nav>
+
+                            <nav class="mobile-nav" role="navigation">
+                                <?php get_template_part('templates/partials/navigation', 'mobile'); ?>
                             </nav>
                         </div>
                     </div>

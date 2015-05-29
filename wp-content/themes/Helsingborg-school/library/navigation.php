@@ -26,3 +26,15 @@
 
         return $wrap;
     }
+
+    /**
+     * Adds static menu items to the mobile menu
+     * @return string The menu wrapper
+     */
+    function mobileMenuStaticItems() {
+        $wrap = '<ul class="%2$s">';
+        $wrap .= '%3$s';
+        $wrap .= '</ul>';
+
+        return $wrap;
+    }

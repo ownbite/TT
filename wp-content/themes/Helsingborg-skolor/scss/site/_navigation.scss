@@ -110,6 +110,7 @@
 @media #{$custom-large-up} {
 
 }
+
 @media #{$small-up} {
 	.mobile-section {
 		display: block;
@@ -118,6 +119,7 @@
 		display: none;
 	}
 }
+
 @media #{$medium-up} {
 	.top-bar.top-navigation {
 		.top-bar-section {

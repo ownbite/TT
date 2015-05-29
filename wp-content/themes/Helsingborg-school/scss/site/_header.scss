@@ -14,12 +14,20 @@
     }
 }
 
+.logotype {
+
+    @media #{$small-only} {
+        max-width: 250px;
+    }
+}
+
 /**
  * Top navigation bar
  */
 .nav-bar {
     background: $band-color-4;
     padding: 0;
+    position: relative;
 
     .logotype {
         margin: 5px 0;

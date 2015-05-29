@@ -1,4 +1,19 @@
 /**
+ * Main site container
+ */
+
+.main-site-container {
+    background: #fff;
+    transition: all .3s;
+
+    .move-left & {
+        height: 100vh;
+        overflow: hidden;
+        transform: perspective(600px) rotateY(17deg);
+    }
+}
+
+/**
  * Row max width
  */
 .row {
