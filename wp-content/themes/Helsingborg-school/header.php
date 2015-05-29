@@ -36,7 +36,7 @@
                                 <img class="logotype" src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/olympiaskolan.svg">
                             </div>
 
-                            <nav class="nav-mainmenu large-9 medium-8 small-4 columns clearfix">
+                            <nav class="nav-mainmenu large-9 medium-8 small-4 columns">
                                 <?php get_template_part('templates/partials/navigation', 'main'); ?>
                             </nav>
 

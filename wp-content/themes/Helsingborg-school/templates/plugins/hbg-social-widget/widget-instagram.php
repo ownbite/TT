@@ -13,7 +13,7 @@
         <?php if ($feed && count($feed) > 0) : ?>
         <ul>
             <?php $int = 0; foreach ($feed as $post) : ?>
-            <li class="large-<?php echo $columns; ?> medium-<?php echo $columns; ?> small-6 columns left <?php echo $columns; ?>">
+            <li class="large-<?php echo $columns; ?> medium-6 small-6 columns left <?php echo $columns; ?>">
                 <a href="<?php echo $post->link; ?>" target="_blank" style="background-image:url('<?php echo $post->images->low_resolution->url; ?>');">
                     <i class="zoom-icon fa fa-eye"></i>
                     <?php if ($instance['show_likes'] == 'on') : ?>

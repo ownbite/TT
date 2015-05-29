@@ -1,6 +1,6 @@
 <div class="header-welcome">
     <div class="row">
-        <div class="columns large-8 header-welcome-text">
+        <div class="columns large-8 medium-8 header-welcome-text">
             <?php
                 the_post();
                 $the_content = get_extended($post->post_content);

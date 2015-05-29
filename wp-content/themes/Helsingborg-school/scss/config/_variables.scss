@@ -30,3 +30,9 @@ $icon-caret-down: "\f0d7";
 $icon-external-link-alt1: "\f08e";
 $icon-external-link-alt2: "\f14c";
 $icon-external-link: $icon-external-link-alt1;
+
+/**
+ * Custom breakpoints
+ */
+$bp-container-max: "#{$screen} and (max-width: 1255px)" !default;
+$bp-container-min: "#{$screen} and (min-width: 1255px)" !default;
