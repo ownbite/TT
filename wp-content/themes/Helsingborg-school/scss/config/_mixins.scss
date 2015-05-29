@@ -3,3 +3,14 @@
     background: -moz-linear-gradient(top,  $from, $to);
     filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$from}', endColorstr='#{$to}');
 }
+
+@mixin hbg-icons($icon: $home, $iconset: #{'FontAwesome'}) {
+    font-family: $iconset;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    content: $icon;
+}
