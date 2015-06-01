@@ -5,6 +5,12 @@ article {
     letter-spacing: .5px;
     color: #333;
 
+    header {
+        h1 {
+            margin-top: 15px;
+        }
+    }
+
     .article-ingress {
         font-weight: bold;
         margin-bottom: rem-calc(20);
