@@ -19,6 +19,8 @@
                 the_post();
                 if ((is_front_page() && strlen(get_the_content()) > 0) || !is_front_page()) {
                     get_template_part('templates/partials/article', 'content');
+                } else {
+                    get_template_part('templates/partials/accessability', 'menu');
                 }
 
                 /**

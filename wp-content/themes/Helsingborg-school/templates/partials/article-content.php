@@ -5,6 +5,7 @@
 ?>
 <article>
     <header>
+        <?php get_template_part('templates/partials/accessability', 'menu'); ?>
         <h1 class="article-title"><?php the_title(); ?></h1>
     </header>
 

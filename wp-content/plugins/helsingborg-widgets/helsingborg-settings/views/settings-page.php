@@ -191,7 +191,7 @@ $alarm_location  = get_option('helsingborg_alarm_location');
             <div class="uploader" style="display: table;margin: auto;">
               <br>
               <div id="header_image_preview" style="display: table;margin:auto;">
-                <img id="header_image_preview_img" src="<?php echo $header_image_imageurl; ?>" style="max-width: 80%;display: table;margin:auto;"/>
+                <img id="header_image_preview_img" src="<?php echo $header_image_imageurl; ?>" style="max-width: 500px; width: 400px; height: auto; display: table;margin:auto;" width="500"/>
               </div>
               <br>
               <input type="submit" class="button" style="display: table; margin: auto;" name="header_image_uploader_button" id="header_image_uploader_button" value="Välj bild" onclick="helsingborgMediaSelector.create('header_image_', 'header_image_', '' ); return false;" />

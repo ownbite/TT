@@ -150,6 +150,7 @@ function add_mime_types($mimes) {
     'bmp'                          => 'image/bmp',
     'tif|tiff'                     => 'image/tiff',
     'ico'                          => 'image/x-icon',
+    'svg'                          => 'image/svg+xml',
 
     // Video formats
     'asf|asx'                      => 'video/x-ms-asf',
@@ -244,6 +245,7 @@ function add_mime_types($mimes) {
     'numbers'                      => 'application/vnd.apple.numbers',
     'pages'                        => 'application/vnd.apple.pages',
   );
+
   return $mimes;
 }
 add_filter('upload_mimes','add_mime_types');

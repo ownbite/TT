@@ -16,9 +16,9 @@ article {
     }
 
     // Append icon to external links
-    a[href^="http://"]:not([href*="helsingborg.se"]),
-    a[href^="https://"]:not([href*="helsingborg.se"]),
-    a[href^="//"]:not([href*="helsingborg.se"]) {
+    a[href^="http://"]:not([href*="helsingborg.se"]):not([href*="readspeaker.com"]),
+    a[href^="https://"]:not([href*="helsingborg.se"]):not([href*="readspeaker.com"]),
+    a[href^="//"]:not([href*="helsingborg.se"]):not([href*="readspeaker.com"]) {
         &::before {
             $icon-size: 12px;
             font-size: $icon-size;

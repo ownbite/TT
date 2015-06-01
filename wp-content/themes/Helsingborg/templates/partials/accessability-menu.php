@@ -9,11 +9,11 @@ $easyToRead = get_post_meta($post->ID, 'hbg_easy_to_read', TRUE);
 <ul class="accessability-menu rs_skip rs_preserve">
     <?php if ($easyToRead) : ?>
     <li>
-        <a href="<?php echo $easyToRead; ?>">Lättläst</a>
+        <a class="easy-to-read" href="<?php echo $easyToRead; ?>" title="Lättläst version av innehållet">Lättläst</a>
     </li>
     <?php endif; ?>
     <li>
-        <a id="listen" onclick="javascript:readpage(this.href, 'read-speaker-player'); return false;"  class="icon speaker" title="lyssna på innehållet" href="http://app.eu.readspeaker.com/cgi-bin/rsent?customerid=5507&amp;lang=sv_se&amp;readid=article&amp;url=<?php echo $current_url; ?>">Lyssna</a>
+        <a id="listen" onclick="javascript:readpage(this.href, 'read-speaker-player'); return false;"  class="icon speaker" title="Lyssna på innehållet" href="http://app.eu.readspeaker.com/cgi-bin/rsent?customerid=5507&amp;lang=sv_se&amp;readid=article&amp;url=<?php echo $current_url; ?>">Lyssna</a>
     </li>
 </ul>
 <div id="read-speaker-player" class="rs_skip rs_preserve"></div>
