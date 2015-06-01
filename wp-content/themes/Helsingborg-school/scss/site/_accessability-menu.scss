@@ -2,9 +2,7 @@
     list-style-type: none;
     margin: 0;
     padding: 0;
-    font-weight: normal;
-    font-size: 10.5pt;
-    float: right;
+    margin-bottom: 20px;
 
     li {
         display: inline-block;
@@ -20,6 +18,8 @@
         border: 2px solid #ddd;
         padding: 5px 13px 4px;
         border-radius: 50px;
+        font: 14px $font-roboto;
+        letter-spacing: 0.5px;
 
         &:hover {
             background: #ddd;
@@ -46,4 +46,15 @@
 
 header .accessability-menu {
     margin-top: 18px;
+    margin-bottom: 0;
+}
+
+#read-speaker-player {
+    display: none;
+    height: 40px;
+
+    &.rsexpanded {
+        display: block;
+        margin-bottom: 20px;
+    }
 }
