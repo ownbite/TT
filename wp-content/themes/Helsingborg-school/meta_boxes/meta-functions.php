@@ -20,8 +20,8 @@
         require($templatePath);
     }
 
-    function helsingborgMetaSaveFrontPageText() {
-        if (isset($_POST['hbg_easy_to_read_link']) && filter_var($_POST['hbgWelcomeText'], FILTER_VALIDATE_URL)) {
+    function helsingborgMetaSaveFrontPageText($post_id) {
+        if (isset($_POST['hbgWelcomeText'])) {
             update_post_meta($post_id, 'hbgWelcomeText', $_POST['hbgWelcomeText']);
         } else {
             update_post_meta($post_id, 'hbgWelcomeText', '');

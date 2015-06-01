@@ -1,5 +1,7 @@
 <?php
 
+    $has_welcome_text = false;
+
     require_once('library/enqueue-scripts.php');
     require_once('library/helsingborg-school.php');
     require_once('library/widget-areas.php');

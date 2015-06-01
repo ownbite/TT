@@ -8,16 +8,15 @@
                 /**
                  * Breadcrumb
                  */
-                the_breadcrumb();
+                if (!is_front_page()) {
+                    the_breadcrumb();
+                }
 
                 /**
                  * Show the content if this isnt the front page
                  * - If this is the front page, content will be shown in templates/partilas/header-welcome.php instead
                  */
-                if (!is_front_page()) {
-                    the_post();
-                    get_template_part('templates/partials/article', 'content');
-                }
+                get_template_part('templates/partials/article', 'content');
 
                 /**
                  * Widget content-area
@@ -30,10 +29,11 @@
 
         <?php
             /**
-             * Include sidebar here if this is not the front page
-             * - If it's the front page, the sidebar will be included in templates/partials/header-welcome.php instead
+             * Include sidebar here if welcome text does not exist
+             * - If it's exists sidebar will be included in templates/partials/header-welcome.php instead
              */
-            if (!is_front_page()) {
+            global $has_welcome_text;
+            if (!$has_welcome_text) {
                 get_template_part('templates/partials/sidebar', 'right');
             }
         ?>

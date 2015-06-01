@@ -57,9 +57,11 @@
                         /**
                          * Display Welcome section if this is the font page and if the slide widget area has a text widget (uses the first to populate the welcome text)
                          */
-
-                        if (is_front_page()) {
-                            get_template_part('templates/partials/header', 'welcome');
+                        $welcomeText = get_post_meta($post->ID, 'hbgWelcomeText', true);
+                        if (is_front_page() && is_array($welcomeText) && isset($welcomeText['title']) && isset($welcomeText['content']) && isset($welcomeText['display'])) {
+                            global $has_welcome_text;
+                            $has_welcome_text = true;
+                            require(locate_template('templates/partials/header-welcome.php'));
                         }
                     ?>
                 </header>
