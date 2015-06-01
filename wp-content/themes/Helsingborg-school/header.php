@@ -33,7 +33,7 @@
                     <div class="nav-bar">
                         <div class="row">
                             <div class="large-3 medium-4 small-12 columns logotype">
-                                <img class="logotype" src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/olympiaskolan.svg">
+                                <a href="<?php echo site_url(); ?>"><img class="logotype" src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/olympiaskolan.svg" alt="<?php echo bloginfo('name'); ?>"></a>
                             </div>
 
                             <nav class="nav-mainmenu large-9 medium-8 small-4 columns">
@@ -51,13 +51,13 @@
                          * Include the slider area
                          */
                         if ((is_active_sidebar('slider-area') == true)) {
-                            dynamic_sidebar("slider-area");
+                            dynamic_sidebar('slider-area');
                         }
-                        //get_template_part('templates/partials/header', 'orbit');
 
                         /**
-                         * Display Welcome section if this is the font page
+                         * Display Welcome section if this is the font page and if the slide widget area has a text widget (uses the first to populate the welcome text)
                          */
+
                         if (is_front_page()) {
                             get_template_part('templates/partials/header', 'welcome');
                         }

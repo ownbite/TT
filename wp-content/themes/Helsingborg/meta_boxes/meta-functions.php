@@ -15,7 +15,9 @@ function helsingborg_meta_easyread() {
 function helsingborg_meta_easytoread() {
   global $post;
   $easyRead = get_post_meta($post->ID, 'hbg_easy_to_read', TRUE);
-  include(helsingborg_THEME_FOLDER . '/UI/easy-to-read.php');
+
+  $templatePath = locate_template('meta_boxes/UI/easy-to-read.php');
+  require($templatePath);
 }
 
 function helsingborg_meta_easytoread_save($post_id) {
@@ -78,7 +80,9 @@ function helsingborg_meta_ArticlePage() {
   $meta = get_post_meta($post->ID,'_helsingborg_meta',TRUE);
 
   // Used if parent is list and metaboxes should be shown, same list will be used
-  include(helsingborg_THEME_FOLDER . '/UI/list-array.php');
+  //include(helsingborg_THEME_FOLDER . '/UI/list-array.php');
+  $templatePath = locate_template('meta_boxes/UI/list-array.php');
+  require($templatePath);
 
   // See if this page has any parents
   if ($post->ancestors) {
@@ -141,10 +145,14 @@ function helsingborg_meta_ListPage() {
   }
 
   // Only need one list to change
-  include(helsingborg_THEME_FOLDER . '/UI/list-array.php');
+  //include(helsingborg_THEME_FOLDER . '/UI/list-array.php');
+  $templatePath = locate_template('meta_boxes/UI/list-array.php');
+  require($templatePath);
 
   // Include the form for UI
-  include(helsingborg_THEME_FOLDER . '/UI/meta-ui-listselection.php');
+  //include(helsingborg_THEME_FOLDER . '/UI/meta-ui-listselection.php');
+  $templatePath = locate_template('meta_boxes/UI/meta-ui-listselection.php');
+  require($templatePath);
 
   // create a custom nonce for submit verification later
   echo '<input type="hidden" name="helsingborg_meta_noncename" value="' . wp_create_nonce(__FILE__) . '" />';
@@ -165,7 +173,9 @@ function helsingborg_meta_RSS()
     }
 
     // Fetch the HTML
-    include(helsingborg_THEME_FOLDER . '/UI/meta-ui-rss.php');
+    //include(helsingborg_THEME_FOLDER . '/UI/meta-ui-rss.php');
+    $templatePath = locate_template('meta_boxes/UI/meta-ui-rss.php');
+  require($templatePath);
 
     // create a custom nonce for submit verification later
     echo '<input type="hidden" name="helsingborg_meta_noncename" value="' . wp_create_nonce(__FILE__) . '" />';
@@ -195,7 +205,9 @@ function helsingborg_meta_List()
     $selected = $meta['list_select'];
 
     // Fetch the HTML
-    include(helsingborg_THEME_FOLDER . '/UI/meta-ui-list.php');
+    //include(helsingborg_THEME_FOLDER . '/UI/meta-ui-list.php');
+    $templatePath = locate_template('meta_boxes/UI/meta-ui-list.php');
+  require($templatePath);
 
     // create a custom nonce for submit verification later
     echo '<input type="hidden" name="helsingborg_meta_noncename" value="' . wp_create_nonce(__FILE__) . '" />';
