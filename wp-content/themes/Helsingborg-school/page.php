@@ -13,10 +13,13 @@
                 }
 
                 /**
-                 * Show the content if this isnt the front page
-                 * - If this is the front page, content will be shown in templates/partilas/header-welcome.php instead
+                 * If this is the front_page, only show content if there is any
+                 * If this is not the front_page, always show the content
                  */
-                get_template_part('templates/partials/article', 'content');
+                the_post();
+                if ((is_front_page() && strlen(get_the_content()) > 0) || !is_front_page()) {
+                    get_template_part('templates/partials/article', 'content');
+                }
 
                 /**
                  * Widget content-area
