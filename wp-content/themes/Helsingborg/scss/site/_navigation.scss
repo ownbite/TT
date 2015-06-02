@@ -311,7 +311,10 @@ nav > ul > li.nav-home a
 	background: $mobile-nav-bg-color;
 	@extend .clearfix;
 	@include drop-shadow;
+	position: fixed;
+	z-index: 99;
 }
+
 .mobile-navigation {
 		display: block;
 		> a {
@@ -516,10 +519,45 @@ nav > ul > li.nav-home a
 	.mobile-nav {
 		display: block;
 		background-color: $mobile-nav-bg-color;
+		transition: all 500ms ease 0s;
+		z-index: 1004;
+	}
 
+	.main-site-container {
+		margin-top: 45px;
+	}
+
+	.left-off-canvas-menu {
+		height: 100vh;
+		overflow: auto;
+		position: fixed
 	}
 
 	.support-nav {
 		display: none;
+	}
+
+	.inner-wrap {
+		z-index: 1003;
+	}
+
+	footer {
+		margin: -20px;
+    	margin-top: 2rem;
+	}
+}
+
+.mobile-nav-is-open {
+	overflow: hidden;
+
+	.mobile-nav {
+		transform: translateX(15.625rem);
+	}
+}
+
+.move-right {
+
+	> .left-off-canvas-menu {
+		transform: none;
 	}
 }

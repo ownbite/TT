@@ -25,6 +25,10 @@ jQuery(document).ready(function(){
         $(this).toggleClass('active');
     });
 
+    $('.left-off-canvas-toggle, .exit-off-canvas').on('click', function (e) {
+        $('body').toggleClass('mobile-nav-is-open');
+    });
+
     $(window).on('resize', function () {
         var $offcanvas = $('.off-canvas-wrap');
         var $mobilemenubutton = $('.show-mobile-nav');

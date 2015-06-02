@@ -1,11 +1,10 @@
 
-            </div><!-- /.main-site-container -->
-
-        <footer class="footer">
-            <div class="row">
-            	<?php dynamic_sidebar("footer-area"); ?>
-            </div>
-        </footer>
+            <footer class="footer">
+                <div class="row">
+                	<?php dynamic_sidebar("footer-area"); ?>
+                </div>
+            </footer>
+        </div><!-- /.main-site-container -->
 
     </div><!-- /.inner-wrap -->
 </div><!-- /.off-canvas-wrap -->
