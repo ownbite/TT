@@ -55,7 +55,7 @@ if (!class_exists('SimpleLinkListWidget')) {
                 $item_warnings[$i-1] = isset($instance['item_warning'.$i]) ? $instance['item_warning'.$i] : false;
                 $item_infos[$i-1]    = isset($instance['item_info'.$i])    ? $instance['item_info'.$i]    : false;
                 $item_ids[$i-1]      = $instance['item_id'.$i];
-                $item_dates[$i-1]    = $instance['item_date'.$i];
+                $item_dates[$i-1]    = isset($instance['item_date'.$i]) ? $instance['item_date'.$i] : null;
             }
 
             $widget_class = ($show_rss == 'rss_yes') ? 'news-widget ' : 'quick-links-widget ';

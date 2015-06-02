@@ -41,6 +41,8 @@
         $title = $item;
         $link = $item_links[$num];
 
+        $datetime = null;
+
         // Set up/get date
         if (!empty($item_id)) {
             $datetime = strtotime($page->post_modified);
