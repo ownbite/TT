@@ -1,6 +1,7 @@
-# Ignore everything in the root except the "wp-content" and "docker" directory.
+# Ignore everything in except:
 /*
 !.gitignore
+!Dockerfile
 !wp-content/
 !docker/
 
