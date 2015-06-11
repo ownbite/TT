@@ -1,0 +1,60 @@
+server {
+    listen 80;
+    listen [::]:80;
+
+    set $cache_uri $request_uri;
+
+    # Check if we need to do a redirect non www -> www
+    if ($host != '{{ domain_name }}'){
+       return 301 $scheme://{{ domain_name }}$request_uri;
+    }
+
+    # Error and Access logs
+    access_log /var/log/nginx/{{ project_name }}-access.log;
+    error_log /var/log/nginx/{{ project_name }}-error.log;
+
+    # Set timeout and max size of request
+    client_max_body_size 20M;
+    client_body_timeout 120;
+
+    # Root for project and what files to access
+    root {{ project_folder }};
+    index  index.html index.php;
+
+    # Rewrite the css and js files for the different subdirectorys
+    if (!-e $request_filename) {
+        rewrite /wp-admin$ $scheme://$host$uri/ permanent;
+        rewrite ^(/[^/]+)?(/wp-.*) $2 last;
+        rewrite ^(/[^/]+)?(/.*\.php) $2 last;
+    }
+
+    # Deny access to any files with a .php extension in the uploads directory
+    location ~* /(?:uploads|files)/.*\.php$ {
+        deny all;
+    }
+
+    # Use cached or actual file if they exists, otherwise pass request to WordPress
+    location / {
+         try_files /wp-content/cache/page_enhanced/${host}${cache_uri}_index.html $uri $uri/ /index.php?$args ;
+    }
+
+    # Pass php files to fastcgi
+    location ~ \.php$ {
+        try_files $uri =404;
+        include fastcgi_params;
+        fastcgi_pass  127.0.0.1:9000;
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME {{ project_folder }}$fastcgi_script_name;
+    }
+
+    location = /robots.txt { access_log off; log_not_found off; }
+    location ~ /\. { deny  all; access_log off; log_not_found off; }
+
+    # Include wc total cache generated settings
+    include {{ project_folder }}/nginx.conf;
+
+    # Deny acces to that file
+    location = /nginx.conf {
+        deny all;
+    }
+}

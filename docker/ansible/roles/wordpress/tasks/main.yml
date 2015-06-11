@@ -1,0 +1,16 @@
+---
+
+- name: download salts
+  get_url:
+    url=https://api.wordpress.org/secret-key/1.1/salt/
+    dest=/tmp/wp-salts
+    mode=0755
+
+- name: register salts variable
+  shell: 'cat /tmp/wp-salts'
+  register: salts
+
+- name: create config file
+  template:
+    src=wp-config.php.j2
+    dest=/tmp/wp-config.php

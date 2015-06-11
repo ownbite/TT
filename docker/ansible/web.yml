@@ -1,0 +1,9 @@
+---
+
+- name: Setup frontend server
+  remote_user: root
+  hosts: local
+  sudo: True
+  roles:
+    - { role: nginx }
+    - { role: wordpress }

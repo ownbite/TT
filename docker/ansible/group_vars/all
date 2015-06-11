@@ -1,0 +1,12 @@
+---
+
+# COMMON
+# ===============================
+
+domain_name: www.helsingborg.se
+project_name: helsingborg
+project_folder: "/var/www/html"
+project_upload_folder: "{{ project_folder }}/wp-content/upload"
+project_cache_page_enhanced_folder: "{{ project_folder }}/wp-content/cache/page_enhanced"
+project_group: www-data
+project_user: www-data
